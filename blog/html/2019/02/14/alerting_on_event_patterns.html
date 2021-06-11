@@ -1,0 +1,174 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content="We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions."><link rel=icon href=/velociraptor-docs/images/favicon.png type=image/png><title>Alerting on event patterns :: Velociraptor - Digging deeper!</title><link href=/velociraptor-docs/css/nucleus.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/fontawesome-all.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hybrid.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/featherlight.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/perfect-scrollbar.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/auto-complete.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-dark-reasonable.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/tabs.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hugo-theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme-mine.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-light.css?1623396556 rel=stylesheet><script src=/velociraptor-docs/js/jquery-3.3.1.min.js?1623396556></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/velociraptor-docs/blog/html/2019/02/14/alerting_on_event_patterns.html><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://scudette.github.io/velociraptor-docs/><img src=https://scudette.github.io/velociraptor-docs//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/velociraptor-docs/overview/ title="Velociraptor Overview" class=dd-item><a href=/velociraptor-docs/overview/>Velociraptor Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/history/ title=History class=dd-item><a href=/velociraptor-docs/overview/history/>History</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/velociraptor-docs/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/velociraptor-docs/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/velociraptor-docs/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/velociraptor-docs/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/velociraptor-docs/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/resources/ title=Performance class=dd-item><a href=/velociraptor-docs/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/velociraptor-docs/gui/ title="The Admin GUI" class=dd-item><a href=/velociraptor-docs/gui/>The Admin GUI</a><ul><li data-nav-id=/velociraptor-docs/gui/clients/ title="Inspecting clients" class=dd-item><a href=/velociraptor-docs/gui/clients/>Inspecting clients</a></li><li data-nav-id=/velociraptor-docs/gui/vfs/ title="The VFS" class=dd-item><a href=/velociraptor-docs/gui/vfs/>The VFS</a></li><li data-nav-id=/velociraptor-docs/gui/artifacts/ title=Artifacts class=dd-item><a href=/velociraptor-docs/gui/artifacts/>Artifacts</a></li><li data-nav-id=/velociraptor-docs/gui/hunting/ title=Hunting class=dd-item><a href=/velociraptor-docs/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/ title="Velociraptor Blog" class="dd-item
+parent"><a href=/velociraptor-docs/blog/>Velociraptor Blog</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/ title=2019 class=dd-item><a href=/velociraptor-docs/blog/2019/>2019</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2020/ title=2020 class=dd-item><a href=/velociraptor-docs/blog/2020/>2020</a><ul><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2021/ title=2021 class=dd-item><a href=/velociraptor-docs/blog/2021/>2021</a><ul><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Alerting on event patterns</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Alerting on event patterns</h1><p>We have shown in earlier posts how Velociraptor uses VQL to define event
+queries that can detect specific conditions. These conditions can be
+used to create alerts and escalation actions.</p><p>One of the most useful types of alerts is detecting a pattern of
+activity. For example we can detect failed and successful login attempts
+seperately, but it is the specific pattern of events (say 5 failed login
+attempts followed by a successful one) that is interesting from a
+detection point of view.</p><p>This post illustrates how this kind of temporal correlation can be
+expressed in a VQL query. We then use it to create alerts for attack
+patterns commonly seen by intrusions.</p><h1 id=event-queries>Event Queries</h1><p>Velociraptor executes queries written in the Velociraptor Query Language
+(VQL). The queries can be executed on the client, and their results
+streamed to the server. Alternatively the queries may be executed on the
+server and process the result of other queries which collected
+information from the client.</p><p>A VQL query does not have to terminate at all. VQL queries draw their
+data from a VQL plugin which may simply return data rows at different
+times. For example, consider the following query:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT EventData as FailedEventData,
+       System as FailedSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID = 4625
+</code></pre><p>This query sets up a watcher on a windows event log file. As new events
+are written to the log file, the query will produce those events as new
+rows. The rows will then be filtered so we only see event id 4625
+(Failed logon event).</p><p>Velociraptor can implement event queries on the client or on the server.
+For example, say we wanted to collect all failed event logs with the
+query above. We would write an artifact that encapsulates this query:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.System.FailedLoginAttempts
+parameters:
+  - name: securityLogFile
+    default: C:/Windows/System32/Winevt/Logs/Security.evtx
+sources:
+  - queries:
+     - SELECT EventData as FailedEventData,
+           System as FailedSystem
+       FROM watch_evtx(filename=securityLogFile)
+       WHERE System.EventID.Value = 4625
+</code></pre><p>Then we simply add that artifact to the monitored artifact list in the
+config file:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>Events:
+  artifacts:
+  - Generic.Client.Stats
+  - Windows.System.FailedLoginAttempts
+  version: 2
+  ops_per_second: 10
+</code></pre><p>The monitored artifacts are run on all clients connected to the server.
+The output from these queries is streamed to the server and stored in
+the client's monitoring VFS directory.</p><p>Lets test this artifact by trying to run a command using the runas
+windows command. We will be prompted for a password but failing to give
+the correct password will result in a login failure event:</p><p><img src=1.png alt=image></p><p>After a few seconds the event will be written to the windows event log
+and the watch_evtx() VQL plugin will emit the row - which will be
+streamed to the VFS monitoring directory on the server, where it can be
+viewed in the GUI:</p><p><img src=2.png alt=image></p><p>The above screenshot shows that the monitoring directory now contains a
+subdirectory named after the artifact we created. Inside this directory
+are CSV files for each day and every failed logon attempt is detailed
+there.</p><h1 id=time-correlation>Time correlation</h1><p>While it is interesting to see all failed logon attempts in many cases
+these events are just noise. If you put any server on the internet (e.g.
+an RDP or SSH server) you will experience thousands of brute force
+attempts to break in. This is just the nature of the internet. If your
+password policy is strong enough it should not be a big problem.</p><p>However, what if someone guesses the password for one of your accounts?
+Then the activity pattern is more like a bunch of failed logons followed
+by a successful logon for the same account.</p><p>This pattern is way more interesting than just watching for a series of
+failed logons (although that is also good to know).</p><p>But how do we write a query to detect this? Essentially the query needs
+to look back in time to see how many failed logon attempts preceeded
+each successful logon.</p><p>This is a typical problem which may be generalized as followed:</p><p>::: {.admonition}
+Goal</p><p>We want to detect an event A preceeded by a specified number of events B
+within a defined time window.
+:::</p><p>This problem may be generalized for example:</p><ol><li>Detect a user account created and deleted within a short time
+window.</li><li>A beacon to a specific DNS followed by at least 5 beacons within the
+last 5 hours to same DNS (Event A and B are the same).</li></ol><h1 id=the-fifo-plugin>The fifo() plugin</h1><p>How shall we write the VQL query to achieve this? This is made possible
+by use of the fifo() plugin. As its name suggests, the FIFO plugin acts
+as a First In First Out cache for event queries.</p><p><img src=3.svg alt=image></p><p>The plugin is given a subquery which is also a VQL query generating its
+own events. As the subquery generates events, each event is kept in the
+fifo plugin's cache in a first in first out manner. Events are also
+expired if they are too old.</p><p>We typically store the query in a variable. Each time the variable is
+queried the cache is returned at once. To illustrate how this works
+consider the following query:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>LET fifo_events = SELECT * FROM fifo(
+  max_rows=5,
+  query={
+     SELECT * from watch_evtx(filename=securityLogFile)
+     WHERE System.EventID.Value = 4625
+   })
+
+SELECT * FROM foreach(
+   row={
+     SELECT * FROM clock(period=60)
+   },
+   query={
+     SELECT * from fifo_events
+   })
+</code></pre><p>The first query is stored into the fifo_events variable. When it is
+first defined, the fifo() VQL plugin launches its subquery and simply
+collects its output into its local cache in a fifo manner. This will
+essentially keep the last 5 rows in its cache.</p><p>The second query runs the clock() plugin to receive a clock event every
+60 seconds. For each of these events, we select from the fifo_events
+variable - that is we select the last 5 failed events.</p><p>You can see that this allows us to query the last 5 events in the fifo
+cache for every clock event. If we now replace the clock event with a
+successful logon event this query will do exactly what we want:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode># This query will generate failed logon events - one per row, as
+# they occur.
+- LET failed_logon = SELECT EventData as FailedEventData,
+     System as FailedSystem
+  FROM watch_evtx(filename=securityLogFile)
+  WHERE System.EventID.Value = 4625
+
+# This query will create a fifo() to contain the last 5 failed
+# logon events.
+- LET last_5_events = SELECT FailedEventData, FailedSystem
+      FROM fifo(query=failed_logon,
+                max_rows=5,
+                max_age=atoi(string=failedLogonTimeWindow))
+
+# This query simply generates successful logon events.
+- LET success_logon = SELECT EventData as SuccessEventData,
+     System as SuccessSystem
+  FROM watch_evtx(filename=securityLogFile)
+  WHERE System.EventID.Value = 4624
+
+# For each successful event, we select the last 5 failed events
+# and count them (using the group by). If the count is greater
+# than 3 then we emit the row as an event.
+- SELECT * FROM foreach(
+    row=success_logon,
+    query={
+     SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,
+            SuccessSystem, SuccessEventData, FailedEventData,
+            FailedSystem, count(items=SuccessSystem) as Count
+     FROM last_5_events
+     WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName
+     GROUP BY LogonTime
+    })  WHERE Count &gt; 3
+</code></pre><p>The above query simply watches the event log for failed logins and
+populates a fifo() with the last 5 failed events. At the same time we
+monitor the event log for successful logon events. If we see a
+successful event, we go back and check the last 5 failed events and
+count them.</p><p>If the failed events are for the same user and there are more than 3
+then we report this as an event. We now have a high value event.</p><p>Let's see what it looks like when such an event is triggered:</p><p><img src=3.png alt=image></p><p>Just like before, the events are written to a daily CSV log, one event
+per CSV row. It is a bit hard to see in the GUI since there is a lot of
+data, (We probably need some GUI work to improve this) but there is a
+single row emitted for each event, and the FailedEventData column
+contains a list of all the failed login attempts stored in the fifo().</p><h1 id=server-side-queries>Server side queries.</h1><p>We have seen how the fifo() plugin can be used in the monitoring
+artifact itself to have the client detect its own events. However, the
+endpoint is usually only able to see its own events in isolation. It
+would be nice to be able to detect patterns only evident by seeing
+concerted behaviour from multiple endpoints at the same time.</p><p>For example, consider the pattern of an attacker who compromised domain
+credentials running multiple PowerShell Remoting commands across the
+entire domain. A command like:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
+TestComputer
+</code></pre><p>This command will generate multiple event log entries, including event
+4624 (logon) on each host. While in isolation, on each individual
+endpoint this event is not suspicious, we might consider seeing this
+event repeated within a short time across the domain suspicious.</p><p>To set that up we would run the following artifact as a monitoring
+artifact on all endpoints:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Event.SuccessfulLogon
+sources:
+ - queries:
+   - SELECT EventData as SuccessEventData,
+        System as SuccessSystem
+     FROM watch_evtx(filename=securityLogFile)
+     WHERE System.EventID.Value = 4624
+</code></pre><p>On the server we simple install a watcher on all monitoring events from
+this artifact and feed the result to the fifo(). This fills the fifo()
+with the last 500 successful logon events from all clients within the
+last 60 seconds:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>LET last_successful_logons = SELECT * FROM fifo(
+   max_rows=500,
+   max_time=60,
+   query={
+     SELECT * FROM watch_monitoring(
+        artifact=&quot;Windows.Event.SuccessfulLogon&quot;)
+   })
+</code></pre><p>By counting the number of such unique events we can determine if there
+were too many successful logon events from different hosts within the
+last minute. This might indicate a scripted use of powershell remoting
+across the domain.</p><h1 id=conclusions>Conclusions</h1><p>In this post we have seen how to write artifacts which capture a time
+ordered pattern of behavior. This technique is useful to codify common
+attack techniques. The technique is general and we can use the same idea
+on server side queries to correlate events from many hosts at the same
+time.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/velociraptor-docs/js/clipboard.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.jquery.min.js?1623396556></script><script src=/velociraptor-docs/js/jquery.sticky.js?1623396556></script><script src=/velociraptor-docs/js/featherlight.min.js?1623396556></script><script src=/velociraptor-docs/js/highlight.pack.js?1623396556></script><script>hljs.initHighlightingOnLoad()</script><script src=/velociraptor-docs/js/modernizr.custom-3.6.0.js?1623396556></script><script src=/velociraptor-docs/js/learn.js?1623396556></script><script src=/velociraptor-docs/js/hugo-learn.js?1623396556></script></body></html>

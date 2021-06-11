@@ -1,0 +1,109 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content="One of the interesting new features in the latest release of
+Velociraptor is an interactive shell. One can interact with the end
+point over the standard Velociraptor communication mechanism - an
+encrypted and authenticated channel.
+"><link rel=icon href=/velociraptor-docs/images/favicon.png type=image/png><title>Velociraptor Interactive Shell :: Velociraptor - Digging deeper!</title><link href=/velociraptor-docs/css/nucleus.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/fontawesome-all.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hybrid.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/featherlight.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/perfect-scrollbar.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/auto-complete.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-dark-reasonable.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/tabs.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hugo-theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme-mine.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-light.css?1623396556 rel=stylesheet><script src=/velociraptor-docs/js/jquery-3.3.1.min.js?1623396556></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/velociraptor-docs/blog/html/2018/12/11/velociraptor_interactive_shell.html><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://scudette.github.io/velociraptor-docs/><img src=https://scudette.github.io/velociraptor-docs//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/velociraptor-docs/overview/ title="Velociraptor Overview" class=dd-item><a href=/velociraptor-docs/overview/>Velociraptor Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/history/ title=History class=dd-item><a href=/velociraptor-docs/overview/history/>History</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/velociraptor-docs/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/velociraptor-docs/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/velociraptor-docs/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/velociraptor-docs/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/velociraptor-docs/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/resources/ title=Performance class=dd-item><a href=/velociraptor-docs/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/velociraptor-docs/gui/ title="The Admin GUI" class=dd-item><a href=/velociraptor-docs/gui/>The Admin GUI</a><ul><li data-nav-id=/velociraptor-docs/gui/clients/ title="Inspecting clients" class=dd-item><a href=/velociraptor-docs/gui/clients/>Inspecting clients</a></li><li data-nav-id=/velociraptor-docs/gui/vfs/ title="The VFS" class=dd-item><a href=/velociraptor-docs/gui/vfs/>The VFS</a></li><li data-nav-id=/velociraptor-docs/gui/artifacts/ title=Artifacts class=dd-item><a href=/velociraptor-docs/gui/artifacts/>Artifacts</a></li><li data-nav-id=/velociraptor-docs/gui/hunting/ title=Hunting class=dd-item><a href=/velociraptor-docs/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/ title="Velociraptor Blog" class="dd-item
+parent"><a href=/velociraptor-docs/blog/>Velociraptor Blog</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/ title=2019 class=dd-item><a href=/velociraptor-docs/blog/2019/>2019</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2020/ title=2020 class=dd-item><a href=/velociraptor-docs/blog/2020/>2020</a><ul><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2021/ title=2021 class=dd-item><a href=/velociraptor-docs/blog/2021/>2021</a><ul><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Velociraptor Interactive Shell</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Velociraptor Interactive Shell</h1><p>One of the interesting new features in the latest release of
+Velociraptor is an interactive shell. One can interact with the end
+point over the standard Velociraptor communication mechanism - an
+encrypted and authenticated channel.</p><p>This feature is implemented by utilizing the Velociraptor event
+monitoring, server side VQL queries. This post explores how these
+components come together to deliver a responsive, interactive workflow.</p><h1 id=endpoint-shell-access>Endpoint shell access</h1><p>Although we generally try to avoid it, sometimes the easiest way to
+extract certain information is to run a command and parse its output.
+For example, consider the windows ipconfig command. It is possible to
+extract this information using win32 apis but this requires additional
+code to be written in the client. The ipconfig command is guaranteed to
+be available. Soemtimes running a command and parsing its output is the
+easiest option.</p><p>The GRR client has a client action which can run a command. However that
+client action is restricted to run a whitelist of commands, since GRR
+chose to prevent the running of arbitrary commands on the endpoint. In
+practice, though it is difficult to add new commands to the whitelist
+(and rebuild and deploy new clients that have the updated whitelist).
+But users need to run arbitrary commands (including their own third
+party tools) anyway. So in the GRR world, most people use "python
+hacks" routinely to run arbitrary commands.</p><p>When we came to redesign Velociraptor we pondered if arbitrary command
+execution should be included or not. To be sure, this is a dangerous
+capability - effectively giving Velociraptor root level access on the
+endpoint. In our experience restricting it in an arbitrary way (as was
+done in GRR) is not useful because it is harder adapt to real incident
+response needs (you hardly ever know in advance what is needed at 2am in
+the morning when trying to triage an incident!).</p><p>Other endpoint monitoring tools also have a shell interface (For example
+Carbon Black). It is understood that this feature is extremely powerful,
+but it is necessary sometimes.</p><p>Velociraptor mitigates this risk in a few ways:</p><ol><li>If an organization deems the ability to run arbitrary commands too
+dangerous, they can completely disable this feature in the client's
+configuration.</li><li>Every shell command run by the client is audited and its output is
+archived. Misuse can be easily detected and investigated.</li><li>This feature is considered high risk and it is not available via the
+GUI. One must use the velociraptor binary on the server itself to
+run the interactive shell.</li></ol><h1 id=interactive-shell>Interactive Shell</h1><p>The interactive shell feature is accessed by issueing the shell command
+to the velociraptor binary:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
+C.7403676ab8664b2b (trek) &gt;ls /
+Running ls / on C.7403676ab8664b2b
+Received response at 2018-12-11 13:12:35 +1000 AEST - Return code 0
+
+bin
+boot
+core
+data
+dev
+
+C.7403676ab8664b2b (trek) &gt;id
+Running id on C.7403676ab8664b2b
+Received response at 2018-12-11 13:13:05 +1000 AEST - Return code 0
+
+uid=1000(mic) gid=1000(mic) groups=1000(mic),4(adm),24(cdrom),27(sudo)
+
+C.7403676ab8664b2b (trek) &gt;whoami
+Running whoami on C.7403676ab8664b2b
+Received response at 2018-12-11 13:13:10 +1000 AEST - Return code 0
+
+mic
+</code></pre><p>As you can see it is pretty straight forward - type a command, the
+command is sent to the client, and the client responds with the output.</p><h1 id=how-does-it-work>How does it work?</h1><p>The main components are shown in the figure below. Note that the shell
+process is a different process from the frontend:</p><p><img src=interactive_shell_workflow.png alt=image></p><p>The workflow starts when a user issues a command (for example "ls -l
+/") on the terminal. The shell process schedules a VQL query for the
+client:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT now() as Timestamp, Argv, Stdout,
+     Stderr, ReturnCode FROM execve(argv=['ls', '-l', '/'])
+</code></pre><p>However, this query is scheduled as part of the monitoring flow -which
+means it's response will be sent and stored with the monitoring logs.
+As soon as the shell process schedules the VQL query the frontend is
+notified and the client is woken. Note that due to Velociraptor's near
+instantaneous communication protocol this causes the client to run the
+command almost immediately.</p><p>The client executes the query which returns one or more rows containing
+the Stdout of the process. The client will then send the response to the
+server as a monitoring event. The frontend will then append the event to
+a CSV file.</p><p>After sending the initial client query, the interactive shell process
+will issue a watch VQL query to watch for the shell response:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT ReturnCode, Stdout, Stderr, Timestamp, Argv
+FROM watch_monitoring(client_id=ClientId, artifact='Shell')
+</code></pre><p>The process now blocks until this second query detects the response
+arrived on the monitoring queue. Now we simply display the result and go
+back to the interactive prompt.</p><p>Note that the interactive shell is implemented using the same basic
+building blocks that Velociraptor offers:</p><ol><li>Issuing client VQL queries.</li><li>Waking the client immediately gives instant results (no need for
+polling).</li><li>Utilizing the event monitoring flow to receive results from queries
+immediately.</li><li>Writing server side event queries to watch for new events, such as
+responses from the client.</li></ol><p>Note that the frontend is very simple and does no specific processing of
+the interactive shell, the feature is implemented completely within the
+interactive shell process itself. This design lowers the load on the
+frontends since their job is very simple, but enables complex post
+processing and interaction to tbe implemented by other processes.</p><h1 id=auditing>Auditing</h1><p>We mentioned previously that running shell commands on endpoints is a
+powerful feature and we need to audit its use closely. Since shell
+command output is implemented via the monitored event queues it should
+be obvious that we can monitor all such commands by simply watching the
+Shell artifact event queue:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;select * from watch_monitoring(artifact='Shell')&quot;
+[
+ {
+  &quot;Argv&quot;: &quot;\&quot;{\\\&quot;Argv\\\&quot;:[\\\&quot;id\\\&quot;]}\&quot;&quot;,
+  &quot;Artifact&quot;: &quot;Shell&quot;,
+  &quot;ClientId&quot;: &quot;C.7403676ab8664b2b&quot;,
+  &quot;ReturnCode&quot;: &quot;0&quot;,
+  &quot;Stderr&quot;: &quot;\&quot;\&quot;&quot;,
+  &quot;Stdout&quot;: &quot;\&quot;uid=1000(mic) gid=1000(mic) groups=1000(mic)\\n\&quot;&quot;,
+  &quot;Timestamp&quot;: &quot;1544499929&quot;
+ }
+]
+</code></pre><p>We can easily write an artifact that escalates any use of the
+interactive shell by sending the admin an mail (See previous blog post).
+This way we can see if someone missused the feature. Alternatively we
+may simply archive the event queue CSV file for long term auditing of
+any interactive shell use.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/velociraptor-docs/js/clipboard.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.jquery.min.js?1623396556></script><script src=/velociraptor-docs/js/jquery.sticky.js?1623396556></script><script src=/velociraptor-docs/js/featherlight.min.js?1623396556></script><script src=/velociraptor-docs/js/highlight.pack.js?1623396556></script><script>hljs.initHighlightingOnLoad()</script><script src=/velociraptor-docs/js/modernizr.custom-3.6.0.js?1623396556></script><script src=/velociraptor-docs/js/learn.js?1623396556></script><script src=/velociraptor-docs/js/hugo-learn.js?1623396556></script></body></html>

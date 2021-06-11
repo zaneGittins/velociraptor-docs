@@ -1,0 +1,107 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content="This post describes how to deploy Velociraptor with SSL on a cloud VM.
+"><link rel=icon href=/velociraptor-docs/images/favicon.png type=image/png><title>Configuring Velociraptor for SSL :: Velociraptor - Digging deeper!</title><link href=/velociraptor-docs/css/nucleus.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/fontawesome-all.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hybrid.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/featherlight.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/perfect-scrollbar.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/auto-complete.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-dark-reasonable.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/tabs.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hugo-theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme-mine.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-light.css?1623396556 rel=stylesheet><script src=/velociraptor-docs/js/jquery-3.3.1.min.js?1623396556></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/velociraptor-docs/blog/html/2018/12/22/configuring_velociraptor_for_ssl.html><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://scudette.github.io/velociraptor-docs/><img src=https://scudette.github.io/velociraptor-docs//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/velociraptor-docs/overview/ title="Velociraptor Overview" class=dd-item><a href=/velociraptor-docs/overview/>Velociraptor Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/history/ title=History class=dd-item><a href=/velociraptor-docs/overview/history/>History</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/velociraptor-docs/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/velociraptor-docs/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/velociraptor-docs/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/velociraptor-docs/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/velociraptor-docs/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/resources/ title=Performance class=dd-item><a href=/velociraptor-docs/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/velociraptor-docs/gui/ title="The Admin GUI" class=dd-item><a href=/velociraptor-docs/gui/>The Admin GUI</a><ul><li data-nav-id=/velociraptor-docs/gui/clients/ title="Inspecting clients" class=dd-item><a href=/velociraptor-docs/gui/clients/>Inspecting clients</a></li><li data-nav-id=/velociraptor-docs/gui/vfs/ title="The VFS" class=dd-item><a href=/velociraptor-docs/gui/vfs/>The VFS</a></li><li data-nav-id=/velociraptor-docs/gui/artifacts/ title=Artifacts class=dd-item><a href=/velociraptor-docs/gui/artifacts/>Artifacts</a></li><li data-nav-id=/velociraptor-docs/gui/hunting/ title=Hunting class=dd-item><a href=/velociraptor-docs/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/ title="Velociraptor Blog" class="dd-item
+parent"><a href=/velociraptor-docs/blog/>Velociraptor Blog</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/ title=2019 class=dd-item><a href=/velociraptor-docs/blog/2019/>2019</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2020/ title=2020 class=dd-item><a href=/velociraptor-docs/blog/2020/>2020</a><ul><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2021/ title=2021 class=dd-item><a href=/velociraptor-docs/blog/2021/>2021</a><ul><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Configuring Velociraptor for SSL</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Configuring Velociraptor for SSL</h1><p>We have previously seen how to deploy a new Velociraptor server. For a
+simple deployment we can have Velociraptor server and clients
+provisioned in minutes.</p><p>Usually we deploy a specific Velociraptor deployment on our DFIR
+engagements. We use cloud resources to provision the server and have the
+clients connect to this cloud VM. A proper secure deployment of
+Velociraptor will use SSL for securing both client communication and
+protecting the web GUI.</p><p>In the past provisioning an SSL enabled web application was complex and
+expensive - you had to create certificate signing requests, interact
+with a CA. Pay for the certificates, then configure the server. In
+particular you had to remember to renew the cert in 2 years or your
+website suddenly broke!</p><p>Those days are over with the emergence of Lets Encrypt! and autocert.
+These days applications can automatically provision their own
+certificates. Velociraptor can manage its own certificates, fully
+automatically - and then renew its certificates when the time comes with
+no user intervention required.</p><p>In this blog post we will see how to configure a new Velociraptor server
+in a cloud VM.</p><h1 id=setting-up-a-domain>Setting up a domain</h1><p>The first step in deploying an SSL enabled web application is to have a
+domain name. SSL verifies the authenticity of a web site by its DNS
+name.</p><p>We go over to Google Domains and buy a domain. In this post I will be
+using the domain rekall-innovations.com.</p><h1 id=provisioning-a-virtual-machine>Provisioning a Virtual Machine</h1><p>Next we provision an Ubuntu VM from any cloud provider. Depending on
+your deployment size your VM should be large enough. An 8 or 16Gb VM
+should be sufficient for around 5-10k clients. Additionally we will need
+sufficient disk space to hold the data we will collect. We recommend to
+start with a modest amount of storage and then either backup data as it
+gets collected or increase the storage volume as needed.</p><p>Our virtual machine will receive connections over ports 80 and 443.</p><p>::: {.note}
+::: {.admonition-title}
+Note
+:::</p><p>When using SSL both the client communication <em>and</em> the GUI are served
+over the same ports to benefit from SSL transport encryption.
+:::</p><p>When we deploy our Virtual Machine we may choose either a static IP
+address or allow the cloud provider to assign a dynamic IP address. We
+typically choose a dynamic IP address and so we need to configure
+Dynamic DNS.</p><p>Go to the Google Domains dashboard and create a new dynamic DNS for your
+domain. In our example we will use velociraptor.rekall-innovations.com
+as our endpoint address.</p><p><img src=1.png alt=image></p><p>After the dynamic address is created, we can get the credentials for
+updating the IP address.</p><p><img src=2.png alt=image></p><p>Next we install ddclient on our VM. This will update our dynamic IP
+address whenever the external interface changes. Configure the file
+`/etc/ddclient.conf`:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>protocol=dyndns2
+use=web
+server=domains.google.com
+ssl=yes
+login=X13342342XYZ
+password='slk43521kj'
+velociraptor.rekall-innovations.com
+</code></pre><p>Next configure the service to start:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode># Configuration for ddclient scripts
+# generated from debconf on Tue Oct 23 20:25:23 AEST 2018
+#
+# /etc/default/ddclient
+
+# Set to &quot;true&quot; if ddclient should be run every time DHCP client ('dhclient'
+# from package isc-dhcp-client) updates the systems IP address.
+run_dhclient=&quot;false&quot;
+
+# Set to &quot;true&quot; if ddclient should be run every time a new ppp connection is
+# established. This might be useful, if you are using dial-on-demand.
+run_ipup=&quot;false&quot;
+
+# Set to &quot;true&quot; if ddclient should run in daemon mode
+# If this is changed to true, run_ipup and run_dhclient must be set to false.
+run_daemon=&quot;true&quot;
+
+# Set the time interval between the updates of the dynamic DNS name in seconds.
+# This option only takes effect if the ddclient runs in daemon mode.
+daemon_interval=&quot;300&quot;
+</code></pre><p>Run dhclient and check that it updates the address correctly.</p><h1 id=configuring-velociraptor-for-ssl>Configuring Velociraptor for SSL</h1><p>Now comes the hard part! We need to configure Velociraptor to use SSL.
+Edit the following in your server.config.yaml file (if you do not have
+one yet you can generate one using velociraptor config
+generate > server.config.yaml ):</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>Client:
+   server_urls:
+   - https://velociraptor.rekall-innovations.com/
+
+autocert_domain: velociraptor.rekall-innovations.com
+autocert_cert_cache: /etc/velociraptor_cache/
+</code></pre><p>The autocert_domain parameter tells Velociraptor to provision its own
+cert for this domain automatically. The certificates will be stored in
+the directory specified by autocert_cert_cache. You don't have to
+worry about rotating the certs, Velociraptor will automatically renew
+them.</p><p>Obviously now the clients need to connect to the control channel over
+SSL so we also need to direct the client's server_urls parameter to
+the SSL port.</p><p>Lets start the frontend (We need to start Velociraptor as root because
+it must be able to bind to port 80 and 443):</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ sudo velociraptor --config server.config.yaml frontend -v
+
+[INFO] 2018-12-22T17:12:42+10:00 Loaded 43 built in artifacts
+[INFO] 2018-12-22T17:12:42+10:00 Increased open file limit to 999999
+[INFO] 2018-12-22T17:12:42+10:00 Launched gRPC API server on 127.0.0.1:8888
+[INFO] 2018-12-22T17:12:42+10:00 Autocert specified - will listen on ports 443 and 80. I will ignore specified GUI port at 8889
+[INFO] 2018-12-22T17:12:42+10:00 Autocert specified - will listen on ports 443 and 80. I will ignore specified Frontend port at 8889
+[INFO] 2018-12-22T17:12:42+10:00 Frontend is ready to handle client requests using HTTPS
+</code></pre><p>If all goes well we now can point our browser to
+<a href=https://velociraptor.rekall-innovations.com/>https://velociraptor.rekall-innovations.com/</a> and it should just work.
+Don't forget to provision a user and password using:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml user add mic
+</code></pre><h1 id=notes>Notes</h1><p>The autocert configuration is very easy to do but there are a few
+caveats:</p><ol><li>Both ports 80 and 443 must be accessible over the web. This is
+needed because Letsencrypt's servers need to connect to our domain
+name in order to verify our domain ownership.</li><li>It is not possible to change the ports from port 80 and 443 due to
+limitations in Letsencrypt's ACME protocol. This is why we can not
+have more than one Velociraptor deployment on the same IP currently.</li></ol><p>We have seen how easy it is to deploy secure Velociraptor servers. In
+the next post we will discuss how to enhance security further by
+deploying two factor authentication with Google's Single Sign On (SSO).</p><p>::: {.note}
+::: {.admonition-title}
+Note
+:::</p><p>This feature will be available in the upcoming 0.27 release. You can try
+it now by building from git head.
+:::</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/velociraptor-docs/js/clipboard.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.jquery.min.js?1623396556></script><script src=/velociraptor-docs/js/jquery.sticky.js?1623396556></script><script src=/velociraptor-docs/js/featherlight.min.js?1623396556></script><script src=/velociraptor-docs/js/highlight.pack.js?1623396556></script><script>hljs.initHighlightingOnLoad()</script><script src=/velociraptor-docs/js/modernizr.custom-3.6.0.js?1623396556></script><script src=/velociraptor-docs/js/learn.js?1623396556></script><script src=/velociraptor-docs/js/hugo-learn.js?1623396556></script></body></html>

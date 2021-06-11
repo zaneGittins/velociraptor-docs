@@ -1,0 +1,239 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content="It is also possible to run VQL
+queries on the server side! Similarly server side Velociraptor
+artifacts can be used to customize the operation of the server -
+without modifying any code or redeploying the server components.
+"><link rel=icon href=/velociraptor-docs/images/favicon.png type=image/png><title>Server side VQL queries and Escalation Events :: Velociraptor - Digging deeper!</title><link href=/velociraptor-docs/css/nucleus.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/fontawesome-all.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hybrid.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/featherlight.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/perfect-scrollbar.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/auto-complete.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-dark-reasonable.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/tabs.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hugo-theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme-mine.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-light.css?1623396556 rel=stylesheet><script src=/velociraptor-docs/js/jquery-3.3.1.min.js?1623396556></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/velociraptor-docs/blog/html/2018/12/10/server_side_vql_queries_and_events.html><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://scudette.github.io/velociraptor-docs/><img src=https://scudette.github.io/velociraptor-docs//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/velociraptor-docs/overview/ title="Velociraptor Overview" class=dd-item><a href=/velociraptor-docs/overview/>Velociraptor Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/history/ title=History class=dd-item><a href=/velociraptor-docs/overview/history/>History</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/velociraptor-docs/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/velociraptor-docs/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/velociraptor-docs/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/velociraptor-docs/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/velociraptor-docs/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/resources/ title=Performance class=dd-item><a href=/velociraptor-docs/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/velociraptor-docs/gui/ title="The Admin GUI" class=dd-item><a href=/velociraptor-docs/gui/>The Admin GUI</a><ul><li data-nav-id=/velociraptor-docs/gui/clients/ title="Inspecting clients" class=dd-item><a href=/velociraptor-docs/gui/clients/>Inspecting clients</a></li><li data-nav-id=/velociraptor-docs/gui/vfs/ title="The VFS" class=dd-item><a href=/velociraptor-docs/gui/vfs/>The VFS</a></li><li data-nav-id=/velociraptor-docs/gui/artifacts/ title=Artifacts class=dd-item><a href=/velociraptor-docs/gui/artifacts/>Artifacts</a></li><li data-nav-id=/velociraptor-docs/gui/hunting/ title=Hunting class=dd-item><a href=/velociraptor-docs/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/ title="Velociraptor Blog" class="dd-item
+parent"><a href=/velociraptor-docs/blog/>Velociraptor Blog</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/ title=2019 class=dd-item><a href=/velociraptor-docs/blog/2019/>2019</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2020/ title=2020 class=dd-item><a href=/velociraptor-docs/blog/2020/>2020</a><ul><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2021/ title=2021 class=dd-item><a href=/velociraptor-docs/blog/2021/>2021</a><ul><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Server side VQL queries and Escalation Events</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Server side VQL queries and Escalation Events</h1><p>Previously we have seen how Velociraptor collects information from end
+points using Velociraptor artifacts. These artifacts encapsulate user
+created queries using the Velociraptor Query Language (VQL). The power
+of VQL is that it provides for a very flexible way of specifying exactly
+what should be collected from the client and how - without needing to
+modify client code or deploy new clients!</p><p>This is not the whole story though! It is also possible to run VQL
+queries on the server side! Similarly server side Velociraptor artifacts
+can be used to customize the operation of the server -without modifying
+any code or redeploying the server components.</p><h1 id=server-side-vql-queries>Server Side VQL Queries.</h1><p>By now you are probably familiar with Velociraptor and VQL. We have seen
+that it is possible to run a VQL query interactively from the
+commandline. For example to find all processes matching the 'gimp':</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+   &quot;SELECT Pid, Exe, Cmdline FROM pslist() WHERE Exe =~ 'gimp'&quot;
+[
+ {
+  &quot;Cmdline&quot;: &quot;gimp-2.10&quot;,
+  &quot;Exe&quot;: &quot;/usr/bin/gimp-2.10&quot;,
+  &quot;Pid&quot;: 13207
+ }
+]
+</code></pre><p>We have used this feature previously in order to perfect and test our
+queries by interactively building the query as we go along.</p><p>However it is also possible to run queries on the server itself in order
+to collect information about the server. There is nothing special about
+this as such - it is simply that some VQL plugins are able to operate on
+the server's internal data store and therefore provide a way to
+interact with the server via VQL queries.</p><p>::: {.note}
+::: {.admonition-title}
+Note
+:::</p><p>Other endpoint monitoring tools export a rich API and even an API client
+library to enable users to customize and control their installation. For
+example, GRR expects users write python scripts using the GRR client API
+library.</p><p>Velociraptor's approach is different - the functionality typically
+available via APIs is made available to VQL queries via VQL plugins
+(e.g. client information, flow information and results collected). In
+this way the VQL itself forms an API with which one controls the server
+and deployment. There is no need to write any code - simply use existing
+VQL plugins in any combination that makes sense to create new
+functionality - then encapsulates these queries inside Velociraptor
+artifacts for reuse and sharing.
+:::</p><p>For example, to see all the clients and their hostnames:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+   &quot;SELECT os_info.fqdn as Hostname, client_id from clients()&quot; --format text
++-----------------+--------------------+
+|    Hostname     |     client_id      |
++-----------------+--------------------+
+| mic-Inspiron    | C.772d16449719317f |
+| TestComputer    | C.11a3013cca8f826e |
+| trek            | C.952156a4b022ddee |
+| DESKTOP-IOME2K5 | C.c916a7e445eb0868 |
++-----------------+--------------------+
+SELECT os_info.fqdn AS Hostname,
+client_id FROM clients()
+</code></pre><p>To inspect what flows were run on a client:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+   &quot;SELECT runner_args.creator, runner_args.flow_name, \
+    runner_args.start_time FROM \
+    flows(client_id='C.772d16449719317f')&quot;
+[
+{
+  &quot;runner_args.creator&quot;: &quot;&quot;,
+  &quot;runner_args.flow_name&quot;: &quot;MonitoringFlow&quot;,
+  &quot;runner_args.start_time&quot;: 1544338661236625
+},
+{
+  &quot;runner_args.creator&quot;: &quot;mic&quot;,
+  &quot;runner_args.flow_name&quot;: &quot;VFSDownloadFile&quot;,
+  &quot;runner_args.start_time&quot;: 1544087705756469
+},
+...
+</code></pre><h1 id=client-event-monitoring>Client Event Monitoring</h1><p>We have also previously seen that Velociraptor can collect event streams
+from clients. For example, the client's process execution logs can be
+streamed to the server. Clients can also receive event queries which
+forward selected events from the windows event logs.</p><p>When we covered those features in earlier blog posts, we stressed that
+the Velociraptor server does not actually do anything with the client
+events, other than save them to a file. The server just writes the
+client's events in simple Comma Separated files (CSV files) on the
+server.</p><p>We mentioned that it is possible to import this file into another tool
+(e.g. a spreadsheet or database) for post-processing. An alternative is
+to perform post-processing with Velociraptor itself using server side
+VQL queries.</p><p>For example, we can filter a client's process execution log using a VQL
+query:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from monitoring(
+      client_id='C.87b19dba006fcddb',
+      artifact='Windows.Events.ProcessCreation')
+    WHERE Name =~ '(?i)psexesvc' &quot;
+[
+ {
+  &quot;CommandLine&quot;: &quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Name&quot;: &quot;\&quot;PSEXESVC.exe\&quot;&quot;,
+  &quot;PID&quot;: &quot;452&quot;,
+  &quot;PPID&quot;: &quot;512&quot;,
+  &quot;Timestamp&quot;: &quot;\&quot;2018-12-09T23:30:42-08:00\&quot;&quot;,
+  &quot;artifact&quot;: &quot;Windows.Events.ProcessCreation&quot;,
+  &quot;client_id&quot;: &quot;C.87b19dba006fcddb&quot;
+ }
+]
+</code></pre><p>The above query finds running instances of psexec's service component -
+a popular method of lateral movement and privilege escalation.</p><p>This query uses the monitoring() VQL plugin which opens each of the CSV
+event monitoring logs for the specified artifact on the server, decodes
+the CSV file and emits all the rows within it into the VQL Query. The
+rows are then filtered by applying the regular expression to the name.</p><h1 id=server-side-event-queries>Server side event queries</h1><p>VQL queries do not have to terminate at all. Some VQL plugins can run
+indefinitely, emitting rows at random times - usually in response to
+some events. These are called Event Queries since they never terminate.
+We saw this property when monitoring the client - the above
+Windows.Events.ProcessCreation artifact uses an event query which emits
+a single row for each process execution on the end point.</p><p>However, we can also have Event Queries on the server. When used in this
+way the query triggers in response to data collected by the server of
+various clients.</p><p>For example, consider the above query to detect instances of psexec
+executions. While we can detect this by filtering existing monitoring
+event logs, it would be nice to be able to respond to such an event
+dynamically.</p><p>One way is to repeatedly run the same query (say every minute) and look
+for newly reported instances of psexec executions. But this approach is
+not terribly efficient. A better approach is to install a watcher on the
+monitoring event log:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from watch_monitoring(
+     client_id='C.87b19dba006fcddb',
+     artifact='Windows.Events.ProcessCreation') where Name =~ '(?i)psexesvc' &quot;
+[
+ {
+  &quot;CommandLine&quot;: &quot;\&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Name&quot;: &quot;\&quot;PSEXESVC.exe\&quot;&quot;,
+  &quot;PID&quot;: &quot;4592&quot;,
+  &quot;PPID&quot;: &quot;512&quot;,
+  &quot;Timestamp&quot;: &quot;\&quot;2018-12-10T01:18:06-08:00\&quot;&quot;,
+  &quot;artifact&quot;: &quot;Windows.Events.ProcessCreation&quot;,
+  &quot;client_id&quot;: &quot;C.87b19dba006fcddb&quot;
+ }
+]
+</code></pre><p>The watcher efficiently follows the monitoring CSV file to detect new
+events. These events are then emitted into the VQL query and
+subsequently filtered. When the query processes all rows in the file,
+the plugin just sleeps and waits for the file to grow again. The
+watch_monitoring() plugin essentially tails the CSV file as it is being
+written. Note that due to the fact that log files are never truncated
+and always grow, and that CSV file format is a simple, one row per line
+format it is possible to both read and write to the same file without
+locking. This makes following a growing log file extremely efficient and
+safe - even from another process.</p><h1 id=responding-to-server-side-events>Responding to server side events</h1><p>The previous query will return a row when psexec is run on the client.
+This is a very suspicious event in our environment and we would like to
+escalate this by sending us an email.</p><p>We can modify the above query to send an email for each event:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * FROM foreach(
+   row={
+     SELECT * from watch_monitoring(
+       client_id='C.87b19dba006fcddb',
+       artifact='Windows.Events.ProcessCreation')
+    WHERE Name =~ '(?i)psexesvc'
+   },
+   query={
+     SELECT * FROM mail(
+       to='admin@example.com',
+       subject='PsExec launched on host',
+       period=60,
+       body=format(format='PsExec execution detected at %v: %v',
+                   args=[Timestamp, Commandline])
+     )
+   })
+</code></pre><p>The query sends an email from each event emitted. The message body is
+formatted using the format() VQL function and this includes important
+information from the generated event. Note that the mail() plugin
+restricts the frequency of mails to prevent triggering the mail
+server's spam filters. So if two psexec executions occur within 60
+seconds we will only get one email.</p><p>In order for Velociraptor to be able to send mail you must configure
+SMTP parameters in the server's configuration file. The following
+example uses gmail to send mails (other mail providers will have similar
+authentication requirements).</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>Mail:
+  server: &quot;smtp.gmail.com&quot;
+  auth_username: someuser@gmail.com
+  auth_password: zldifhjsdflkjfsdlie
+</code></pre><p>The password in the configuration is an application specific password
+obtained from
+<a href=https://security.google.com/settings/security/apppasswords>https://security.google.com/settings/security/apppasswords</a></p><p><img src=app_password.png alt=image></p><h1 id=tying-it-all-together-server-side-event-artifacts>Tying it all together: Server Side Event Artifacts</h1><p>As always we really want to encapsulate VQL queries in artifact
+definitions. This way we can design specific alerts, document them and
+invoke them by name. Let us encapsulate the above queries in a new
+artifact:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Server.Alerts.PsExec
+description:  |
+   Send an email if execution of the psexec service was detected on any client.
+
+   Note this requires that the Windows.Event.ProcessCreation
+   monitoring artifact be collected.
+
+parameters:
+  - name: EmailAddress
+    default: admin@example.com
+  - name: MessageTemplate
+    default: |
+      PsExec execution detected at %v: %v for client %v
+
+sources:
+  - queries:
+     - |
+       SELECT * FROM foreach(
+         row={
+           SELECT * from watch_monitoring(
+             artifact='Windows.Events.ProcessCreation')
+           WHERE Name =~ '(?i)psexesvc'
+         },
+         query={
+           SELECT * FROM mail(
+             to=EmailAddress,
+             subject='PsExec launched on host',
+             period=60,
+             body=format(
+               format=MessageTemplate,
+               args=[Timestamp, CommandLine, ClientId])
+          )
+       })
+</code></pre><p>We create a new directory called my_artifact_directory and store that
+file inside as psexesvc.yaml. Now, on the server we invoke the artifact
+collector and instruct it to also add our private artifacts:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --definitions my_artifact_directory/ \
+    --config ~/server.config.yaml \
+    --format json \
+    artifacts collect Server.Alerts.PsExec
+INFO:2018/12/10 21:36:27 Loaded 40 built in artifacts
+INFO:2018/12/10 21:36:27 Loading artifacts my_artifact_directory/
+[][
+ {
+  &quot;To&quot;: [
+    &quot;admin@example.com&quot;
+  ],
+  &quot;CC&quot;: null,
+  &quot;Subject&quot;: &quot;PsExec launched on host&quot;,
+  &quot;Body&quot;: &quot;PsExec execution detected at \&quot;2018-12-10T03:36:49-08:00\&quot;: \&quot;C:\\\\Windows\\\\PSEXESVC.exe\&quot;&quot;,
+  &quot;Period&quot;: 60
+ }
+]
+</code></pre><h1 id=conclusions>Conclusions</h1><p>This blog post demonstrates how VQL can be used on the server to create
+a full featured incident response framework. Velociraptor does not
+dictate a particular workflow, since all its actions are governed by VQL
+queries and artifacts. Using the same basic building blocks, users can
+fashion their own highly customized incident response workflow. Here is
+a brainstorm of possible actions:</p><ol><li>An artifact can be written to automatically collect a memory capture
+if a certain event is detected.</li><li>Using the http_client() VQL plugin, when certain events are
+detected on the server open a ticket automatically (using a SOAP or
+JSON API).</li><li>If a particular event is detected, immediately shut the machine down
+or quarantine it (by running shell commands on the compromised
+host).</li></ol><p>The possibilities are truly endless. Comment below if you have more
+interesting ideas and do not hesitate to contribute artifact definitions
+to address your real world use cases.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/velociraptor-docs/js/clipboard.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.jquery.min.js?1623396556></script><script src=/velociraptor-docs/js/jquery.sticky.js?1623396556></script><script src=/velociraptor-docs/js/featherlight.min.js?1623396556></script><script src=/velociraptor-docs/js/highlight.pack.js?1623396556></script><script>hljs.initHighlightingOnLoad()</script><script src=/velociraptor-docs/js/modernizr.custom-3.6.0.js?1623396556></script><script src=/velociraptor-docs/js/learn.js?1623396556></script><script src=/velociraptor-docs/js/hugo-learn.js?1623396556></script></body></html>

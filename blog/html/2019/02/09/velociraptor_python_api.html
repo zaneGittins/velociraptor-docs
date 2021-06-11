@@ -1,0 +1,191 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content="Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration. In order to facilitate interoperability with other tools, Velociraptor now offers an external API."><link rel=icon href=/velociraptor-docs/images/favicon.png type=image/png><title>The Velociraptor Python API :: Velociraptor - Digging deeper!</title><link href=/velociraptor-docs/css/nucleus.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/fontawesome-all.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hybrid.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/featherlight.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/perfect-scrollbar.min.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/auto-complete.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-dark-reasonable.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/tabs.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/hugo-theme.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/theme-mine.css?1623396556 rel=stylesheet><link href=/velociraptor-docs/css/atom-one-light.css?1623396556 rel=stylesheet><script src=/velociraptor-docs/js/jquery-3.3.1.min.js?1623396556></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/velociraptor-docs/blog/html/2019/02/09/velociraptor_python_api.html><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://scudette.github.io/velociraptor-docs/><img src=https://scudette.github.io/velociraptor-docs//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/velociraptor-docs/overview/ title="Velociraptor Overview" class=dd-item><a href=/velociraptor-docs/overview/>Velociraptor Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/history/ title=History class=dd-item><a href=/velociraptor-docs/overview/history/>History</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/velociraptor-docs/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/velociraptor-docs/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/velociraptor-docs/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/velociraptor-docs/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/velociraptor-docs/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/velociraptor-docs/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/velociraptor-docs/overview/deployment/resources/ title=Performance class=dd-item><a href=/velociraptor-docs/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/velociraptor-docs/gui/ title="The Admin GUI" class=dd-item><a href=/velociraptor-docs/gui/>The Admin GUI</a><ul><li data-nav-id=/velociraptor-docs/gui/clients/ title="Inspecting clients" class=dd-item><a href=/velociraptor-docs/gui/clients/>Inspecting clients</a></li><li data-nav-id=/velociraptor-docs/gui/vfs/ title="The VFS" class=dd-item><a href=/velociraptor-docs/gui/vfs/>The VFS</a></li><li data-nav-id=/velociraptor-docs/gui/artifacts/ title=Artifacts class=dd-item><a href=/velociraptor-docs/gui/artifacts/>Artifacts</a></li><li data-nav-id=/velociraptor-docs/gui/hunting/ title=Hunting class=dd-item><a href=/velociraptor-docs/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/ title="Velociraptor Blog" class="dd-item
+parent"><a href=/velociraptor-docs/blog/>Velociraptor Blog</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/ title=2019 class=dd-item><a href=/velociraptor-docs/blog/2019/>2019</a><ul><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/velociraptor-docs/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2020/ title=2020 class=dd-item><a href=/velociraptor-docs/blog/2020/>2020</a><ul><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/velociraptor-docs/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/velociraptor-docs/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/velociraptor-docs/blog/2021/ title=2021 class=dd-item><a href=/velociraptor-docs/blog/2021/>2021</a><ul><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/velociraptor-docs/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>The Velociraptor Python API</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#post-process-artifacts>Post process artifacts</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>The Velociraptor Python API</h1><p>Velociraptor is very good at collecting artifacts from endpoints.
+However, in modern DFIR work, the actual collection is only the first
+step of a much more involved process. Typically we want to post process
+data using more advanced data mining tools (such as data stacking).
+Velociraptor usually is only a part of a wider solution which might
+include a SIEM and SOC integration.</p><p>In order to facilitate interoperability with other tools, Velociraptor
+now offers an external API. The API is offered via gRPC so it can be
+used in any language which gRPC supports (e.g. Java, C++, Python etc).
+In this blog post we illustrate the Python API but any language should
+work.</p><h1 id=the-velociraptor-api-server>The Velociraptor API Server</h1><p>The API server exposes an endpoint ready to accept gRPC connections. By
+default the API server listen only on the loopback interface (127.0.0.1)
+but it is easy to change to be externally accessible if you need by
+changing the server.config.yaml file:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>API:
+  bind_address: 127.0.0.1
+  bind_port: 8001
+</code></pre><p>Client programs simply connect directly to this API and call gRPC
+methods on it.</p><p><img src=api_diagram.png alt=image></p><p>The connection is encrypted using TLS and authenticated using mutual
+certificates. When we initially created the Velociraptor configuration
+file, we created a CA certificate and embedded it in the
+server.config.yaml file. It is this CA certificate which is used to
+verify that the certificate each end presents was issued by the
+Velociraptor CA.</p><p>::: {.note}
+::: {.admonition-title}
+Note
+:::</p><p>If you need to have extra security in your environment you should keep
+the original server.config.yaml file generated in an offline location,
+then deploy a redacted file (without the CA.private_key value) on the
+server. This way api client certificates can only be issued offline.
+:::</p><p>Before the client may connect to the API server they must have a
+certificate issued by the Velociraptor CA. This is easy to generate:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml \
+     config api_client --name Fred &gt; api_client.yaml
+</code></pre><p>Will generate something like:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>ca_certificate: |
+  -----BEGIN CERTIFICATE-----
+  MIIDITCCAgmgAwIBAgIRAI1oswXLBFqWVSYZx1VibMkwDQYJKoZIhvcNAQELBQAw
+  -----END CERTIFICATE-----
+client_cert: |
+  -----BEGIN CERTIFICATE-----
+  2e1ftQuzHGD2XPquqfuVzL1rtEIA1tiC82L6smYbeOe0p4pqpsHN1sEDkdfhBA==
+  -----END CERTIFICATE-----
+client_private_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  sVr9HvR2kBzM/3yVwvb752h0qDOYDfzLRENjA7dySeOgLtBSvd2gRg==
+  -----END RSA PRIVATE KEY-----
+api_connection_string: 127.0.0.1:8001
+name: Fred
+</code></pre><p>The certificate generated has a common name as specified by the --name
+flag. This name will be logged in the server's audit logs so you can
+use this to keep track of which programs have access. This file keeps
+both private key and certificate as well as the CA certificate which
+must be used to authenticate the server in a single file for
+convenience.</p><h1 id=using-the-api-from-python>Using the API from Python</h1><p>Although the API exposes a bunch of functions used by the GUI, the main
+function (which is not exposed through the GUI) is the Query() method.
+This function simply executes one or more VQL queries, and streams their
+results back to the caller.</p><p>The function requires an argument which is a protobuf of type
+VQLCollectorArgs:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>VQLCollectorArgs:
+     env:  list of VQLEnv(string key, string value)
+     Query: list of VQLRequest(string Name, string VQL)
+     max_row: int
+     max_wait: int
+     ops_per_second: float
+</code></pre><p>This very simple structure allows the caller to specify one or more VQL
+queries to run. The call can set up environment variables prior to the
+query execution. The max_row and max_wait parameters indicate how many
+rows to return in a single result set and how long to wait for
+additional rows before returning a result set.</p><p>The call simply executes the VQL queries and returns result sets as
+VQLResponse protobufs:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>VQLResponse:
+   Response: json encoded string
+   Columns: list of string
+   total_rows: total number of rows in this packet
+</code></pre><p>The VQL query may return many responses - each represents a set of rows.
+These responses may be returned over a long time, the API call will
+simply wait until new responses are available. For example, the VQL may
+represent an event query - i.e. watch for the occurrence of some event
+in the system - in this case it will never actually terminate, but keep
+streaming response packets.</p><h1 id=how-does-this-look-like-in-code>How does this look like in code?</h1><p>The following will cover an example implementation in python. The first
+step is to prepare credentials for making the gRPC call. We parse the
+api_config yaml file and prepare a credential object:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>config = yaml.load(open(&quot;api_client.yaml&quot;).read())
+creds = grpc.ssl_channel_credentials(
+     root_certificates=config[&quot;ca_certificate&quot;].encode(&quot;utf8&quot;),
+     private_key=config[&quot;client_private_key&quot;].encode(&quot;utf8&quot;),
+     certificate_chain=config[&quot;client_cert&quot;].encode(&quot;utf8&quot;))
+
+options = (('grpc.ssl_target_name_override', &quot;VelociraptorServer&quot;,),)
+</code></pre><p>Next we connect the channel to the API server:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>with grpc.secure_channel(config[&quot;api_connection_string&quot;],
+                         creds, options) as channel:
+    stub = api_pb2_grpc.APIStub(channel)
+</code></pre><p>The stub is the object we use to make calls with. We can then issue our
+call:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>request = api_pb2.VQLCollectorArgs(
+         Query=[api_pb2.VQLRequest(
+             VQL=query,
+         )])
+
+for response in stub.Query(request):
+    rows = json.loads(response.Response)
+    for row in rows:
+        print(row)
+</code></pre><p>We issue the query and then just wait for the call to generate response
+packets. Each packet may contain several rows which will all be encoded
+as JSON in the Response field. Each row is simply a dict with keys being
+the column names, and the values being possibly nested dicts or simple
+data depending on the query.</p><h1 id=what-can-we-do-with-this>What can we do with this?</h1><p>The Velociraptor API is deliberately open ended - meaning we do not pose
+any limitations on what can be done with it. It is conceptually a very
+simple API - just issue the query and look at the results, however this
+makes it extremely powerful.</p><p>We already have a number of very useful server side VQL plugins you can
+use. We also plan to add a number of other plugins in future -this means
+that the Velociraptor API can easily be extended in a backwards
+compatible way by simply adding new VQL plugins. New queries can do
+more, without breaking existing queries.</p><h2 id=post-process-artifacts>Post process artifacts</h2><p>This is the most common use case for the API. Velociraptor deliberately
+does not do any post processing on the server - we don't want to slow
+the server down by making it do more work than necessary.</p><p>But sometimes users need to do some more with the results - for example
+upload to an external system, check hashes against Virus Total, and even
+initiate an active response like escalation or disruption when something
+is detected.</p><p>In a recent engagement we needed to collect a large number of $MFT
+files from many endpoints. We wanted to analyze these using external
+tools like analyseMFT.py.</p><p>We wrote a simple artifact to collect the MFT:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Upload.MFT
+description: |
+   Uses an NTFS accessor to pull the $MFT
+
+parameters:
+  - name: path
+    default: \\.\C:\$MFT
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    queries:
+    - select upload(file=path, accessor=&quot;ntfs&quot;) as Upload from scope()
+</code></pre><p>We then created a hunt to collect this artifact from the machines of
+interest. Once each $MFT file is uploaded we need to run analyseMFT.py
+to parse it:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>QUERY=&quot;&quot;&quot;
+  SELECT Flow,
+         file_store(path=Flow.FlowContext.uploaded_files) as Files
+  FROM  watch_monitoring(artifact='System.Flow.Completion')
+  WHERE 'Windows.Upload.MFT' in Flow.FlowContext.artifacts
+&quot;&quot;&quot;
+
+with grpc.secure_channel(config[&quot;api_connection_string&quot;],
+                         creds, options) as channel:
+    stub = api_pb2_grpc.APIStub(channel)
+    request = api_pb2.VQLCollectorArgs(
+        Query=[api_pb2.VQLRequest(
+            VQL=QUERY,
+        )])
+
+    for response in stub.Query(request):
+        rows = json.loads(response.Response)
+        for row in rows:
+            for file_name in row[&quot;Files&quot;]:
+                 subprocess.check_call(
+                    [&quot;analyseMFT.py&quot;, &quot;-f&quot;, file_name,
+                     &quot;-o&quot;, file_name+&quot;.analyzed&quot;])
+</code></pre><p>The previous code sets up a watcher query which will receive every
+completed flow on the server which collected the artifact
+"Windows.Upload.MFT" (i.e. each completed flow will appear as a row to
+the query).</p><p>We can have this program running in the background. We can then launch a
+hunt collecting the artifact, and the program will automatically process
+all the results from the hunt as soon as they occur. When new machines
+are turned on they will receive the hunt, have their $MFT collected and
+this program will immediately process that.</p><p>Each flow contains a list of files that were uploaded to it. The
+file_store() VQL function reveals the server's filesystem path where
+the files actually reside. The server simply stores the uploaded files
+on its filesystem since Velociraptor does not use a database (everything
+is a file!).</p><p>The python code then proceeds to launch the analyseMFT.py script to
+parse the $MFT.</p><p>::: {.note}
+::: {.admonition-title}
+Note
+:::</p><p>The nice thing with this scheme is that the analyseMFT.py is running in
+its own process and can be managed separately to the main Velociraptor
+server (e.g. we can set its execution priority or even run it on a
+separate machine). The Velociraptor server does not actually need to
+wait for post processing nor will the post processing affect its
+performance in any way. If the analyseMFT.py script takes a long time,
+it will just fall behind but it eventually will catch up. In the
+meantime, the Velociraptor server will continue receiving the uploads
+regardless.
+:::</p><p>The above example sets up a watcher query to receive flow results in
+real time, but you can also just process the results of a specific hunt
+completely using a query like:</p><pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Flow, file_store(path=Flow.FlowContext.uploaded_files) as Files
+FROM hunt_flows(hunt_id=huntId)
+</code></pre><h1 id=conclusions>Conclusions</h1><p>The Velociraptor python API opens up enormous possibilities for
+automating Velociraptor and interfacing it with other systems. Combining
+the power of VQL and the flexibility (and user familiarity) of Python
+allows users to build upon Velociraptor in a flexible and creative way.
+I am very excited to see what the community will do with this feature -
+I can see integration with ELK, BigQuery and other data analytic engines
+being a valuable use case.</p><p>Please share your experiences in the comments or on the mailing list at
+<a href=mailto:velociraptor-discuss@groups.google.com>velociraptor-discuss@groups.google.com</a>.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/velociraptor-docs/js/clipboard.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.min.js?1623396556></script><script src=/velociraptor-docs/js/perfect-scrollbar.jquery.min.js?1623396556></script><script src=/velociraptor-docs/js/jquery.sticky.js?1623396556></script><script src=/velociraptor-docs/js/featherlight.min.js?1623396556></script><script src=/velociraptor-docs/js/highlight.pack.js?1623396556></script><script>hljs.initHighlightingOnLoad()</script><script src=/velociraptor-docs/js/modernizr.custom-3.6.0.js?1623396556></script><script src=/velociraptor-docs/js/learn.js?1623396556></script><script src=/velociraptor-docs/js/hugo-learn.js?1623396556></script></body></html>
