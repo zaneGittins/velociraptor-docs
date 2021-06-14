@@ -1,8 +1,8 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>VQL Fundamentals :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1623592977 rel=stylesheet><link href=/css/fontawesome-all.min.css?1623592977 rel=stylesheet><link href=/css/hybrid.css?1623592977 rel=stylesheet><link href=/css/featherlight.min.css?1623592977 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1623592977 rel=stylesheet><link href=/css/auto-complete.css?1623592977 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1623592977 rel=stylesheet><link href=/css/theme.css?1623592977 rel=stylesheet><link href=/css/tabs.css?1623592977 rel=stylesheet><link href=/css/hugo-theme.css?1623592977 rel=stylesheet><link href=/css/theme-mine.css?1623592977 rel=stylesheet><link href=/css/atom-one-light.css?1623592977 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1623592977></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/vql/><nav id=sidebar><div id=header-wrapper><div id=header><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/overview/ title="Velociraptor Overview" class=dd-item><a href=/overview/>Velociraptor Overview</a><ul><li data-nav-id=/overview/history/ title=History class=dd-item><a href=/overview/history/>History</a></li><li data-nav-id=/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/overview/deployment/resources/ title=Performance class=dd-item><a href=/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/gui/ title="The Admin GUI" class=dd-item><a href=/gui/>The Admin GUI</a><ul><li data-nav-id=/gui/clients/ title="Inspecting clients" class=dd-item><a href=/gui/clients/>Inspecting clients</a></li><li data-nav-id=/gui/vfs/ title="The VFS" class=dd-item><a href=/gui/vfs/>The VFS</a></li><li data-nav-id=/gui/artifacts/ title=Artifacts class=dd-item><a href=/gui/artifacts/>Artifacts</a></li><li data-nav-id=/gui/hunting/ title=Hunting class=dd-item><a href=/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/vql/ title="VQL Fundamentals" class="dd-item
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>VQL Fundamentals :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1623693523 rel=stylesheet><link href=/css/fontawesome-all.min.css?1623693523 rel=stylesheet><link href=/css/hybrid.css?1623693523 rel=stylesheet><link href=/css/featherlight.min.css?1623693523 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1623693523 rel=stylesheet><link href=/css/auto-complete.css?1623693523 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1623693523 rel=stylesheet><link href=/css/theme.css?1623693523 rel=stylesheet><link href=/css/tabs.css?1623693523 rel=stylesheet><link href=/css/hugo-theme.css?1623693523 rel=stylesheet><link href=/css/theme-mine.css?1623693523 rel=stylesheet><link href=/css/atom-one-light.css?1623693523 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1623693523 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1623693523></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/vql/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){alert("Switch to dark mode")}</script><div class="btn btn-default ThemeSelector" onclick=darkmode()><i class="fas fa-moon"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/overview/ title="Velociraptor Overview" class=dd-item><a href=/overview/>Velociraptor Overview</a><ul><li data-nav-id=/overview/history/ title=History class=dd-item><a href=/overview/history/>History</a></li><li data-nav-id=/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/overview/deployment/resources/ title=Performance class=dd-item><a href=/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/gui/ title="The Admin GUI" class=dd-item><a href=/gui/>The Admin GUI</a><ul><li data-nav-id=/gui/clients/ title="Inspecting clients" class=dd-item><a href=/gui/clients/>Inspecting clients</a></li><li data-nav-id=/gui/vfs/ title="The VFS" class=dd-item><a href=/gui/vfs/>The VFS</a></li><li data-nav-id=/gui/artifacts/ title=Artifacts class=dd-item><a href=/gui/artifacts/>Artifacts</a></li><li data-nav-id=/gui/hunting/ title=Hunting class=dd-item><a href=/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/vql/ title="VQL Fundamentals" class="dd-item
 parent
-active"><a href=/vql/>VQL Fundamentals</a><ul><li data-nav-id=/vql/notebooks/ title=Notebooks class=dd-item><a href=/vql/notebooks/>Notebooks</a></li></ul></li><li data-nav-id=/blog/ title="Velociraptor Blog" class=dd-item><a href=/blog/>Velociraptor Blog</a><ul><li data-nav-id=/blog/2021/ title=2021 class=dd-item><a href=/blog/2021/>2021</a><ul><li data-nav-id=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li><li data-nav-id=/blog/2020/ title=2020 class=dd-item><a href=/blog/2020/>2020</a><ul><li data-nav-id=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/blog/2019/ title=2019 class=dd-item><a href=/blog/2019/>2019</a><ul><li data-nav-id=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+active"><a href=/vql/>VQL Fundamentals</a><ul><li data-nav-id=/vql/notebooks/ title=Notebooks class=dd-item><a href=/vql/notebooks/>Notebooks</a></li><li data-nav-id=/vql/artifacts/ title=Artifacts class=dd-item><a href=/vql/artifacts/>Artifacts</a></li></ul></li><li data-nav-id=/vql_reference/ title="VQL Reference" class=dd-item><a href=/vql_reference/>VQL Reference</a><ul><li data-nav-id=/vql_reference/basic/ title="Basic VQL functions and plugins" class=dd-item><a href=/vql_reference/basic/>Basic VQL</a></li><li data-nav-id=/vql_reference/windows/ title="Windows Specific Functionality" class=dd-item><a href=/vql_reference/windows/>Windows</a></li><li data-nav-id=/vql_reference/parsers/ title="Parsers and data extractors" class=dd-item><a href=/vql_reference/parsers/>Parsers</a></li><li data-nav-id=/vql_reference/server/ title="Server Side Functionality" class=dd-item><a href=/vql_reference/server/>Server</a></li><li data-nav-id=/vql_reference/plugin/ title="Client Side Functionality" class=dd-item><a href=/vql_reference/plugin/>Client</a></li><li data-nav-id=/vql_reference/event/ title="Event Plugins" class=dd-item><a href=/vql_reference/event/>Event Plugins</a></li><li data-nav-id=/vql_reference/experimental/ title="Experimental Functionality" class=dd-item><a href=/vql_reference/experimental/>Experimental</a></li></ul></li><li data-nav-id=/blog/ title="Velociraptor Blog" class=dd-item><a href=/blog/>Velociraptor Blog</a><ul><li data-nav-id=/blog/2021/ title=2021 class=dd-item><a href=/blog/2021/>2021</a><ul><li data-nav-id=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li><li data-nav-id=/blog/2020/ title=2020 class=dd-item><a href=/blog/2020/>2020</a><ul><li data-nav-id=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/blog/2019/ title=2019 class=dd-item><a href=/blog/2019/>2019</a><ul><li data-nav-id=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://docs.velociraptor.app/search><i class="fas fa-search"></i> Search</a></li><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i> Github repo</a></li></ul></section><section id=footer><p>Built with <a href=https://github.com/matcornic/hugo-theme-learn><i class="fas fa-heart"></i></a> from <a href=https://getgrav.org>Grav</a> and <a href=https://gohugo.io/>Hugo</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>VQL Fundamentals</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#why-a-query-language>Why a query language?</a></li><li><a href=#running-vql-queries---notebooks>Running VQL queries - Notebooks</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>VQL Fundamentals</h1><p>We have previously seen that VQL is a central feature in
+<span class=links>VQL Fundamentals</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#why-a-query-language>Why a query language?</a></li><li><a href=#running-vql-queries---notebooks>Running VQL queries - Notebooks</a></li><li><a href=#basic-syntax>Basic Syntax</a><ul><li><a href=#plugins>Plugins</a></li><li><a href=#life-of-a-query>Life of a query</a></li><li><a href=#lazy-evaluation>Lazy Evaluation</a></li><li><a href=#what-is-a-scope>What is a Scope?</a></li><li><a href=#string-constants>String constants</a></li><li><a href=#subqueries>Subqueries</a></li><li><a href=#arrays>Arrays</a></li><li><a href=#the-scope-plugin>The scope() plugin</a></li></ul></li><li><a href=#the-foreach-plugin>The Foreach plugin</a><ul><li><a href=#foreach-on-steroids>Foreach on steroids!</a></li></ul></li><li><a href=#let-expressions>LET expressions</a><ul><li><a href=#let-expressions-are-lazy>LET expressions are lazy</a></li><li><a href=#materialized-let-expressions>Materialized LET expressions</a></li></ul></li><li><a href=#local-functions>Local functions</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>VQL Fundamentals</h1><p>We have previously seen that VQL is a central feature in
 Velociraptor. In fact Velociraptor can be thought of as essentially a
 VQL evaluation engine, so VQL is central to understanding and
 extending Velociraptor.</p><h2 id=why-a-query-language>Why a query language?</h2><p>The need for a query language arose from our experience of previous
@@ -21,263 +21,242 @@ indicators and detection techniques.</p><h2 id=running-vql-queries---notebooks>R
 it easy to debug and iterate through the VQL, while interactively
 testing each query.</p><p>You can read more about notebooks <a href=notebooks>here</a>. For the rest of
 this chapter we will assume you created a notebook and are typing VQL
-into the cell.</p><p>Running VQL queries
-Velociraptor is a query engine. There are a number of ways we can evaluate queries
-Command line (velociraptor query)
-Command line via an artifact (velociraptor artifacts collect)
-Client/Server across the network (schedule artifact collection in GUI)
-Inside the notebook
-5
-SELECT * FROM info()</p><p>Command line VQL
-The VQL query is provided directly on the command line - need to escape quotes!</p><p>6
-Use the -v flag to log messages to console</p><p>Command line Artifact
-7
-Use an editor to write a local artifact file</p><p>Client/Server artifact collection
-8
-Use the GUI to add a custom artifact. You can then collect the artifact at any time</p><p>Client/Server artifact collection
-9</p><p>The notebook - an interactive document
-10
-Notebook consist of cells. Click the cell to see its controls.</p><p>11
-VQL cells evaluate the VQL into a table and write any error messages or logs under the table.</p><p>Completes plugin names
-12</p><p>Suggests plugin args
-Type ? to show all relevant completions. It also shows documentation for each option.
-13</p><p>14
-Create a local server
-It is possible to use the notebook to learn and experiment with artifacts.</p><p>Create a local server on your windows system.</p><p>We will use this server&rsquo;s notebook feature to learn about windows artifacts</p><p>Run Velociraptor on your machine
-Download Velociraptor from GitHub (.msi or .exe)</p><p>&ldquo;C:\program files\Velociraptor\Velociraptor.exe&rdquo; gui
-15</p><p>16</p><p>17
-The &ldquo;gui&rdquo; command creates an instant temporary server/client with self signed SSL and a hard coded admin/password.</p><p>18</p><p>19</p><p>20
-Add VQL Cell
-Write Query and click Save button. GUI will autosuggest to help with the query.
-VQL queries are just tables with rows and columns.</p><p>What is VQL?
-21
-SELECT X, Y, Z FROM plugin(arg=1) WHERE X = 1
-Column Selectors
-VQL Plugin with Args
-Filter Condition</p><p>Plugins
-Plugins are generators of rows
-Plugins accept keyword arguments
-Arguments are strongly typed.
-Some arguments are required, some are optional - check the reference to see what is available (VQL will complain!).
-Arguments can be other queries (or stored queries)
-A row is a map of keys (string) and values (objects)
-Values can have many types
-Strings, bytes, int64, float64, dicts, arrays
-22</p><p>Life of a query
-23
-SELECT X FROM plugin(arg=1) WHERE X = 1
-Row
-Evaluate the plugin to produce a row
-Row
-Wrap the row with a lazy evaluator for each column. Place the column in the filter scope.
-X
-Row
-X
-= 1
-Evaluate the filter clause. If it is true the row will be emitted to the result set.
-{“x”: 1}
-Emit row to result set (JSON)
-Plugin
-Column Expression
-Filter
-Result Set</p><p>Lazy Evaluators
-Since many VQL functions can be expensive or have side effects it is critical to understand when they will be evaluated (i.e. when they will run).</p><p>A good function is the log() function which outputs a log when it gets evaluated.
-24</p><p>Exercise
-25
-Evaluating the log() function returns true and logs the message in the query log.</p><p>Log function is not evaluated for filtered rows
-When the Log variable is mentioned in the filter condition, it will be evaluated only if necessary!
-We can use this property to control when expensive functions are evaluated
-e.g. hash(), upload()
-26</p><p>What is a Scope?
-A scope is a bag of names that is used to resolve variables, functions and plugins in the query.</p><p>VQL sees “info” as a plugin and looks in the scope to get the real implementation
-27
-SELECT OS FROM info()
-Scope</p><p>info: InfoPlugin()
-….</p><p>Nested Scopes
-Scopes can nest - this allows sub-scopes to mask names of parent scopes.</p><p>VQL will walk the scope stack in reverse to resolve a name.
-28
-SELECT OS FROM info()
-Parent Scope
-Sub Scope + Row
-OS</p><p>Scope exercise
-When a symbol is not found, Velociraptor will emit a warning and dump the current scope’s nesting level.</p><p>Depending on where in the query the lookup failed, you will get different scopes!</p><p>The top level scope can be populated via the “environment” (&ndash;env flag) or artifact parameters
-29</p><p>Scope exercise
-Query can refer to query environment variables. On the commandline these are injected via the &ndash;env flag.
-30</p><p>31</p><p>VQL Syntax
-Strings denoted by " or ' (escape special characters)
-Multiline raw string is denoted by ''' (three single quotes)</p><p>Subquery delimited by {}</p><p>Arrays delimited by () or []
-You can use (XXX, ) to keep an array distinct from (XXX)
-32</p><p>The foreach plugin
-VQL does not have a JOIN operator, instead we have the foreach() plugin.</p><p>This plugin runs one query (given by the rows arg), then for each row emitted, it builds a new scope in which to evaluate another query (given by the query arg).
-33</p><p>34</p><p>35
-SELECT * FROM foreach(
-row={
-SELECT Exe FROM pslist(pid=getpid())
-},
-query={
-SELECT ModTime, Size, FullPath FROM stat(filename=Exe)
-})</p><p>Note how “Exe” is resolved from the produced row since the query is evaluated within the nested scope.</p><p>36
-Foreach on steroids!
-Normally foreach iterates over each row one at a time.
-The foreach() plugin also takes the workers parameter. If this is larger than 1, foreach() will use multiple threads.</p><p>This allows to parallelize the query!</p><p>Exercise: Hash all files
-SELECT FullPath, hash(path=FullPath)
-FROM glob(globs=&ldquo;C:/Windows/system32/*")
-WHERE NOT IsDir</p><p>37</p><p>Faster hashing!
-38</p><p>Convert the previous query to a multi-threaded query using foreach.</p><p>Solution
-39</p><p>40
-LET expressions
-A stored query is a lazy evaluator of a query which we can store in the scope.
-Where-ever the stored query is used it will be evaluated on demand.</p><p>LET expressions are more readable
-LET myprocess = SELECT Exe FROM pslist(pid=getpid())</p><p>LET mystat = SELECT ModTime, Size, FullPath
-FROM stat(filename=Exe)</p><p>SELECT * FROM foreach(row=myprocess, query=mystat)</p><p>Note these are 3 different queries sharing the same scope!
-41</p><p>LET expressions are lazy
-Calling pslist() by itself will return all processes.
-The foreach query will quit after 5 rows due to the limit clause
-This cancels the query as soon as we have enough rows!
-Early exit for expensive plugins
-42</p><p>Materialized LET expressions
-Sometimes we do not want a lazy expression! VQL calls a query that is expanded in memory materialized</p><p>Slow approach:</p><p>43</p><p>Materialized LET expressions
-Materialize the query with &lt;= operator</p><p>Faster approach:</p><p>All the rows are
-expanded into
-memory</p><p>44</p><p>Materialized LET expressions
-Memoize means to remember the results of a query in advance</p><p>Fastest:</p><p>45</p><p>Local functions
-LET expressions can declare parameters.</p><p>This is useful for refactoring functions into their own queries.</p><p>The callsite still uses named args to populate the scope.
-46</p><p>Protocols - VQL operators
-VQL syntax is inspired by Python :-)
-Objects within VQL are strongly typed but dynamic
-Operators interact with objects via “Protocols”
-This means that different objects may do different things for different operators - usually they make sense
-If a protocol is not found, VQL substitutes a NULL - VQL does not abort the query!
-47</p><p>Protocol exercise
-Enable &ndash;trace_vql together with the -v flag to see a full analysis of the VQL query.
-48</p><p>Plugin reference
-VQL is a glue language
-It is quite capable but it is not designed to be able to implement arbitrary algorithms
-It relies on VQL plugins and functions to do the heavy lifting while VQL combines high level logic
-There is a plugin reference on the web site
-Distinction between plugin and funcion
-Search for plugins
-Note required args and their types
-49</p><p>50</p><p>51
-Reference in machine readable YAML is in the GitHub tree.</p><p>52
-Writing VQL for fun and profit!</p><p>53
-Learn by example: wmi shell
-A common attacker technique is to run remote command shell.</p><p>Try it yourself:
-wmic process call create cmd.exe</p><p>Let&rsquo;s write an artifact that detects cmd.exe launched from WMI
-wmic process call create cmd.exe</p><p>Start small - list processes
-54</p><p>See the raw output
-55
-The Raw JSON shows us what data is available for further VQL processing.</p><p>Refine - Filter by name
-56
-The regular expression match operator is =~
-SELECT * FROM pslist()
-WHERE Name =~ &lsquo;cmd.exe&rsquo;
-LIMIT 5</p><p>Subquery - find parent process
-57</p><p>SELECT *, {
-SELECT * FROM pslist(pid=Ppid)
-} As Parent
-FROM pslist()
-WHERE Name =~ &lsquo;cmd.exe&rsquo;
-LIMIT 5</p><p>Processes spawned by WMI
-58</p><p>SELECT Name, Pid, Username, CommandLine, {
-SELECT Name, Pid FROM pslist(pid=Ppid)
-} As Parent
-FROM pslist()
-WHERE Name =~ &lsquo;cmd.exe&rsquo; AND Parent.Name =~ &ldquo;Wmi&rdquo;
-LIMIT 5</p><p>Exercise: Enrich netstat
-Show extra information on all listening processes, including:
-Binary path on disk
-User that launched the process
-Linked DLLs
-Manufacturer if available
-Compile time</p><p>59</p><p>Step 1: Identify listening processes
-60</p><p>Step 2: Lookup the process from Pid
-61</p><p>Step 3: Lookup binary information
-LET listening = SELECT Pid,
-format(format='%v:%v',
-args=[Laddr.IP, Laddr.Port]) AS Laddr
-FROM netstat() WHERE Status = &lsquo;LISTEN&rsquo;</p><p>SELECT Username, Exe, Pid, CreateTime,
-peinfo.VersionInformation AS VersionInformation,
-peinfo.TimeDateStamp AS CompileTime, Laddr
-FROM foreach(row=listening, query={
-SELECT Username, Exe, Pid, CreateTime,
-parse_pe(file=Exe) AS peinfo,
-Laddr
-FROM pslist(pid=Pid)
-})
-62</p><p>63</p><p>64
-Artifacts: VQL modules</p><p>Artifacts are VQL modules
-VQL is very powerful but it is hard to remember and type a query each time.</p><p>An Artifact is a way to document and reuse VQL queries
-Artifacts are geared towards collection of a single type of information</p><p>Artifacts accept parameters with default values.
-65</p><p>66</p><p>67
-Main parts of an artifact
-Name: We can select artifacts by their name
-Description: Human readable context around the purpose
-Parameters: A set of parameters with default values which users can override (Note - All parameters are passed as strings)
-Sources: Each source represents a single result table. Artifacts may have many sources in which case sources are named.
-Query: Velociraptor runs the entire query using the same scope. The last query MUST be a SELECT and the others MUST be LET.</p><p>68</p><p>69
-Parameters
-Artifact parameters are sent to the client as strings
-The client automatically parses them into a VQL type depending on the parameter&rsquo;s type specification.
-The GUI uses type specification to render an appropriate UI</p><p>Parameter types
-Currently these are supported:
-int, integer: The parameter is an integer
-timestamp: The parameter is a timestamp
-csv: Parameter appears as a list of dicts formatted as a CSV
-json: Parameter is a JSON encoded dict
-json_array: The parameter is a list of dicts encoded as a JSON blob (similar to csv)
-bool: The parameter is a boolean (TRUE/YES/Y/OK)</p><p>70</p><p>71
-Exercise: Create an artifact
-Convert our previous VQL to an artifact. Developing artifacts is easy to do:
-Go to the View Artifacts screen
-Select Add new artifact
-Modify the template, paste your VQL in it.
-When you save the artifact the artifact will be ready for collection.</p><p>72
-Make a WMI Subprocess artifact
-We generally want to make artifacts reusable:</p><p>Artifacts take parameters that users can customized when collecting
-The parameters should have obvious defaults
-Artifacts have precondition queries that determine if the artifact will run on the endpoint.
-Description field is searchable so make it discoverable&mldr;</p><p>73
-name: Custom.Windows.Detection.WmiSubprocess
-description: |
-Detect processes spawned from WMI</p><h1 id=can-be-client-client_event-server-server_event>Can be CLIENT, CLIENT_EVENT, SERVER, SERVER_EVENT</h1><p>type: CLIENT</p><p>parameters:</p><ul><li>name: ProcessName
-default: cmd.exe</li></ul><p>sources:</p><ul><li><p>precondition:
-SELECT OS From info() where OS = &lsquo;windows&rsquo; OR OS = &lsquo;linux&rsquo; OR OS = &lsquo;darwin&rsquo;</p><p>query: |
-SELECT Name, Pid, Username, CommandLine, {
-SELECT Name, Pid FROM pslist(pid=Ppid)
-} As Parent
-FROM pslist()
-WHERE Name =~ ProcessName AND Parent.Name =~ &ldquo;Wmi&rdquo;</p></li></ul><p>74
-Your artifact is ready to collect
-Let&rsquo;s create a hunt to find all currently running command shells from wmi across our entire deployment.</p><p>Find out in seconds&mldr;
-75</p><p>Artifact writing tips
-Use the notebook to write VQL on the target platform.
-Start small - one query at a time
-Inspect the result, figure out what information is available - refine
-Use LET stored queries generously.
-You can essentially comment out queries by using LET - eg.
-LET X = SELECT * FROM pslist()
-LET Y = SELECT * FROM netstat()
-SELECT * FROM X
-76
-Will not run since Y is lazy</p><p>Artifact writing tips
-Use the log() VQL function to provide print debugging.
-Use format(format="%T %v&rdquo;, args=[X, X]) to learn about a value&rsquo;s type and value
-77</p><p>Calling artifacts from VQL
-You can call other artifacts from your own VQL using the
-“Artifact.<artifact name>” plugin notation.
-Args to the Artifact() plugin are passed as artifact parameters.</p><p>78
-When calling artifacts types are not converted. Make sure you pass the expected types</p><p>VQL and times
-Inside the VQL query, variables have strong types. Usually a type is a dict but sometimes it is a something else (Use format="%T")
-Timestamps are given as time.Time types. They have some common methods. VQL can call any method that does not take args:
-Unix, UnixNano - number of seconds since the epoch
-Day, Minute, Month etc - convert time to days minutes etc.
-Timestamps compare to strings&mldr;</p><p>When times are serialized to JSON they get ISO format strings in UTC.
-79</p><p>VQL and times
-To convert to a time type use the timestamp() VQL function
-Takes an epoch or string arg - can be a string or int - tries to do the right thing.</p><p>Use the now() function to get the current epoch offset</p><p>80</p><p>Exercise: Identify recent accounts
-Write an artifact to identify local accounts logged in since February</p><p>81
-Use the timestamp() function to parse times from seconds, strings, winfiletime etc.</p><p>Format time</p><p>Format time like 4 February 2021 10:23:00</p><p>82</p><p>83</p><p>Scope lifetime and tempfile()
+into the cell.</p><h2 id=basic-syntax>Basic Syntax</h2><p>VQL&rsquo;s syntax is heavily inspired by SQL with the same basic <code>SELECT .. FROM .. WHERE</code> sentence structure. However, VQL is much simpler
+than SQL, ignoring more complex SQL syntax such as <code>JOIN</code>, <code>HAVING</code>
+etc. Instead similar functionality is provided in VQL by way of
+plugins, and not built in syntax. This keeps the syntax simple and
+concise.</p><p>Let&rsquo;s consider the basic syntax of a VQL query.</p><p><img src=vql_structure.png alt="Basic syntax"></p><p>The query starts with a SELECT keyword, followed by a list of <code>Column Selectors</code> then the <code>FROM</code> keyword and a <code>VQL Plugin</code> potentially
+taking arguments. Finally we have a <code>WHERE</code> keyword followed by a
+filter expression.</p><h3 id=plugins>Plugins</h3><p>While VQL syntax is similar to SQL, SQL was designed to work on static
+tables in a database. In VQL, the data sources are not actually static
+tables on disk - they are provided by code that runs to generate
+rows. <code>VQL Plugins</code> are producers of rows and are positioned after the
+<code>FROM</code> clause.</p><p>Like all code, VQL plugins may use parameters to customize and control
+their operations. VQL Syntax requires all arguments to be provided by
+name (these are called keyword arguments). Depending on the specific
+plugins, some arguments are required while some are optional.</p><div class="mynotices tip"><div><p>While you can always consult the reference on VQL plugins, the best
+source of help is to type <code>?</code> in the notebook interace to view the
+list of possible completions. Completions are context sensitive so
+after the <code>FROM</code> keyword, all suggestions are for VQL plugins (since
+plugins must follow the <code>FROM</code> keyword). Similarly typing <code>?</code> inside
+the plugin arguments list shows the possible arguments expected, their
+type and if they are required or optional.</p><p><img src=completion.png alt="VQL Plugin Completions"></p><p><img src=completion2.png alt="VQL Plugin Completions"></p></div></div><h3 id=life-of-a-query>Life of a query</h3><p>In order to understand how VQL works, let&rsquo;s follow a single row through the query.</p><p><img src=life_of_a_query.png alt="Life of a query"></p><ol><li><p>Velociraptor&rsquo;s VQL engine starts off by calling the plugin passing
+any relevant arguments into it. The plugin will generate one or
+more rows and send a row at a time into the query for further
+processing.</p></li><li><p>The column expression in the query will now receive the
+row. However, instead of evaluating the column expression
+immediately, VQL wraps the column expression in a <code>Lazy Evaluator</code>. Lazy evaluators allow the actual evaluation of the
+column expression to be delayed until a later time.</p></li><li><p>Next VQL takes the lazy expressions and uses them to evaluate the
+filter condition - which will determine if the row is to be
+eliminated or passed on.</p></li><li><p>In this example, the filter condition (<code>X=1</code>) must evaluate the
+value of X and therefore will trigger the Lazy Evaluator.</p></li><li><p>Assuming X is indeed 1, the filter will return TRUE and the row
+will be emitted from the query.</p></li></ol><h3 id=lazy-evaluation>Lazy Evaluation</h3><p>In the above description we can see that a lot of effort was put into
+the VQL engine in order to postpone evaluation as late as
+possible. This is a recurring theme in VQL which always tries to
+postpone evaluation. Why is this done?</p><p>The main reason for delaying evaluation as much as possible is to
+avoid performing unnecessary work. There is no point in evaluating a
+column value if the entire row will be filtered out!</p><p>Understanding lazy evaluation is critical to writing efficient VQL
+queries. Let&rsquo;s examine how this work using a series of
+experiments. For these experiments we will use the <code>log()</code> VQL
+function, which simply produces a log message when evaluated.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#408080;font-style:italic>-- Case 1: One row and one log message
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>OS,<span style=color:#bbb> </span>log(message<span style=color:#666>=</span><span style=color:#ba2121>&#34;I Ran!&#34;</span>)<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>Log<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>info()<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:#408080;font-style:italic>-- Case 2: No rows and no log messages
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>OS,<span style=color:#bbb> </span>log(message<span style=color:#666>=</span><span style=color:#ba2121>&#34;I Ran!&#34;</span>)<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>Log<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>info()<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span>OS<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:#ba2121>&#34;Unknown&#34;</span><span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:#408080;font-style:italic>-- Case 3: Log message but no rows
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>OS,<span style=color:#bbb> </span>log(message<span style=color:#666>=</span><span style=color:#ba2121>&#34;I Ran!&#34;</span>)<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>Log<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>info()<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span>Log<span style=color:#bbb> </span><span style=color:green;font-weight:700>AND</span><span style=color:#bbb> </span>OS<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:#ba2121>&#34;Unknown&#34;</span><span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:#408080;font-style:italic>-- Case 4: No rows and no log messages
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>OS,<span style=color:#bbb> </span>log(message<span style=color:#666>=</span><span style=color:#ba2121>&#34;I Ran!&#34;</span>)<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>Log<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>info()<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span>OS<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:#ba2121>&#34;Unknown&#34;</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>AND</span><span style=color:#bbb> </span>Log<span style=color:#bbb>
+</span></code></pre></div><p>Let&rsquo;s consider case 1 above, the row will be emitted by the query and
+therefore the log function will be evaluated producing a log message.</p><p>Case 2 adds a condition which should eliminate the row. <strong>Because the
+row is eliminated VQL is able to skip evaluation of the log()
+function!</strong> No log message will be produced.</p><p>Cases 3 and 4 illustrate VQL&rsquo;s evaluation order of <code>AND</code> terms - from
+left to right with an early exit.</p><p>We can use this property to control when expensive functions are
+evaluated e.g. <code>hash()</code> or <code>upload()</code>.</p><h3 id=what-is-a-scope>What is a Scope?</h3><p>Scope is a concept common in many languages, and it is also central in
+VQL. A scope is a bag of names that is used to resolve symbols,
+functions and plugins in the query.</p><p>For example, consider the query</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>OS<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>info()<span style=color:#bbb>
+</span></code></pre></div><p>VQL sees “info” as a plugin and looks in the scope to get the real
+implementation of the plugin.</p><p>Scopes can nest - this means that in different parts of the query a
+new child scope is used to evaluate the query. The child scope is
+constructed by layering a new set of names over the top of the
+previous set. When VQL tries to resolve a name, it looks up the scope
+in reverse order going from layer to layer until the symbol is
+resolved.</p><p>Take the following query for example,</p><p><img src=scope.png alt="Scope lookup"></p><p>VQL evaluates the <code>info()</code> plugin which emits a single row. Then VQL
+creates a child scope, with the row at the bottom level. Whe VQL tries
+to resolve the symbol OS from the column expression, it walks the
+scope stack in reverse, checking if the symbol <code>OS</code> exists in the
+lower layer. If not the next layer is checked and so on.</p><div class="mynotices warning"><div><p>Columns produced by a plugin are added to the child scope and
+therefore <strong>mask</strong> the same symbol name from parent scopes. This can
+sometimes unintentionally hide variables of the same name which are
+defined at a parent scope. If you find this happens to your query you
+can rename easlier symbol using the <code>AS</code> keyword to avoid this
+problem. For example:</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Pid,<span style=color:#bbb> </span>Name,<span style=color:#bbb> </span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Name<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist(pid<span style=color:#666>=</span>Ppid)<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>ParentName<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist()<span style=color:#bbb>
+</span></code></pre></div><p>In this query the symbol <code>Name</code> in the outer query will be resolved
+from the rows emitted by <code>pslist()</code> but the second <code>Name</code> will be
+resolved from the row emitted by <code>pslist(pid=Ppid)</code> - or in other
+words, the parent&rsquo;s name.</p></div></div><h3 id=string-constants>String constants</h3><p>Strings denoted by <code>"</code> or <code>'</code> can escape special characters using the
+<code>\\</code>. For example, <code>"\\n"</code> means a new line. This is useful but it
+also means that backslashes need to be escaped. This is sometimes
+inconvenient, especially when dealing with Windows paths (that
+contains alot of backslashes).</p><p>Therefore, Velociraptor also offers a Multiline raw string which is
+denoted by <code>'''</code> (three single quotes). Within this type of string no
+escaping is possible, and the all characters are treated literally -
+including new lines. You can use <code>'''</code> to denote multi line strings.</p><h3 id=subqueries>Subqueries</h3><p>VQL Subqueries can be specified as a column expression or as an
+arguments. Subqueries are delimited by <code>{</code> and <code>}</code>. Subqueries are
+also Lazily evaluated, and will only be evaluated when necessary.</p><h3 id=arrays>Arrays</h3><p>An array may be defined either by <code>(</code> and <code>)</code> or <code>[</code> and <code>]</code>. Since it
+can be confusing to tell regular parenthesis from an array with a
+single element, VQL also allows a trailing comma to indicate a single
+element array. For example <code>(1, )</code> means an array with one member,
+whereas <code>(1)</code> means a single value of 1.</p><h3 id=the-scope-plugin>The scope() plugin</h3><p>VQL is strict about the syntax of a VQL statement. Each statement must
+have a plugin specified, however sometimes we dont really want to
+select from any plugin at all.</p><p>The default noop plugin is called <code>scope()</code> and simply returns the
+current scope as a single row. If you even need to write a query but
+do not want to actually run a plugin, use <code>scope()</code> as a noop
+plugin. For example</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#408080;font-style:italic>-- Returns one row with Value=4
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>2</span><span style=color:#bbb> </span><span style=color:#666>+</span><span style=color:#bbb> </span><span style=color:#666>2</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>Value<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>scope</span>()<span style=color:#bbb>
+</span></code></pre></div><h2 id=the-foreach-plugin>The Foreach plugin</h2><p>VQL is modeled on basic SQL since SQL is a familiar language for new
+users to pick up. However, SQL quickly becomes more complex with very
+subtle syntax that only experienced SQL users use regularly. One of
+the more complex aspects of SQL is the <code>JOIN</code> operator which typically
+comes in multiple flavors with subtle differences (INNER JOIN, OUTER
+JOIN, CROSS JOIN etc).</p><p>While these make sense for SQL since they affect the way indexes are
+used in the query, VQL does not have table indexes, nor does it have
+any tables. Therefore the <code>JOIN</code> operator is meaningless for
+Velociraptor. To keep VQL simple and accessible, we specifically did
+not implement a <code>JOIN</code> operator.</p><p>Instead of a <code>JOIN</code> operator, VQL has the <code>foreach()</code> plugin, which is
+probably the most commonly used plugin in VQL queries. The <code>foreach()</code>
+plugin takes two arguments:</p><ol><li><p>The <code>row</code> parameter is a subquery that provides rows</p></li><li><p>The <code>query</code> parameter is a subquery that will be evaluated on a
+subscope containing each row that is emitted by the <code>row</code> argument.</p></li></ol><p>Consider the following query.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>foreach(<span style=color:#bbb>
+</span><span style=color:#bbb>    </span><span style=color:green;font-weight:700>row</span><span style=color:#666>=</span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>        </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Exe<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist(pid<span style=color:#666>=</span>getpid())<span style=color:#bbb>
+</span><span style=color:#bbb>    </span><span>}</span>,<span style=color:#bbb>
+</span><span style=color:#bbb>    </span>query<span style=color:#666>=</span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>        </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>ModTime,<span style=color:#bbb> </span><span style=color:green;font-weight:700>Size</span>,<span style=color:#bbb> </span>FullPath<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>stat(filename<span style=color:#666>=</span>Exe)<span style=color:#bbb>
+</span><span style=color:#bbb>    </span><span>}</span>)<span style=color:#bbb>
+</span></code></pre></div><p>Note how <code>Exe</code> is resolved from the produced row since the query is
+evaluated within the nested scope.</p><p>Foreach is useful when we want to run a query on the output of another
+query.</p><h3 id=foreach-on-steroids>Foreach on steroids!</h3><p>Normally foreach iterates over each row one at a time. The
+<code>foreach()</code> plugin also takes the workers parameter. If this is larger
+than 1, <code>foreach()</code> will use multiple threads and evaluate the <code>query</code>
+query in each worker thread.</p><p>This allows to parallelize the query!</p><p>For example consider the following query, which retrieves all the
+files in the System32 directory and calculates their hash.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>FullPath,<span style=color:#bbb> </span>hash(path<span style=color:#666>=</span>FullPath)<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span><span style=color:#ba2121>&#34;C:/Windows/system32/*&#34;</span>)<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>NOT</span><span style=color:#bbb> </span>IsDir<span style=color:#bbb>
+</span></code></pre></div><p>As each row is emitted from the <code>glob()</code> plugin with a filename of a
+file, the <code>hash()</code> function is evaluated on it and the hash is
+calculated.</p><p>However this is linear, since each hash is calculated before the next
+hash is started - hence only one hash is calculated at once.</p><p>This example is very suitable for parallelization because globling for
+all files is quite fast, but the slow part is hashing the
+files. Therefore, if we delegate the hashing to multiple threads, we
+can make more effective use of the CPU.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>foreach(<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>row</span><span style=color:#666>=</span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>FullPath<span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span><span style=color:#ba2121>&#34;C:/Windows/system32/*&#34;</span>)<span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>NOT</span><span style=color:#bbb> </span>IsDir<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span>,<span style=color:#bbb> </span>query<span style=color:#666>=</span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>FullPath,<span style=color:#bbb> </span>hash(path<span style=color:#666>=</span>FullPath)<span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>scope</span>()<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span>,<span style=color:#bbb> </span>worker<span style=color:#666>=</span><span style=color:#666>10</span>)<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span></code></pre></div><h2 id=let-expressions>LET expressions</h2><p>We have previously seen how subqueries may be used in various parts of
+the query, such as in a column specifier or as an argument to a
+plugin. While subqueries are convenient, they can become unweildy when
+nested too deeply. VQL offers an alternative to subqueries called
+<code>Stored Queries</code>.</p><p>A stored query is a lazy evaluator of a query which we can store in
+the scope. Whereever the stored query is used it will be evaluated on
+demand. Consider the example below, where for each process, we
+evaluate the <code>stat()</code> plugin on the executable to check the
+modification time of the executable file.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>myprocess<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Exe<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist()<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span>LET<span style=color:#bbb> </span>mystat<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>ModTime,<span style=color:#bbb> </span><span style=color:green;font-weight:700>Size</span>,<span style=color:#bbb> </span>FullPath<span style=color:#bbb>
+</span><span style=color:#bbb>        </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>stat(filename<span style=color:#666>=</span>Exe)<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>foreach(<span style=color:green;font-weight:700>row</span><span style=color:#666>=</span>myprocess,<span style=color:#bbb> </span>query<span style=color:#666>=</span>mystat)<span style=color:#bbb>
+</span></code></pre></div><div class="mynotices note"><div><p>A Stored Query is simply a query that is stored into a variable. It is
+not actually evaluated at the point of definition. At the point where
+the query is referred, that is where evaluation occurs. The scope at
+which the query is evaluated is derived from the point of reference!</p><p>For example in the query above, <code>mystat</code> simply stores the query
+itself. Velociraptor will then re-evaluate the <code>mystat</code> query for each
+row given by <code>myprocess</code> as part of the <code>foreach()</code> plugin operation.</p></div></div><h3 id=let-expressions-are-lazy>LET expressions are lazy</h3><p>We have previously seen VQL goes out of its way to do as little work
+as possible.</p><p>Consider the following query</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>myhashes<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>FullPath,<span style=color:#bbb> </span>hash(path<span style=color:#666>=</span>FullPath)<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span><span style=color:#ba2121>&#34;C:/Windows/system32/*&#34;</span>)<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>myhashes<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>LIMIT</span><span style=color:#bbb> </span><span style=color:#666>5</span><span style=color:#bbb>
+</span></code></pre></div><p>The <code>myhashes</code> stored query hashes all files in System32 (many
+thousands of files). However, this query is used in a second query
+with a <code>LIMIT</code> clause.</p><p>When the query emits 5 rows in total, the entire query is cancelled
+(since we do not need any more data) which in turn aborts the
+<code>myhashes</code> query. Therefore, VQL is able to exit early from any query
+without having to wait for the query to complete.</p><p>This is possible because VQL queries are <strong>asynchronous</strong> - we do
+<strong>not</strong> calcaulte the entire result set of <code>myhashes</code> <strong>before</strong> using
+<code>myhashes</code> in another query, we simply pass the query itself and
+forward each row as needed.</p><h3 id=materialized-let-expressions>Materialized LET expressions</h3><p>We saw before that a stored query does not in itself evaluate the
+query. Instead whenever the query is referenced, the query will be
+evaluated afresh.</p><p>Sometimes this is not what we want to do. For example consider a query
+which takes a few seconds to run, but its output is not expected to
+change quickly. In that case, we actually want to cache the results of
+the query in memory and simply access it as an array.</p><p>Expanding a query into an array in memory is termed <code>Materializing</code>
+the query.</p><p>For example, consider the following query that lists all sockets on
+the machine, and attempts to resolve the process id to a process name
+using the <code>pslist()</code> plugin.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>process_lookup<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Pid<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>ProcessPid,<span style=color:#bbb> </span>Name<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist()<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Laddr,<span style=color:#bbb> </span>Status,<span style=color:#bbb> </span>Pid,<span style=color:#bbb> </span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Name<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>process_lookup<span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span>Pid<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span>ProcessPid<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>ProcessName<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>netstat()<span style=color:#bbb>
+</span></code></pre></div><p>This query will be very slow because the <code>process_lookup</code> stored query
+will be re-evaluated for each row returned from netstat (i.e. for each
+socket).</p><p>However we do not expect the process listing to change that quickly!
+It would make more sense to have the process listing cached in memory
+for the entire length of the query. It is not expected to change over
+the few seconds the query will run.</p><p>Therefore we wish to <code>Materialize</code> the query</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>process_lookup<span style=color:#bbb> </span><span style=color:#666>&lt;=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Pid<span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>ProcessPid,<span style=color:#bbb> </span>Name<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist()<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Laddr,<span style=color:#bbb> </span>Status,<span style=color:#bbb> </span>Pid,<span style=color:#bbb> </span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Name<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>process_lookup<span style=color:#bbb>
+</span><span style=color:#bbb>   </span><span style=color:green;font-weight:700>WHERE</span><span style=color:#bbb> </span>Pid<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span>ProcessPid<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>AS</span><span style=color:#bbb> </span>ProcessName<span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>netstat()<span style=color:#bbb>
+</span></code></pre></div><p>The only difference between this query and the previous one is that
+the <code>LET</code> clause uses <code>&lt;=</code> instead of <code>=</code>. The <code>&lt;=</code> is the materialize
+operator - it tells VQL to expand the query in place into an array
+which is then assigned to the variable <code>process_lookup</code>.</p><p>Subsequent accesses to <code>process_lookup</code> simply access an in-memory
+array of pid and name for all processes and <strong>do not</strong> need to run
+<code>pslist()</code> again.</p><h2 id=local-functions>Local functions</h2><p>We have seen how <code>LET</code> expressions may store queries into a variable,
+and have the queries evaluated in a subscope at the point of use.</p><p>A <code>LET</code> expression can also declare explicit passing of
+variables.</p><p>Consider the following example which is identical to the example
+above:</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>myprocess<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>Exe<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>pslist()<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span>LET<span style=color:#bbb> </span>mystat(Exe)<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>ModTime,<span style=color:#bbb> </span><span style=color:green;font-weight:700>Size</span>,<span style=color:#bbb> </span>FullPath<span style=color:#bbb>
+</span><span style=color:#bbb>        </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>stat(filename<span style=color:#666>=</span>Exe)<span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>foreach(<span style=color:green;font-weight:700>row</span><span style=color:#666>=</span>myprocess,<span style=color:#bbb> </span>query<span style=color:#666>=</span><span>{</span><span style=color:#bbb>
+</span><span style=color:#bbb>  </span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>mystat(Exe<span style=color:#666>=</span>Exe)<span style=color:#bbb>
+</span><span style=color:#bbb></span><span>}</span>)<span style=color:#bbb>
+</span></code></pre></div><p>This time <code>mystat</code> is declares as a <code>VQL Local Plugin</code> that
+takes arguments. Therefore we now pass it an parameter explicitly and
+it behaves as a plugin.</p><p>Similarly we can define a <code>VQL Local Function</code>.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>LET<span style=color:#bbb> </span>MyFunc(X)<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span>X<span style=color:#bbb> </span><span style=color:#666>+</span><span style=color:#bbb> </span><span style=color:#666>5</span><span style=color:#bbb>
+</span><span style=color:#bbb>
+</span><span style=color:#bbb></span><span style=color:#408080;font-style:italic>-- Return 11
+</span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span>MyFunc(X<span style=color:#666>=</span><span style=color:#666>6</span>)<span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>scope</span>()<span style=color:#bbb>
+</span></code></pre></div><div class="mynotices tip"><div><p>Remember the difference between a VQL plugin and a VQL function is
+that a plugin returns multiple rows and therefore needs to appear
+between the FROM and WHERE clauses. A function simply takes several
+values and transforms them into a single value.</p></div></div><p>Scope lifetime and tempfile()
 The tempfile() function creates a temporary file and automatically removes it when the scope is destroyed.
 Correct usage:
 84</p><p>Scope lifetime and tempfile()
@@ -376,4 +355,4 @@ We learned about stored queries as a way of pre-compiling a query to be accessed
 107
 We saw how VQL is lazy and will perform the least amount of work necessary to evaluate the query
 We can use this property to control query cost and side effects.
-We learned about some of the most useful VQL plugins (foreach(), switch(), if())</p><p>We learned about event queries and how to use asynchronous VQL queries.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1623592977></script><script src=/js/perfect-scrollbar.min.js?1623592977></script><script src=/js/perfect-scrollbar.jquery.min.js?1623592977></script><script src=/js/jquery.sticky.js?1623592977></script><script src=/js/featherlight.min.js?1623592977></script><script src=/js/highlight.pack.js?1623592977></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1623592977></script><script src=/js/learn.js?1623592977></script><script src=/js/hugo-learn.js?1623592977></script></body></html>
+We learned about some of the most useful VQL plugins (foreach(), switch(), if())</p><p>We learned about event queries and how to use asynchronous VQL queries.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1623693523></script><script src=/js/perfect-scrollbar.min.js?1623693523></script><script src=/js/perfect-scrollbar.jquery.min.js?1623693523></script><script src=/js/jquery.sticky.js?1623693523></script><script src=/js/featherlight.min.js?1623693523></script><script src=/js/highlight.pack.js?1623693523></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1623693523></script><script src=/js/learn.js?1623693523></script><script src=/js/hugo-learn.js?1623693523></script></body></html>
