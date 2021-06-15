@@ -1,0 +1,135 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.83.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Searching Files :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1623769931 rel=stylesheet><link href=/css/fontawesome-all.min.css?1623769931 rel=stylesheet><link href=/css/hybrid.css?1623769931 rel=stylesheet><link href=/css/featherlight.min.css?1623769931 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1623769931 rel=stylesheet><link href=/css/auto-complete.css?1623769931 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1623769931 rel=stylesheet><link href=/css/theme.css?1623769931 rel=stylesheet><link href=/css/tabs.css?1623769931 rel=stylesheet><link href=/css/hugo-theme.css?1623769931 rel=stylesheet><link href=/css/theme-mine.css?1623769931 rel=stylesheet><link href=/css/atom-one-light.css?1623769931 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1623769931 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1623769931></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/forensic/filesystem/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){alert("Switch to dark mode")}</script><div class="btn btn-default ThemeSelector" onclick=darkmode()><i class="fas fa-moon"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=/overview/ title="Velociraptor Overview" class=dd-item><a href=/overview/>Velociraptor Overview</a><ul><li data-nav-id=/overview/history/ title=History class=dd-item><a href=/overview/history/>History</a></li><li data-nav-id=/overview/deployment/ title="Deployment Overview" class=dd-item><a href=/overview/deployment/>Deployment Overview</a><ul><li data-nav-id=/overview/deployment/self-signed/ title="Self Signed SSL" class=dd-item><a href=/overview/deployment/self-signed/>Self Signed SSL</a></li><li data-nav-id=/overview/deployment/cloud/ title="Cloud Deployment" class=dd-item><a href=/overview/deployment/cloud/>Cloud Deployment</a></li><li data-nav-id=/overview/deployment/clients/ title="Deploying Clients" class=dd-item><a href=/overview/deployment/clients/>Deploying Clients</a></li><li data-nav-id=/overview/deployment/rbac/ title="Users and Roles" class=dd-item><a href=/overview/deployment/rbac/>Users and Roles</a></li><li data-nav-id=/overview/deployment/resources/ title=Performance class=dd-item><a href=/overview/deployment/resources/>Performance</a></li></ul></li></ul></li><li data-nav-id=/gui/ title="The Admin GUI" class=dd-item><a href=/gui/>The Admin GUI</a><ul><li data-nav-id=/gui/clients/ title="Inspecting clients" class=dd-item><a href=/gui/clients/>Inspecting clients</a></li><li data-nav-id=/gui/vfs/ title="The VFS" class=dd-item><a href=/gui/vfs/>The VFS</a></li><li data-nav-id=/gui/artifacts/ title=Artifacts class=dd-item><a href=/gui/artifacts/>Artifacts</a></li><li data-nav-id=/gui/hunting/ title=Hunting class=dd-item><a href=/gui/hunting/>Hunting</a></li></ul></li><li data-nav-id=/vql/ title="VQL Fundamentals" class=dd-item><a href=/vql/>VQL Fundamentals</a><ul><li data-nav-id=/vql/notebooks/ title=Notebooks class=dd-item><a href=/vql/notebooks/>Notebooks</a></li><li data-nav-id=/vql/artifacts/ title=Artifacts class=dd-item><a href=/vql/artifacts/>Artifacts</a></li><li data-nav-id=/vql/events/ title="Event Queries" class=dd-item><a href=/vql/events/>Event Queries</a></li></ul></li><li data-nav-id=/forensic/ title="Forensic Analysis" class="dd-item
+parent"><a href=/forensic/>Forensic Analysis</a><ul><li data-nav-id=/forensic/filesystem/ title="Searching Files" class="dd-item
+parent
+active"><a href=/forensic/filesystem/>Searching Files</a></li></ul></li><hr><li data-nav-id=/vql_reference/ title="VQL Reference" class=dd-item><a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a><ul><li data-nav-id=/vql_reference/basic/ title="Basic VQL functions and plugins" class=dd-item><a href=/vql_reference/basic/>Basic VQL</a></li><li data-nav-id=/vql_reference/windows/ title="Windows Specific Functionality" class=dd-item><a href=/vql_reference/windows/>Windows</a></li><li data-nav-id=/vql_reference/parsers/ title="Parsers and data extractors" class=dd-item><a href=/vql_reference/parsers/>Parsers</a></li><li data-nav-id=/vql_reference/server/ title="Server Side Functionality" class=dd-item><a href=/vql_reference/server/>Server</a></li><li data-nav-id=/vql_reference/plugin/ title="Client Side Functionality" class=dd-item><a href=/vql_reference/plugin/>Client</a></li><li data-nav-id=/vql_reference/event/ title="Event Plugins" class=dd-item><a href=/vql_reference/event/>Event Plugins</a></li><li data-nav-id=/vql_reference/experimental/ title="Experimental Functionality" class=dd-item><a href=/vql_reference/experimental/>Experimental</a></li></ul></li><li data-nav-id=/training/ title="Velociraptor Training" class=dd-item><a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></li><li data-nav-id=/blog/ title="Velociraptor Blog" class=dd-item><a href=/blog/><i class="fas fa-newspaper"></i>Blog</a><ul><li data-nav-id=/blog/2021/ title=2021 class=dd-item><a href=/blog/2021/>2021</a><ul><li data-nav-id=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/ title="Concurrent VQL" class=dd-item><a href=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li><li data-nav-id=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/ title="Parsing binary files" class=dd-item><a href=/blog/2021/2021-01-19-parsing-binary-files-d31114a41f14/>Parsing binary files</a></li></ul></li><li data-nav-id=/blog/2020/ title=2020 class=dd-item><a href=/blog/2020/>2020</a><ul><li data-nav-id=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/ title="Slack and Velociraptor" class=dd-item><a href=/blog/2020/2020-12-26-slack-and-velociraptor-b63803ba4b16/>Slack and Velociraptor</a></li><li data-nav-id=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/ title="Velociraptor and OSQuery" class=dd-item><a href=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li><li data-nav-id=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/ title="The Windows USN Journal" class=dd-item><a href=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li><li data-nav-id=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/ title="Velociraptor Communications" class=dd-item><a href=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li><li data-nav-id=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/ title="Velociraptor SSO Authentication" class=dd-item><a href=/blog/2020/2020-08-17-velociraptor-sso-authentication-6dd68d46dccf/>Velociraptor SSO Authentication</a></li><li data-nav-id=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/ title="Profiling the beast" class=dd-item><a href=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li><li data-nav-id=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/ title="Triage with Velociraptor — Pt 4" class=dd-item><a href=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li><li data-nav-id=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/ title="Velociraptor in the tool age" class=dd-item><a href=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li><li data-nav-id=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/ title="The Velociraptor Query Language Pt 2" class=dd-item><a href=/blog/2020/2020-06-19-the-velociraptor-query-language-pt-2-fe92bb7aa150/>The Velociraptor Query Language Pt 2</a></li><li data-nav-id=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/ title="The Velociraptor Query Language Pt 1" class=dd-item><a href=/blog/2020/2020-06-14-the-velociraptor-query-language-pt-1-d721bff100bf/>The Velociraptor Query Language Pt 1</a></li><li data-nav-id=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/ title=Velociraptor class=dd-item><a href=/blog/2020/2020-04-16-velociraptor-e48a47e0317d/>Velociraptor</a></li><li data-nav-id=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/ title="Velociraptor’s ACL model" class=dd-item><a href=/blog/2020/2020-03-29-velociraptors-acl-model-7f497575daee/>Velociraptor’s ACL model</a></li><li data-nav-id=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/ title="Velociraptor notebooks" class=dd-item><a href=/blog/2020/2020-03-28-velociraptor-notebooks-d02e0bd11230/>Velociraptor notebooks</a></li><li data-nav-id=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/ title="Extending VQL plugins" class=dd-item><a href=/blog/2020/2020-03-07-extending-vql-plugins-7fb004cb6ec4/>Extending VQL plugins</a></li><li data-nav-id=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/ title="Velociraptor Post-processing with Jupyter Notebook and Pandas" class=dd-item><a href=/blog/2020/2020-03-06-velociraptor-post-processing-with-jupyter-notebook-and-pandas-8a344d05ee8c/>Velociraptor Post-processing with Jupyter Notebook and Pandas</a></li><li data-nav-id=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/ title="Hunting Malware using Mutants" class=dd-item><a href=/blog/2020/2020-01-12_hunting-malware-using-mutants-ea08e86dfc19/>Hunting Malware using Mutants</a></li></ul></li><li data-nav-id=/blog/2019/ title=2019 class=dd-item><a href=/blog/2019/>2019</a><ul><li data-nav-id=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/ title="Digging into the System Resource Usage Monitor (SRUM)" class=dd-item><a href=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a></li><li data-nav-id=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/ title="Velociraptor to Elasticsearch" class=dd-item><a href=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a></li><li data-nav-id=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/ title="Recovering deleted NTFS Files with Velociraptor" class=dd-item><a href=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a></li><li data-nav-id=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/ title="Windows Event Logs" class=dd-item><a href=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a></li><li data-nav-id=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/ title="Triage with Velociraptor — Pt 3" class=dd-item><a href=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a></li><li data-nav-id=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/ title="Triage with Velociraptor — Pt 2" class=dd-item><a href=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a></li><li data-nav-id=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/ title="Triage with Velociraptor — Pt 1" class=dd-item><a href=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a></li><li data-nav-id=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/ title="Velociraptor’s client side buffer" class=dd-item><a href=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a></li><li data-nav-id=/blog/2019/2019-03-02/ title="Agentless hunting with Velociraptor" class=dd-item><a href=/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a></li></ul></li></ul></li></ul><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://docs.velociraptor.app/search><i class="fas fa-search"></i>Search</a></li><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github repo</a></li></ul></section><section id=footer><div class=footer-copyright>Brough to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Searching Files</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#glob-results>Glob results</a></li></ul></li><li><a href=#filesystem-accessors>Filesystem accessors</a><ul><li><a href=#the-registry-accessor>The registry accessor</a></li></ul></li><li><a href=#raw-registry-parsing>Raw registry parsing</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Searching Files</h1><p>One of the most common operations in DFIR is searching for files
+efficiently. When searching for a file, we may search by filename,
+file content, size or other properties.</p><p>Velociraptor has the <code>glob()</code> plugin to search for files using a glob
+expression. Glob expressions use wildcards to search the filesystem
+for matches, and these are the most common tool for searching by
+filename. As we will see below, the <code>glob()</code> plugin is the foundation
+for many other artifacts.</p><p>The <code>glob()</code> plugin searches the filesystem by glob expression. The
+following represent the syntax of the glob expressions:</p><ul><li>A <code>*</code> is a wildcard match (e.g. <code>*.exe</code> matches all files ending with &ldquo;.exe&rdquo;)</li><li>Alternatives are expressed as comma separated strings in <code>{}</code>. For example, <code>*.{exe,dll,sys}</code></li><li>Velociraptor supports recursive wildcards: A <code>**</code> denotes recursive search, e.g. <code>C:\Users\**\*.exe</code></li></ul><p>For example, the following quickly searches all users' home
+directories for files with &ldquo;.exe&rdquo; extension.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span><span style=color:#ba2121>&#39;C:\\Users\\**\\*.exe&#39;</span>)<span style=color:#bbb>
+</span></code></pre></div><div class="mynotices warning"><div><p>VQL strings can include a backslash escape sequence. Since Windows
+paths often use backslashes for path separator you will need to escape
+the backslashes. Alternatively paths can be written with a forward
+slash <code>/</code> or a raw VQL string can be used - for example this is a bit
+easier to write:</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span><span style=color:#ba2121>&#39;&#39;&#39;C:\Users\**\*.exe&#39;&#39;&#39;</span>)<span style=color:#bbb>
+</span></code></pre></div></div></div><p>The <code>glob()</code> plugin is optimized to visit files on the filesystem as
+quickly as possible. Therefore if multiple glob expressions are
+provided, the <code>glob()</code> plugin will compbine them into a single
+expression automatically to reduce filesystem access. It is always
+better to provide multiple glob expressions than to run the <code>glob()</code>
+plugin multiple times. For example the following will only make a
+single pass over the filesystem while searching for both exe and dll
+files.</p><div class=highlight><pre style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:green;font-weight:700>SELECT</span><span style=color:#bbb> </span><span style=color:#666>*</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>FROM</span><span style=color:#bbb> </span>glob(globs<span style=color:#666>=</span>[<span style=color:#ba2121>&#39;C:/Users/**/*.exe&#39;</span>,<span style=color:#bbb>
+</span><span style=color:#bbb>                          </span><span style=color:#ba2121>&#39;C:/Users/**/*.dll&#39;</span>])<span style=color:#bbb>
+</span></code></pre></div><p>Velociraptor paths are separated by <code>/</code> or <code>\</code> into path
+components. Internally, paths are considered as made up of a list of
+components. Sometimes path component (e.g. a file or directory) can
+also contain path separator characters in which case the component is
+quoted in the path.</p><h3 id=glob-results>Glob results</h3><p>The <code>glob()</code> plugin returns rows with several columns. As usual, the
+best way to see what a plugin returns is to click the <code>Raw Reponse JSON</code>
+button on the results table.</p><p><img src=image12.png alt="Glob output"></p><p>Some of the more important columns available are</p><ol><li>The <code>FullPath</code> is the complete path to the matching file, whereas
+the <code>Name</code> is just the filename.</li><li>The <code>Mtime</code>, <code>Atime</code>, <code>Ctime</code> and <code>Btime</code> are timestamps of the file.</li><li>The <code>Data</code> column is a free form dictionary containing key/value
+data about the file. This data depends on the accessor used.</li><li><code>IsDir</code>, <code>IsLink</code> and <code>Mode</code> indicate what kind of file
+matched. (<code>Mode.String</code> can present the mode in a more human
+readable way).</li></ol><h2 id=filesystem-accessors>Filesystem accessors</h2><p>Glob is a very useful concept to search hierarchical trees because
+wild cards are easy to use and powerful. Sometimes we might want to
+use a glob expression to look for other things that are not files, but
+also have a hierarchical structure. For example, the registry is
+organized in a similar way to a filesystem, so maybe we can use a glob
+expression to search the registry?</p><p>Velociraptor supports direct access to many different such
+hierarchical trees via <code>accessors</code> (Accessors are essentially
+filesystem access drivers). Some common accessors are</p><ul><li><strong>file</strong> - uses OS APIs to access files.</li><li><strong>ntfs</strong> - uses raw NTFS parsing to access low level files</li><li><strong>reg</strong> or <strong>registry</strong> - uses OS APIs to access the windows registry</li></ul><p>When no accessor is specified, Velociraptor uses an automatic
+accessor: It uses the <strong>file</strong> accessor to attempt to read file using
+the OS APIs, but if the file is locked, Velociraptor automatically
+falls back to the <strong>ntfs</strong> accessor in order to read the file from raw
+disk clusters.</p><h3 id=the-registry-accessor>The registry accessor</h3><p>To accessor Uses the OS API to access the registry hives. The top
+level directory is a list of the common hives (e.g. <code>HKEY_USERS</code>). The
+accessor creates a registry abstraction to make it appear as a
+filesystem:</p><ul><li>Top level consists of the major hives</li><li>Values appear as files, Keys appear as directories</li><li>The Default value in a key is named “@”</li><li>Since reading the registry value is very quick anyway, the registry
+accessor makes the Value&rsquo;s content available inside the Data
+attribute.</li><li>Can escape components with <code>/</code> using quotes
+<code>HKEY_LOCAL_MACHINE\Microsoft\Windows\"http://www.microsoft.com/"</code></li></ul><h2 id=raw-registry-parsing>Raw registry parsing</h2><p>In the previous section we looked for a key in the HKEY_CURRENT_USER
+hive. Any artifacts looking in HKEY_USERS using the Windows API are
+limited to the set of users currently logged in! We need to parse the
+raw hive to reliably recover all users.</p><p>Raw registry parsing
+Each user’s setting is stored in:
+C:\Users&lt;name>\ntuser.dat</p><p>It is a raw registry hive file format. We need to use raw_reg accessor.</p><p>The raw reg accessor uses a URL scheme to access the underlying file.</p><p>14</p><p>15</p><p>16
+URL notation for accessors
+Some accessors need to delegate their access to other accessors
+For example registry parser needs to open the file using another accessor. Therefore the path they receive is interpreted as a URL with three parts:
+scheme - this is the name of the underlying accessor
+path - this will be passed to the underlying accessor to get the file to parse.
+fragment - this will be interpreted as a path within the parsed file.</p><p>17
+URL notation for accessors
+Escaping rules for urls are complex. We recommend using the url() VQL function to construct the url from its parts - especially when you dont control the filename itself.</p><p>url(scheme=&lsquo;file&rsquo;, path=&lsquo;C:/Users/test/ntuser.dat&rsquo;, fragment='/**/Run/*').String</p><p>file:///C:/Users/test/ntuser.dat#/**/Run/*</p><p>Exercise: Hash Run keys for users
+Repeat the previous exercise but this time extract user’s Run keys from ntuser.dat.
+Also calculate the hash of the target binary.
+18</p><p>The ‘data’ accessor
+VQL contains many plugins that work on files.
+Sometimes we load data into memory as a string.
+It is handy to be able to use all the normal file plugins with literal string data - this is what the data accessor is for.</p><p>The data accessor creates an in memory file-like object from the filename data.
+19</p><p>20</p><p>21
+Using data accessor as parameter
+Sometimes we would like to give an artifact structured data to use.
+Humans like to work with CSV files.
+We can use parse_csv(accessor=&lsquo;data&rsquo;.. ) to accept user input.</p><p>22
+GlobSearch is a user provided CSV formatted string. It is easy for users to add another glob to the list.</p><p>Artifact with csv type parameters
+If a parameter is specified with a type of CSV, Velociraptor will automatically apply the previous transformation - no need to do this by hand any more.
+23</p><p>24
+Setting a parameter of type csv presents a GUI for the user and automatically parses it from a string.</p><p>25
+Hash all files provided in the globs
+Create an artifact that hashes files found by user provided globs.</p><p>Searching data
+26</p><p>27
+Searching data
+A powerful DFIR technique is searching bulk data for patterns
+Searching for CC data in process memory
+Searching for URLs in process memory
+Searching binaries for malware signatures
+Searching registry for patterns</p><p>Bulk searching helps to identify evidence without needing to parse file formats</p><p>YARA - The swiss army knife
+YARA is a powerful keyword scanner
+Uses rules designed to identify binary patterns in bulk data
+YARA is optimized to scan for many rules simultaneously.
+Velociraptor supports YARA scanning of bulk data (via accessors) and memory.</p><p>yara() and proc_yara()
+28</p><p>YARA rules
+rule X {
+strings:
+$a = “hello” nocase
+$b = “Goodbye” wide
+$c = /[a-z]{5,10}[0-9]/i</p><p>condition:
+$a and ($b or $c)
+}
+29</p><p>Exercise: drive by download
+You suspect a user was compromised by a drive by download (i.e. they clicked and downloaded malware delivered by mail, ads etc).
+You think the user used the Edge browser but you have no idea of the internal structure of the browser cache/history etc.
+Write an artifact to extract potential URLs from the Edge browser directory (also where is it?)
+30</p><p>Step 1: Figure out where to look
+31</p><p>32
+Looks like somewhere in C:\Users&lt;name>\AppData\Local\Microsoft\Edge**</p><p>Step 2: Recover URLs
+We don&rsquo;t exactly understand how Edge stores data but we know roughly what a URL is supposed to look like!
+Yara is our sledgehammer !</p><p>rule URL {
+strings: $a = /https?:\/\/[a-z0-9\/+&#:\?.-]+/i
+condition: any of them
+}
+33</p><p>Step 3: Let’s do this!
+34</p><p>35</p><p>36</p><p>37
+YARA best practice
+You can get yara rules from many sources (threat intel, blog posts etc)
+YARA is really a first level triage tool:
+Depending on signature many false positives expected
+Some signatures are extremely specific so make a great signal
+Try to collect additional context around the hits to eliminate false positives.
+Yara scanning is relatively expensive! consider more targeted glob expressions and client side throttling since usually YARA scanning is not time critical.</p><p>Uploading files
+38</p><p>Collecting files
+Velociraptor can collect file data.
+Over the network
+Locally to a collection zip file.
+Driven by VQL</p><p>The upload() VQL function copies a file using an accessor to the relevant container
+39</p><p>Exercise
+Collect all executables in users’ home directory</p><p>Write your own VQL by combining glob() and upload()
+40</p><p>41</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1623769931></script><script src=/js/perfect-scrollbar.min.js?1623769931></script><script src=/js/perfect-scrollbar.jquery.min.js?1623769931></script><script src=/js/jquery.sticky.js?1623769931></script><script src=/js/featherlight.min.js?1623769931></script><script src=/js/highlight.pack.js?1623769931></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1623769931></script><script src=/js/learn.js?1623769931></script><script src=/js/hugo-learn.js?1623769931></script></body></html>
