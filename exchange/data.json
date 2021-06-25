@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Applications.FTKImager",
+        "description": "Create an E01 Image of the C drive using FTK Imager (Command Line Version)\n\nSourceDriveToImage usually will be 0 (as in \\\\.\\PHYSICALDRIVE0) for the C: drive, on a Windows system.\n\nIf you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \\\\.\\PHYSICALDRIVE1\n",
+        "link": "/exchange/artifacts/pages/ftkimager",
+        "tags": [],
+        "author": "eduardomcm",
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2021-06-25"
+    },
+    {
         "title": "Custom.Label.User",
         "description": "This artifact watches for new client enrolments and automatically label \nthe client with the required label if the user exists.\n\nThis artifact can be the starting point for automatically labeling a machine \nbased on any other property - just change the artifact to watch and the result \nfilter.\n\n  \n",
         "link": "/exchange/artifacts/pages/custom.label.user",
