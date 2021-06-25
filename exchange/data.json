@@ -2,7 +2,7 @@
     {
         "title": "Custom.Label.User",
         "description": "This artifact watches for new client enrolments and automatically label \nthe client with the required label if the user exists.\n\nThis artifact can be the starting point for automatically labeling a machine \nbased on any other property - just change the artifact to watch and the result \nfilter.\n\n  \n",
-        "link": "/exchange/artifacts/pages/Custom.Label.User",
+        "link": "/exchange/artifacts/pages/custom.label.user",
         "tags": [
             "server",
             "event",
