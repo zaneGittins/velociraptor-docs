@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Forensic Analysis :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1624633080 rel=stylesheet><link href=/css/fontawesome-all.min.css?1624633080 rel=stylesheet><link href=/css/hybrid.css?1624633080 rel=stylesheet><link href=/css/featherlight.min.css?1624633080 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1624633080 rel=stylesheet><link href=/css/auto-complete.css?1624633080 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1624633080 rel=stylesheet><link href=/css/theme.css?1624633080 rel=stylesheet><link href=/css/tabs.css?1624633080 rel=stylesheet><link href=/css/hugo-theme.css?1624633080 rel=stylesheet><link href=/css/theme-mine.css?1624633080 rel=stylesheet><link href=/css/atom-one-light.css?1624633080 rel=stylesheet><link href=/css/dark.css?1624633080 rel=stylesheet><link href=/css/light.css?1624633080 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1624633080 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1624633080></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/docs/forensic/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Forensic Analysis :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1624873606 rel=stylesheet><link href=/css/fontawesome-all.min.css?1624873606 rel=stylesheet><link href=/css/hybrid.css?1624873606 rel=stylesheet><link href=/css/featherlight.min.css?1624873606 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1624873606 rel=stylesheet><link href=/css/auto-complete.css?1624873606 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1624873606 rel=stylesheet><link href=/css/theme.css?1624873606 rel=stylesheet><link href=/css/tabs.css?1624873606 rel=stylesheet><link href=/css/hugo-theme.css?1624873606 rel=stylesheet><link href=/css/theme-mine.css?1624873606 rel=stylesheet><link href=/css/atom-one-light.css?1624873606 rel=stylesheet><link href=/css/dark.css?1624873606 rel=stylesheet><link href=/css/light.css?1624873606 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1624873606 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1624873606></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/docs/forensic/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -19,8 +19,15 @@
 <a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item parent active haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
 <a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/searching/>Searching Content</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/vql_reference/><i class="fas fa-book"></i>Search VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Offline Triage</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/api/>The API</a></div></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -40,138 +47,40 @@
 useful without a good set of plugins that make DFIR work
 possible. Velociraptor&rsquo;s strength lies in the wide array of VQL
 plugins and functions that are geared towards making DFIR
-investigations and detections effective.</p><p>Digging deeper in Windows
+investigations and detections effective.</p><ul class="children children-h3"><h3><a href=/docs/forensic/filesystem/>Searching Filenames</a></h3><p>One of the most common operations in DFIR is searching for files
+based on their file names.</p><h3><a href=/docs/forensic/searching/>Searching Content</a></h3><p>A powerful DFIR technique is searching bulk data for patterns. YARA is a
+powerful keyword scanner that allows to search unstructured binary data
+based on user provided rules.</p><h3><a href=/docs/forensic/ntfs/>NTFS Analysis</a></h3><p>NTFS is the standard Windows filesystem. Velociraptor contains powerful NTFS analysis capabilities.</p><h3><a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></h3><p>Sometimes we need to find out when (or if) a particular binary was run on the endpoint. This question can come up in a number of contexts, such as running malware by a user, lateral movement from a threat actor etc.
+Windows has a rich set of forensic artifacts that we can use to infer program execution. This page covers some of the more common evidence of execution artifacts.
+Prefetch files Prefetch files are used to keep track of executions</p><h3><a href=/docs/forensic/event_logs/>Event Logs</a></h3><p>Windows Event Logs
+Windows event logs Stored in files with extension of *.evtx typically in C:\Windows\System32\WinEVT\Logs*.evtx
+File format features: Rollover - File is divided into chunks and new chunks can overwrite older chunks Binary XML format provides compression Structured records with strong types 30
+Parsing EVTX 31 The event message is actually written in XML but Velociraptor convert it into a JSON object to make it easier to filter specific fields.</p><h3><a href=/docs/forensic/volatile/>Volatile State</a></h3><p>Volatile machine state
+Volatile state So far we looked at disk based artifacts. Often evidence is ephemeral and will vanish quickly. The next slides focus on evidence that only exists temporarily and may disappear quickly. Velociraptor&rsquo;s unique strength is being able to quickly and efficiently capture this volatile state using automated artifacts 60
+61 Windows Management Instrumentation
+WMI A framework to export internal windows state information using a query language (WQL) Consists of classes (providers) and objects Lots of hooks into many internal system features Being able to inspect system state using a consistent interface allows a tool to query a wide range of services.</p></ul><p>Velociraptor
+Digging Deeper!
+1</p><p>Forensic Analysis with VQL Pt2</p><p>Digging even deeper in Windows
 2</p><p>Module overview
 Velociraptor implements many forensic capabilities in VQL
-This module will focus on typical forensic analysis and deep inspection capabilities. We will learn how to put the capabilities together to produce effective artifacts and when to use those.
-This module will not use Velociraptor’s GUI or even the client/server mode since we are focused on the techniques themselves. Later we can leverage the same VQL across the network at scale, and effectively hunt for artifacts across our infrastructure - keep this in mind through this module.</p><p>NTFS Analysis
-42</p><p>NTFS overview
-NTFS is the standard Windows filesystem.
-All files are represented in a Master File Table
-Files can contain multiple attributes:
-Filename (Long name/Short name)
-Data attribute – contains file data
-I30 attribute (contains directory listing)
-Data attributes may be compressed or sparse
-Filename attributes contain their own timestamps</p><p>43</p><p>The Master File Table
-The NTFS file system contains a file called the master file table, or MFT. There is at least one entry in the MFT for every file on an NTFS file system volume, including the MFT itself. All information about a file, including its size, time and date stamps, permissions, and data content, is stored either in MFT entries, or in space outside the MFT that is described by MFT entries.</p><p><a href=https://docs.microsoft.com/en-us/windows/win32/fileio/master-file-table>https://docs.microsoft.com/en-us/windows/win32/fileio/master-file-table</a></p><p>44</p><p>NTFS Concepts
-<a href=https://www.fireeye.com/blog/threat-research/2012/10/incident-response-ntfs-indx-buffers-part-4-br-internal.html>https://www.fireeye.com/blog/threat-research/2012/10/incident-response-ntfs-indx-buffers-part-4-br-internal.html</a>
-45</p><p>Velociraptor’s NTFS support
-Velociraptor has 2 accessors providing access to NTFS
-ntfs - Supports Alternate Data Streams in directory listings.
-lazy_ntfs - much faster but does not detect ADS.</p><p>Due to these accessors it is possible to operate on files in the NTFS volume using all the usual plugins.
-46</p><p>47</p><p>The NTFS accessor makes NTFS specific information available in the Data field. For regular files it includes the inode string.
-The NTFS accessor considers all paths to begin with a device name. For convenience the accessor also accepts a drive letter.</p><p>48
-Volume Shadow Copies
-NTFS allows for a special copy on write snapshot feature called “Volume Shadow Copy”.</p><p>Create a VSS copy on your own machine using WMI:</p><p>On Windows server OS you can use:
-vssadmin create shadow</p><p>Checking for VSC
-Ensure your system contains a volume shadow copy
-49</p><p>NTFS accessor and VSS
-When a VSS copy is created, it is accessible via a special device. Velociraptor allows the VSS copies to be enumerated by listing them at the top level of the filesystem.</p><p>At the top level, the accessor provides metadata about each device in the “Data” column, including its creation time. This is essentially the same output as vssadmin list shadows
-50</p><p>51</p><p>52
-Find all VSS copies of the event logs</p><p>53
-We can glob the VSS just as if they were a directory</p><p>Makes it easy to fetch every version of a certain file (e.g. a log file).</p><p>54
-Operating on VSS
-Simply use the VSS device name as a prefix to all paths and the ntfs accessor will parse it instead.</p><p>You can use it to analyze older versions of the drive!</p><p>55</p><p>Parsing the MFT
-You can download the entire $MFT file from the endpoint using the ntfs accessor, then process it offline.</p><p>You can also parse the $MFT on the endpoint using Velociraptor.</p><p>This is most useful when you need to pass over all the files in the disk - it is more efficient than a recursive glob and might recover deleted files.
-56</p><p>57</p><p>58
-Exercise: Find all .exe on the drive
-Efficiently find all .exe on disk that were created after Jan 20, 2020</p><p>MFT Entries
-An MFT Entry can have multiple attributes and streams
-The previous plugin just shows high level information about each MFT entry - we can dig deeper with the parse_ntfs() plugin which accepts an mft ID.</p><p>Choose a file of interest in the previous output and inspect it deeper.
-59</p><p>60
-An inode is a triple of mft id, type id and id</p><p>e.g. 974-16-0</p><p>representing a stream of data</p><p>61
-NTFS timestamps
-An MFT entry can have up to 16 timestamps!
-Timestamps are critical to forensic investigations
-Determine when files were copied
-When files were modified
-And sometimes we can determine when a file was accessed
-In NTFS there are timestamps
-In $STANDARD_INFORMATION stream (usually only 1)
-In the $FILENAME stream (sometimes 2 or 3)
-In the $I30 stream of the parent directory (see later)</p><p>Timestomping
-62
-Attackers sometimes change the timestamps of files to make them less obvious. E.g make malware look like it was installed many years ago.</p><p>For the next exercise we will stomp over some times. Use the provided powershell to stomp over Velociraptor.exe’s timestamps.</p><p>Timestomp a file
-63
-$file = &lsquo;C:\Program Files\Velociraptor\Velociraptor.exe&rsquo;
-$stomp = Get-Date 2007-07-07
-$(Get-Item $file).creationtime = $stomp
-$(Get-Item $file).lastaccesstime = $stomp
-$(Get-Item $file).lastwritetime = $stomp
-Get-ChildItem $file | Select *, Fullname, <em>Time</em></p><p>powershell -executionpolicy bypass &ldquo;& .\stomp.ps1&rdquo;</p><p>64
-Before
-After</p><p>65
-Timestomping uses the API to change the times of a file but this only changed the $STANDARD_INFORMATION stream. The real times are still present on the $FILENAME attributes.</p><p>66</p><p>Exercise: Detect timestomping
-Write an artifact that detects when a file has had its time stomped.</p><p>Note: This is not necessarily a smoking gun - many installers will update a file’s timestamps during installation.</p><p><a href=http://www.forensickb.com/2009/02/detecting-timestamp-changing-utlities.html>http://www.forensickb.com/2009/02/detecting-timestamp-changing-utlities.html</a>
-67</p><p>68
-Many binaries are timestomped naturally because they come from CAB or MSI files.
-To eliminate noise you can narrow the created time from the $FILE_NAME attribute.</p><p>Created0x30 is the real time the file was created.</p><p>69
-Timeline analysis
-We can get a timeline by sorting the table on the modified or birth timestamps.</p><p>It is more efficient to narrow the time of interest first.</p><p>When post processing large tables it is better to work in stages.</p><p>Exercise: Build a timeline
-Collect Windows.NTFS.MFT from your system
-Post process by building a timeline
-What happened on the machine in today&rsquo;s session?
-What files were modified?
-Prefetch
-Link files
-Logfiles</p><p>70</p><p>71
-Many binaries are timestomped naturally because they come from CAB or MSI files.
-To eliminate noise you can narrow the created time from the $FILE_NAME attribute</p><p>The $I30 INDX stream
-In NTFS a directory is simply an MFT entry with $I30 streams. The streams contains a B+ tree of the MFT entries in the directory.</p><p>Since INDX streams are a B+ tree when a record is deleted, the tree will be reordered. Sometimes this leaves old entries in the slack space.
-72</p><p>73
-INDX stream is allocated in 4096 byte blocks. Contains information about the directory contents.</p><p>74
-INDX stream is allocated in 4096 bytes. Contains information about the directory contents.</p><p>Carving INDX headers
-<a href=https://www.fireeye.com/blog/threat-research/2012/10/incident-response-ntfs-indx-buffers-part-4-br-internal.html>https://www.fireeye.com/blog/threat-research/2012/10/incident-response-ntfs-indx-buffers-part-4-br-internal.html</a>
-75</p><p>Exercise: Experiment with $I30 carving
-Add and remove files from a directory and observe which files can be carved from the $I30 stream.
-See previous slide to verify the process.
-76</p><p>Exercise: Write an artifact
-Sometimes we need to prove that a file used to exist in a directory - just the presence of the name and timestamps is significant!</p><p>Example:
-FIN8 deletes prefetch files <a href=https://attack.mitre.org/techniques/T1107/>https://attack.mitre.org/techniques/T1107/</a></p><p>Write an artifact that recovers the filenames of deleted files in directories.
-77</p><p>Exercise: Write an artifact</p><p>SELECT * FROM foreach(
-row={
-SELECT FullPath, Data.mft AS MFT
-FROM glob(globs=DirectoryGlobs, accessor=&ldquo;ntfs&rdquo;)
-WHERE IsDir
-},
-query={
-SELECT FullPath, Name, NameType, Size, AllocatedSize,
-IsSlack, SlackOffset, Mtime, Atime, Ctime, Btime, MFTId
-FROM parse_ntfs_i30(device=FullPath, inode=MFT)
-})
-78</p><p>The USN journal
-Update Sequence Number Journal or Change journal is maintained by NTFS to record filesystem changes.
-Records metadata about filesystem changes.
-Resides in the path $Extend$UsnJrnl:$J</p><p>79</p><p>USN Journal
-Records are appended to the file at the end
-The file is sparse - periodically NTFS will remove the range at the start of the file to make it sparse
-Therefore the file will report a huge size but will actually only take about 30-40mb on disk.
-When collecting the journal file, Velociraptor will collect the sparse file.
-80</p><p>81</p><p>82
-Velociraptor uploads only ranges with data. An index file contains the ranges offsets.
-Downloading the file from the &ldquo;Uploaded Files&rdquo; tab will pad the sparse regions.</p><p>OR</p><p>Exporting the data in a zip file will include both the sparse file and the idx file.</p><p>83
-Parsing USN journal
-Velociraptor can parse each entry in the journal
-Remember the beginning of the file is sparse, we start parsing from the first valid range.
-The USN value is the offset in the file.
-The journal records many interactions with each file.
-The USN journal can go back a week or two
-You can find evidence of files long removed!</p><p>84
-You can collect the USN journal using the Windows.Forensics.Usn artifact!</p><p>85
-The USN journal can be used to gather evidence of historical file modifications!</p><p>86
-Exercise: Post process USN
-Collect the USN journal from the endpoint
-Establish:
-Which files were downloaded to the Downloads folder?
-Program execution through prefetch?
-Which files were opened through link file analysis?</p><p>Conclusions
-Velociraptor implements state of the art forensic analysis capabilities in the client agent
-These capabilities are exposed via VQL plugins/function
-Putting together these capabilities in arbitrary combinations is the real strength:
-Velociraptor can enrich forensic analysis results with extra endpoint state
-Artifacts can be adapted on the fly to respond to new threats
-87</p><p>Conclusions
+This module will focus on typical forensic analysis and deep inspection capabilities. We will learn how to put the capabilities together to produce effective artifacts.
+We will use the Mitre Att&ck framework for guidance.</p><p>3</p><p>Evidence of execution
+4</p><p>29
+59</p><p>Conclusions
+In this module we learned about more ways we can recover information from a Windows system
+The SRUM database contains system telemetry about program execution. This can establish that binaries ran on the system.
+Other methods include prefetch files, amcache, BAM etc.
+83</p><p>Conclusions
+Windows event logs are critical sources of information
+We have looked at the internals of Windows Event Logs and discovered that event messages are not stored in the log files.
+Velociraptor can enrich event logs automatically by parsing messages out of system Dlls
+Velociraptor can also watch the event logs in and event query and respond automatically to certain events.
+84</p><p>Conclusions
+Windows Machine Instrumentation (WMI) is a powerful OS level capability for exposing system state information.
+Velociraptor provides a WMI bridge allowing VQL artifacts to directly query the WMI system.
+This can be used to enrich results with file data and metadata
+WMI eventing is also exposed providing a way to write event driven VQL queries that respond to WMI exposed events.
+85</p><p>Conclusions
 In this module we learned about:
 Globbing is a powerful method to search files by filename patterns
 Velociraptor extends the concept of filesystems by providing Accessors. Therefore all plugins can operate on file-like objects like compressed archives, registry keys, MFT entries and raw parsed NTFS files.
@@ -181,4 +90,4 @@ NTFS analysis can recover evidence of deleted files
 Timestomping can be uncovered using additional low level NTFS analysis.
 USN Journal shows historical file manipulation
 Velociraptor exposes Volume Shadow Copies via the NTFS analysis engine.
-89</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1624633080></script><script src=/js/perfect-scrollbar.min.js?1624633080></script><script src=/js/perfect-scrollbar.jquery.min.js?1624633080></script><script src=/js/jquery.sticky.js?1624633080></script><script src=/js/featherlight.min.js?1624633080></script><script src=/js/highlight.pack.js?1624633080></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1624633080></script><script src=/js/learn.js?1624633080></script><script src=/js/hugo-learn.js?1624633080></script></body></html>
+89</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1624873606></script><script src=/js/perfect-scrollbar.min.js?1624873606></script><script src=/js/perfect-scrollbar.jquery.min.js?1624873606></script><script src=/js/jquery.sticky.js?1624873606></script><script src=/js/featherlight.min.js?1624873606></script><script src=/js/highlight.pack.js?1624873606></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1624873606></script><script src=/js/learn.js?1624873606></script><script src=/js/hugo-learn.js?1624873606></script></body></html>

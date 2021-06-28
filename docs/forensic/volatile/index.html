@@ -1,0 +1,98 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Volatile State :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1624873606 rel=stylesheet><link href=/css/fontawesome-all.min.css?1624873606 rel=stylesheet><link href=/css/hybrid.css?1624873606 rel=stylesheet><link href=/css/featherlight.min.css?1624873606 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1624873606 rel=stylesheet><link href=/css/auto-complete.css?1624873606 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1624873606 rel=stylesheet><link href=/css/theme.css?1624873606 rel=stylesheet><link href=/css/tabs.css?1624873606 rel=stylesheet><link href=/css/hugo-theme.css?1624873606 rel=stylesheet><link href=/css/theme-mine.css?1624873606 rel=stylesheet><link href=/css/atom-one-light.css?1624873606 rel=stylesheet><link href=/css/dark.css?1624873606 rel=stylesheet><link href=/css/light.css?1624873606 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1624873606 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1624873606></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/docs/forensic/volatile/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/self-signed/>Self Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/cloud/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/cloud/>Cloud Deployment</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/resources/>Performance</a></div></li></ul></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item parent haschildren"><div><i class="fa fa-angle-down fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class="dd-item parent active"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Offline Triage</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/api/>The API</a></div></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Velociraptor Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Velociraptor Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class="fas fa-search"></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a></li></ul></section><section id=footer><div class=footer-copyright>Brough to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/docs/forensic/volatile/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Volatile State</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Volatile State</h1><p>Volatile machine state</p><p>Volatile state
+So far we looked at disk based artifacts.
+Often evidence is ephemeral and will vanish quickly. The next slides focus on evidence that only exists temporarily and may disappear quickly.
+Velociraptor&rsquo;s unique strength is being able to quickly and efficiently capture this volatile state using automated artifacts
+60</p><p>61
+Windows Management Instrumentation</p><p>WMI
+A framework to export internal windows state information using a query language (WQL)
+Consists of classes (providers) and objects
+Lots of hooks into many internal system features
+Being able to inspect system state using a consistent interface allows a tool to query a wide range of services.
+62</p><p>63</p><p>64</p><p>65</p><p>66
+Mutants</p><p>Malware persistence
+Malware needs to ensure there is only a single copy of it running.
+A common method is to use a Mutant (Or named mutex)
+Create a mutant with a constant name:
+If the named mutant already exists, then exit</p><p>Ensures only a single copy is run.
+67</p><p>Exercise - Mutants
+$createdNew = $False
+$mutex = New-Object -TypeName System.Threading.Mutex(
+$true, &ldquo;Global\MyBadMutex&rdquo;, [ref]$createdNew)
+if ($createdNew) {
+echo &ldquo;Acquired Mutex&rdquo;
+sleep(100)
+} else {
+echo &ldquo;Someone else has the mutex&rdquo;
+}</p><p>68</p><p>Enumerate the mutants
+69</p><p>70
+Process analysis</p><p>Windows Processes
+A process is a user space task with a specific virtual memory layout</p><p>A process has a Process ID (Pid), an initial binary on disk, an ACL Token, environment variables etc.</p><p>Each of these properties can be inspected by Velociraptor
+71</p><p>Process Information
+Simple pslist() can reveal basic information about the process</p><p>Who launched the binary?
+Transfer metrics (network/disk activity)
+Is it elevated?
+Process Creation time
+72</p><p>73</p><p>74
+Process Call chain</p><p>75
+Process traversing can be done in pure VQL by recursively calling a locally defined function.</p><p>76
+Exercise - Find elevated command shell
+Write an artifact to find all currently running elevated command shells</p><p>Report how long they have run for</p><p>Mapped Memory
+When a binary runs it links many DLLs into it</p><p>A linked DLL is a copy on write memory mapping of a file on disk into the process memory space.</p><p>DLLs can be linked when the program starts or dynamically
+77</p><p>The VAD plugin
+This plugin shows all the process memory regions and if the memory is mapped to file, the filename it is mapped from.</p><p>DLLs and .NET assemblies are mapped into the process - so we can use this to get an idea of what the program is doing.
+78</p><p>79</p><p>80
+Exercise - look into powershell
+Without enabling powershell block logging, we can get an idea of what the script is doing by looking at its dependencies.
+Write VQL to list all the DLL modules that powershell is running.</p><p>Run our previous mutex script.
+Add the following command (this is typical of C&C)
+Invoke-WebRequest -Uri &ldquo;<a href=https://www.google.com>https://www.google.com</a>&rdquo; -UseBasicParsing</p><p>Dump mapped objects
+Dump the powershell process&rsquo;s mapped DLLs.
+The DLL winhttp.dll is responsible for making outbound http connections.</p><p>If the http request is enabled, the process will link the winhttp.dll at runtime.
+This technique works on many other programs that may be subverted for example Cobalt Strike reflective DLL injection.
+81</p><p>Dump mapped objects
+82</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1624873606></script><script src=/js/perfect-scrollbar.min.js?1624873606></script><script src=/js/perfect-scrollbar.jquery.min.js?1624873606></script><script src=/js/jquery.sticky.js?1624873606></script><script src=/js/featherlight.min.js?1624873606></script><script src=/js/highlight.pack.js?1624873606></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1624873606></script><script src=/js/learn.js?1624873606></script><script src=/js/hugo-learn.js?1624873606></script></body></html>
