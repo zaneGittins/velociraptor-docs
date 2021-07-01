@@ -1,0 +1,181 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.PrintNightmare :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1625161121 rel=stylesheet><link href=/css/fontawesome-all.min.css?1625161121 rel=stylesheet><link href=/css/hybrid.css?1625161121 rel=stylesheet><link href=/css/featherlight.min.css?1625161121 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1625161121 rel=stylesheet><link href=/css/auto-complete.css?1625161121 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1625161121 rel=stylesheet><link href=/css/theme.css?1625161121 rel=stylesheet><link href=/css/tabs.css?1625161121 rel=stylesheet><link href=/css/hugo-theme.css?1625161121 rel=stylesheet><link href=/css/theme-mine.css?1625161121 rel=stylesheet><link href=/css/atom-one-light.css?1625161121 rel=stylesheet><link href=/css/dark.css?1625161121 rel=stylesheet><link href=/css/syntax.css?1625161121 rel=stylesheet><link href=/css/light.css?1625161121 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1625161121 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1625161121></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/exchange/artifacts/pages/printnightmare/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/self-signed/>Self Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/cloud/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/cloud/>Cloud Deployment</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/deployment/resources/>Performance</a></div></li></ul></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile machine state</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/api/>The API</a></div></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Velociraptor Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Velociraptor Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class="fas fa-search"></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a></li></ul></section><section id=footer><div class=footer-copyright>Brough to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/exchange/artifacts/PrintNightmare.yaml target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>Windows.Detection.PrintNightmare</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.Detection.PrintNightmare</h1><p>This artifact returns any binaries in the Windows/spool/drivers/** folders with
+an untrusted Authenticode entry.</p><p>It can be used to hunt for dll files droped during exploitation of
+CVE-2021-1675 - PrintNightmare.</p><p>To query all attached ntfs drives: check the AllDrives switch.</p><p>I have added several filters to uplift search capabilities from the original
+MFT artifact. Due to the multi-drive features, the MFTPath will output the MFT
+path of the entry.</p><p>Available filters include:</p><ul><li>FullPath regex</li><li>FileName regex</li><li>Time bounds to select files with a timestamp within time ranges</li><li>FileSize bounds</li></ul><div class=highlight><pre class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.Detection.PrintNightmare</span><span class=w>
+</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Matt Green - @mgreen27&#34;</span><span class=w>
+</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>  This artifact returns any binaries in the Windows/spool/drivers/** folders with
+</span><span class=sd>  an untrusted Authenticode entry.
+</span><span class=sd>  
+</span><span class=sd>  It can be used to hunt for dll files droped during exploitation of 
+</span><span class=sd>  CVE-2021-1675 - PrintNightmare.
+</span><span class=sd>  
+</span><span class=sd>  To query all attached ntfs drives: check the AllDrives switch.
+</span><span class=sd>
+</span><span class=sd>  I have added several filters to uplift search capabilities from the original
+</span><span class=sd>  MFT artifact. Due to the multi-drive features, the MFTPath will output the MFT
+</span><span class=sd>  path of the entry.
+</span><span class=sd>
+</span><span class=sd>  Available filters include:
+</span><span class=sd>  - FullPath regex
+</span><span class=sd>  - FileName regex
+</span><span class=sd>  - Time bounds to select files with a timestamp within time ranges
+</span><span class=sd>  - FileSize bounds</span><span class=w>  
+</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>MFTFilename</span><span class=w>
+</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;C:/$MFT&#34;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Accessor</span><span class=w>
+</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>ntfs</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>hidden</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>PathRegex</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex search over FullPath.&#34;</span><span class=w>
+</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Windows/System32/spool/drivers</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>FileRegex</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex search over File Name&#34;</span><span class=w>
+</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>DateAfter</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>timestamp</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search for events after this date. YYYY-MM-DDTmm:hh:ssZ&#34;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>DateBefore</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>timestamp</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&#34;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SizeMax</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>int64</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Entries in the MFT under this size in bytes.&#34;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SizeMin</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>int64</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Entries in the MFT over this size in bytes.&#34;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>AllDrives</span><span class=w>
+</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
+</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Select MFT search on all attached ntfs drives.&#34;</span><span class=w>
+</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>      -- time testing
+</span><span class=sd>      LET time_test(stamp) = 
+</span><span class=sd>            if(condition= DateBefore AND DateAfter,
+</span><span class=sd>                then= stamp &lt; DateBefore AND stamp &gt; DateAfter,
+</span><span class=sd>                else= 
+</span><span class=sd>            if(condition=DateBefore,
+</span><span class=sd>                then= stamp &lt; DateBefore,
+</span><span class=sd>                else= 
+</span><span class=sd>            if(condition= DateAfter,
+</span><span class=sd>                then= stamp &gt; DateAfter,
+</span><span class=sd>                else= True
+</span><span class=sd>            )))
+</span><span class=sd>
+</span><span class=sd>
+</span><span class=sd>      -- find all ntfs drives
+</span><span class=sd>      LET ntfs_drives = SELECT FullPath + &#39;/$MFT&#39;as Path
+</span><span class=sd>        FROM glob(globs=&#34;/*&#34;, accessor=&#34;ntfs&#34;)
+</span><span class=sd>
+</span><span class=sd>
+</span><span class=sd>      -- function returning MFT entries
+</span><span class=sd>      LET mftsearch(MFTPath) = SELECT 
+</span><span class=sd>            split(sep=&#39;\\$&#39;,string=MFTPath)[0] + FullPath as FullPath,
+</span><span class=sd>            InUse,FileName,FileSize,
+</span><span class=sd>            dict(
+</span><span class=sd>                Created0x10 = Created0x10,
+</span><span class=sd>                LastModified0x10 = LastModified0x10,
+</span><span class=sd>                LastRecordChange0x10 = LastRecordChange0x10,
+</span><span class=sd>                LastAccess0x10 = LastAccess0x10
+</span><span class=sd>                ) as SI,
+</span><span class=sd>            dict(
+</span><span class=sd>                Created0x30 = Created0x10,
+</span><span class=sd>                LastModified0x30 = LastModified0x10,
+</span><span class=sd>                LastRecordChange0x30 = LastRecordChange0x10,
+</span><span class=sd>                LastAccess0x30 = LastAccess0x10
+</span><span class=sd>                ) as FN
+</span><span class=sd>        FROM parse_mft(filename=MFTPath, accessor=Accessor)
+</span><span class=sd>        WHERE NOT IsDir
+</span><span class=sd>            AND FullPath =~ PathRegex
+</span><span class=sd>            AND FileName =~ FileRegex
+</span><span class=sd>            AND if(condition=SizeMax,
+</span><span class=sd>                then=FileSize &lt; atoi(string=SizeMax),
+</span><span class=sd>                else=TRUE)
+</span><span class=sd>            AND if(condition=SizeMin,
+</span><span class=sd>                then=FileSize &gt; atoi(string=SizeMin),
+</span><span class=sd>                else=TRUE)
+</span><span class=sd>            AND 
+</span><span class=sd>             ( time_test(stamp=Created0x10)
+</span><span class=sd>            OR time_test(stamp=Created0x30)
+</span><span class=sd>            OR time_test(stamp=LastModified0x10)
+</span><span class=sd>            OR time_test(stamp=LastModified0x30)
+</span><span class=sd>            OR time_test(stamp=LastRecordChange0x10)
+</span><span class=sd>            OR time_test(stamp=LastRecordChange0x30)
+</span><span class=sd>            OR time_test(stamp=LastAccess0x10)
+</span><span class=sd>            OR time_test(stamp=LastAccess0x30))
+</span><span class=sd>
+</span><span class=sd>
+</span><span class=sd>      -- include all attached drives
+</span><span class=sd>      LET all_drives = SELECT * FROM foreach(row=ntfs_drives,
+</span><span class=sd>            query={
+</span><span class=sd>                SELECT *
+</span><span class=sd>                FROM mftsearch(MFTPath=Path)
+</span><span class=sd>                WHERE log(message=&#34;Processing &#34; + Path)
+</span><span class=sd>              })
+</span><span class=sd>
+</span><span class=sd>
+</span><span class=sd>      -- return rows
+</span><span class=sd>      SELECT *,
+</span><span class=sd>            parse_pe(file=FullPath) as PE,
+</span><span class=sd>            authenticode(filename=FullPath) as Authenticode,
+</span><span class=sd>            hash(path=FullPath) as Hash
+</span><span class=sd>      FROM if(condition=AllDrives,
+</span><span class=sd>        then= all_drives,
+</span><span class=sd>        else= {
+</span><span class=sd>           SELECT * FROM mftsearch(MFTPath=MFTFilename)
+</span><span class=sd>        })
+</span><span class=sd>      WHERE PE AND NOT Authenticode.Trusted = &#39;trusted&#39;</span><span class=w>      
+</span><span class=w>
+</span></code></pre></div><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1625161122></script><script src=/js/perfect-scrollbar.min.js?1625161122></script><script src=/js/perfect-scrollbar.jquery.min.js?1625161122></script><script src=/js/jquery.sticky.js?1625161122></script><script src=/js/featherlight.min.js?1625161122></script><script src=/js/highlight.pack.js?1625161122></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1625161122></script><script src=/js/learn.js?1625161122></script><script src=/js/hugo-learn.js?1625161122></script></body></html>

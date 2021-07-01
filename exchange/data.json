@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.PrintNightmare",
+        "description": "This artifact returns any binaries in the Windows/spool/drivers/** folders with\nan untrusted Authenticode entry.\n\nIt can be used to hunt for dll files droped during exploitation of \nCVE-2021-1675 - PrintNightmare.\n\nTo query all attached ntfs drives: check the AllDrives switch.\n\nI have added several filters to uplift search capabilities from the original\nMFT artifact. Due to the multi-drive features, the MFTPath will output the MFT\npath of the entry.\n\nAvailable filters include:\n- FullPath regex\n- FileName regex\n- Time bounds to select files with a timestamp within time ranges\n- FileSize bounds\n",
+        "link": "/exchange/artifacts/pages/printnightmare",
+        "tags": [],
+        "author": "mgreen27",
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-07-01"
+    },
+    {
         "title": "Custom.Label.User",
         "description": "This artifact watches for new client enrolments and automatically label \nthe client with the required label if the user exists.\n\nThis artifact can be the starting point for automatically labeling a machine \nbased on any other property - just change the artifact to watch and the result \nfilter.\n\n  \n",
         "link": "/exchange/artifacts/pages/custom.label.user",
