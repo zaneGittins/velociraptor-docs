@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.ETW.AMSI :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1625225557 rel=stylesheet><link href=/css/fontawesome-all.min.css?1625225557 rel=stylesheet><link href=/css/hybrid.css?1625225557 rel=stylesheet><link href=/css/featherlight.min.css?1625225557 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1625225557 rel=stylesheet><link href=/css/auto-complete.css?1625225557 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1625225557 rel=stylesheet><link href=/css/theme.css?1625225557 rel=stylesheet><link href=/css/tabs.css?1625225557 rel=stylesheet><link href=/css/hugo-theme.css?1625225557 rel=stylesheet><link href=/css/theme-mine.css?1625225557 rel=stylesheet><link href=/css/atom-one-light.css?1625225557 rel=stylesheet><link href=/css/dark.css?1625225557 rel=stylesheet><link href=/css/syntax.css?1625225557 rel=stylesheet><link href=/css/light.css?1625225557 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1625225557 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1625225557></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/exchange/artifacts/pages/amsi/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.84.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Linux.Memory.Acquisition :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1625225557 rel=stylesheet><link href=/css/fontawesome-all.min.css?1625225557 rel=stylesheet><link href=/css/hybrid.css?1625225557 rel=stylesheet><link href=/css/featherlight.min.css?1625225557 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1625225557 rel=stylesheet><link href=/css/auto-complete.css?1625225557 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1625225557 rel=stylesheet><link href=/css/theme.css?1625225557 rel=stylesheet><link href=/css/tabs.css?1625225557 rel=stylesheet><link href=/css/hugo-theme.css?1625225557 rel=stylesheet><link href=/css/theme-mine.css?1625225557 rel=stylesheet><link href=/css/atom-one-light.css?1625225557 rel=stylesheet><link href=/css/dark.css?1625225557 rel=stylesheet><link href=/css/syntax.css?1625225557 rel=stylesheet><link href=/css/light.css?1625225557 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1625225557 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1625225557></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script></script></head><body data-url=/exchange/artifacts/pages/linuxmemoryacquisition/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -41,62 +41,69 @@
 <a href=/blog/><i class="fas fa-newspaper"></i>Velociraptor Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/search/><i class="fas fa-search"></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a></li></ul></section><section id=footer><div class=footer-copyright>Brough to you by
-<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/exchange/artifacts/amsi.yaml target=blank><i class="fas fa-code-branch"></i>
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/exchange/artifacts/LinuxMemoryAcquisition.yaml target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>Windows.ETW.AMSI</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.ETW.AMSI</h1><p>This artifact uses the ETW provider:
-(Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</p><div class=highlight><pre class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.ETW.AMSI</span><span class=w>
+<span class=links>Linux.Memory.Acquisition</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Linux.Memory.Acquisition</h1><p>Acquires a full memory image. We download LiME and use it to
+acquire a full memory image.</p><p>NOTE: This artifact usually transfers a lot of data. You should
+increase the default timeout to allow it to complete.
+( Example : 2Gb of memory time takes about 50s )</p><div class=highlight><pre class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Linux.Memory.Acquisition</span><span class=w>
+</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>URCA (Corentin Garcia / Emmanuel Mesnard)</span><span class=w>
 </span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    This artifact uses the ETW provider:
-</span><span class=sd>    (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</span><span class=w>    
+</span><span class=sd>  Acquires a full memory image. We download LiME and use it to
+</span><span class=sd>  acquire a full memory image.
+</span><span class=sd>
+</span><span class=sd>  NOTE: This artifact usually transfers a lot of data. You should
+</span><span class=sd>  increase the default timeout to allow it to complete.
+</span><span class=sd>  ( Example : 2Gb of memory time takes about 50s )</span><span class=w>  
 </span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT_EVENT</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>required_permissions</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=l>EXECVE</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>LiME</span><span class=w>
+</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/504ensicsLabs/LiME/archive/refs/heads/master.zip</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Volatility</span><span class=w>
+</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/volatilityfoundation/volatility/archive/master.zip</span><span class=w>
 </span><span class=w>
 </span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>IocRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex of strings to filter for&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>WhitelistRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex of strings to witelist&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>AppNameRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Application name Regex to enable filtering on source.&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>StartVolatility</span><span class=w>
+</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
+</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=kc>Y</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Zipname</span><span class=w>
+</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
+</span><span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Name of the zip containing the Volatility profile</span><span class=w>
+</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Ubuntu</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Dumpname</span><span class=w>
+</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
+</span><span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Name of the memory dump</span><span class=w>
+</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>dump</span><span class=w>
 </span><span class=w>
-</span><span class=w>    
+</span><span class=w></span><span class=nt>precondition</span><span class=p>:</span><span class=w> </span><span class=l>SELECT OS From info() where OS = &#39;linux&#39;</span><span class=w>
+</span><span class=w>
 </span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- collect a small cache of process information for enrichment
-</span><span class=sd>      LET proc = cache(key=&#39;Pid&#39;, period=600,
-</span><span class=sd>        query={
-</span><span class=sd>            SELECT Pid, Name, Exe,CommandLine, Username,TokenIsElevated 
-</span><span class=sd>            FROM pslist()
-</span><span class=sd>        })</span><span class=w>      
-</span><span class=w> 
-</span><span class=w>      </span>-- <span class=l>watch ETW provider and first round data manipulation</span><span class=w>
-</span><span class=w>      </span><span class=l>LET hits = SELECT *,</span><span class=w>
-</span><span class=w>          </span><span class=l>timestamp(epoch=timestamp(string=System.TimeStamp).unix) as EventTime,</span><span class=w>
-</span><span class=w>         </span><span class=l>System,</span><span class=w>
-</span><span class=w>         </span><span class=l>get(member=&#34;EventData&#34;) AS EventData,</span><span class=w>
-</span><span class=w>         </span><span class=l>get(item=proc, field=System.ProcessID) AS ProcInfo</span><span class=w>
-</span><span class=w>      </span><span class=l>FROM watch_etw(guid=&#34;{2A576B87-09A7-520E-C21A-4942F0271D67}&#34;)</span><span class=w>
-</span><span class=w>      </span><span class=l>WHERE EventData.appname =~ AppNameRegex</span><span class=w>
-</span><span class=w>
-</span><span class=w>      </span>-- <span class=l>print rows</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT</span><span class=w>
-</span><span class=w>        </span><span class=l>EventTime,</span><span class=w>
-</span><span class=w>        </span><span class=l>System,</span><span class=w>
-</span><span class=w>        </span><span class=l>ProcInfo,</span><span class=w>
-</span><span class=w>        </span><span class=l>EventData,</span><span class=w>
-</span><span class=w>        </span><span class=l>utf16(string=</span><span class=w>
-</span><span class=w>            </span><span class=l>unhex(string=regex_replace(</span><span class=w>
-</span><span class=w>                </span><span class=l>source=EventData.Content,re=&#39;^0x&#39;,replace=&#39;&#39;))</span><span class=w>
-</span><span class=w>        </span><span class=l>) as Content</span><span class=w>
-</span><span class=w>      </span><span class=l>FROM hits</span><span class=w>
-</span><span class=w>      </span><span class=l>WHERE </span><span class=w>
-</span><span class=w>        </span><span class=l>Content =~ IocRegex</span><span class=w>
-</span><span class=w>        </span><span class=l>AND if(condition= WhitelistRegex,</span><span class=w>
-</span><span class=w>            </span><span class=l>then= NOT Content =~ WhitelistRegex,</span><span class=w>
-</span><span class=w>            </span><span class=l>else= True)</span><span class=w>
-</span><span class=w>            
+</span><span class=w>  </span>- <span class=nt>queries</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=l>LET Volatility = SELECT * FROM Artifact.Linux.Volatility.Create.Profile(Zipname=Zipname)</span><span class=w>
+</span><span class=w>    
+</span><span class=w>      </span><span class=l>LET Lime = SELECT FullPath, Stdout, Stderr, if(condition=Complete, then=upload(file=&#34;/tmp/&#34; + Dumpname + &#34;.raw&#34;, name=Dumpname + &#34;.raw&#34;)) As Upload FROM execve(argv=[&#39;bash&#39;, &#39;-c&#39;, &#39;mv /tmp/master.zip /tmp/lime-master.zip ; unzip -o /tmp/lime-master.zip -d /tmp/ ; cd /tmp/LiME-master/src/ ; apt-get -y install build-essential linux-headers-$(uname -r) ; make ; insmod /tmp/LiME-master/src/lime-*.ko &#34;path=/tmp/&#34;&#39; + Dumpname + &#39;&#34;.raw format=lime&#34;&#39;])</span><span class=w>
+</span><span class=w>    
+</span><span class=w>      </span><span class=l>LET dirtmp = tempdir(remove_last=true)</span><span class=w>
+</span><span class=w>    
+</span><span class=w>      </span><span class=l>SELECT * FROM foreach(</span><span class=w>
+</span><span class=w>          </span><span class=l>row={</span><span class=w>
+</span><span class=w>            </span><span class=l>SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&#34;LiME&#34;)</span><span class=w>
+</span><span class=w>          </span>}<span class=p>,</span><span class=w>
+</span><span class=w>          </span><span class=l>query={</span><span class=w>
+</span><span class=w>            </span><span class=l>SELECT * FROM chain(</span><span class=w>
+</span><span class=w>            </span><span class=l>a={SELECT * FROM Lime},</span><span class=w>
+</span><span class=w>            </span><span class=l>b={SELECT * FROM execve(argv=[&#39;bash&#39;, &#39;-c&#39;, &#39;mv /tmp/LiME-master /tmp/lime-master.zip /tmp/&#39; + Dumpname + &#39;.raw &#39; + dirtmp])},</span><span class=w>
+</span><span class=w>            </span><span class=l>c={SELECT * FROM if(</span><span class=w>
+</span><span class=w>                </span><span class=l>condition=StartVolatility,</span><span class=w>
+</span><span class=w>                </span><span class=l>then=Volatility,</span><span class=w>
+</span><span class=w>                </span><span class=l>else=scope()</span><span class=w>
+</span><span class=w>            </span><span class=l>)}</span><span class=w>
+</span><span class=w>            </span><span class=l>)  </span><span class=w>
+</span><span class=w>          </span>}<span class=l>)</span><span class=w>
 </span><span class=w>
 </span></code></pre></div><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1625225557></script><script src=/js/perfect-scrollbar.min.js?1625225557></script><script src=/js/perfect-scrollbar.jquery.min.js?1625225557></script><script src=/js/jquery.sticky.js?1625225557></script><script src=/js/featherlight.min.js?1625225557></script><script src=/js/highlight.pack.js?1625225557></script><script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1625225557></script><script src=/js/learn.js?1625225557></script><script src=/js/hugo-learn.js?1625225557></script></body></html>

@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Memory.Acquisition",
+        "description": "Acquires a full memory image. We download LiME and use it to\nacquire a full memory image.\n\nNOTE: This artifact usually transfers a lot of data. You should\nincrease the default timeout to allow it to complete.\n( Example : 2Gb of memory time takes about 50s )\n",
+        "link": "/exchange/artifacts/pages/linuxmemoryacquisition",
+        "tags": [],
+        "author": "makhno4n6",
+        "author_link": "https://github.com/makhno4n6",
+        "author_avatar": "https://avatars.githubusercontent.com/u/86801976?v=4",
+        "date": "2021-07-02"
+    },
+    {
         "title": "Windows.Detection.PrintNightmare",
         "description": "This artifact returns any binaries in the Windows/spool/drivers/** folders with\nan untrusted Authenticode entry.\n\nIt can be used to hunt for dll files droped during exploitation of\nCVE-2021-1675 - PrintNightmare.\n\nTo query all attached ntfs drives: check the AllDrives switch.\n\nI have added several filters to uplift search capabilities from the original\nMFT artifact. Due to the multi-drive features, the MFTPath will output the MFT\npath of the entry.\n\nAvailable filters include:\n- FullPath regex\n- FileName regex\n- Time bounds to select files with a timestamp within time ranges\n- FileSize bounds\n\n![Sample output](https://user-images.githubusercontent.com/13081800/124166265-f2c08000-dae5-11eb-9359-ce7f80c1a10c.png)\n",
         "link": "/exchange/artifacts/pages/printnightmare",
