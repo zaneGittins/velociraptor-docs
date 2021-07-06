@@ -1,7 +1,7 @@
 [
     {
         "title": "Windows.Remediation.PrintSpooler",
-        "description": "This artifact will enable mitigation of PrintSpooler exploitation used by \nPrintNightmare - CVE-2021-34527 and CVE-2021-1675.\n\nThere are two selectable mitigations:  \n  \n  - disabling the print spooler service.   \n  HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler\\Start = 4 (service disabled).   \n      \n  - disable remote registration of the spool service.    \n  HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).  \n\nNOTE: ChangeServiceStartup will set to disable, not stop the printspool service. \nIts always reccomended to use group policy to deploy these settings. This \nartifact will disable \n",
+        "description": "This artifact will enable mitigation of PrintSpooler exploitation used by \nPrintNightmare - CVE-2021-34527 and CVE-2021-1675.\n\nThere are two selectable mitigations:  \n  \n  - disabling the print spooler service.   \n  HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler\\Start = 4 (service disabled).   \n      \n  - disable remote registration of the spool service.    \n  HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).  \n\nNOTE: ChangeServiceStartup will set to disable, not stop the printspool service. \nIts always reccomended to use group policy to deploy these settings.\n",
         "link": "/exchange/artifacts/pages/printspoolerremediation",
         "tags": [],
         "author": "mgreen27",
