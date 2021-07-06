@@ -21,7 +21,7 @@
     },
     {
         "title": "Windows.Detection.PrintNightmare",
-        "description": "This artifact returns any binaries in the Windows/spool/drivers/** folders with\nan untrusted Authenticode entry.\n\nIt can be used to hunt for dll files droped during exploitation of\nCVE-2021-1675 - PrintNightmare.\n\nTo query all attached ntfs drives: check the AllDrives switch.\n\nI have added several filters to uplift search capabilities from the original\nMFT artifact. Due to the multi-drive features, the MFTPath will output the MFT\npath of the entry.\n\nAvailable filters include:\n- FullPath regex\n- FileName regex\n- Time bounds to select files with a timestamp within time ranges\n- FileSize bounds\n\n![Sample output](https://user-images.githubusercontent.com/13081800/124166265-f2c08000-dae5-11eb-9359-ce7f80c1a10c.png)\n",
+        "description": "This artifact returns any binaries in the Windows/spool/drivers/** folders with\nan untrusted Authenticode entry.\n\nIt can be used to hunt for dll files droped during exploitation of \nCVE-2021-1675 - PrintNightmare.\n\nTo query all attached ntfs drives: check the AllDrives switch.\n\nI have added several filters to uplift search capabilities from the original\nMFT artifact. Due to the multi-drive features, the MFTPath will output the MFT\npath of the entry.\n\nAvailable filters include:\n- FullPath regex\n- FileName regex\n- Time bounds to select files with a timestamp within time ranges\n- FileSize bounds\n",
         "link": "/exchange/artifacts/pages/printnightmare",
         "tags": [],
         "author": "mgreen27",
