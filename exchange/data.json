@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.ETW.DetectProcessSpoofing",
+        "description": "Detects Process parent spoofing such as SelectMyParent.exe\n",
+        "link": "/exchange/artifacts/pages/custom.windows.etw.detectprocessspoofing",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-07-11"
+    },
+    {
         "title": "Windows.Monitoring.PrintNightmare",
         "description": "This artifact returns ETW PrintService events for potential PrintNightmare activity.  \nCVE-2021-1675 and CVE-2021-34527  \n\nIt monitors for DRIVER_ADDED events and enriches with binary information for payload \nDataFile. Hunt for unexpected drivers with malicious DataFiles.\n",
         "link": "/exchange/artifacts/pages/printnightmaremonitor",
