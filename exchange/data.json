@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Server.Slack.Clients.Enrolled",
+        "description": "Send a message to slack when clients become enrolled.\n\nThis artifact triggers when a client is interrogated \nwithin 60 seconds of it being seen for the first time.\n",
+        "link": "/exchange/artifacts/pages/custom.server.slack.clients.enrolled",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-07-13"
+    },
+    {
         "title": "Custom.Windows.ETW.DetectProcessSpoofing",
         "description": "Detects Process parent spoofing such as SelectMyParent.exe\n",
         "link": "/exchange/artifacts/pages/custom.windows.etw.detectprocessspoofing",
