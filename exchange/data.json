@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.Memory.InjectedThread",
+        "description": "Use Get-InjetedThreads to detect process injections.\nNote: this query is complex powershell. Run it after a scriptblock hunt.\n\nhttps://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2\nhttps://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1\n",
+        "link": "/exchange/artifacts/pages/get-injectedthread",
+        "tags": [],
+        "author": "mgreen27",
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-07-14"
+    },
+    {
         "title": "Custom.Windows.Memory.HollowsHunter",
         "description": "Use hollows_hunter to detect suspicious process injections.\n\nUpload any findings to the server, including process dumps.\n",
         "link": "/exchange/artifacts/pages/hollowshunter",
