@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.System.AccessControlList",
+        "description": "This artifact displays the access control lists of files.\n\nNote: This artifact uses Powershell to gather the information.\n",
+        "link": "/exchange/artifacts/pages/custom.windows.system.accesscontrollist",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-07-23"
+    },
+    {
         "title": "Custom.Windows.Memory.InjectedThread",
         "description": "Use Get-InjetedThreads to detect process injections.\nNote: this query is complex powershell. Run it after a scriptblock hunt.\n\nhttps://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2\nhttps://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1\n",
         "link": "/exchange/artifacts/pages/get-injectedthread",
