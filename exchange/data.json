@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.NTFS.MFT.HiveNightmare",
+        "description": "This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to find several files created as part of the POC tooling for HiveNightmare (CVE-2021-36934):\n\n  - \\hive_sam_ - https://github.com/FireFart/hivenightmare\n  - \\SAM-20 - https://github.com/GossiTheDog/HiveNightmare\n  - \\SAM-haxx - https://github.com/GossiTheDog/HiveNightmare\n  - \\Sam.save - PowerShell version\n  - \\Sam.hive - https://github.com/WiredPulse/Invoke-HiveNightmare\n  - C:\\windows\\temp\\sam - https://github.com/cube0x0/CVE-2021-36934\nSee Florian Roth's rule here:\n- https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml\n",
+        "link": "/exchange/artifacts/pages/windows.ntfs.mft.hivenightmare",
+        "tags": [],
+        "author": "svch0stz",
+        "author_link": "https://github.com/svch0stz",
+        "author_avatar": "https://avatars.githubusercontent.com/u/8684257?v=4",
+        "date": "2021-07-25"
+    },
+    {
         "title": "Custom.Windows.System.AccessControlList",
         "description": "This artifact displays the access control lists of files.\n\nNote: This artifact uses Powershell to gather the information.\n",
         "link": "/exchange/artifacts/pages/custom.windows.system.accesscontrollist",
