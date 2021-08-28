@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.ActiveDirectory.PrivilegedUsers",
+        "description": "If on a Domain Controller (ProductType = 2), recursively enumerate membership of privileged groups, then\nfor each user, collect details relevant to an investigation: Create Date, Last Logon, Group Membership, SID\n\nIf not on a Domain Controller, return nothing\n",
+        "link": "/exchange/artifacts/pages/activedirectoryprivilegedusers",
+        "tags": [],
+        "author": "liteman",
+        "author_link": "https://github.com/liteman",
+        "author_avatar": "https://avatars.githubusercontent.com/u/6087529?v=4",
+        "date": "2021-08-28"
+    },
+    {
         "title": "Server.Import.ArtifactExchange",
         "description": "This artifact will automatically import the latest\nartifact exchange bundle into the current server.\n",
         "link": "/exchange/artifacts/pages/server.import.artifactexchange",
