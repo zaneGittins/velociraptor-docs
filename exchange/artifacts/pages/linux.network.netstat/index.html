@@ -5,22 +5,22 @@
 <meta name=generator content="Hugo 0.87.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Tags :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429465 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429465 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429465 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429465 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429465 rel=stylesheet>
-<link href=/css/theme.css?1630429465 rel=stylesheet>
-<link href=/css/tabs.css?1630429465 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429465 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429465 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429465 rel=stylesheet><link href=/css/dark.css?1630429465 rel=stylesheet><link href=/css/syntax.css?1630429465 rel=stylesheet><link href=/css/light.css?1630429465 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429465 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429465></script>
+<title>Linux.Network.Netstat :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1630429464 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
+<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
+<link href=/css/theme.css?1630429464 rel=stylesheet>
+<link href=/css/tabs.css?1630429464 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
+<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
+<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630429464></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
-<body data-url=/tags/>
+<body data-url=/exchange/artifacts/pages/linux.network.netstat/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -304,7 +304,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -346,6 +346,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Linux.Network.Netstat.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -354,11 +360,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Tags
+Linux.Network.Netstat
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -367,34 +374,85 @@ Tags
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Tags
+Linux.Network.Netstat
 </h1>
-<ul>
-<li><a href=/tags/detection/>Detection</a></li>
-<li><a href=/tags/vql/>VQL</a></li>
-<li><a href=/tags/carving/>Carving</a></li>
-<li><a href=/tags/forensics/>Forensics</a></li>
-<li><a href=/tags/usn/>USN</a></li>
-<li><a href=/tags/windows/>Windows</a></li>
-<li><a href=/tags/parsing/>Parsing</a></li>
-<li><a href=/tags/security/>Security</a></li>
-<li><a href=/tags/scalability/>Scalability</a></li>
-<li><a href=/tags/server/>Server</a></li>
-<li><a href=/tags/velociraptor/>Velociraptor</a></li>
-<li><a href=/tags/memory/>Memory</a></li>
-<li><a href=/tags/filesystems/>Filesystems</a></li>
-<li><a href=/tags/osquery/>OSQuery</a></li>
-<li><a href=/tags/logs/>Logs</a></li>
-<li><a href=/tags/performance/>Performance</a></li>
-<li><a href=/tags/integration/>Integration</a></li>
-<li><a href=/tags/slack/>Slack</a></li>
-<li><a href=/tags/internals/>Internals</a></li>
-<li><a href=/tags/authentication/>Authentication</a></li>
-<li><a href=/tags/offline-collector/>Offline Collector</a></li>
-<li><a href=/tags/tools/>Tools</a></li>
-<li><a href=/tags/low-level/>Low level</a></li>
-</ul>
+<p>This artifact will parse /proc and reveal information
+about current network connections.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Linux.Network.Netstat</span><span class=w>
+</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>   This artifact will parse /proc and reveal information 
+</span><span class=sd>   about current network connections.</span><span class=w>   
+</span><span class=w>
+</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>StateRegex</span><span class=w>
+</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Listening|Established&#34;</span><span class=w>
+</span><span class=w>     </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Only show these states</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;linux&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span><span class=sd>        -- Break down the address of the form 0100007F:22B9
+</span><span class=sd>        LET _X(x) = parse_string_with_regex(string=addr,
+</span><span class=sd>          regex=&#34;(..)(..)(..)(..):(....)&#34;)
+</span><span class=sd>        
+</span><span class=sd>        -- Unroll hex encoded IPv4 address into more usual form.
+</span><span class=sd>        LET ParseAddress(addr) = dict(
+</span><span class=sd>            IP=format(format=&#34;%d.%d.%d.%d&#34;, args=[
+</span><span class=sd>               int(int=&#34;0x&#34; + _X(x=addr).g4),
+</span><span class=sd>               int(int=&#34;0x&#34; + _X(x=addr).g3),
+</span><span class=sd>               int(int=&#34;0x&#34; + _X(x=addr).g2),
+</span><span class=sd>               int(int=&#34;0x&#34; + _X(x=addr).g1)]), 
+</span><span class=sd>            Port=int(int=&#34;0x&#34; + _X(x=addr).g5)
+</span><span class=sd>        )
+</span><span class=sd>        
+</span><span class=sd>        -- https://elixir.bootlin.com/linux/latest/source/include/net/tcp_states.h#L14
+</span><span class=sd>        LET StateLookup = dict(
+</span><span class=sd>           `01`=&#34;Established&#34;,
+</span><span class=sd>           `02`=&#34;Syn Sent&#34;,
+</span><span class=sd>           `06`=&#34;Time Wait&#34;, -- No owner process 
+</span><span class=sd>           `0A`=&#34;Listening&#34;
+</span><span class=sd>        )
+</span><span class=sd>        
+</span><span class=sd>        -- Enumerate all the sockets and cache them in memory for 
+</span><span class=sd>        -- reverse lookup. The following is basically lsof.
+</span><span class=sd>        LET X = SELECT split(string=FullPath, sep=&#34;/&#34;)[2] AS Pid, 
+</span><span class=sd>               Data.Link AS Filename,
+</span><span class=sd>               parse_string_with_regex(
+</span><span class=sd>                  string=Data.Link, 
+</span><span class=sd>                  regex=&#34;(?P&lt;Type&gt;socket|pipe):\\[(?P&lt;inode&gt;[0-9]+)\\]&#34;) AS Details
+</span><span class=sd>        FROM glob(globs=&#34;/proc/*/fd/*&#34;)
+</span><span class=sd>        
+</span><span class=sd>        LET AllSockets &lt;= SELECT atoi(string=Pid) AS Pid,
+</span><span class=sd>               read_file(filename=&#34;/proc/&#34; + Pid + &#34;/comm&#34;) AS Command,
+</span><span class=sd>               read_file(filename=&#34;/proc/&#34; + Pid + &#34;/cmdline&#34;) AS CommandLine,
+</span><span class=sd>               Filename,
+</span><span class=sd>               Details.Type AS Type,
+</span><span class=sd>               Details.inode AS Inode
+</span><span class=sd>        FROM X
+</span><span class=sd>        WHERE Type =~ &#34;socket&#34;
+</span><span class=sd>        
+</span><span class=sd>        -- Parse the TCP table and refer back to the socket
+</span><span class=sd>        -- so we can print process info.
+</span><span class=sd>        SELECT inode, get(item=StateLookup, field=st) AS State, uid, {
+</span><span class=sd>                  SELECT * FROM AllSockets
+</span><span class=sd>                  WHERE Inode=inode
+</span><span class=sd>                  LIMIT 1
+</span><span class=sd>               } AS ProcessInfo,
+</span><span class=sd>               ParseAddress(addr=local_address) AS LocalAddr,
+</span><span class=sd>               ParseAddress(addr=rem_address) AS RemoteAddr
+</span><span class=sd>        FROM split_records(
+</span><span class=sd>             columns=[&#34;_&#34;, &#34;sl&#34;,&#34;local_address&#34;, &#34;rem_address&#34;, &#34;st&#34;, &#34;queues&#34;, &#34;tr_tm_when&#34;, 
+</span><span class=sd>                      &#34;retransmit&#34;, &#34;uid&#34;, &#34;timeout&#34;, &#34;inode&#34;],
+</span><span class=sd>             filenames=&#34;/proc/net/tcp&#34;,
+</span><span class=sd>             regex=&#34; +&#34;)
+</span><span class=sd>        WHERE sl =~ &#34;:&#34;  -- Remove header row
+</span><span class=sd>          AND State =~ StateRegex</span><span class=w>        
+</span><span class=w>
+</span></code></pre></div>
 <footer class=footline>
 </footer>
 </div>
@@ -405,15 +463,15 @@ Tags
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429465></script>
-<script src=/js/jquery.sticky.js?1630429465></script>
-<script src=/js/featherlight.min.js?1630429465></script>
-<script src=/js/highlight.pack.js?1630429465></script>
+<script src=/js/clipboard.min.js?1630429464></script>
+<script src=/js/perfect-scrollbar.min.js?1630429464></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
+<script src=/js/jquery.sticky.js?1630429464></script>
+<script src=/js/featherlight.min.js?1630429464></script>
+<script src=/js/highlight.pack.js?1630429464></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429465></script>
-<script src=/js/learn.js?1630429465></script>
-<script src=/js/hugo-learn.js?1630429465></script>
+<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
+<script src=/js/learn.js?1630429464></script>
+<script src=/js/hugo-learn.js?1630429464></script>
 </body>
 </html>
