@@ -14,9 +14,9 @@
         "description": "\nThis artifact leverages Chainsaw to enable usage of Sigma rules to faciliate detection within Windows Event Logs.\n\nFrom the project's description:\n\n\"Chainsaw provides a powerful \u2018first-response\u2019 capability to quickly identify threats within Windows event logs. \nIt offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.\"\n\nhttps://github.com/countercept/chainsaw\n",
         "link": "/exchange/artifacts/pages/windows.eventlogs.chainsaw",
         "tags": [],
-        "author": "scudette",
-        "author_link": "https://github.com/scudette",
-        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author": "Wes Lambert - @therealwlambert",
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
         "date": "2021-09-03"
     },
     {
@@ -70,9 +70,9 @@
         "date": "2021-07-23"
     },
     {
-        "title": "Custom.Windows.Memory.HollowsHunter",
-        "description": "Use hollows_hunter to detect suspicious process injections.\n\nUpload any findings to the server, including process dumps.\n",
-        "link": "/exchange/artifacts/pages/hollowshunter",
+        "title": "Custom.Windows.Memory.InjectedThread",
+        "description": "Use Get-InjetedThreads to detect process injections.\nNote: this query is complex powershell. Run it after a scriptblock hunt.\n\nhttps://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2\nhttps://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1\n",
+        "link": "/exchange/artifacts/pages/get-injectedthread",
         "tags": [],
         "author": "mgreen27",
         "author_link": "https://github.com/mgreen27",
@@ -80,9 +80,9 @@
         "date": "2021-07-14"
     },
     {
-        "title": "Custom.Windows.Memory.InjectedThread",
-        "description": "Use Get-InjetedThreads to detect process injections.\nNote: this query is complex powershell. Run it after a scriptblock hunt.\n\nhttps://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2\nhttps://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1\n",
-        "link": "/exchange/artifacts/pages/get-injectedthread",
+        "title": "Custom.Windows.Memory.HollowsHunter",
+        "description": "Use hollows_hunter to detect suspicious process injections.\n\nUpload any findings to the server, including process dumps.\n",
+        "link": "/exchange/artifacts/pages/hollowshunter",
         "tags": [],
         "author": "mgreen27",
         "author_link": "https://github.com/mgreen27",
@@ -160,16 +160,6 @@
         "date": "2021-07-01"
     },
     {
-        "title": "Windows.Applications.FTKImager",
-        "description": "Create an E01 Image of the C drive using FTK Imager (Command Line Version)\n\nSourceDriveToImage usually will be 0 (as in \\\\.\\PHYSICALDRIVE0) for the C: drive, on a Windows system.\n\nIf you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \\\\.\\PHYSICALDRIVE1\n",
-        "link": "/exchange/artifacts/pages/ftkimager",
-        "tags": [],
-        "author": "eduardomcm",
-        "author_link": "https://github.com/eduardomcm",
-        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
-        "date": "2021-06-25"
-    },
-    {
         "title": "Custom.Label.User",
         "description": "This artifact watches for new client enrolments and automatically label \nthe client with the required label if the user exists.\n\nThis artifact can be the starting point for automatically labeling a machine \nbased on any other property - just change the artifact to watch and the result \nfilter.\n\n  \n",
         "link": "/exchange/artifacts/pages/custom.label.user",
@@ -181,6 +171,16 @@
         "author": "scudette",
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-06-25"
+    },
+    {
+        "title": "Windows.Applications.FTKImager",
+        "description": "Create an E01 Image of the C drive using FTK Imager (Command Line Version)\n\nSourceDriveToImage usually will be 0 (as in \\\\.\\PHYSICALDRIVE0) for the C: drive, on a Windows system.\n\nIf you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \\\\.\\PHYSICALDRIVE1\n",
+        "link": "/exchange/artifacts/pages/ftkimager",
+        "tags": [],
+        "author": "eduardomcm",
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
         "date": "2021-06-25"
     },
     {
