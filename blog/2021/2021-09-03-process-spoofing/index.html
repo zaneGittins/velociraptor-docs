@@ -6,18 +6,18 @@
 <meta name=description content="This post takes another look at Event Tracing for Windows and how it can be used to detect a common attacker subversion technique.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>ETW Pt2 Process Parent Spoofing :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630671067 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630671067 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630671067 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630671067 rel=stylesheet>
-<link href=/css/auto-complete.css?1630671067 rel=stylesheet>
-<link href=/css/theme.css?1630671067 rel=stylesheet>
-<link href=/css/tabs.css?1630671067 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630671067 rel=stylesheet>
-<link href=/css/theme-mine.css?1630671067 rel=stylesheet>
-<link href=/css/dark.css?1630671067 rel=stylesheet><link href=/css/syntax.css?1630671067 rel=stylesheet><link href=/css/light.css?1630671067 rel=stylesheet><link href=/css/hljs.css?1630671067 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630671067 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630671067></script>
+<title>ETW Part 2: Process Parent Spoofing :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1630682517 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630682517 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630682517 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630682517 rel=stylesheet>
+<link href=/css/auto-complete.css?1630682517 rel=stylesheet>
+<link href=/css/theme.css?1630682517 rel=stylesheet>
+<link href=/css/tabs.css?1630682517 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630682517 rel=stylesheet>
+<link href=/css/theme-mine.css?1630682517 rel=stylesheet>
+<link href=/css/dark.css?1630682517 rel=stylesheet><link href=/css/syntax.css?1630682517 rel=stylesheet><link href=/css/light.css?1630682517 rel=stylesheet><link href=/css/hljs.css?1630682517 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630682517 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630682517></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -361,7 +361,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-ETW Pt2 Process Parent Spoofing
+ETW Part 2: Process Parent Spoofing
 </span>
 </div>
 <div class=progress>
@@ -389,8 +389,12 @@ ETW Pt2 Process Parent Spoofing
 </div>
 <div id=body-inner>
 <h1>
-ETW Pt2 Process Parent Spoofing
+ETW Part 2: Process Parent Spoofing
 </h1>
+<div class="author pull-right">
+Mike Cohen &lt;mike@velocidex.com>
+<span class=date>2021-09-03</span>
+</div>
 <h2 id=process-parent-spoofing>Process Parent Spoofing</h2>
 <p>A lot of the current state of the art detection techniques rely on
 process creation logs, and their implied parent/child
@@ -555,6 +559,13 @@ processing on the backend to scale to many thousands of monitored
 endpoints, as the server only sees high value, low volume events. We
 are essentially using the end point itself to create a de-centralized
 detection engine for a fast and scalable alerting system.</p>
+<p>Unfortunately an ETW watcher must be running at the time the process
+is created, to be able to identify the spoofed parent. I am not
+currently aware of a way to detect that an existing process&rsquo;s reported
+parent is not correct (Please let me know if you know of a way!). This
+means that simply collecting information at a point in time after the
+process is started (as in a Velociraptor <code>pslist</code> hunt for example)
+does not reveal this information easily.</p>
 <p>In the next blog post in this series we will be looking at how ETW can
 be abused by malware and some of the limitations around ETW.</p>
 <p>If you have a great idea for a new detection query, take
@@ -583,15 +594,15 @@ Exchange</a>.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630671067></script>
-<script src=/js/perfect-scrollbar.min.js?1630671067></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630671067></script>
-<script src=/js/jquery.sticky.js?1630671067></script>
-<script src=/js/featherlight.min.js?1630671067></script>
-<script src=/js/highlight.min.js?1630671067></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630671067></script>
-<script src=/js/learn.js?1630671067></script>
-<script src=/js/hugo-learn.js?1630671067></script>
+<script src=/js/clipboard.min.js?1630682517></script>
+<script src=/js/perfect-scrollbar.min.js?1630682517></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630682517></script>
+<script src=/js/jquery.sticky.js?1630682517></script>
+<script src=/js/featherlight.min.js?1630682517></script>
+<script src=/js/highlight.min.js?1630682517></script>
+<script></script>
+<script src=/js/modernizr.custom-3.6.0.js?1630682517></script>
+<script src=/js/learn.js?1630682517></script>
+<script src=/js/hugo-learn.js?1630682517></script>
 </body>
 </html>

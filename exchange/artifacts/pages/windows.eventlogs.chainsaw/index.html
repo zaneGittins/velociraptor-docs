@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Server.Import.ArtifactExchange :: Velociraptor - Digging deeper!</title>
+<title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1630682517 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1630682517 rel=stylesheet>
 <link href=/css/featherlight.min.css?1630682517 rel=stylesheet>
@@ -20,7 +20,7 @@
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/server.import.artifactexchange/>
+<body data-url=/exchange/artifacts/pages/windows.eventlogs.chainsaw/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -347,7 +347,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Server.Import.ArtifactExchange.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.EventLogs.Chainsaw.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -360,7 +360,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Server.Import.ArtifactExchange
+Windows.EventLogs.Chainsaw
 </span>
 </div>
 <div class=progress>
@@ -374,49 +374,73 @@ Server.Import.ArtifactExchange
 </div>
 <div id=body-inner>
 <h1>
-Server.Import.ArtifactExchange
+Windows.EventLogs.Chainsaw
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>This artifact will automatically import the latest
-artifact exchange bundle into the current server.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Server.Import.ArtifactExchange</span><span class=w>
+<p>This artifact leverages Chainsaw to enable usage of Sigma rules to faciliate detection within Windows Event Logs.</p>
+<p>From the project&rsquo;s description:</p>
+<p>&ldquo;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs.
+It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&rdquo;</p>
+<p><a href=https://github.com/countercept/chainsaw>https://github.com/countercept/chainsaw</a></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.EventLogs.Chainsaw</span><span class=w>
 </span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   This artifact will automatically import the latest
-</span><span class=sd>   artifact exchange bundle into the current server.</span><span class=w>   
+</span><span class=sd>    
+</span><span class=sd>    This artifact leverages Chainsaw to enable usage of Sigma rules to faciliate detection within Windows Event Logs.
+</span><span class=sd>    
+</span><span class=sd>    From the project&#39;s description:
+</span><span class=sd>    
+</span><span class=sd>    &#34;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs. 
+</span><span class=sd>    It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&#34;
+</span><span class=sd>    
+</span><span class=sd>    https://github.com/countercept/chainsaw
+</span><span class=sd>    
+</span><span class=sd>    </span><span class=w>    
+</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>Wes Lambert - @therealwlambert</span><span class=w>
 </span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>SERVER</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>required_permissions</span><span class=p>:</span><span class=w>
-</span><span class=w></span>- <span class=l>SERVER_ADMIN</span><span class=w>
-</span><span class=w>
+</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Chainsaw</span><span class=w>
+</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/countercept/chainsaw/releases/download/v1.0.0/chainsaw_x86_64-pc-windows-msvc.zip</span><span class=w>
 </span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>ExchangeURL</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/Velocidex/velociraptor-docs/raw/gh-pages/exchange/artifact_exchange.zip</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Prefix</span><span class=w>
-</span><span class=w>     </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Add artifacts with this prefix</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Exchange</span><span class=w>
-</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>EVTXPath</span><span class=w>
+</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>C:\Windows\System32\winevt\Logs\*.evtx</span><span class=w>
 </span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET X = SELECT artifact_set(prefix=Prefix, definition=Definition) AS Definition
-</span><span class=sd>        FROM foreach(row={
-</span><span class=sd>          SELECT Content FROM http_client(
-</span><span class=sd>             remove_last=TRUE,
-</span><span class=sd>             tempfile_extension=&#34;.zip&#34;, url=ExchangeURL)
-</span><span class=sd>        }, query={
-</span><span class=sd>          SELECT FullPath,
-</span><span class=sd>               regex_replace(re=&#39;&#39;&#39;(?sm)^name: +([^\n]+)&#39;&#39;&#39;,
-</span><span class=sd>                 replace=&#34;name: &#34; + Prefix + &#34;.$1&#34;,
-</span><span class=sd>                 source=read_file(accessor=&#34;zip&#34;, filename=FullPath)) AS Definition
-</span><span class=sd>          FROM glob(globs=url(path=Content, fragment=&#39;/**/*.yaml&#39;), accessor=&#34;zip&#34;)
+</span><span class=sd>        // Download Chainsaw
+</span><span class=sd>        LET Toolzip = SELECT * FROM Artifact.Generic.Utils.FetchBinary(
+</span><span class=sd>            ToolName=&#34;Chainsaw&#34;, IsExecutable=FALSE)
+</span><span class=sd>        //Create temp directory
+</span><span class=sd>        LET TmpDir &lt;= tempdir()
+</span><span class=sd>        //Create tempfile for JSON results
+</span><span class=sd>        LET TmpResults &lt;= tempfile()
+</span><span class=sd>        //Read in results file when ready
+</span><span class=sd>        LET Results = SELECT * FROM read_file(filenames=TmpResults)
+</span><span class=sd>        //Unzip into temp dir
+</span><span class=sd>        LET UnzipIt &lt;= SELECT * FROM  unzip(filename=url(path=Toolzip[0].FullPath).String, output_directory=TmpDir)
+</span><span class=sd>        //Sigma rules
+</span><span class=sd>        Let SigmaRules &lt;= TmpDir + &#39;/chainsaw/sigma_rules&#39; 
+</span><span class=sd>        //Mapping file(s) for Sigma
+</span><span class=sd>        Let SigmaMapping &lt;= TmpDir + &#39;/chainsaw/mapping_files/sigma-mapping.yml&#39;
+</span><span class=sd>        //Chainsaw hunt -- Example: ./chainsaw hunt evtx_attack_samples/ --json results.json --rules sigma_rules/ --mapping mapping_files/sigma-mapping.yml
+</span><span class=sd>        LET ExecCS = TmpDir + &#39;/chainsaw/chainsaw hunt &#39; + EVTXPath + &#39; --json &#39; + TmpResults + &#39; --rules &#39; + SigmaRules + &#39; --mapping &#39; + SigmaMapping
+</span><span class=sd>        //Execute Chainsaw and cleanup for JSON
+</span><span class=sd>        LET ExecCmd &lt;= ExecCS + &#39;; [IO.Directory]::SetCurrentDirectory((Convert-Path (Get-Location -PSProvider FileSystem)));$filetxt = [IO.File]::ReadAllText(&#34;&#39; + TmpResults + &#39;&#34;); $filetxt = ($filetxt -replace &#34;(?ms)^}\n{&#34;, &#34;},`r`n{&#34;);Set-Content -Path &#34;&#39; + TmpResults + &#39;&#34; -Value $filetxt; &#34;[&#34; + (Get-Content &#39; + TmpResults + &#39; -Raw) | Set-Content &#39; + TmpResults + &#39;; (Get-Content &#39; + TmpResults + &#39; -Raw) + &#34;]&#34; | Set-Content &#39; + TmpResults + &#39;;&#39;
+</span><span class=sd>        LET ExecIt &lt;= SELECT * from Artifact.Windows.System.PowerShell(Command=ExecCmd)
+</span><span class=sd>        LET Data = SELECT * FROM foreach(row=Results, query={SELECT parse_json_array(data=Data) AS Content FROM scope()})
+</span><span class=sd>        LET Matches = SELECT * FROM foreach(row=Data, query={ 
+</span><span class=sd>            SELECT
+</span><span class=sd>                get(member=&#34;event.Event.System.TimeCreated.#attributes.SystemTime&#34;) AS EventTime,
+</span><span class=sd>                get(member=&#34;detection&#34;) AS Detection, 
+</span><span class=sd>                get(member=&#34;event.Event.System.EventID&#34;) AS _EventID, 
+</span><span class=sd>                get(member=&#34;event.Event.System.Computer&#34;) AS _Computer, 
+</span><span class=sd>                get(member=&#34;event.Event.EventData.User&#34;) AS _User,
+</span><span class=sd>                get(member=&#34;event.Event.System.Channel&#34;) AS _Channel,
+</span><span class=sd>                get(member=&#34;event.Event.EventData&#34;) AS SystemData,  
+</span><span class=sd>                get(member=&#34;event.Event.System&#34;) AS EventData
+</span><span class=sd>            FROM Content
 </span><span class=sd>        })
-</span><span class=sd>
-</span><span class=sd>        SELECT Definition.name AS Name,
-</span><span class=sd>               Definition.description AS Description,
-</span><span class=sd>               Definition.author AS Author
-</span><span class=sd>        FROM X</span><span class=w>        
+</span><span class=sd>        SELECT * FROM Matches</span><span class=w>        
 </span><span class=w>
 </span></code></pre></div>
 <footer class=footline>

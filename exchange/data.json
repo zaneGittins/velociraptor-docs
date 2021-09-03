@@ -1,5 +1,25 @@
 [
     {
+        "title": "Windows.ETW.DetectProcessSpoofing",
+        "description": "Detects Process parent spoofing such as SelectMyParent.exe, Cobalt\nStrike PPID spoofing etc.\n",
+        "link": "/exchange/artifacts/pages/windows.etw.detectprocessspoofing",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-09-03"
+    },
+    {
+        "title": "Windows.EventLogs.Chainsaw",
+        "description": "\nThis artifact leverages Chainsaw to enable usage of Sigma rules to faciliate detection within Windows Event Logs.\n\nFrom the project's description:\n\n\"Chainsaw provides a powerful \u2018first-response\u2019 capability to quickly identify threats within Windows event logs. \nIt offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.\"\n\nhttps://github.com/countercept/chainsaw\n",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.chainsaw",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2021-09-03"
+    },
+    {
         "title": "Linux.Network.Netstat",
         "description": "This artifact will parse /proc and reveal information \nabout current network connections.\n",
         "link": "/exchange/artifacts/pages/linux.network.netstat",
@@ -78,16 +98,6 @@
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
         "date": "2021-07-13"
-    },
-    {
-        "title": "Custom.Windows.ETW.DetectProcessSpoofing",
-        "description": "Detects Process parent spoofing such as SelectMyParent.exe\n",
-        "link": "/exchange/artifacts/pages/custom.windows.etw.detectprocessspoofing",
-        "tags": [],
-        "author": "scudette",
-        "author_link": "https://github.com/scudette",
-        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
-        "date": "2021-07-11"
     },
     {
         "title": "Windows.Monitoring.PrintNightmare",

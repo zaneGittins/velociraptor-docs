@@ -5,22 +5,22 @@
 <meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Windows.ETW.DetectProcessSpoofing :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630671066 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630671066 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630671066 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630671066 rel=stylesheet>
-<link href=/css/auto-complete.css?1630671066 rel=stylesheet>
-<link href=/css/theme.css?1630671066 rel=stylesheet>
-<link href=/css/tabs.css?1630671066 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630671066 rel=stylesheet>
-<link href=/css/theme-mine.css?1630671066 rel=stylesheet>
-<link href=/css/dark.css?1630671066 rel=stylesheet><link href=/css/syntax.css?1630671066 rel=stylesheet><link href=/css/light.css?1630671066 rel=stylesheet><link href=/css/hljs.css?1630671066 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630671066 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630671066></script>
+<title>Windows.ETW.DetectProcessSpoofing :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1630682517 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630682517 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630682517 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630682517 rel=stylesheet>
+<link href=/css/auto-complete.css?1630682517 rel=stylesheet>
+<link href=/css/theme.css?1630682517 rel=stylesheet>
+<link href=/css/tabs.css?1630682517 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630682517 rel=stylesheet>
+<link href=/css/theme-mine.css?1630682517 rel=stylesheet>
+<link href=/css/dark.css?1630682517 rel=stylesheet><link href=/css/syntax.css?1630682517 rel=stylesheet><link href=/css/light.css?1630682517 rel=stylesheet><link href=/css/hljs.css?1630682517 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630682517 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630682517></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/custom.windows.etw.detectprocessspoofing/>
+<body data-url=/exchange/artifacts/pages/windows.etw.detectprocessspoofing/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -347,7 +347,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Windows.ETW.DetectProcessSpoofing.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.ETW.DetectProcessSpoofing.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -360,7 +360,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Windows.ETW.DetectProcessSpoofing
+Windows.ETW.DetectProcessSpoofing
 </span>
 </div>
 <div class=progress>
@@ -374,50 +374,62 @@ Custom.Windows.ETW.DetectProcessSpoofing
 </div>
 <div id=body-inner>
 <h1>
-Custom.Windows.ETW.DetectProcessSpoofing
+Windows.ETW.DetectProcessSpoofing
 </h1>
-<p>Detects Process parent spoofing such as SelectMyParent.exe</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Windows.ETW.DetectProcessSpoofing</span><span class=w>
+<div class="author pull-right">
+<span class=date></span>
+</div>
+<p>Detects Process parent spoofing such as SelectMyParent.exe, Cobalt
+Strike PPID spoofing etc.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.ETW.DetectProcessSpoofing</span><span class=w>
 </span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   </span><span class=w>   </span><span class=l>Detects Process parent spoofing such as SelectMyParent.exe</span><span class=w>
+</span><span class=sd>   Detects Process parent spoofing such as SelectMyParent.exe, Cobalt
+</span><span class=sd>   Strike PPID spoofing etc.</span><span class=w>   
 </span><span class=w>
 </span><span class=w></span><span class=nt>reference</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=l>https://blog.f-secure.com/detecting-parent-pid-spoofing/</span><span class=w>
+</span><span class=w>  </span>- <span class=l>https://www.youtube.com/watch?v=DOe7WTuJ1Ac</span><span class=w>
 </span><span class=w>
 </span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT_EVENT</span><span class=w>
 </span><span class=w>
 </span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
 </span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>      
+</span><span class=w>
 </span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET RecentProcesses = SELECT * FROM fifo(query={
-</span><span class=sd>           SELECT * FROM chain(
-</span><span class=sd>            -- Fill the fifo with the existing process listing at the start of the query.
-</span><span class=sd>            a={ SELECT CreateTime, Name, Pid FROM pslist()},
-</span><span class=sd>            b={
-</span><span class=sd>               SELECT System.TimeStamp AS CreateTime, 
-</span><span class=sd>                      EventData.ImageName AS Name,
-</span><span class=sd>                      int(int=EventData.ProcessID) AS Pid
-</span><span class=sd>               FROM watch_etw(guid=&#34;{22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716}&#34;, any=0x10)
-</span><span class=sd>               WHERE System.ID = 1   
-</span><span class=sd>            })
-</span><span class=sd>        }, max_rows=1000, max_age=60)
-</span><span class=sd>        
-</span><span class=sd>        LET _ &lt;= SELECT * FROM RecentProcesses
-</span><span class=sd>        
-</span><span class=sd>        -- Resolve parent pid from the fifo - this allows us to catch fast terminating processes.
-</span><span class=sd>        SELECT System.TimeStamp AS Timestamp, {
-</span><span class=sd>            SELECT Name, Pid, CreateTime
-</span><span class=sd>            FROM RecentProcesses
-</span><span class=sd>            WHERE Pid = System.ProcessID
-</span><span class=sd>          } AS RealParent, {
-</span><span class=sd>            SELECT Name, Pid, CreateTime
-</span><span class=sd>            FROM RecentProcesses 
-</span><span class=sd>            WHERE Pid = int(int=EventData.ParentProcessID)
-</span><span class=sd>          } AS ClaimedParent, System, EventData
-</span><span class=sd>        FROM watch_etw(guid=&#34;{22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716}&#34;, any=0x10)
-</span><span class=sd>        WHERE System.ID = 1 AND str(str=System.ProcessID) != EventData.ParentProcessID </span><span class=w>        
+</span><span class=sd>      -- Create a FIFO for short lived processes
+</span><span class=sd>      -- hold process logs in memory for 60 seconds.
+</span><span class=sd>      LET RecentProcesses = SELECT * FROM fifo(query={
+</span><span class=sd>         SELECT System.TimeStamp AS CreateTime,
+</span><span class=sd>                EventData.ImageName AS Name,
+</span><span class=sd>                int(int=EventData.ProcessID) AS Pid
+</span><span class=sd>         FROM watch_etw(guid=&#34;{22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716}&#34;, any=0x10)
+</span><span class=sd>         WHERE System.ID = 1
+</span><span class=sd>      }, max_rows=1000, max_age=60)
+</span><span class=sd>
+</span><span class=sd>      -- Query it once to materialize the FIFO
+</span><span class=sd>      LET _ &lt;= SELECT * FROM RecentProcesses
+</span><span class=sd>
+</span><span class=sd>      LET GetProcessInfo(TargetPid) = SELECT * FROM switch(
+</span><span class=sd>           -- First try to get the pid directly from pslist
+</span><span class=sd>           a={
+</span><span class=sd>              SELECT Name, Pid, CreateTime
+</span><span class=sd>              FROM pslist(pid=TargetPid)
+</span><span class=sd>           },
+</span><span class=sd>           -- Failing this look in the FIFO for a recently started process.
+</span><span class=sd>           b={
+</span><span class=sd>              SELECT * FROM RecentProcesses
+</span><span class=sd>              WHERE Pid = TargetPid
+</span><span class=sd>              LIMIT 1
+</span><span class=sd>           })
+</span><span class=sd>
+</span><span class=sd>      -- Enrich the event with real parent information.
+</span><span class=sd>      SELECT System.TimeStamp AS Timestamp,
+</span><span class=sd>             GetProcessInfo(TargetPid=System.ProcessID)[0] AS RealParent,
+</span><span class=sd>             GetProcessInfo(TargetPid=int(int=EventData.ParentProcessID))[0] AS ClaimedParent,
+</span><span class=sd>             System, EventData
+</span><span class=sd>      FROM watch_etw(guid=&#34;{22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716}&#34;, any=0x10)
+</span><span class=sd>      WHERE System.ID = 1 AND str(str=System.ProcessID) != EventData.ParentProcessID</span><span class=w>      
 </span><span class=w>
 </span></code></pre></div>
 <footer class=footline>
@@ -430,15 +442,15 @@ Custom.Windows.ETW.DetectProcessSpoofing
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630671066></script>
-<script src=/js/perfect-scrollbar.min.js?1630671066></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630671066></script>
-<script src=/js/jquery.sticky.js?1630671066></script>
-<script src=/js/featherlight.min.js?1630671066></script>
-<script src=/js/highlight.min.js?1630671066></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630671066></script>
-<script src=/js/learn.js?1630671066></script>
-<script src=/js/hugo-learn.js?1630671066></script>
+<script src=/js/clipboard.min.js?1630682517></script>
+<script src=/js/perfect-scrollbar.min.js?1630682517></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630682517></script>
+<script src=/js/jquery.sticky.js?1630682517></script>
+<script src=/js/featherlight.min.js?1630682517></script>
+<script src=/js/highlight.min.js?1630682517></script>
+<script></script>
+<script src=/js/modernizr.custom-3.6.0.js?1630682517></script>
+<script src=/js/learn.js?1630682517></script>
+<script src=/js/hugo-learn.js?1630682517></script>
 </body>
 </html>
