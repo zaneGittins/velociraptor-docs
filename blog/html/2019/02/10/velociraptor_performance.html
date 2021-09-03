@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Performance :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -404,7 +404,7 @@ is and the typical workloads we run with it.</p>
 <p>Since this is a smallish deployment we used a single VM with 32Gb of RAM
 and 8 cores. This was definitely over speced for this job as most of the
 time the server consumed less than 10% of one core:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>top - 06:26:13 up 29 days,  2:31,  5 users,  load average: 0.00, 0.01, 0.05
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>top - 06:26:13 up 29 days,  2:31,  5 users,  load average: 0.00, 0.01, 0.05
 Tasks: 214 total,   1 running, 213 sleeping,   0 stopped,   0 zombie
 %Cpu(s):  0.5 us,  0.1 sy,  0.0 ni, 99.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 KiB Mem:  32948060 total, 14877988 used, 18070072 free,   411192 buffers
@@ -511,7 +511,7 @@ downloading large quantities of data from multiple hosts quickly.</p>
 <p>Velociraptor can read the raw NTFS partition and therefore read the
 $MFT file. We wrote the following artifact to just fetch the $MFT
 file:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Artifact.NTFS.MFT_puller
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Artifact.NTFS.MFT_puller
 description: |
    Uses an NTFS accessor to pull the $MFT
 
@@ -638,15 +638,15 @@ assistance in Velociraptor development.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

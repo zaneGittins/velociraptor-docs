@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Parsers :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429465 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429465 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429465 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429465 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429465 rel=stylesheet>
-<link href=/css/theme.css?1630429465 rel=stylesheet>
-<link href=/css/tabs.css?1630429465 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429465 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429465 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429465 rel=stylesheet><link href=/css/dark.css?1630429465 rel=stylesheet><link href=/css/syntax.css?1630429465 rel=stylesheet><link href=/css/light.css?1630429465 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429465 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429465></script>
+<link href=/css/nucleus.css?1630646997 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646997 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646997 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646997 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646997 rel=stylesheet>
+<link href=/css/theme.css?1630646997 rel=stylesheet>
+<link href=/css/tabs.css?1630646997 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646997 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646997 rel=stylesheet>
+<link href=/css/dark.css?1630646997 rel=stylesheet><link href=/css/syntax.css?1630646997 rel=stylesheet><link href=/css/light.css?1630646997 rel=stylesheet><link href=/css/hljs.css?1630646997 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646997 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646997></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -368,8 +368,6 @@ Parsers
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#binary_parse>binary_parse</a></li>
-<li><a href=#binary_parse-1>binary_parse</a></li>
 <li><a href=#grok>grok</a></li>
 <li><a href=#olevba>olevba</a></li>
 <li><a href=#parse_auditd>parse_auditd</a></li>
@@ -431,112 +429,6 @@ to allow the client to parse information for various files.</p>
 other generic rules. However some specialized file formats have
 dedicated parsers. These dedicated parsers are exported into VQL
 plugins so their results may be used in further queries.</p>
-<div class=vql_item></div>
-<h2 id=binary_parse>binary_parse</h2>
-<p><span class="vql_type pull-right">Function</span></p>
-<p>Parse a binary string with profile based parser.</p>
-<p>This plugin extract binary data from strings. It works by applying
-a profile to the binary string and generating an object from
-that. Profiles are a json structure describing the binary format. For
-example a profile might be:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>[</span>
-  <span class=p>[</span><span class=s2>&#34;StructName&#34;</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=p>[</span>
-     <span class=p>[</span><span class=s2>&#34;field1&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;unsigned int&#34;</span><span class=p>],</span>
-     <span class=p>[</span><span class=s2>&#34;field2&#34;</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=s2>&#34;unsigned long long&#34;</span><span class=p>],</span>
-   <span class=p>]]]</span>
-<span class=err>]</span>
-</code></pre></div><p>The profile is compiled and overlayed on top of the offset specified,
-then the object is emitted with its required fields.</p>
-<p>You can read more about profiles here <a href=https://github.com/Velocidex/vtypes>https://github.com/Velocidex/vtypes</a></p>
-<div class=vqlargs></div>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>offset</td>
-<td>Start parsing from this offset.</td>
-<td>int64</td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to parse.</td>
-<td>string (required)</td>
-</tr>
-<tr>
-<td>profile</td>
-<td>The profile to use.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>iterator</td>
-<td>An iterator to begin with.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>target</td>
-<td>The target type to fetch.</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
-<div class=vql_item></div>
-<h2 id=binary_parse-1>binary_parse</h2>
-<p><span class="vql_type pull-right">Plugin</span></p>
-<p>Parse binary files using a profile.</p>
-<p>This is the plugin version of the <code>binary_parse()</code> function.</p>
-<div class=vqlargs></div>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>offset</td>
-<td>Start parsing from this offset</td>
-<td>int64</td>
-</tr>
-<tr>
-<td>file</td>
-<td>Filename to parse</td>
-<td>string (required)</td>
-</tr>
-<tr>
-<td>accessor</td>
-<td>Accessor to use (e.g. ntfs, data)</td>
-<td>string</td>
-</tr>
-<tr>
-<td>profile</td>
-<td>Profile to use.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>target</td>
-<td>The target to fetch.</td>
-<td>string (required)</td>
-</tr>
-<tr>
-<td>args</td>
-<td>Args for the target class.</td>
-<td>Any</td>
-</tr>
-<tr>
-<td>start</td>
-<td>The initial field in the target to fetch.</td>
-<td>string</td>
-</tr>
-</tbody>
-</table>
 <div class=vql_item></div>
 <h2 id=grok>grok</h2>
 <p><span class="vql_type pull-right">Function</span></p>
@@ -640,6 +532,19 @@ objects, and each such code object is emitted as a row.</p>
 <h2 id=parse_binary>parse_binary</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Parse a binary file into a datastructure using a profile.</p>
+<p>This plugin extract binary data from strings. It works by applying
+a profile to the binary string and generating an object from
+that. Profiles are a json structure describing the binary format. For
+example a profile might be:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>[</span>
+  <span class=p>[</span><span class=s2>&#34;StructName&#34;</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=p>[</span>
+     <span class=p>[</span><span class=s2>&#34;field1&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;unsigned int&#34;</span><span class=p>],</span>
+     <span class=p>[</span><span class=s2>&#34;field2&#34;</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=s2>&#34;unsigned long long&#34;</span><span class=p>],</span>
+   <span class=p>]]]</span>
+<span class=err>]</span>
+</code></pre></div><p>The profile is compiled and overlayed on top of the offset specified,
+then the object is emitted with its required fields.</p>
+<p>You can read more about profiles here <a href=https://github.com/Velocidex/vtypes>https://github.com/Velocidex/vtypes</a></p>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -1121,7 +1026,7 @@ syntax</a>. They are expected to
 contain capture variables to name the matches extracted.</p>
 <p>For example, consider a HTML file with simple links. The regular
 expression might be:</p>
-<pre><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
+<pre tabindex=0><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
 </code></pre><p>To produce rows with a column Link.</p>
 <p>The aim of this plugin is to split the file into records which can be
 further parsed. For example, if the file consists of multiple records,
@@ -1132,7 +1037,7 @@ regex which tries to capture a lot of details in one pass.</p>
 <h3 id=example-2>Example</h3>
 <p>Here is an example of parsing the /var/lib/dpkg/status files. These
 files consist of records separated by empty lines:</p>
-<pre><code>Package: ubuntu-advantage-tools
+<pre tabindex=0><code>Package: ubuntu-advantage-tools
 Status: install ok installed
 Priority: important
 Section: misc
@@ -1519,15 +1424,15 @@ fields.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429465></script>
-<script src=/js/jquery.sticky.js?1630429465></script>
-<script src=/js/featherlight.min.js?1630429465></script>
-<script src=/js/highlight.pack.js?1630429465></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429465></script>
-<script src=/js/learn.js?1630429465></script>
-<script src=/js/hugo-learn.js?1630429465></script>
+<script src=/js/clipboard.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646997></script>
+<script src=/js/jquery.sticky.js?1630646997></script>
+<script src=/js/featherlight.min.js?1630646997></script>
+<script src=/js/highlight.min.js?1630646997></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646997></script>
+<script src=/js/learn.js?1630646997></script>
+<script src=/js/hugo-learn.js?1630646997></script>
 </body>
 </html>

@@ -2,24 +2,24 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="Velociraptor introduced a major redesign of the underlying data
 store architecture. The default data store
 is now the FileBasedDataStore which stores all data in flat files.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Files, files everything is just a file! :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429463 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429463 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429463 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429463 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429463 rel=stylesheet>
-<link href=/css/theme.css?1630429463 rel=stylesheet>
-<link href=/css/tabs.css?1630429463 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429463 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429463 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429463 rel=stylesheet><link href=/css/dark.css?1630429463 rel=stylesheet><link href=/css/syntax.css?1630429463 rel=stylesheet><link href=/css/light.css?1630429463 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429463 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429463></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -426,7 +426,7 @@ view the file's content.</p>
 directories based on the search term. For example in order to retrieve
 all clients which have the user "mic", we simply list the directory
 "client_index/user%3Amic":</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ find ./client_index/
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ find ./client_index/
 </code></pre><blockquote>
 <p>./client_index/c.84216c7aab97557d
 ./client_index/c.84216c7aab97557d/C.84216c7aab97557d.db./client_index/user%3Amic
@@ -442,7 +442,7 @@ collected data.</p>
 <h2 id=client-information>Client information</h2>
 <p>Information about each client is kept in a directory based on the
 client's ID:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>./C.0fc63b45671af1a6/ping.db                   &lt;- Last ping stats.
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>./C.0fc63b45671af1a6/ping.db                   &lt;- Last ping stats.
 ./C.0fc63b45671af1a6/key.db                    &lt;- Client's public key
 ./C.0fc63b45671af1a6/flows
 ./C.0fc63b45671af1a6/flows/F.a8787c26.db       &lt;- Flows running on this client.
@@ -458,7 +458,7 @@ all have their names end with ".db". Velociraptor has an inspect
 command which decodes the protobuf and displays it in a human friendly
 way. For example let us see what information we keep about each s last
 poll:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect /tmp/velociraptor/C.2d406f47d80f5583/ping.db
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect /tmp/velociraptor/C.2d406f47d80f5583/ping.db
 {
   &quot;ipAddress&quot;: &quot;127.0.0.1:33600&quot;,&quot;ping&quot;: &quot;1533517053018582&quot;
 }
@@ -467,14 +467,14 @@ poll:</p>
 above, the VQL results are typically split into parts by the client (by
 default 10000 rows per part), and Velociraptor simply writes these in
 the flow's directory:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>./C.1b0cddfffbfe40f5/flows/F.a31255a1
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>./C.1b0cddfffbfe40f5/flows/F.a31255a1
 ./C.1b0cddfffbfe40f5/flows/F.a31255a1/results
 ./C.1b0cddfffbfe40f5/flows/F.a31255a1/results/0.db   &lt;- VQL result part 1.
 ./C.1b0cddfffbfe40f5/flows/F.a31255a1.db             &lt;- Flow information.
 </code></pre><p>Velociraptor's inspect command understands that VQL collections
 represent a table of results, and so it displays these in a more
 friendly way.</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect /tmp/velociraptor/C.1b0cddfffbfe40f5/flows/F.a31255a1/results/0.db
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect /tmp/velociraptor/C.1b0cddfffbfe40f5/flows/F.a31255a1/results/0.db
 +-------+----------------+---------+------+-----------------------------+----------------------------+
 | ISDIR |    FULLPATH    |  SIZE   | MODE |            MTIME            |            ATIME           |
 +-------+----------------+---------+------+-----------------------------+----------------------------+
@@ -493,7 +493,7 @@ disk.</p>
 <h2 id=the-virtual-file-system>The Virtual File System</h2>
 <p>As described above, Velociraptor's VFS consists of VQL tables for each
 directory on the client, listing the entire directory content:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>./C.1b0cddfffbfe40f5/vfs/usr/share/doc/gir1.2-freedesktop.db
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>./C.1b0cddfffbfe40f5/vfs/usr/share/doc/gir1.2-freedesktop.db
 ./C.1b0cddfffbfe40f5/vfs/usr/share/doc/libdatrie1.db
 ./C.1b0cddfffbfe40f5/vfs/usr/share/doc/dh-strip-nondeterminism.db
 ./C.1b0cddfffbfe40f5/vfs/usr/share/doc/libcap2-bin.db
@@ -503,7 +503,7 @@ directory on the client, listing the entire directory content:</p>
 </code></pre><p>Inspecting each of these shows it is just a simple VQL table. This
 particular VFS entry was produced from a recursive directory listing of
 /usr (of depth 5).</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect .../vfs/usr/share/doc/libcap2-bin.db
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.yaml inspect .../vfs/usr/share/doc/libcap2-bin.db
 +-------+--------------------------------+---------------------+------+-----------+--------------------
 | ISDIR |            FULLPATH            |        NAME         | SIZE |   MODE    |           MTIME
 +-------+--------------------------------+---------------------+------+-----------+--------------------
@@ -527,15 +527,15 @@ particular VFS entry was produced from a recursive directory listing of
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

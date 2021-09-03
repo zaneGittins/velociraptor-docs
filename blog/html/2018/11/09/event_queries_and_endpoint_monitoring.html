@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="In previous posts we have seen how Velociraptor can run artifacts to
 collect information from hosts. For example, we can collect WMI
 queries, user accounts and files.
@@ -16,17 +16,17 @@ time.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Event Queries and Endpoint Monitoring :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -400,7 +400,7 @@ lateral movement and wider compromises.</p>
 <h1 id=how-are-events-monitored>How are events monitored?</h1>
 <p>Velociraptor relies heavily on VQL queries. A VQL query typically
 produces a single table of multiple rows. For example, the query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Name, CommandLine FROM pslist()
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Name, CommandLine FROM pslist()
 </code></pre><p>Returns a single row of all running processes, and then returns.</p>
 <p>However, VQL queries do not have to terminate at all. If the VQL plugin
 they are calling does not terminate, the VQL query will continue to run
@@ -417,7 +417,7 @@ and pass events in partial results to the VQL caller.</p>
 and returns all events in it. We can then filter events and return
 specific events of interest. The following query returns all the service
 installation events and terminates:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe query &quot;SELECT EventData, System.TimeCreated.SystemTime from
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe query &quot;SELECT EventData, System.TimeCreated.SystemTime from
    parse_evtx(filename='c:/windows/system32/winevt/logs/system.evtx') where
    System.EventId.value = '7045'&quot;
 [
@@ -436,7 +436,7 @@ installation events and terminates:</p>
 installed in the
 system"</a></p>
 <p>Lets turn this query into an event query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe query &quot;SELECT EventData, System.TimeCreated.SystemTime from
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe query &quot;SELECT EventData, System.TimeCreated.SystemTime from
    watch_evtx(filename='c:/windows/system32/winevt/logs/system.evtx') where
    System.EventId.value = '7045'&quot; --max_wait 1
 [
@@ -491,7 +491,7 @@ alerts based on these.</p>
 <p>One of the most interesting event plugins is the WMI eventing plugin.
 This allows Velociraptor to install a temporary WMI event listener. For
 example, we can install a listener for new process creation:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>// Convert the timestamp from WinFileTime to Epoch.
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>// Convert the timestamp from WinFileTime to Epoch.
 SELECT timestamp(epoch=atoi(
   string=Parse.TIME_CREATED) / 10000000 - 11644473600 ) as Timestamp,
   Parse.ParentProcessID as PPID,
@@ -527,7 +527,7 @@ the above query in one easy to remember name.</p>
 <p>To specify what clients should collect, users simply need to name the
 event artifacts that should be monitored. Currently this is done in the
 server configuration (in future this may be done via the GUI).</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>Events:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>Events:
   artifacts:
   - Windows.Events.ServiceCreation
   - Windows.Events.ProcessCreation
@@ -562,15 +562,15 @@ feedback as usual by filing issues and feature requests.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

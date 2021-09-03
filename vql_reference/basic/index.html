@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Basic VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429465 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429465 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429465 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429465 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429465 rel=stylesheet>
-<link href=/css/theme.css?1630429465 rel=stylesheet>
-<link href=/css/tabs.css?1630429465 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429465 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429465 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429465 rel=stylesheet><link href=/css/dark.css?1630429465 rel=stylesheet><link href=/css/syntax.css?1630429465 rel=stylesheet><link href=/css/light.css?1630429465 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429465 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429465></script>
+<link href=/css/nucleus.css?1630646996 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646996 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646996 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646996 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646996 rel=stylesheet>
+<link href=/css/theme.css?1630646996 rel=stylesheet>
+<link href=/css/tabs.css?1630646996 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646996 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646996 rel=stylesheet>
+<link href=/css/dark.css?1630646996 rel=stylesheet><link href=/css/syntax.css?1630646996 rel=stylesheet><link href=/css/light.css?1630646996 rel=stylesheet><link href=/css/hljs.css?1630646996 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646996 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646996></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -424,7 +424,12 @@ Basic VQL
 <li><a href=#strip>strip</a></li>
 <li><a href=#tempdir>tempdir</a></li>
 <li><a href=#timestamp>timestamp</a></li>
-<li><a href=#to_dict>to_dict</a></li>
+<li><a href=#to_dict>to_dict</a>
+<ul>
+<li><a href=#notes>Notes</a></li>
+<li><a href=#example-3>Example</a></li>
+</ul>
+</li>
 <li><a href=#upcase>upcase</a></li>
 <li><a href=#upload_sftp>upload_sftp</a></li>
 <li><a href=#upload_webdav>upload_webdav</a></li>
@@ -566,7 +571,7 @@ value store - when the key is accessed, the function will be
 calculated producing a value. If the key is accessed again, the
 value is returned from the cache without calculating it again.</p>
 <p>For example consider the following:</p>
-<pre><code class=language-vql data-lang=vql>    LET get_pid_query(Lpid) =
+<pre tabindex=0><code class=language-vql data-lang=vql>    LET get_pid_query(Lpid) =
        SELECT Pid, Ppid, Name FROM pslist(pid=Lpid)
 
     SELECT cache(func=get_pid_query(Lpid=Pid), key=str(str=Pid))
@@ -615,7 +620,7 @@ example is to extract a file from a zip file using the <code>zip</code>
 accessor into a file on disk.</p>
 <p>This function can also be used to create new files with prescribed
 content - for example:</p>
-<pre><code class=language-vql data-lang=vql>SELECT copy(filename=&quot;Hello world&quot;, accessor=&quot;data&quot;, dest=&quot;C:/hi.txt&quot;)
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT copy(filename=&quot;Hello world&quot;, accessor=&quot;data&quot;, dest=&quot;C:/hi.txt&quot;)
 FROM scope()
 </code></pre><p>NOTE: Sparse files are padded out</p>
 <div class=vqlargs></div>
@@ -693,9 +698,11 @@ the lazy evaluation property of VQL columns.</p>
 dictionaries always have string keys. Sometimes key names contain
 special characters like dots etc, in that case you can use
 backticks to escape the name. For example:</p>
-<pre><code class=language-vql data-lang=vql>SELECT dict(Foo=&quot;Bar&quot;, `Name.With.Dots`=&quot;Baz&quot;)
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT dict(Foo=&quot;Bar&quot;, `Name.With.Dots`=&quot;Baz&quot;)
 FROM scope()
-</code></pre><div class=vql_item></div>
+</code></pre><p>See the <code>to_dict()</code> function to create dicts from a query with
+unpredictable key names.</p>
+<div class=vql_item></div>
 <h2 id=dirname>dirname</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Return the directory path.</p>
@@ -809,7 +816,7 @@ depend on the specific user account which reads the registry value
 <p>This function uses the Golang standard for expanding variables
 (using $varname ). On Windows, we also support using the Windows
 notation with % before and after the variable name.</p>
-<pre><code class=language-vql data-lang=vql>SELECT expand(path=&quot;My Username is %USERNAME%&quot;)
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT expand(path=&quot;My Username is %USERNAME%&quot;)
 FROM scope()
 </code></pre><p>NOTE: The environment strings are set per user and Velociraptor&rsquo;s
 own environment may not reflect any other process&rsquo;s
@@ -1539,7 +1546,43 @@ bash pid of all bash processes.</p>
 <h2 id=timestamp>timestamp</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Convert from different types to a time.Time.</p>
-<div class=vqlargs></div>
+<p>This is one of the most important functions in VQL. We need to
+convert timestamps very frequently from various
+representations. Most commonly from strings, Unix epoch times etc.</p>
+<p>This function is pretty smart and tries to do the right thing most
+of the time automatically. For example, you can provide the epoch
+parameter as an integer representing seconds since the epoch,
+milliseconds or microseconds since the epoch.</p>
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT timestamp(epoch=1630414425) AS Time1,
+       timestamp(epoch=1630414425000) AS Time2,
+       timestamp(epoch=1630414425000000) AS Time3,
+FROM scope()
+</code></pre><p>You can also provide a string, and <code>timestamp()</code> will try to parse
+it by guessing what it represents. For example</p>
+<pre tabindex=0><code>SELECT timestamp(string='March 3 2019'),
+       timestamp(string='07/25/2019 5pm')
+FROM scope()
+</code></pre><p>For more control over the parsing of strings, use the <code>format</code>
+parameter to specify a template which will be used to parse the
+timestamp.</p>
+<p>The format template uses a constant time as an example of how the
+time is layed out. It represents a template for a timestamp that
+<strong>must</strong> use the following date constants</p>
+<p>Year: &ldquo;2006&rdquo; &ldquo;06&rdquo;
+Month: &ldquo;Jan&rdquo; &ldquo;January&rdquo;
+Textual day of the week: &ldquo;Mon&rdquo; &ldquo;Monday&rdquo;
+Numeric day of the month: &ldquo;2&rdquo; &ldquo;_2&rdquo; &ldquo;02&rdquo;
+Numeric day of the year: &ldquo;__2&rdquo; &ldquo;002&rdquo;
+Hour: &ldquo;15&rdquo; &ldquo;3&rdquo; &ldquo;03&rdquo; (PM or AM)
+Minute: &ldquo;4&rdquo; &ldquo;04&rdquo;
+Second: &ldquo;5&rdquo; &ldquo;05&rdquo;
+AM/PM mark: &ldquo;PM&rdquo;</p>
+<p>&ldquo;-0700&rdquo; ±hhmm
+&ldquo;-07:00&rdquo; ±hh:mm
+&ldquo;-07&rdquo; ±hh</p>
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT timestamp(string=&quot;8/30/2021 6:01:28 PM&quot;,
+                 format=&quot;1/2/2006 3:04:05 PM&quot;)
+</code></pre><div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1579,13 +1622,50 @@ bash pid of all bash processes.</p>
 <td>US Style Month/Day/Year</td>
 <td>bool</td>
 </tr>
+<tr>
+<td>format</td>
+<td>A format specifier.</td>
+<td></td>
+</tr>
 </tbody>
 </table>
+<p>This format specifier is the same as golang&rsquo;s time.Parse.
+|string</p>
 <div class=vql_item></div>
 <h2 id=to_dict>to_dict</h2>
 <p><span class="vql_type pull-right">Function</span></p>
-<p>Construct a dict from another object.</p>
-<div class=vqlargs></div>
+<p>Construct a dict from a query.</p>
+<p>Sometimes we need to build a dict object where both the names of
+the keys and their values are not known in advance - they are
+calculated from another query. In this case we can use the
+to_dict() function to build a dict from a query. The query needs
+to emits as many rows as needed with a column called <code>_key</code> and
+one called <code>_value</code>. The <code>to_dict()</code> will then construct a dict
+from this query.</p>
+<h3 id=notes>Notes</h3>
+<ol>
+<li>
+<p>In VQL all dicts are ordered, so the order in which rows appear
+in the query will determine the dict&rsquo;s key order.</p>
+</li>
+<li>
+<p>VQL dicts always have string keys, if the <code>_key</code> value is not a
+string the row will be ignored.</p>
+</li>
+</ol>
+<h3 id=example-3>Example</h3>
+<p>The following (rather silly) example creates a dict mapping Pid to
+ProcessNames in order to cache Pid->Name lookups. We then resolve
+Pid to Name within other queries. Note the use of &lt;= to
+materialize the dict into memory once.</p>
+<pre tabindex=0><code class=language-vql data-lang=vql>LET PidLookup &lt;= to_dict(item={
+    SELECT str(str=Pid) AS _key, Name AS _value
+    FROM pslist()
+})
+
+SELECT Pid, get(item=PidLookup, field=str(str=Pid))
+FROM pslist()
+</code></pre><div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1722,6 +1802,11 @@ bash pid of all bash processes.</p>
 <td>The password to use in HTTP basic auth</td>
 <td>string</td>
 </tr>
+<tr>
+<td>noverifycert</td>
+<td>Skip TLS Verification</td>
+<td>bool</td>
+</tr>
 </tbody>
 </table>
 <div class=vql_item></div>
@@ -1840,7 +1925,7 @@ possible to cater for multiple versions in the VQL using an if()
 plugin.</p>
 <p>For example the following can chose from a legacy query or a
 modern query based on the plugin version:</p>
-<pre><code> SELECT * FROM if(
+<pre tabindex=0><code> SELECT * FROM if(
   condition=version(plugin=&quot;glob&quot;) &gt;= 1,
   then=NewQuery,
   else=LegacyQuery)
@@ -1876,15 +1961,15 @@ modern query based on the plugin version:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429465></script>
-<script src=/js/jquery.sticky.js?1630429465></script>
-<script src=/js/featherlight.min.js?1630429465></script>
-<script src=/js/highlight.pack.js?1630429465></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429465></script>
-<script src=/js/learn.js?1630429465></script>
-<script src=/js/hugo-learn.js?1630429465></script>
+<script src=/js/clipboard.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646996></script>
+<script src=/js/jquery.sticky.js?1630646996></script>
+<script src=/js/featherlight.min.js?1630646996></script>
+<script src=/js/highlight.min.js?1630646996></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646996></script>
+<script src=/js/learn.js?1630646996></script>
+<script src=/js/hugo-learn.js?1630646996></script>
 </body>
 </html>

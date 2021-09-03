@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="At Velocidex we have been running open source endpoint monitoring
 tools for our clients in order to detect and respond to incidents.
 This post introduces a new tool called Velociraptor - an advanced
@@ -10,17 +10,17 @@ DFIR tool.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Introducing Velociraptor :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -450,7 +450,7 @@ generate command. Note that this prints a new configuration into stdout
 so you might want to redirect it into a new file (NOTE: The file
 contains key material so ensure it has appropriate permissions). Below
 we highlight the parameters you will probably want to change:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor config generate | tee /etc/velociraptor.config.yaml
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor config generate | tee /etc/velociraptor.config.yaml
 Client:
   server_urls:
     - http://localhost:8000/
@@ -504,7 +504,7 @@ HTTP.server</li>
 <p>Clients receive a subset of the complete configuration which enables
 them to connect to the server. You can extract the client's
 configuration using the velociraptor config client command.</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config /etc/velociraptor.config.yaml config client
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config /etc/velociraptor.config.yaml config client
 Client:
  ca_certificate: |
    -----BEGIN CERTIFICATE-----
@@ -519,7 +519,7 @@ Client:
   writeback_windows: /Program Files/Velociraptor/velociraptor.writeback.yaml
 </code></pre><h2 id=running-the-server>Running the server</h2>
 <p>Start the server using the frontend command:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config velociraptor.config.yaml frontend
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config velociraptor.config.yaml frontend
 
 INFO:2018/08/08 15:39:09 Launched gRPC API server on 127.0.0.1:8888
 INFO:2018/08/08 15:39:09 GUI is ready to handle requests at 127.0.0.1:8889
@@ -534,7 +534,7 @@ web browser:</p>
 </p>
 <h2 id=running-the-client>Running the client</h2>
 <p>The client is run using the s configuration</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config /etc/velociraptor.client.config.yaml client
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config /etc/velociraptor.client.config.yaml client
 velociraptor: error: Unable to load writeback file: open /etc/velociraptor.writeback.yaml: no such file or directory
 Genering new private key....
 Wrote new config file  /etc/velocirpator.writeback.yaml
@@ -613,15 +613,15 @@ towards VQL.</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

@@ -2,22 +2,22 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="This post takes another look at Event Tracing for Windows.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Event Tracing for Windows :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<title>Event Tracing for Windows Part 1 :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1630646996 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646996 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646996 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646996 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646996 rel=stylesheet>
+<link href=/css/theme.css?1630646996 rel=stylesheet>
+<link href=/css/tabs.css?1630646996 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646996 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646996 rel=stylesheet>
+<link href=/css/dark.css?1630646996 rel=stylesheet><link href=/css/syntax.css?1630646996 rel=stylesheet><link href=/css/light.css?1630646996 rel=stylesheet><link href=/css/hljs.css?1630646996 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646996 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646996></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -361,7 +361,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Event Tracing for Windows
+Event Tracing for Windows Part 1
 </span>
 </div>
 <div class=progress>
@@ -374,6 +374,8 @@ Event Tracing for Windows
 <li><a href=#exploring-etw---monitoring-dns-lookups>Exploring ETW - Monitoring DNS lookups</a></li>
 </ul>
 </li>
+<li><a href=#deploying-the-query-on-endpoints>Deploying the query on endpoints</a></li>
+<li><a href=#conclusions>Conclusions</a></li>
 </ul>
 </nav>
 </div>
@@ -384,25 +386,27 @@ Event Tracing for Windows
 <div class=tags>
 <a class=tag-link href=/tags/detection>Detection</a>
 <a class=tag-link href=/tags/vql>VQL</a>
+<a class=tag-link href=/tags/etw>ETW</a>
 </div>
 </div>
 <div id=body-inner>
 <h1>
-Event Tracing for Windows
+Event Tracing for Windows Part 1
 </h1>
 <h2 id=digging-into-windows-internals>Digging into Windows Internals</h2>
 <p>One of the most important aspects of modern operating systems is
 instrumentation of the running software on the system. Instrumentation
-provides the visibility to understand what the system is doing at this
-moment. This is obviously important for system administrators and
-software developers, but increasing visibility into machine state is
-being used for security monitoring and response.</p>
-<p>In Windows system instrumentation is provided by the Event Tracing For
-Windows (ETW), an instrumentation extensive framework.</p>
+provides the visibility to understand what the system is doing at any
+given moment. This is obviously important for system administrators
+and software developers, but visibility into machine state is
+increasingly being used for security monitoring and response.</p>
+<p>In Windows, system instrumentation is provided by the Event Tracing
+For Windows (ETW), an extensive framework for instrumentation and
+visibility.</p>
 <p>Much has been written about ETW so I will not cover the details here,
-this blog post will examine how we can leverage ETW for security
-monitoring using Velociraptor specifically. We will also talk about
-some of the limitations of the approach.</p>
+this blog post is the first of a series of posts that examine how we
+can leverage ETW for security monitoring using Velociraptor
+specifically.</p>
 <h3 id=event-tracing-for-windows>Event tracing for windows.</h3>
 <p>The Event Tracing for Windows framework is <a href=https://docs.microsoft.com/en-us/windows-hardware/test/weg/instrumenting-your-code-with-etw>documented extensively by
 Microsoft</a>. In
@@ -419,20 +423,154 @@ event with other information or respond to the event autonomously.</p>
 general technique but there are so many possibilities for advanced
 detection rules.</p>
 <h3 id=exploring-etw---monitoring-dns-lookups>Exploring ETW - Monitoring DNS lookups</h3>
-<p>In our first example, we will be building a Velociraptor query to
-monitor for DNS lookups on the endpoint. We mentioned previously that
-ETW connects providers and consumers, so our first task is simply to
-find a provider that will provider relevant data.</p>
+<p>In this blog post, we will be building a Velociraptor query to monitor
+for DNS lookups on the endpoint. We mentioned previously that ETW
+connects providers and consumers, so our first task is simply to find
+a provider that will provider relevant data.</p>
+<p>In this post we explore how you might develop new ETW based queries by
+discovering new providers and experiementing with novel detection
+rules.</p>
 <p>ETW is designed to be self documented via <code>manifest</code> files, so each
 provider in the system can describe what it will provide to some
-extent. You can see all the providers on your system using the <code>logman query providers</code> command.</p>
+extent. You can see all the providers on your system using the <code>logman query providers</code> command. We can immediately see some providers
+identified by the globally unique identifier (GUID).</p>
+<p>
+<figure>
+<img src=query_providers.png alt="Querying providers on the command line" class=captioned>
+<figcaption>Querying providers on the command line</figcaption>
+</figure>
+</p>
+<p>Although it is possible to query for providers on the command line,
+using APIs it is possible to dump the entire manifest containing much
+more information about each provider.</p>
 <p>There are some public efforts to better document ETW providers, for
 example <a href=https://github.com/repnz/etw-providers-docs>https://github.com/repnz/etw-providers-docs</a> contains a dump of
 various manifest files. I like to search that repository to find
-likely useful providers.</p>
+likely useful providers. In this case I will look for a provider that
+might give DNS information. The <code>Microsoft-Windows-DNS-Client</code>
+provider looks like a likely candidate.</p>
 <p>
-<img src=image118.png alt>
+<figure>
+<img src=image118.png alt="ETW Providers documentation" class=captioned>
+<figcaption>ETW Providers documentation</figcaption>
+</figure>
 </p>
+<p>Let&rsquo;s get Velociraptor to watch the provider&rsquo;s GUID for any
+events. VQL provides the <code>watch_etw()</code> plugin to attach Velociraptor
+to the provider.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w>
+</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_etw</span><span class=p>(</span><span class=n>guid</span><span class=o>=</span><span class=s2>&#34;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&#34;</span><span class=p>)</span><span class=w>
+</span></code></pre></div><p>
+<figure>
+<img src=watching_dns_provider.png alt="Watching the Windows DNS Client provider" class=captioned>
+<figcaption>Watching the Windows DNS Client provider</figcaption>
+</figure>
+</p>
+<p>After some trial and error we find the event ID we are interested in
+as being ID 3020. We can consult with the manifest file to get more
+information, such as the event data provided. Limiting the VQL query
+to filter for event 3020 and extracting the most relevant columns
+gives a nice DNS monitoring query:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=k>TimeStamp</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Timestamp</span><span class=p>,</span><span class=w>
+</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryName</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Query</span><span class=p>,</span><span class=w>
+</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryType</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Type</span><span class=p>,</span><span class=w>
+</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryResults</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Answer</span><span class=w>
+</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_etw</span><span class=p>(</span><span class=n>guid</span><span class=o>=</span><span class=s2>&#34;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&#34;</span><span class=p>)</span><span class=w>
+</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=n>ID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>3020</span><span class=w>
+</span></code></pre></div><h2 id=deploying-the-query-on-endpoints>Deploying the query on endpoints</h2>
+<p>Our VQL query is able to monitor the endpoint for DNS lookups but we
+need a way to deploy the query to the endpoint. In Velociraptor,
+client side event queries are encapsulated in <code>Client Event</code> artifacts
+(Simple YAML files that include the VQL query, as well as human
+readable descriptions and parameters allowing for simple
+customization).</p>
+<p>Simply select &ldquo;Add new artifact&rdquo; in the <code>View Artifacts</code> screen. By
+default Velociraptor presents a template for an artifact definition -
+ready for us to fill in the right information. Simply copy the VQL
+query into the new artifact under the <code>Sources.Query</code> section
+(remember to indent the query to fit within the YAML format). Since
+this artifact will be an event artifact running on the client, we must
+specify its type as <code>CLIENT_EVENT</code></p>
+<p>
+<figure>
+<img src=event_artifact.png alt="Adding a custom event artifact" class=captioned>
+<figcaption>Adding a custom event artifact</figcaption>
+</figure>
+</p>
+<div class="mynotices tip">
+<div heading=" The different types of artifacts "><p>What is the difference between a <code>CLIENT</code> and a <code>CLIENT_EVENT</code> artifact?</p>
+<p>A <code>CLIENT</code> artifact is collected from the client, by sending a query,
+having the client execute the query, returning a result set
+(i.e. rows) back to the server. Therefore the <code>CLIENT</code> artifact
+normally has a limited lifetime (by default 10 minutes) over which to
+complete its work and return a result.</p>
+<p><code>CLIENT_EVENT</code> artifacts are designed to run continuously on the
+client, streaming rows to the server when events occur. Therefore
+these are treated differently by the client: The client simply records
+the event queries it is to run in a <code>Client Event Table</code>.</p>
+<p>The client starts running all the event queries when it first
+starts. If the client table changes on the server (perhaps because the
+user added a new event artifact to the client), the client will resync
+its event table and restart all its queries.</p>
+</div>
+</div>
+<p>Once Velociraptor contains the new artifact it is time to deploy the
+artifact to endpoints. Velociraptor can target different event
+artifacts to different clients by means of <code>Label Groups</code>. By simply
+assigning a label to a client, we can control the event artifacts
+running on the client. For example, some of our endpoints are more
+sensitive so we might want to only deploy certain monitoring queries
+on those clients only by labeling them as &ldquo;Sensitive&rdquo;.</p>
+<p>For our example, we will deploy the query on <code>All</code> clients.</p>
+<p>
+<figure>
+<img src=adding_event_artifacts.png alt="Targeting event monitoring to label groups" class=captioned>
+<figcaption>Targeting event monitoring to label groups</figcaption>
+</figure>
+</p>
+<p>Once the query is deployed we can begin seeing any DNS events
+generated on the endpoint.</p>
+<p>
+<figure>
+<img src=monitoring_dns.png alt="Monitoring DNS requests" class=captioned>
+<figcaption>Monitoring DNS requests</figcaption>
+</figure>
+</p>
+<h2 id=conclusions>Conclusions</h2>
+<p>Hopefully you were inspired by this post to search for your own
+detection queries. ETW is a rich source of endpoint state telemetry!
+There are many other providers to explore and many possibilities of
+combining ETW with other information sources.</p>
+<p>While many users are familiar with Velociraptor&rsquo;s ability to collect
+endpoint state and hunt for indicators at scale, the event monitoring
+capability is a different approach making certain types of detections
+much more convenient and effective.</p>
+<p>For example, many users ask &ldquo;how do I schedule a hunt to run
+periodically?&rdquo; While there are some cases when this is a good solution,
+in most cases users are trying to find out what has changed in the
+endpoint&rsquo;s state between two times.</p>
+<p>An event monitoring artifact can inform of state changes on the
+endpoint and perform the preliminary triage and analysis of these
+events automatically.</p>
+<p>In the next part of this article series we will be examining more
+examples of utilizing ETW for enhancing end point visibility and
+facilitating advanced response. We will also be discussing limitations
+with this technique.</p>
+<p>If you have a great idea for a new detection query, take <a href=https://github.com/Velocidex/velociraptor>Velociraptor
+for a spin</a>! It is a
+available on GitHub under an open source license. As always please
+file issues on the bug tracker or ask questions on our mailing list
+<a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>
+. You can also chat with us directly on discord
+<a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>
+.</p>
+<p>There is still time to submit it to this year&rsquo;s <a href=https://docs.velociraptor.app/announcements/2021-artifact-contest/>2021 Velociraptor
+Contributor
+Competition</a>,
+where you can win prizes, honor and support the entire DFIR
+community. Alternatively, you can share your artifacts with the community on
+<a href=https://docs.velociraptor.app/exchange/>Velociraptor&rsquo;s Artifact
+Exchange</a>.</p>
 <footer class=footline>
 </footer>
 </div>
@@ -443,15 +581,15 @@ likely useful providers.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646996></script>
+<script src=/js/jquery.sticky.js?1630646996></script>
+<script src=/js/featherlight.min.js?1630646996></script>
+<script src=/js/highlight.min.js?1630646996></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646996></script>
+<script src=/js/learn.js?1630646996></script>
+<script src=/js/hugo-learn.js?1630646996></script>
 </body>
 </html>

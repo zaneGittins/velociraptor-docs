@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration. In order to facilitate interoperability with other tools, Velociraptor now offers an external API.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>The Velociraptor Python API :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -396,7 +396,7 @@ work.</p>
 default the API server listen only on the loopback interface (127.0.0.1)
 but it is easy to change to be externally accessible if you need by
 changing the server.config.yaml file:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>API:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>API:
   bind_address: 127.0.0.1
   bind_port: 8001
 </code></pre><p>Client programs simply connect directly to this API and call gRPC
@@ -424,10 +424,10 @@ server. This way api client certificates can only be issued offline.
 :::</p>
 <p>Before the client may connect to the API server they must have a
 certificate issued by the Velociraptor CA. This is easy to generate:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml \
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml \
      config api_client --name Fred &gt; api_client.yaml
 </code></pre><p>Will generate something like:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>ca_certificate: |
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>ca_certificate: |
   -----BEGIN CERTIFICATE-----
   MIIDITCCAgmgAwIBAgIRAI1oswXLBFqWVSYZx1VibMkwDQYJKoZIhvcNAQELBQAw
   -----END CERTIFICATE-----
@@ -454,7 +454,7 @@ This function simply executes one or more VQL queries, and streams their
 results back to the caller.</p>
 <p>The function requires an argument which is a protobuf of type
 VQLCollectorArgs:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>VQLCollectorArgs:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>VQLCollectorArgs:
      env:  list of VQLEnv(string key, string value)
      Query: list of VQLRequest(string Name, string VQL)
      max_row: int
@@ -467,7 +467,7 @@ rows to return in a single result set and how long to wait for
 additional rows before returning a result set.</p>
 <p>The call simply executes the VQL queries and returns result sets as
 VQLResponse protobufs:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>VQLResponse:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>VQLResponse:
    Response: json encoded string
    Columns: list of string
    total_rows: total number of rows in this packet
@@ -481,7 +481,7 @@ streaming response packets.</p>
 <p>The following will cover an example implementation in python. The first
 step is to prepare credentials for making the gRPC call. We parse the
 api_config yaml file and prepare a credential object:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>config = yaml.load(open(&quot;api_client.yaml&quot;).read())
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>config = yaml.load(open(&quot;api_client.yaml&quot;).read())
 creds = grpc.ssl_channel_credentials(
      root_certificates=config[&quot;ca_certificate&quot;].encode(&quot;utf8&quot;),
      private_key=config[&quot;client_private_key&quot;].encode(&quot;utf8&quot;),
@@ -489,12 +489,12 @@ creds = grpc.ssl_channel_credentials(
 
 options = (('grpc.ssl_target_name_override', &quot;VelociraptorServer&quot;,),)
 </code></pre><p>Next we connect the channel to the API server:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>with grpc.secure_channel(config[&quot;api_connection_string&quot;],
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>with grpc.secure_channel(config[&quot;api_connection_string&quot;],
                          creds, options) as channel:
     stub = api_pb2_grpc.APIStub(channel)
 </code></pre><p>The stub is the object we use to make calls with. We can then issue our
 call:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>request = api_pb2.VQLCollectorArgs(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>request = api_pb2.VQLCollectorArgs(
          Query=[api_pb2.VQLRequest(
              VQL=query,
          )])
@@ -530,7 +530,7 @@ is detected.</p>
 files from many endpoints. We wanted to analyze these using external
 tools like analyseMFT.py.</p>
 <p>We wrote a simple artifact to collect the MFT:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Upload.MFT
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Upload.MFT
 description: |
    Uses an NTFS accessor to pull the $MFT
 
@@ -547,7 +547,7 @@ sources:
 </code></pre><p>We then created a hunt to collect this artifact from the machines of
 interest. Once each $MFT file is uploaded we need to run analyseMFT.py
 to parse it:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>QUERY=&quot;&quot;&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>QUERY=&quot;&quot;&quot;
   SELECT Flow,
          file_store(path=Flow.FlowContext.uploaded_files) as Files
   FROM  watch_monitoring(artifact='System.Flow.Completion')
@@ -602,7 +602,7 @@ regardless.
 <p>The above example sets up a watcher query to receive flow results in
 real time, but you can also just process the results of a specific hunt
 completely using a query like:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Flow, file_store(path=Flow.FlowContext.uploaded_files) as Files
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Flow, file_store(path=Flow.FlowContext.uploaded_files) as Files
 FROM hunt_flows(hunt_id=huntId)
 </code></pre><h1 id=conclusions>Conclusions</h1>
 <p>The Velociraptor python API opens up enormous possibilities for
@@ -624,15 +624,15 @@ being a valuable use case.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

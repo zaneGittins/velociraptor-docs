@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429465 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429465 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429465 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429465 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429465 rel=stylesheet>
-<link href=/css/theme.css?1630429465 rel=stylesheet>
-<link href=/css/tabs.css?1630429465 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429465 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429465 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429465 rel=stylesheet><link href=/css/dark.css?1630429465 rel=stylesheet><link href=/css/syntax.css?1630429465 rel=stylesheet><link href=/css/light.css?1630429465 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429465 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429465></script>
+<link href=/css/nucleus.css?1630646997 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646997 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646997 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646997 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646997 rel=stylesheet>
+<link href=/css/theme.css?1630646997 rel=stylesheet>
+<link href=/css/tabs.css?1630646997 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646997 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646997 rel=stylesheet>
+<link href=/css/dark.css?1630646997 rel=stylesheet><link href=/css/syntax.css?1630646997 rel=stylesheet><link href=/css/light.css?1630646997 rel=stylesheet><link href=/css/hljs.css?1630646997 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646997 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646997></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -408,7 +408,6 @@ Server Side
 <li><a href=#patch>patch</a></li>
 <li><a href=#rate>rate</a></li>
 <li><a href=#sample>sample</a></li>
-<li><a href=#search>search</a></li>
 <li><a href=#server_metadata>server_metadata</a></li>
 <li><a href=#server_set_metadata>server_set_metadata</a></li>
 <li><a href=#set_client_monitoring>set_client_monitoring</a></li>
@@ -692,7 +691,7 @@ parameter, and a list of artifacts to collect in the <code>artifacts</code>
 parameter.</p>
 <p>In this case all artifacts will receive the the same
 parameters. For example:</p>
-<pre><code class=language-vql data-lang=vql>SELECT collect_client(
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT collect_client(
     client_id='C.11a3013ccaXXXXX',
     artifacts='Windows.KapeFiles.Targets',
     env=dict(Device ='C:', VSSAnalysis='Y', KapeTriage='Y')).request AS Flow
@@ -702,7 +701,7 @@ parameter name for different purposes. In that case we wish to
 specify precisely which artifact receives which parameter. This
 more complex way of specifying the collection using the <code>spec</code>
 parameter:</p>
-<pre><code class=language-vql data-lang=vql>SELECT collect_client(
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT collect_client(
     client_id='C.11a3013ccaXXXXX',
     artifacts='Windows.KapeFiles.Targets',
     spec=dict(`Windows.KapeFiles.Targets`=dict(
@@ -1193,7 +1192,7 @@ artifacts. The artifacts to collect are provided in the
 <p>NOTE: In the GUI hunts are always created in the paused
 state. This is not the default state when using this function (all
 hunts are immediately active).</p>
-<pre><code class=language-vql data-lang=vql>SELECT hunt(
+<pre tabindex=0><code class=language-vql data-lang=vql>SELECT hunt(
     description=&quot;A general hunt&quot;,
     artifacts='Windows.KapeFiles.Targets',
     spec=dict(`Windows.KapeFiles.Targets`=dict(
@@ -1773,7 +1772,7 @@ example, consider the client event monitoring state.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>[{</span><span class=nt>&#34;op&#34;</span><span class=p>:</span> <span class=s2>&#34;add&#34;</span><span class=p>,</span> <span class=nt>&#34;path&#34;</span><span class=p>:</span> <span class=s2>&#34;/artifacts/0&#34;</span><span class=p>,</span> <span class=nt>&#34;value&#34;</span><span class=p>:</span> <span class=s2>&#34;Windows.Events.DNSQueries&#34;</span><span class=p>}]</span>
 </code></pre></div><p>This can then be immediately pushed to <code>set_client_monitoring()</code>
 to update the monitoring state.</p>
-<pre><code>SELECT set_client_monitoring(value=patch(
+<pre tabindex=0><code>SELECT set_client_monitoring(value=patch(
        item=get_client_monitoring(),
        patch=[dict(op=&quot;add&quot;, path=&quot;/artifacts/0&quot;, value=&quot;Windows.Events.DNSQueries&quot;)]))
 FROM scope()
@@ -1860,42 +1859,6 @@ artifact results.</p>
 <td>n</td>
 <td>Pick every n row from query.</td>
 <td>int64 (required)</td>
-</tr>
-</tbody>
-</table>
-<div class=vql_item></div>
-<h2 id=search>search</h2>
-<p><span class="vql_type pull-right">Plugin</span></p>
-<p>Search the server client&rsquo;s index.</p>
-<div class=vqlargs></div>
-<table>
-<thead>
-<tr>
-<th>Arg</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>query</td>
-<td>The query string.</td>
-<td>string</td>
-</tr>
-<tr>
-<td>offset</td>
-<td>Skip this many results.</td>
-<td>uint64</td>
-</tr>
-<tr>
-<td>limit</td>
-<td>Only return limited results</td>
-<td>uint64</td>
-</tr>
-<tr>
-<td>type</td>
-<td>The type of search (e.g. &lsquo;key&rsquo;)</td>
-<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -2168,15 +2131,15 @@ multi-source artifacts).</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429465></script>
-<script src=/js/jquery.sticky.js?1630429465></script>
-<script src=/js/featherlight.min.js?1630429465></script>
-<script src=/js/highlight.pack.js?1630429465></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429465></script>
-<script src=/js/learn.js?1630429465></script>
-<script src=/js/hugo-learn.js?1630429465></script>
+<script src=/js/clipboard.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646997></script>
+<script src=/js/jquery.sticky.js?1630646997></script>
+<script src=/js/featherlight.min.js?1630646997></script>
+<script src=/js/highlight.min.js?1630646997></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646997></script>
+<script src=/js/learn.js?1630646997></script>
+<script src=/js/hugo-learn.js?1630646997></script>
 </body>
 </html>

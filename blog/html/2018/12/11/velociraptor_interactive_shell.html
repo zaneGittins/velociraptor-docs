@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="One of the interesting new features in the latest release of
 Velociraptor is an interactive shell. One can interact with the end
 point over the standard Velociraptor communication mechanism - an
@@ -10,17 +10,17 @@ encrypted and authenticated channel.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Interactive Shell :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -427,7 +427,7 @@ run the interactive shell.</li>
 <h1 id=interactive-shell>Interactive Shell</h1>
 <p>The interactive shell feature is accessed by issueing the shell command
 to the velociraptor binary:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
 C.7403676ab8664b2b (trek) &gt;ls /
 Running ls / on C.7403676ab8664b2b
 Received response at 2018-12-11 13:12:35 +1000 AEST - Return code 0
@@ -463,7 +463,7 @@ process is a different process from the frontend:</p>
 <p>The workflow starts when a user issues a command (for example "ls -l
 /") on the terminal. The shell process schedules a VQL query for the
 client:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT now() as Timestamp, Argv, Stdout,
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT now() as Timestamp, Argv, Stdout,
      Stderr, ReturnCode FROM execve(argv=['ls', '-l', '/'])
 </code></pre><p>However, this query is scheduled as part of the monitoring flow -which
 means it's response will be sent and stored with the monitoring logs.
@@ -477,7 +477,7 @@ server as a monitoring event. The frontend will then append the event to
 a CSV file.</p>
 <p>After sending the initial client query, the interactive shell process
 will issue a watch VQL query to watch for the shell response:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT ReturnCode, Stdout, Stderr, Timestamp, Argv
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT ReturnCode, Stdout, Stderr, Timestamp, Argv
 FROM watch_monitoring(client_id=ClientId, artifact='Shell')
 </code></pre><p>The process now blocks until this second query detects the response
 arrived on the monitoring queue. Now we simply display the result and go
@@ -504,7 +504,7 @@ powerful feature and we need to audit its use closely. Since shell
 command output is implemented via the monitored event queues it should
 be obvious that we can monitor all such commands by simply watching the
 Shell artifact event queue:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;select * from watch_monitoring(artifact='Shell')&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;select * from watch_monitoring(artifact='Shell')&quot;
 [
  {
   &quot;Argv&quot;: &quot;\&quot;{\\\&quot;Argv\\\&quot;:[\\\&quot;id\\\&quot;]}\&quot;&quot;,
@@ -531,15 +531,15 @@ any interactive shell use.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

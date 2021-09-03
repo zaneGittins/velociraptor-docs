@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="It is also possible to run VQL
 queries on the server side! Similarly server side Velociraptor
 artifacts can be used to customize the operation of the server -
@@ -10,17 +10,17 @@ without modifying any code or redeploying the server components.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server side VQL queries and Escalation Events :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -394,7 +394,7 @@ any code or redeploying the server components.</p>
 <p>By now you are probably familiar with Velociraptor and VQL. We have seen
 that it is possible to run a VQL query interactively from the
 commandline. For example to find all processes matching the 'gimp':</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
    &quot;SELECT Pid, Exe, Cmdline FROM pslist() WHERE Exe =~ 'gimp'&quot;
 [
  {
@@ -428,7 +428,7 @@ functionality - then encapsulates these queries inside Velociraptor
 artifacts for reuse and sharing.
 :::</p>
 <p>For example, to see all the clients and their hostnames:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
    &quot;SELECT os_info.fqdn as Hostname, client_id from clients()&quot; --format text
 +-----------------+--------------------+
 |    Hostname     |     client_id      |
@@ -441,7 +441,7 @@ artifacts for reuse and sharing.
 SELECT os_info.fqdn AS Hostname,
 client_id FROM clients()
 </code></pre><p>To inspect what flows were run on a client:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query \
    &quot;SELECT runner_args.creator, runner_args.flow_name, \
     runner_args.start_time FROM \
     flows(client_id='C.772d16449719317f')&quot;
@@ -473,7 +473,7 @@ to perform post-processing with Velociraptor itself using server side
 VQL queries.</p>
 <p>For example, we can filter a client's process execution log using a VQL
 query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from monitoring(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from monitoring(
       client_id='C.87b19dba006fcddb',
       artifact='Windows.Events.ProcessCreation')
     WHERE Name =~ '(?i)psexesvc' &quot;
@@ -512,7 +512,7 @@ dynamically.</p>
 for newly reported instances of psexec executions. But this approach is
 not terribly efficient. A better approach is to install a watcher on the
 monitoring event log:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from watch_monitoring(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query &quot;SELECT * from watch_monitoring(
      client_id='C.87b19dba006fcddb',
      artifact='Windows.Events.ProcessCreation') where Name =~ '(?i)psexesvc' &quot;
 [
@@ -541,7 +541,7 @@ safe - even from another process.</p>
 This is a very suspicious event in our environment and we would like to
 escalate this by sending us an email.</p>
 <p>We can modify the above query to send an email for each event:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * FROM foreach(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * FROM foreach(
    row={
      SELECT * from watch_monitoring(
        client_id='C.87b19dba006fcddb',
@@ -567,7 +567,7 @@ seconds we will only get one email.</p>
 SMTP parameters in the server's configuration file. The following
 example uses gmail to send mails (other mail providers will have similar
 authentication requirements).</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>Mail:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>Mail:
   server: &quot;smtp.gmail.com&quot;
   auth_username: someuser@gmail.com
   auth_password: zldifhjsdflkjfsdlie
@@ -585,7 +585,7 @@ obtained from
 definitions. This way we can design specific alerts, document them and
 invoke them by name. Let us encapsulate the above queries in a new
 artifact:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Server.Alerts.PsExec
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Server.Alerts.PsExec
 description:  |
    Send an email if execution of the psexec service was detected on any client.
 
@@ -621,7 +621,7 @@ sources:
 </code></pre><p>We create a new directory called my_artifact_directory and store that
 file inside as psexesvc.yaml. Now, on the server we invoke the artifact
 collector and instruct it to also add our private artifacts:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --definitions my_artifact_directory/ \
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --definitions my_artifact_directory/ \
     --config ~/server.config.yaml \
     --format json \
     artifacts collect Server.Alerts.PsExec
@@ -668,15 +668,15 @@ to address your real world use cases.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

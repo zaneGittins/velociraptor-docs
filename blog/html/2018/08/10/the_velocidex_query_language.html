@@ -2,24 +2,24 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="Velociraptor is powered by VQL and VQL is the killer feature which
 makes it so powerful. But what exactly is VQL? This section is a quick
 overview of VQL.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velocidex Query Language (VQL) :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -396,7 +396,7 @@ serializable object can be generated in a table's cell. It is not
 uncommon to generate an entire JSON object with additional fields in
 each row for a single column.</p>
 <p>The basic structure of a VQL statement is:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Column1, Column2, Column3 from plugin(arg=value) WHERE Column1 &gt; 5
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Column1, Column2, Column3 from plugin(arg=value) WHERE Column1 &gt; 5
 </code></pre><p>There are three main parts: Column selectors, Plugin and Filter
 Conditions.</p>
 <h2 id=plugins>Plugins</h2>
@@ -440,24 +440,24 @@ transformation is a single "*", which means no transformation at all
 <p>Since plugins may produce any object (for example, a JSON object with
 nested fields), VQL column specifications can dereference nested fields
 within the produced data.</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Sys.Mtim.Sec from glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT Sys.Mtim.Sec from glob(globs=&quot;/bin/*&quot;)
 </code></pre><p>Specifying only selected columns can limit the number of columns
 produced and make the output more useful by removing unneeded fields.
 For example the following will produce a result table with two columns
 named FullPath and SIze and a row per file found in the /bin/ directory:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, Size from glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, Size from glob(globs=&quot;/bin/*&quot;)
 </code></pre><p>Column specifications can consist of arbitrary expressions - for example
 addition, comparisons:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath + '.bindir', Size from glob(globs=&quot;/bin/*&quot;) WHERE Size &lt; 1000
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath + '.bindir', Size from glob(globs=&quot;/bin/*&quot;) WHERE Size &lt; 1000
 </code></pre><p>In this case it is often useful to add a Column Alias (Note that column
 aliases can also be used in the WHERE clause):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath + '.bindir' as Santized, Size from glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath + '.bindir' as Santized, Size from glob(globs=&quot;/bin/*&quot;)
 </code></pre><p>VQL Functions provide a way to extend VQL expressions. Unlike full
 plugins they do not produce a sequence of rows, but simply produce a
 single value (which can be an arbitrary o function formats a timestamp
 as a string. This is useful since many plugins produce times in seconds
 since epoch time:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, timestamp(epoch=Sys.Mtim.Sec) as mtimefrom glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, timestamp(epoch=Sys.Mtim.Sec) as mtimefrom glob(globs=&quot;/bin/*&quot;)
 </code></pre><p>::: {.note}
 ::: {.admonition-title}
 Note
@@ -471,13 +471,13 @@ condition (via the alias).</p>
 files, ignoring the WHERE condition because the upload() function will
 be evaluated on each row, even if the WHERE clause causes the row to be
 ignored:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, upload(path=FullPath)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath, upload(path=FullPath)
  from glob(globs=&quot;/bin/*&quot;)
       WHERE Name =~ &quot;bash&quot;
 </code></pre><p>To upload only the files matching the expression, the query must be
 split into two - the first query applies the filtering condition and the
 second query does the upload:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET files = SELECT FullPath from glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET files = SELECT FullPath from glob(globs=&quot;/bin/*&quot;)
     WHERE Name =~ &quot;bash&quot;
 SELECT FullPath, upload(path=FullPath) from files
 </code></pre><p>:::</p>
@@ -501,7 +501,7 @@ This is normally done by dividing the query into smaller queries and
 combining their results in the best order.</p>
 <p>Consider the following query that attempts to search small files for the
 keyword "foobar":</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=&quot;/bin/*&quot;) where
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=&quot;/bin/*&quot;) where
    grep(path=FullPath, keywords=[&quot;foobar&quot;]) and Size &lt; 1000
 </code></pre><p>Velociraptor will execute the following steps:</p>
 <ol>
@@ -538,7 +538,7 @@ most files are larger than 1000 bytes) such that we only bother to
 grep() very few files.</p>
 <p>This can be achieved by splitting the query into two and chaining them
 together:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET file = select * from glob(globs=&quot;/bin/*&quot;) WHERE Size &lt; 1000
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET file = select * from glob(globs=&quot;/bin/*&quot;) WHERE Size &lt; 1000
 
 SELECT FullPath from file WHERE grep(
    path=FullPath, keywords=[&quot;foobar&quot;])
@@ -568,7 +568,7 @@ clause without fear of memory overrun.
 <h2 id=escaping-parameters>Escaping parameters</h2>
 <p>VQL queries often need to take user input. For example consider the
 query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=&quot;/bin/*&quot;)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=&quot;/bin/*&quot;)
 </code></pre><p>We might want to allow the user to specify the glob expression and
 create the query programmatically. While it is possible to ensure user
 input is escaped this is inefficient and tedious.</p>
@@ -582,7 +582,7 @@ case there is no need to escape user input as it is treated as a part of
 the environment and not the query. For example placing PATH="/bin/*"
 into the environment, will allow the following query to run
 successfully:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=PATH)
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath from glob(globs=PATH)
 </code></pre><p>You should always try to write VQL queries referring to parameters in
 the environment because this makes them reusable - the scope parameters
 become inputs to your query and the query becomes a reusable function.</p>
@@ -596,15 +596,15 @@ become inputs to your query and the query becomes a reusable function.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

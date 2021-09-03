@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="The latest release of Velociraptor introduces the ability to access
 raw NTFS volumes, allowing users to read files which are normally
 locked by the operating system such as registry hives, pagefile and
@@ -10,17 +10,17 @@ other locked files.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velorciraptor's filesystem's accessors :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -401,7 +401,7 @@ queries while writing artifacts.</p>
 which allow the user to interact with the filesystem accessors. For
 example, to list the files in a directory we can use the "velociraptor
 fs ls" command:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs ls
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs ls
 +------+------+------------+---------------------------+---------------------------------+
 | Name | Size |    Mode    |           mtime           |              Data               |
 +------+------+------------+---------------------------+---------------------------------+
@@ -434,7 +434,7 @@ generate the table. To be clear, the "fs ls" command is simply a
 shortcut for producing a VQL query that ultimately uses the filesystem
 accessor in the glob() VQL plugin. Therefore, we can enter any glob
 expression to find files:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs ls -v &quot;c:\program files\**\*.exe&quot;
 +--------------------------------+----------+------------+---------------------------+------+
 |            FullPath            |   Size   |    Mode    |           mtime           | Data |
 +--------------------------------+----------+------------+---------------------------+------+
@@ -458,7 +458,7 @@ glob(globs=path, accessor=accessor)
 filesystem, allowing us to run glob expressions against registry keys
 and values (Note that the registry accessor provides the value in the
 metadata):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor reg ls &quot;HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\{Run,RunOnce}\*&quot;
 +---------------+------+------------+---------------------------+---------------------------------+
 |     Name      | Size |    Mode    |           mtime           |             Data                |
 +---------------+------+------------+---------------------------+---------------------------------+
@@ -475,7 +475,7 @@ Data FROM glob(globs=path, accessor=accessor)
 filesystem directly. At the top level, the accessor shows all NTFS
 formatted partitions. These include regular drives as well as Volume
 Shadow Copies:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls
 +--------------------------------+------+------------+---------------------------------------------------------+
 |              Name              | Size |    Mode    |                             Data                        |
 +--------------------------------+------+------------+---------------------------------------------------------+
@@ -504,7 +504,7 @@ SELECT Name, Size, Mode.String AS Mode, timestamp(epoch=Mtime.Sec) AS mtime,, Da
 on two different dates (highlighted above). We can browse these
 snapshots just like they were another drive (We can also apply any glob
 expressions to this path):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe fs --accessor ntfs ls &quot;\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\
 Users\test\*.exe&quot;
 +------------------+----------+------------+---------------------------+------------------+
 |       Name       |   Size   |    Mode    |           mtime           |       Data       |
@@ -582,7 +582,7 @@ the DOS filename!</p>
 below, I am setting the short filename for the velociraptor.exe binary
 to be something completely unrelated, then I am running the binary using
 the unrelated filename:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>C:\Users\test&gt;fsutil file setshortname velociraptor.exe runme.exe
 C:\Users\test&gt;dir /x *.exe
  Volume in drive C has no label.
  Volume Serial Number is 9459-F443
@@ -636,15 +636,15 @@ files=my_reg_keys, accessor="reg")</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

@@ -2,24 +2,24 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="I was watching the SANS DFIR Summit 2018 videos on youtube and came
 across Mari DeGrazia's talk titled &#34;Finding and Decoding Malicious
 Powershell Scripts&#34;
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Detecting powershell persistence with Velociraptor and Yara :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -421,7 +421,7 @@ developing the artifact interactively on a Windows system.</p>
 <p>Our artifact will attempt to detect the persistence mechanism detailed
 in the above posts. We start by adding a value to our test user account
 under the key</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>Key: &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>Key: &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot;
 Value: &quot;C:\Windows\system32\mshta.exe&quot;
 Data:
   about:&lt;script&gt;c1hop=&quot;X642N10&quot;;R3I=new%20ActiveXObject(&quot;WScript.Shell&quot;);
@@ -433,11 +433,11 @@ it called powershell_persistence.yaml. Velociraptor artifacts are just
 YAML files that can be loaded at runtime using the --definitions flag.</p>
 <p>Every artifact has a name, by convention the name is separated into its
 major categories. We will call ours Windows.Persistence.Powershell:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
 </code></pre><p>This is the minimum required for Velociraptor to identify it. We can see
 a listing of all artifacts Velociraptor knows about using the
 "artifacts list" command:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts list
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts list
 INFO:2018/09/28 07:59:40 Loaded 34 built in artifacts
 Linux.Applications.Chrome.Extensions
 Linux.Applications.Chrome.Extensions.Upload
@@ -447,14 +447,14 @@ Windows.Persistence.Powershell
 Windows.Sys.Users
 </code></pre><p>We can collect the artifact simply by using the "artifacts collect"
 command:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 20:01:32 Loaded 34 built in artifacts
 </code></pre><p>Ok so Velociraptor can load and collect this new artifact, but as yet it
 does nothing! We need to think about what exactly we want to collect.</p>
 <p>We know we want to search for all values in the Run/RunOnce hive of all
 the users. Let's first see if we can retrieve all the values using a
 glob:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
 parameters:
   - name: keyGlob
     default: &quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
@@ -476,7 +476,7 @@ VQL query. This keeps the VQL query clean and more readable.</li>
 not met, the VQL query will not be run.</li>
 </ol>
 <p>Lets run this artifact:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 20:51:47 Loaded 34 built in artifacts
 +--------------------------------+
 |            FullPath            |
@@ -501,7 +501,7 @@ match a specific yara signature. We can work later on improving the yara
 signature, but for now let's just detect uses of the eval() powershell
 command within 500 characters of an ActiveXObject instantiation. We will
 try to match each value returned from the Run keys with this object:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Persistence.Powershell
 parameters:
   - name: keyGlob
     default: &quot;HKEY_USERS\\*\\Software\\Microsoft\\Windows\
@@ -533,7 +533,7 @@ sources:
 </code></pre><p>This version recovers the FullPath of all the Run/RunOnce values and
 stores them in a stored query. We then issue another query that applies
 the yara rule on these values:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 21:29:10 Loaded 34 built in artifacts
 +------------+------+------+--------------------------------+--------------------------------+
 |    Rule    | Meta | Tags |            Strings             |              File              |
@@ -565,13 +565,13 @@ For example, the File column returns information about the file that
 matched the yara rule (its filename, timestamps etc). The output is a
 bit confusing so we just return the relevant columns. We can replace the
 * in the last query with a curated list of columns to return:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT File.FullPath as ValueName, File.Data.value as Contents,
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT File.FullPath as ValueName, File.Data.value as Contents,
   timestamp(epoch=File.Mtime.Sec) as ModTime
 FROM yara(rules=yaraRule,
           files=file.FullPath,
           accessor=&quot;reg&quot;)
 </code></pre><p>Which results in the quite readable:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe --definitions artifacts artifacts collect Windows.Persistence.Powershell
 INFO:2018/09/28 21:42:18 Loaded 34 built in artifacts
 +--------------------------------+--------------------------------+---------------------------+
 |           ValueName            |            Contents            |          ModTime          |
@@ -649,7 +649,7 @@ directory (usually C:\\Users\\&lt;username>), so let's write an
 artifact to find these files. We can reuse the artifact
 Windows.Sys.Users that reports all user accounts on a system (we display
 it as JSON to enhance readability):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe artifacts collect Windows.Sys.Users --format json
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>F:\&gt;velociraptor.exe artifacts collect Windows.Sys.Users --format json
 INFO:2018/09/28 22:44:26 Loaded 34 built in artifacts
 {
  &quot;Description&quot;: &quot;&quot;,
@@ -670,7 +670,7 @@ INFO:2018/09/28 22:44:26 Loaded 34 built in artifacts
  &quot;Uid&quot;: 1003
 },
 </code></pre><p>So we just want to YARA scan the NTUSER.DAT file in each home directory:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * from foreach(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * from foreach(
 row={
    SELECT Name, Directory as HomeDir
      FROM Artifact.Windows.Sys.Users()
@@ -712,7 +712,7 @@ because we do not have any context on which value contained the
 signature, or even if it had been deleted. Luckily we uploaded the raw
 registry hive for further analysis, and we can use a tool such as
 RegRipper to extract more information from the hive:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ wine rip.exe -p user_run -r
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ wine rip.exe -p user_run -r
 /tmp/velociraptor/clients/C.c916a7e445eb0868/uploads/F.078739d6/ntfs/
 %5C%5C.%5CC%3A%5CUsers%5Cuser1%5CNTUSER.DAT
 Launching user_run v.20140115
@@ -751,15 +751,15 @@ files for further analysis.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

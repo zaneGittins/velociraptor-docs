@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="Browsing the client's filesystem is probably the first thing
 responders do. Both GRR and Velociraptor have a nice VFS abstraction
 that allows users to browse files interactively. However, in order to
@@ -11,17 +11,17 @@ way that the VFS is stored in the datastore.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Browsing around the filesystem. :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429463 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429463 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429463 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429463 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429463 rel=stylesheet>
-<link href=/css/theme.css?1630429463 rel=stylesheet>
-<link href=/css/tabs.css?1630429463 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429463 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429463 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429463 rel=stylesheet><link href=/css/dark.css?1630429463 rel=stylesheet><link href=/css/syntax.css?1630429463 rel=stylesheet><link href=/css/light.css?1630429463 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429463 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429463></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -453,7 +453,7 @@ server and processed while the query is still executing on the client.</p>
 <p>Consider the VFSListDirectoryflow was issued with a glob of /**10
 (i.e. refresh the entire VFS view from the root directory, recursively
 into a depth of 10 directories). The VQL query executed was:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath AS _FullPath,
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT FullPath AS _FullPath,
     Name, Size, Mode,
     timestamp(epoch=Sys.Mtim.Sec) AS mtime,
     timestamp(epoch=Sys.Atim.Sec) AS atime,
@@ -496,15 +496,15 @@ of files - a re-download will overwrite the previous file.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429463></script>
-<script src=/js/perfect-scrollbar.min.js?1630429463></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429463></script>
-<script src=/js/jquery.sticky.js?1630429463></script>
-<script src=/js/featherlight.min.js?1630429463></script>
-<script src=/js/highlight.pack.js?1630429463></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429463></script>
-<script src=/js/learn.js?1630429463></script>
-<script src=/js/hugo-learn.js?1630429463></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

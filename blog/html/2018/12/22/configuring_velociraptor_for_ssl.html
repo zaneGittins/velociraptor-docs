@@ -2,22 +2,22 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="This post describes how to deploy Velociraptor with SSL on a cloud VM.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Configuring Velociraptor for SSL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -442,7 +442,7 @@ updating the IP address.</p>
 <p>Next we install ddclient on our VM. This will update our dynamic IP
 address whenever the external interface changes. Configure the file
 `/etc/ddclient.conf`:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>protocol=dyndns2
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>protocol=dyndns2
 use=web
 server=domains.google.com
 ssl=yes
@@ -450,7 +450,7 @@ login=X13342342XYZ
 password='slk43521kj'
 velociraptor.rekall-innovations.com
 </code></pre><p>Next configure the service to start:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode># Configuration for ddclient scripts
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode># Configuration for ddclient scripts
 # generated from debconf on Tue Oct 23 20:25:23 AEST 2018
 #
 # /etc/default/ddclient
@@ -476,7 +476,7 @@ daemon_interval=&quot;300&quot;
 Edit the following in your server.config.yaml file (if you do not have
 one yet you can generate one using velociraptor config
 generate > server.config.yaml ):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>Client:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>Client:
    server_urls:
    - https://velociraptor.rekall-innovations.com/
 
@@ -492,7 +492,7 @@ SSL so we also need to direct the client's server_urls parameter to
 the SSL port.</p>
 <p>Lets start the frontend (We need to start Velociraptor as root because
 it must be able to bind to port 80 and 443):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ sudo velociraptor --config server.config.yaml frontend -v
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ sudo velociraptor --config server.config.yaml frontend -v
 
 [INFO] 2018-12-22T17:12:42+10:00 Loaded 43 built in artifacts
 [INFO] 2018-12-22T17:12:42+10:00 Increased open file limit to 999999
@@ -503,7 +503,7 @@ it must be able to bind to port 80 and 443):</p>
 </code></pre><p>If all goes well we now can point our browser to
 <a href=https://velociraptor.rekall-innovations.com/>https://velociraptor.rekall-innovations.com/</a> and it should just work.
 Don't forget to provision a user and password using:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml user add mic
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor --config server.config.yaml user add mic
 </code></pre><h1 id=notes>Notes</h1>
 <p>The autocert configuration is very easy to do but there are a few
 caveats:</p>
@@ -535,15 +535,15 @@ it now by building from git head.
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>

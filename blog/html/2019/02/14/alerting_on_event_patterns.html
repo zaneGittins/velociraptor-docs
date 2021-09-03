@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="We have shown in earlier posts how Velociraptor uses VQL to define event queries that can detect specific conditions. These conditions can be used to create alerts and escalation actions.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Alerting on event patterns :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -396,7 +396,7 @@ information from the client.</p>
 <p>A VQL query does not have to terminate at all. VQL queries draw their
 data from a VQL plugin which may simply return data rows at different
 times. For example, consider the following query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT EventData as FailedEventData,
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT EventData as FailedEventData,
        System as FailedSystem
 FROM watch_evtx(filename=securityLogFile)
 WHERE System.EventID = 4625
@@ -407,7 +407,7 @@ rows. The rows will then be filtered so we only see event id 4625
 <p>Velociraptor can implement event queries on the client or on the server.
 For example, say we wanted to collect all failed event logs with the
 query above. We would write an artifact that encapsulates this query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.System.FailedLoginAttempts
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.System.FailedLoginAttempts
 parameters:
   - name: securityLogFile
     default: C:/Windows/System32/Winevt/Logs/Security.evtx
@@ -419,7 +419,7 @@ sources:
        WHERE System.EventID.Value = 4625
 </code></pre><p>Then we simply add that artifact to the monitored artifact list in the
 config file:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>Events:
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>Events:
   artifacts:
   - Generic.Client.Stats
   - Windows.System.FailedLoginAttempts
@@ -495,7 +495,7 @@ expired if they are too old.</p>
 <p>We typically store the query in a variable. Each time the variable is
 queried the cache is returned at once. To illustrate how this works
 consider the following query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET fifo_events = SELECT * FROM fifo(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET fifo_events = SELECT * FROM fifo(
   max_rows=5,
   query={
      SELECT * from watch_evtx(filename=securityLogFile)
@@ -519,7 +519,7 @@ variable - that is we select the last 5 failed events.</p>
 <p>You can see that this allows us to query the last 5 events in the fifo
 cache for every clock event. If we now replace the clock event with a
 successful logon event this query will do exactly what we want:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode># This query will generate failed logon events - one per row, as
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode># This query will generate failed logon events - one per row, as
 # they occur.
 - LET failed_logon = SELECT EventData as FailedEventData,
      System as FailedSystem
@@ -580,7 +580,7 @@ concerted behaviour from multiple endpoints at the same time.</p>
 <p>For example, consider the pattern of an attacker who compromised domain
 credentials running multiple PowerShell Remoting commands across the
 entire domain. A command like:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>PS C:\WINDOWS\system32&gt; Invoke-Command –ComputerName testcomputer -ScriptBlock {Hostname}
 TestComputer
 </code></pre><p>This command will generate multiple event log entries, including event
 4624 (logon) on each host. While in isolation, on each individual
@@ -588,7 +588,7 @@ endpoint this event is not suspicious, we might consider seeing this
 event repeated within a short time across the domain suspicious.</p>
 <p>To set that up we would run the following artifact as a monitoring
 artifact on all endpoints:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Event.SuccessfulLogon
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Windows.Event.SuccessfulLogon
 sources:
  - queries:
    - SELECT EventData as SuccessEventData,
@@ -599,7 +599,7 @@ sources:
 this artifact and feed the result to the fifo(). This fills the fifo()
 with the last 500 successful logon events from all clients within the
 last 60 seconds:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET last_successful_logons = SELECT * FROM fifo(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET last_successful_logons = SELECT * FROM fifo(
    max_rows=500,
    max_time=60,
    query={
@@ -626,15 +626,15 @@ time.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646996></script>
+<script src=/js/jquery.sticky.js?1630646996></script>
+<script src=/js/featherlight.min.js?1630646996></script>
+<script src=/js/highlight.min.js?1630646996></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646996></script>
+<script src=/js/learn.js?1630646996></script>
+<script src=/js/hugo-learn.js?1630646996></script>
 </body>
 </html>

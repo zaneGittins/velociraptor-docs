@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Client Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429465 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429465 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429465 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429465 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429465 rel=stylesheet>
-<link href=/css/theme.css?1630429465 rel=stylesheet>
-<link href=/css/tabs.css?1630429465 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429465 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429465 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429465 rel=stylesheet><link href=/css/dark.css?1630429465 rel=stylesheet><link href=/css/syntax.css?1630429465 rel=stylesheet><link href=/css/light.css?1630429465 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429465 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429465></script>
+<link href=/css/nucleus.css?1630646997 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646997 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646997 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646997 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646997 rel=stylesheet>
+<link href=/css/theme.css?1630646997 rel=stylesheet>
+<link href=/css/tabs.css?1630646997 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646997 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646997 rel=stylesheet>
+<link href=/css/dark.css?1630646997 rel=stylesheet><link href=/css/syntax.css?1630646997 rel=stylesheet><link href=/css/light.css?1630646997 rel=stylesheet><link href=/css/hljs.css?1630646997 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646997 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646997></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -718,7 +718,7 @@ possible to quote the component to keep it together. For example, the
 windows registry contains keys with forward slash in their
 names. Therefore we may use these to prevent the glob from getting
 confused:</p>
-<pre><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
+<pre tabindex=0><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
 </code></pre><p>Glob expressions are case insensitive and may contain the following wild cards:</p>
 <ul>
 <li>The <code>*</code> matches one or more characters.</li>
@@ -1018,7 +1018,7 @@ print it in a human readable way.</p>
 <p>This currently does not support IPv6 addresses. Those are usually
 encoded as an array of 8 bytes which makes it easy to format using the
 <code>format()</code> function:</p>
-<pre><code>  format(format=&quot;%x:%x:%x:%x:%x:%x:%x:%x&quot;, value)
+<pre tabindex=0><code>  format(format=&quot;%x:%x:%x:%x:%x:%x:%x:%x&quot;, value)
 </code></pre><div class=vqlargs></div>
 <table>
 <thead>
@@ -1118,7 +1118,7 @@ row.</p>
 <tbody>
 <tr>
 <td>pid</td>
-<td>A process ID to list. If not provided list all processes.</td>
+<td>A pid to list. If this is provided we are able to operate much faster by only opening a single process.</td>
 <td>int64</td>
 </tr>
 </tbody>
@@ -1478,26 +1478,43 @@ might be somewhat easier to use.</p>
 <p>The <code>yara()</code> plugin applies a signature consisting of multiple rules
 across files. You can read more about <a href=https://yara.readthedocs.io/en/v3.4.0/writingrules.html>yara rules</a>. The
 accessor is used to open the various files which allows this plugin to
-work across raw ntfs, zip members etc.</p>
+work across raw ntfs, zip members or indeed process memory.</p>
 <p>Scanning proceeds by reading a block from the file, then applying the
 yara rule on the block. This will fail if the signature is split
 across block boundary. You can choose the block size to be
 appropriate.</p>
-<p>Note that because we are just scanning the file data, yara plugins
-like the pe plugin will not work. You can emulate all the yara plugins
-with VQL anyway (e.g. to test for pe headers)</p>
-<p>Typically the yara rule does not change for the life of the query, so
-we cache it to avoid having to recompile it each time. The <code>key</code>
-variable can be used to uniquely identify the cache key for the
-rule. If the <code>key</code> variable is not specified, we use the rule text
-itself to generate the cache key. It is recommended that the <code>key</code>
-parameter be specified because it makes it more efficient.</p>
+<p>If the accessor is <strong>not</strong> specified we use the yara library to
+directly open the file itself without Velociraptor&rsquo;s accessor
+API. This allows Yara to mmap the file which has a number of
+benefits including:</p>
+<ol>
+<li>
+<p>The ability to scan without reading in blocks - so a
+signature matching the file header as well as a string deep
+within the file works.</p>
+</li>
+<li>
+<p>Various Yara extensions like the <code>pe</code> extension work allowing
+rules that use such extensions to work properly.</p>
+</li>
+</ol>
+<p>If we are not able to open the file (for example due to sharing
+violations), Velociraptor will automatically fall back to the ntfs
+accessor (on Windows) and will automatically switch to block by
+block scanning.</p>
+<p>Typically the yara rule does not change for the life of the query,
+so Velociraptor caches it to avoid having to recompile it each
+time. The <code>key</code> variable can be used to uniquely identify the
+cache key for the rule. If the <code>key</code> variable is not specified, we
+use the rule text itself to generate the cache key. It is
+recommended that the <code>key</code> parameter be specified because it makes
+it more efficient since we do not need to hash the rules each time.</p>
 <h3 id=shorthand-rules>Shorthand rules</h3>
 <p>This plugin accepts yara rules in the <code>rules</code> parameter. But typically
 we only search for keywords so writing a full yara syntax rule is
 tedious. Therefore we provide a shorthand way to specify the
 keywords. For example:</p>
-<pre><code>wide nocase:foo,bar,baz
+<pre tabindex=0><code>wide nocase:foo,bar,baz
 </code></pre><p>When the rule is provided in the above form, the plugin will
 automatically generate a yara rule which matches any of the specified
 keywords. The specification before the <code>:</code> means the same thing as the
@@ -1574,15 +1591,15 @@ scanning stops after one hit is found.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.min.js?1630429465></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429465></script>
-<script src=/js/jquery.sticky.js?1630429465></script>
-<script src=/js/featherlight.min.js?1630429465></script>
-<script src=/js/highlight.pack.js?1630429465></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429465></script>
-<script src=/js/learn.js?1630429465></script>
-<script src=/js/hugo-learn.js?1630429465></script>
+<script src=/js/clipboard.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.min.js?1630646997></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646997></script>
+<script src=/js/jquery.sticky.js?1630646997></script>
+<script src=/js/featherlight.min.js?1630646997></script>
+<script src=/js/highlight.min.js?1630646997></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646997></script>
+<script src=/js/learn.js?1630646997></script>
+<script src=/js/hugo-learn.js?1630646997></script>
 </body>
 </html>

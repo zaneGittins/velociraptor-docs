@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.87.0">
+<meta name=generator content="Hugo 0.88.0">
 <meta name=description content="We are super excited to introduce this point release of Velociraptor
 (0.2.2) which introduces the concept of Velociraptor Artifacts for the
 first time. This post is about what artifacts are, what they do and
@@ -10,17 +10,17 @@ how can you use them.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Artifacts :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630429464 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630429464 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630429464 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630429464 rel=stylesheet>
-<link href=/css/auto-complete.css?1630429464 rel=stylesheet>
-<link href=/css/theme.css?1630429464 rel=stylesheet>
-<link href=/css/tabs.css?1630429464 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630429464 rel=stylesheet>
-<link href=/css/theme-mine.css?1630429464 rel=stylesheet>
-<link href=/css/atom-one-light.css?1630429464 rel=stylesheet><link href=/css/dark.css?1630429464 rel=stylesheet><link href=/css/syntax.css?1630429464 rel=stylesheet><link href=/css/light.css?1630429464 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630429464 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630429464></script>
+<link href=/css/nucleus.css?1630646995 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630646995 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630646995 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630646995 rel=stylesheet>
+<link href=/css/auto-complete.css?1630646995 rel=stylesheet>
+<link href=/css/theme.css?1630646995 rel=stylesheet>
+<link href=/css/tabs.css?1630646995 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630646995 rel=stylesheet>
+<link href=/css/theme-mine.css?1630646995 rel=stylesheet>
+<link href=/css/dark.css?1630646995 rel=stylesheet><link href=/css/syntax.css?1630646995 rel=stylesheet><link href=/css/light.css?1630646995 rel=stylesheet><link href=/css/hljs.css?1630646995 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630646995 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630646995></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -449,7 +449,7 @@ otherwise the codebases may diverge and maintainance would be difficult.</p>
 <p>Rather than have a built in plugin for each such table, Velociraptor
 simply includes a number of generic parsers which may be reused for
 parsing different files. For example, consider the following VQL Query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT User, Desc, Uid, Gid, Homedir, Shell FROM parse_records_with_regex(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT User, Desc, Uid, Gid, Homedir, Shell FROM parse_records_with_regex(
       file=&quot;/etc/passwd&quot;,
       regex='(?m)^(?P&lt;User&gt;[^:]+):([^:]+):' +
             '(?P&lt;Uid&gt;[^:]+):(?P&lt;Gid&gt;[^:]+):(?P&lt;Desc&gt;[^:]*):' +
@@ -461,7 +461,7 @@ produces the same results as OSQuery's users table, but uses completely
 generic parsers.</p>
 <p>The generic parser can be used to parse many other file types. Here is
 query which parses debian apt-source lines:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * FROM parse_records_with_regex(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * FROM parse_records_with_regex(
    file=&quot;/etc/apt/sources.list&quot;,
    regex=&quot;(?m)^ *(?P&lt;Type&gt;deb(-src)?) &quot;+
          &quot;(?:\\[arch=(?P&lt;Arch&gt;[^\\]]+)\\] )?&quot; +
@@ -491,7 +491,7 @@ by the YAML definition file, using generic reusable VQL plugins, put
 together with VQL queries.</p>
 <p>Here is an example of the the Linux.Sys.Users artifact - this is the
 equivalent artifact to OSQuery's users table:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>name: Linux.Sys.Users
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>name: Linux.Sys.Users
 description: Get User specific information like homedir, group etc from /etc/passwd.
 parameters:
   - name: PasswordFile
@@ -511,7 +511,7 @@ sources:
 The Artifact will only run if the precondition is satisfied (i.e. if we
 are running on a linux system). Running the artifact locally produces
 the following output:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor artifacts collect Linux.Sys.Users
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor artifacts collect Linux.Sys.Users
 +-------------------+-------------------------+-------+-------+--------------------------+
 |       USER        |              DESC       |  UID  |  GID  |         HOMEDIR          |
 +-------------------+-------------------------+-------+-------+--------------------------+
@@ -572,7 +572,7 @@ of the same flow:</p>
 makes artifacts available within any VQL query too. The artifact simply
 appears as another VQL plugin. Consider the following VQL Query that
 filters only user accounts which have a real shell:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query --format text &quot;SELECT * FROM Artifact.Linux.Sys.Users() where Shell =~ 'bash'&quot;
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>$ velociraptor query --format text &quot;SELECT * FROM Artifact.Linux.Sys.Users() where Shell =~ 'bash'&quot;
 +------+------+------+------+-----------+-----------+
 | USER | DESC | UID  | GID  |  HOMEDIR  |   SHELL   |
 +------+------+------+------+-----------+-----------+
@@ -604,7 +604,7 @@ flexibility and enables rapid response to evolving threats.</p>
 <h2 id=parsing-debian-packages>Parsing debian packages.</h2>
 <p>Debian packages keep a manifest file with records delimited by an empty
 line. Each record consists of possible fields.</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>- LET packages = SELECT parse_string_with_regex(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>- LET packages = SELECT parse_string_with_regex(
      string=Record,
      regex=['Package:\\s(?P&lt;Package&gt;.+)',
             'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
@@ -653,7 +653,7 @@ query is run (with the first row present in the scope). This is similar
 to SQL's JOIN operator but more readable. For example the following
 query executes a glob on each user's home directory (as obtained from
 the password file):</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET extension_manifests = SELECT * from foreach(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET extension_manifests = SELECT * from foreach(
  row={
     SELECT Uid, User, Homedir from Artifact.Linux.Sys.Users()
  },
@@ -665,7 +665,7 @@ the password file):</p>
 which can be used as an input to other queries. The if() plugin
 evaluates a condition (or a query) and runs the "then" query if true,
 or the "else" query:</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>LET maybe_read_locale_file = SELECT * from if(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>LET maybe_read_locale_file = SELECT * from if(
      condition={
         select * from scope() where Manifest.default_locale
      },
@@ -691,7 +691,7 @@ artifact. This artifact uses the binary_parser() VQL plugin which
 accepts a Rekall style profile string to instantiate an iterator over
 the file. Since the wtmp file is simply a sequence of wtmp structs, we
 can iterate over them in a query.</p>
-<pre><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * from foreach(
+<pre tabindex=0><code class=language-{.sourceCode data-lang={.sourceCode>SELECT * from foreach(
          row={
            SELECT FullPath from glob(globs=split(string=wtmpGlobs, sep=&quot;,&quot;))
          },
@@ -720,15 +720,15 @@ VQL plugins over time.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.min.js?1630429464></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630429464></script>
-<script src=/js/jquery.sticky.js?1630429464></script>
-<script src=/js/featherlight.min.js?1630429464></script>
-<script src=/js/highlight.pack.js?1630429464></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1630429464></script>
-<script src=/js/learn.js?1630429464></script>
-<script src=/js/hugo-learn.js?1630429464></script>
+<script src=/js/clipboard.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.min.js?1630646995></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630646995></script>
+<script src=/js/jquery.sticky.js?1630646995></script>
+<script src=/js/featherlight.min.js?1630646995></script>
+<script src=/js/highlight.min.js?1630646995></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630646995></script>
+<script src=/js/learn.js?1630646995></script>
+<script src=/js/hugo-learn.js?1630646995></script>
 </body>
 </html>
