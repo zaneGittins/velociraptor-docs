@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.ActiveDirectory.PrivilegedUsers :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -382,80 +382,80 @@ Windows.ActiveDirectory.PrivilegedUsers
 <p>If on a Domain Controller (ProductType = 2), recursively enumerate membership of privileged groups, then
 for each user, collect details relevant to an investigation: Create Date, Last Logon, Group Membership, SID</p>
 <p>If not on a Domain Controller, return nothing</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.ActiveDirectory.PrivilegedUsers</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>liteman @kevinfosec</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   If on a Domain Controller (ProductType = 2), recursively enumerate membership of privileged groups, then
-</span><span class=sd>   for each user, collect details relevant to an investigation: Create Date, Last Logon, Group Membership, SID
-</span><span class=sd>
-</span><span class=sd>   If not on a Domain Controller, return nothing</span><span class=w>   
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      LET info &lt;= SELECT * from info()
-</span><span class=sd>
-</span><span class=sd>      LET script &lt;= &#39;
-</span><span class=sd>
-</span><span class=sd>                $prodtype = Get-WmiObject -Class Win32_OperatingSystem | Select -ExpandProperty ProductType
-</span><span class=sd>
-</span><span class=sd>                if ($prodType -eq 2) {
-</span><span class=sd>                  import-module activedirectory
-</span><span class=sd>
-</span><span class=sd>                  $users = @()
-</span><span class=sd>
-</span><span class=sd>                  $groups = @(&#34;Domain Admins&#34;, &#34;Enterprise Admins&#34;, &#34;Administrators&#34;, &#34;Schema Admins&#34;, &#34;Account Operators&#34;, &#34;Backup Operators&#34;, &#34;Print Operators&#34;, &#34;Server Operators&#34;, &#34;Cert Publishers&#34;)
-</span><span class=sd>
-</span><span class=sd>                  foreach ($group in $groups) {
-</span><span class=sd>                      foreach ($user in @(Get-AdGroupMember -Identity $group -Recursive)) {
-</span><span class=sd>                          if (-Not $users.contains($user)) {
-</span><span class=sd>                              $users += $user
-</span><span class=sd>                          }
-</span><span class=sd>                      }
-</span><span class=sd>
-</span><span class=sd>                  }
-</span><span class=sd>
-</span><span class=sd>                  $userdetails = @()
-</span><span class=sd>                  foreach ($user in ($users | Sort-Object | Get-Unique))
-</span><span class=sd>                    $userdetails += Get-ADUser -Identity $user -Properties *
-</span><span class=sd>                  }
-</span><span class=sd>
-</span><span class=sd>                  ConvertTo-Json -InputObject $userdetails
-</span><span class=sd>
-</span><span class=sd>                }
-</span><span class=sd>      &#39;
-</span><span class=sd>
-</span><span class=sd>      LET out = SELECT parse_json_array(data=Stdout) AS Output
-</span><span class=sd>          FROM execve(argv=[&#34;powershell&#34;,
-</span><span class=sd>               &#34;-ExecutionPolicy&#34;, &#34;Unrestricted&#34;, &#34;-encodedCommand&#34;,
-</span><span class=sd>                  base64encode(string=utf16_encode(
-</span><span class=sd>                  string=script))
-</span><span class=sd>            ], length=1000000)
-</span><span class=sd>      SELECT * FROM foreach(row=out.Output[0],
-</span><span class=sd>      query={
-</span><span class=sd>          SELECT
-</span><span class=sd>            SamAccountName,
-</span><span class=sd>            DistinguishedName,
-</span><span class=sd>            SID.Value as UserSID,
-</span><span class=sd>            SID.AccountDomainSid as DomainSID,
-</span><span class=sd>            Enabled,
-</span><span class=sd>            adminCount,
-</span><span class=sd>            timestamp(epoch=grok(data=Created, grok=&#34;%{INT:timestamp}&#34;).timestamp) as created,
-</span><span class=sd>            DisplayName,
-</span><span class=sd>            timestamp(winfiletime=lastLogon) as last_logon,
-</span><span class=sd>            timestamp(epoch=grok(data=Modified, grok=&#34;%{INT:timestamp}&#34;).timestamp) as modified,
-</span><span class=sd>            MemberOf as Groups,
-</span><span class=sd>            timestamp(winfiletime=pwdLastSet) as password_last_set
-</span><span class=sd>
-</span><span class=sd>          FROM scope()
-</span><span class=sd>      })</span><span class=w>      
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.ActiveDirectory.PrivilegedUsers
+
+author: liteman @kevinfosec
+
+description: |
+   If on a Domain Controller (ProductType = 2), recursively enumerate membership of privileged groups, then
+   for each user, collect details relevant to an investigation: Create Date, Last Logon, Group Membership, SID
+
+   If not on a Domain Controller, return nothing
+
+type: CLIENT
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    query: |
+      LET info &lt;= SELECT * from info()
+
+      LET script &lt;= '
+
+                $prodtype = Get-WmiObject -Class Win32_OperatingSystem | Select -ExpandProperty ProductType
+
+                if ($prodType -eq 2) {
+                  import-module activedirectory
+
+                  $users = @()
+
+                  $groups = @(&quot;Domain Admins&quot;, &quot;Enterprise Admins&quot;, &quot;Administrators&quot;, &quot;Schema Admins&quot;, &quot;Account Operators&quot;, &quot;Backup Operators&quot;, &quot;Print Operators&quot;, &quot;Server Operators&quot;, &quot;Cert Publishers&quot;)
+
+                  foreach ($group in $groups) {
+                      foreach ($user in @(Get-AdGroupMember -Identity $group -Recursive)) {
+                          if (-Not $users.contains($user)) {
+                              $users += $user
+                          }
+                      }
+
+                  }
+
+                  $userdetails = @()
+                  foreach ($user in ($users | Sort-Object | Get-Unique))
+                    $userdetails += Get-ADUser -Identity $user -Properties *
+                  }
+
+                  ConvertTo-Json -InputObject $userdetails
+
+                }
+      '
+
+      LET out = SELECT parse_json_array(data=Stdout) AS Output
+          FROM execve(argv=[&quot;powershell&quot;,
+               &quot;-ExecutionPolicy&quot;, &quot;Unrestricted&quot;, &quot;-encodedCommand&quot;,
+                  base64encode(string=utf16_encode(
+                  string=script))
+            ], length=1000000)
+      SELECT * FROM foreach(row=out.Output[0],
+      query={
+          SELECT
+            SamAccountName,
+            DistinguishedName,
+            SID.Value as UserSID,
+            SID.AccountDomainSid as DomainSID,
+            Enabled,
+            adminCount,
+            timestamp(epoch=grok(data=Created, grok=&quot;%{INT:timestamp}&quot;).timestamp) as created,
+            DisplayName,
+            timestamp(winfiletime=lastLogon) as last_logon,
+            timestamp(epoch=grok(data=Modified, grok=&quot;%{INT:timestamp}&quot;).timestamp) as modified,
+            MemberOf as Groups,
+            timestamp(winfiletime=pwdLastSet) as password_last_set
+
+          FROM scope()
+      })
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -466,15 +466,15 @@ for each user, collect details relevant to an investigation: Create Date, Last L
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

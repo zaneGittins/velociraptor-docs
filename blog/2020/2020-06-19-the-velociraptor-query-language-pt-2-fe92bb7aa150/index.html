@@ -6,17 +6,17 @@
 <meta name=description content="Scopes, Looping and joining with foreach…">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>The Velociraptor Query Language Pt 2 :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -370,12 +370,6 @@ The Velociraptor Query Language Pt 2
 <li>
 <ul>
 <li><a href=#the-scope>The scope</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#the-foreach-plugin-and-looping>The foreach plugin and looping</a></li>
 <li><a href=#more-foreach-examples>More foreach examples</a></li>
 <li><a href=#conclusions>Conclusions</a></li>
@@ -411,9 +405,8 @@ The Velociraptor Query Language Pt 2
 <h3 id=the-scope>The scope</h3>
 <p>Just like most other programming languages, VQL has a concept of a scope. You can think of the scope as a bag of names referring to values. When VQL encounters a symbol reference within in the query, the VQL engine will consult the scope at that point and try to resolve the symbol’s name for an actual object.</p>
 <p>For example consider the following simple query</p>
-<blockquote>
-<h1 id=select--from-info>SELECT * FROM info()</h1>
-</blockquote>
+<pre><code class=language-vql>SELECT * FROM info()
+</code></pre>
 <p>When VQL encounters the symbol “<strong>info</strong>” it looks at the scope object used to evaluate the query, for a plugin with that name. If there is such a plugin, VQL will call it and extract rows from it.</p>
 <p>Scopes can also be nested — a scope is not one simple dictionary, instead it is a stack of dictionaries. Looking up a name in the scope walks the scope stack in reverse order (from inner scope to outer scope) looking for a match.</p>
 <p>
@@ -445,15 +438,11 @@ The Velociraptor Query Language Pt 2
 <p>You might notice that we refer to a symbol Exe within the <strong>query</strong> query — where does this get resolved from? The foreach plugin creates a sub-scope in which to run the <strong>query</strong> query, and appends the row to it. In this way, it is possible to access symbols from the iterated row from the inner loop, and therefore stat a new file each time. Information flows from the <strong>row</strong> query into the <strong>query</strong> query by way of the nested scope that is shared between them.</p>
 <h3 id=more-foreach-examples>More foreach examples</h3>
 <p>The foreach plugin is one of the most often used plugins in VQL. It is very common to apply one plugin over the result set of another plugin. Here we give several examples:</p>
-<blockquote>
-<p>Yara scan files matching a glob expression:</p>
-</blockquote>
+<h4 id=yara-scan-files-matching-a-glob-expression>Yara scan files matching a glob expression:</h4>
 <p>
 <img src=../../img/1bGb_CYsiRQko7ai0mcWaVw.png alt>
 </p>
-<blockquote>
-<p>List all open file handles from all chrome processes:</p>
-</blockquote>
+<h4 id=list-all-open-file-handles-from-all-chrome-processes>List all open file handles from all chrome processes:</h4>
 <p>
 <img src=../../img/1h8EgsM6ji2Vv1ewQLx5ikQ.png alt>
 </p>
@@ -472,15 +461,15 @@ The Velociraptor Query Language Pt 2
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

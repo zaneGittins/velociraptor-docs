@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -694,23 +694,25 @@ parameter, and a list of artifacts to collect in the <code>artifacts</code>
 parameter.</p>
 <p>In this case all artifacts will receive the the same
 parameters. For example:</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT collect_client(
+<pre><code class=language-vql>SELECT collect_client(
     client_id='C.11a3013ccaXXXXX',
     artifacts='Windows.KapeFiles.Targets',
     env=dict(Device ='C:', VSSAnalysis='Y', KapeTriage='Y')).request AS Flow
 FROM scope()
-</code></pre><p>Sometimes we have a numebr of artifacts that use the same
+</code></pre>
+<p>Sometimes we have a numebr of artifacts that use the same
 parameter name for different purposes. In that case we wish to
 specify precisely which artifact receives which parameter. This
 more complex way of specifying the collection using the <code>spec</code>
 parameter:</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT collect_client(
+<pre><code class=language-vql>SELECT collect_client(
     client_id='C.11a3013ccaXXXXX',
     artifacts='Windows.KapeFiles.Targets',
     spec=dict(`Windows.KapeFiles.Targets`=dict(
         Device ='C:', VSSAnalysis='Y', KapeTriage='Y'))).request AS Flow
 FROM scope()
-</code></pre><p>In this case the artifact names are repeated in the spec and the
+</code></pre>
+<p>In this case the artifact names are repeated in the spec and the
 artifacts parameter.</p>
 <p>NOTE: When constructing the dictionaries for the spec parameter
 you will often need to specify a field name containing full
@@ -1195,13 +1197,14 @@ artifacts. The artifacts to collect are provided in the
 <p>NOTE: In the GUI hunts are always created in the paused
 state. This is not the default state when using this function (all
 hunts are immediately active).</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT hunt(
+<pre><code class=language-vql>SELECT hunt(
     description=&quot;A general hunt&quot;,
     artifacts='Windows.KapeFiles.Targets',
     spec=dict(`Windows.KapeFiles.Targets`=dict(
         Device ='C:', VSSAnalysis='Y', KapeTriage='Y')))
 FROM scope()
-</code></pre><div class=vqlargs></div>
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1760,26 +1763,29 @@ applying a json patch. You can read more about JSON patching here
 <a href=https://github.com/evanphx/json-patch>https://github.com/evanphx/json-patch</a>.</p>
 <p>I practice you can use this to update server settings - for
 example, consider the client event monitoring state.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>SELECT get_client_monitoring() FROM scope()
+<pre><code class=language-text>SELECT get_client_monitoring() FROM scope()
 
  [
   {
-   &#34;get_client_monitoring&#34;: {
-    &#34;artifacts&#34;: [
-     &#34;Generic.Client.Stats&#34;
+   &quot;get_client_monitoring&quot;: {
+    &quot;artifacts&quot;: [
+     &quot;Generic.Client.Stats&quot;
     ]
    }
   }
  ]
-</code></pre></div><p>Suppose we wish to add a new artifact, we can patch it with the json:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>[{</span><span class=nt>&#34;op&#34;</span><span class=p>:</span> <span class=s2>&#34;add&#34;</span><span class=p>,</span> <span class=nt>&#34;path&#34;</span><span class=p>:</span> <span class=s2>&#34;/artifacts/0&#34;</span><span class=p>,</span> <span class=nt>&#34;value&#34;</span><span class=p>:</span> <span class=s2>&#34;Windows.Events.DNSQueries&#34;</span><span class=p>}]</span>
-</code></pre></div><p>This can then be immediately pushed to <code>set_client_monitoring()</code>
+</code></pre>
+<p>Suppose we wish to add a new artifact, we can patch it with the json:</p>
+<pre><code class=language-json>[{&quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/artifacts/0&quot;, &quot;value&quot;: &quot;Windows.Events.DNSQueries&quot;}]
+</code></pre>
+<p>This can then be immediately pushed to <code>set_client_monitoring()</code>
 to update the monitoring state.</p>
-<pre tabindex=0><code>SELECT set_client_monitoring(value=patch(
+<pre><code>SELECT set_client_monitoring(value=patch(
        item=get_client_monitoring(),
        patch=[dict(op=&quot;add&quot;, path=&quot;/artifacts/0&quot;, value=&quot;Windows.Events.DNSQueries&quot;)]))
 FROM scope()
-</code></pre><div class=vqlargs></div>
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -2134,15 +2140,15 @@ multi-source artifacts).</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

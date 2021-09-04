@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cloud Deployment :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -443,7 +443,7 @@ In this example we use Google Domains to purchase our domain, but any other doma
 <li>Clients will connect to the public DNS name over SSL.</li>
 </ul>
 <p>Use the guided configuration wizard to select this operation mode:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>$ ./output/velociraptor config generate -i
+<pre><code class=language-text>$ ./output/velociraptor config generate -i
 ?
 Welcome to the Velociraptor configuration generator
 ---------------------------------------------------
@@ -454,7 +454,7 @@ begin by identifying what type of deployment you need.
   [Use arrows to move, space to select, type to filter]
   Self Signed SSL
 &gt; Automatically provision certificates with Lets Encrypt
-</code></pre></div>
+</code></pre>
 <div class="mynotices tip">
 <div heading=tip><p>You must have both ports 80 and 443 publicly accessible by allowing
 any inbound firewall rules! Letsencrypt uses both to issue
@@ -559,8 +559,9 @@ to. Velociraptor accepts this redirect and uses it to log the user on.</p>
 a client secret.</p>
 <h3 id=generating-configuration>Generating configuration</h3>
 <p>To generate a self signed deployment, start by running the <code>config generate</code> command to invoke the configuration wizard</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>velociraptor config generate -i
-</code></pre></div><p>
+<pre><code class=language-sh>velociraptor config generate -i
+</code></pre>
+<p>
 <figure>
 <img src="config.png?classes=shadow" alt="Generating Cloud Deployment" class=captioned>
 <figcaption>Generating Cloud Deployment</figcaption>
@@ -594,19 +595,21 @@ OAuth enabled application on the web allows anyone with a Google
 identity to authenticate to the application but the user is still
 required to be authorized explicitly. If a user is rejected, we can
 see the following in the Audit logs:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json>   <span class=p>{</span>
-     <span class=nt>&#34;level&#34;</span><span class=p>:</span> <span class=s2>&#34;error&#34;</span><span class=p>,</span>
-     <span class=nt>&#34;method&#34;</span><span class=p>:</span> <span class=s2>&#34;GET&#34;</span><span class=p>,</span>
-     <span class=nt>&#34;msg&#34;</span><span class=p>:</span> <span class=s2>&#34;User rejected by GUI&#34;</span><span class=p>,</span>
-     <span class=nt>&#34;remote&#34;</span><span class=p>:</span> <span class=s2>&#34;192.168.0.10:40570&#34;</span><span class=p>,</span>
-     <span class=nt>&#34;time&#34;</span><span class=p>:</span> <span class=s2>&#34;2018-12-21T18:17:47+10:00&#34;</span><span class=p>,</span>
-     <span class=nt>&#34;user&#34;</span><span class=p>:</span> <span class=s2>&#34;mike@velocidex.com&#34;</span>
-   <span class=p>}</span>
-</code></pre></div><p>In order to authorize the user we must explicitly add them using the
+<pre><code class=language-json>   {
+     &quot;level&quot;: &quot;error&quot;,
+     &quot;method&quot;: &quot;GET&quot;,
+     &quot;msg&quot;: &quot;User rejected by GUI&quot;,
+     &quot;remote&quot;: &quot;192.168.0.10:40570&quot;,
+     &quot;time&quot;: &quot;2018-12-21T18:17:47+10:00&quot;,
+     &quot;user&quot;: &quot;mike@velocidex.com&quot;
+   }
+</code></pre>
+<p>In order to authorize the user we must explicitly add them using the
 Velociraptor Admin tool:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>$ velociraptor --config ~/server.config.yaml user add mike@velocidex.com
+<pre><code class=language-text>$ velociraptor --config ~/server.config.yaml user add mike@velocidex.com
 Authentication will occur via Google - therefore no password needs to be set.
-</code></pre></div><p>Note that this time, Velociraptor does not ask for a password at all,
+</code></pre>
+<p>Note that this time, Velociraptor does not ask for a password at all,
 since authentication occurs using Google&rsquo;s SSO. If we hit refresh in
 the browser we should be able to see the Velociraptor application dashboard.</p>
 <p>We can see that the logged in user is authenticated by Google, and we
@@ -629,33 +632,33 @@ user using <code>velociraptor user grant '{}'</code>.</p>
 <h3 id=deploying-to-the-server>Deploying to the server</h3>
 <p>Once a server configuration file is created, you need to create a server Debian package embedding the config file. The Debian package the Velociraptor executable, the server configuration file and relevant startup scripts.</p>
 <p>Run the following command to create the server:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>velociraptor.exe --config server.config.yaml debian server --binary velociraptor-v0.6.0-linux-amd64
-</code></pre></div>
+<pre><code class=language-sh>velociraptor.exe --config server.config.yaml debian server --binary velociraptor-v0.6.0-linux-amd64
+</code></pre>
 <div class="mynotices warning">
 <div heading=warning><p>Make sure the debian file is well protected. A compromise of the file will leak private key material enabling a MITM attack against Velociraptor.</p>
 </div>
 </div>
 <p>You can check the installation using <code>service velociraptor_server status</code>.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ sudo dpkg -i velociraptor_0.3.0_server.deb
+<pre><code class=language-bash>$ sudo dpkg -i velociraptor_0.3.0_server.deb
 Selecting previously unselected package velociraptor-server.
-<span class=o>(</span>Reading database ... <span class=m>384556</span> files and directories currently installed.<span class=o>)</span>
+(Reading database ... 384556 files and directories currently installed.)
 Preparing to unpack velociraptor_0.3.0_server.deb ...
-Unpacking velociraptor-server <span class=o>(</span>0.3.0<span class=o>)</span> ...
-Setting up velociraptor-server <span class=o>(</span>0.3.0<span class=o>)</span> ...
+Unpacking velociraptor-server (0.3.0) ...
+Setting up velociraptor-server (0.3.0) ...
 Created symlink /etc/systemd/system/multi-user.target.wants/velociraptor_server.service → /etc/systemd/system/velociraptor_server.service.
 
 $ sudo service velociraptor_server status
 ● velociraptor_server.service - Velociraptor linux amd64
-   Loaded: loaded <span class=o>(</span>/etc/systemd/system/velociraptor_server.service<span class=p>;</span> enabled<span class=p>;</span> vendor preset: enabled<span class=o>)</span>
-   Active: active <span class=o>(</span>running<span class=o>)</span> since Sun 2019-07-07 08:49:24 AEST<span class=p>;</span> 17s ago
- Main PID: <span class=m>2275</span> <span class=o>(</span>velociraptor<span class=o>)</span>
-    Tasks: <span class=m>13</span> <span class=o>(</span>limit: 4915<span class=o>)</span>
+   Loaded: loaded (/etc/systemd/system/velociraptor_server.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2019-07-07 08:49:24 AEST; 17s ago
+ Main PID: 2275 (velociraptor)
+    Tasks: 13 (limit: 4915)
    Memory: 30.2M
    CGroup: /system.slice/velociraptor_server.service
            └─2275 /usr/local/bin/velociraptor --config /etc/velociraptor/server.config.yaml frontend
 
-Jul <span class=m>07</span> 08:49:24 mic-Inspiron systemd<span class=o>[</span>1<span class=o>]</span>: Started Velociraptor linux amd64.
-</code></pre></div>
+Jul 07 08:49:24 mic-Inspiron systemd[1]: Started Velociraptor linux amd64.
+</code></pre>
 <div class="mynotices tip">
 <div heading=tip><p>If you prefer to use Windows for your day to day work, you can build the Debian package
 on your windows machine but you must specify the <code>--binary</code> flag to
@@ -673,15 +676,15 @@ obtain a copy of the linux binary from the Github releases page.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

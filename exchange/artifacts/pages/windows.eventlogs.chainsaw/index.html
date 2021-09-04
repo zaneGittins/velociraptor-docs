@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -384,55 +384,55 @@ Windows.EventLogs.Chainsaw
 <p>&ldquo;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs.
 It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&rdquo;</p>
 <p><a href=https://github.com/countercept/chainsaw>https://github.com/countercept/chainsaw</a></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.EventLogs.Chainsaw</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    
-</span><span class=sd>    This artifact leverages Chainsaw to enable usage of Sigma rules (in addition to built-in logic) to faciliate detection within Windows Event Logs.
-</span><span class=sd>    
-</span><span class=sd>    From the project&#39;s description:
-</span><span class=sd>    
-</span><span class=sd>    &#34;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs. 
-</span><span class=sd>    It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&#34;
-</span><span class=sd>    
-</span><span class=sd>    https://github.com/countercept/chainsaw
-</span><span class=sd>    </span><span class=w>    
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>Wes Lambert - @therealwlambert</span><span class=w>
-</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Chainsaw</span><span class=w>
-</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/countercept/chainsaw/releases/download/v1.0.0/chainsaw_x86_64-pc-windows-msvc.zip</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>EVTXPath</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;C:\Windows\System32\winevt\Logs&#39;</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET Toolzip = SELECT * FROM Artifact.Generic.Utils.FetchBinary(ToolName=&#34;Chainsaw&#34;, IsExecutable=FALSE)
-</span><span class=sd>        LET TmpDir &lt;= tempdir()
-</span><span class=sd>        LET TmpResults &lt;= tempfile()
-</span><span class=sd>        LET UnzipIt &lt;= SELECT * FROM  unzip(filename=url(path=Toolzip[0].FullPath).String, output_directory=TmpDir)
-</span><span class=sd>        Let SigmaRules &lt;= TmpDir + &#39;/chainsaw/sigma_rules&#39; 
-</span><span class=sd>        Let SigmaMapping &lt;= TmpDir + &#39;/chainsaw/mapping_files/sigma-mapping.yml&#39;
-</span><span class=sd>        SELECT get(member=&#34;Record.event.Event.System.TimeCreated.#attributes.SystemTime&#34;) AS EventTime,
-</span><span class=sd>               get(member=&#34;Record.detection&#34;) AS Detection, 
-</span><span class=sd>               get(member=&#34;Record.event.Event.System.EventID&#34;) AS _EventID, 
-</span><span class=sd>               get(member=&#34;Record.event.Event.System.Computer&#34;) AS _Computer, 
-</span><span class=sd>               get(member=&#34;Record.event.Event.EventData.User&#34;) AS _User,
-</span><span class=sd>               get(member=&#34;Record.event.Event.System.Channel&#34;) AS _Channel,
-</span><span class=sd>               get(member=&#34;Record.event.Event.EventData&#34;) AS SystemData,  
-</span><span class=sd>               get(member=&#34;Record.event.Event.System&#34;) AS EventData
-</span><span class=sd>        FROM foreach(row={        
-</span><span class=sd>          SELECT * FROM execve(argv=[
-</span><span class=sd>              TmpDir + &#39;/chainsaw/chainsaw.exe&#39;, 
-</span><span class=sd>              &#39;hunt&#39;, EVTXPath, 
-</span><span class=sd>              &#34;--json&#34;, TmpResults,
-</span><span class=sd>              &#34;--rules&#34;, SigmaRules,
-</span><span class=sd>              &#34;--mapping&#34;, SigmaMapping], length=100000)
-</span><span class=sd>        }, query={
-</span><span class=sd>           SELECT parse_json(data=Record) AS Record 
-</span><span class=sd>           FROM parse_records_with_regex(file=TmpResults, 
-</span><span class=sd>              regex=&#39;&#39;&#39;(?sm)(?P&lt;Record&gt;(^|\n\{\n).+?\n\}\n)&#39;&#39;&#39;)
-</span><span class=sd>        })</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.EventLogs.Chainsaw
+description: |
+    
+    This artifact leverages Chainsaw to enable usage of Sigma rules (in addition to built-in logic) to faciliate detection within Windows Event Logs.
+    
+    From the project's description:
+    
+    &quot;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs. 
+    It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&quot;
+    
+    https://github.com/countercept/chainsaw
+    
+author: Wes Lambert - @therealwlambert
+tools:
+  - name: Chainsaw
+    url: https://github.com/countercept/chainsaw/releases/download/v1.0.0/chainsaw_x86_64-pc-windows-msvc.zip
+parameters:
+  - name: EVTXPath
+    default: 'C:\Windows\System32\winevt\Logs'
+sources:
+  - query: |
+        LET Toolzip = SELECT * FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;Chainsaw&quot;, IsExecutable=FALSE)
+        LET TmpDir &lt;= tempdir()
+        LET TmpResults &lt;= tempfile()
+        LET UnzipIt &lt;= SELECT * FROM  unzip(filename=url(path=Toolzip[0].FullPath).String, output_directory=TmpDir)
+        Let SigmaRules &lt;= TmpDir + '/chainsaw/sigma_rules' 
+        Let SigmaMapping &lt;= TmpDir + '/chainsaw/mapping_files/sigma-mapping.yml'
+        SELECT get(member=&quot;Record.event.Event.System.TimeCreated.#attributes.SystemTime&quot;) AS EventTime,
+               get(member=&quot;Record.detection&quot;) AS Detection, 
+               get(member=&quot;Record.event.Event.System.EventID&quot;) AS _EventID, 
+               get(member=&quot;Record.event.Event.System.Computer&quot;) AS _Computer, 
+               get(member=&quot;Record.event.Event.EventData.User&quot;) AS _User,
+               get(member=&quot;Record.event.Event.System.Channel&quot;) AS _Channel,
+               get(member=&quot;Record.event.Event.EventData&quot;) AS SystemData,  
+               get(member=&quot;Record.event.Event.System&quot;) AS EventData
+        FROM foreach(row={        
+          SELECT * FROM execve(argv=[
+              TmpDir + '/chainsaw/chainsaw.exe', 
+              'hunt', EVTXPath, 
+              &quot;--json&quot;, TmpResults,
+              &quot;--rules&quot;, SigmaRules,
+              &quot;--mapping&quot;, SigmaMapping], length=100000)
+        }, query={
+           SELECT parse_json(data=Record) AS Record 
+           FROM parse_records_with_regex(file=TmpResults, 
+              regex='''(?sm)(?P&lt;Record&gt;(^|\n\{\n).+?\n\}\n)''')
+        })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -443,15 +443,15 @@ It offers a generic and fast method of searching through event logs for keywords
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

@@ -6,17 +6,17 @@
 <meta name=description content="Many new Velociraptor users have existing OSQuery queries and installations and are migrating to Velociraptor for powerful and efficient endpoint visibility. This post summarises some of the differences between Velociraptor and OSQuery.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Migrating from OSQuery to Velociraptor :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -407,17 +407,21 @@ Migrating from OSQuery to Velociraptor
 <p>This post does not compare the scalability, ease of deployment and management GUI of OSQuery‘s various fleet implementations with Velociraptor’s — we only look at the query language itself.</p>
 <h3 id=the-file-table>The file table</h3>
 <p>One of the most often used OSQuery table is the file table. For example we can see information about a file:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=err>“</span><span class=k>C</span><span class=p>:</span><span class=err>\</span><span class=n>Windows</span><span class=err>\</span><span class=n>notepad</span><span class=p>.</span><span class=n>exe</span><span class=err>”</span><span class=p>;</span><span class=w>
-</span></code></pre></div><p>Because OSQuery uses SQL as its underlying implementation, there is no way to tell the query that it is only interested in a single file (A naive implementation would scan all files on disk and compare the path by the condition eliminating all but one — a very expensive approach!).</p>
+<pre><code class=language-sql>SELECT * FROM file WHERE path = “C:\Windows\notepad.exe”;
+</code></pre>
+<p>Because OSQuery uses SQL as its underlying implementation, there is no way to tell the query that it is only interested in a single file (A naive implementation would scan all files on disk and compare the path by the condition eliminating all but one — a very expensive approach!).</p>
 <p>To avoid a full scan of the filesystem, OSQuery peeks at the WHERE clause to figure out what it needs to do. It is therefore required that a WHERE clause is provided and the path or directory be restricted in some way.</p>
 <p>Compare this to VQL. The main realization in VQL was that unlike in a relational database, tables are implemented by code, the code must be able to accept arguments. Therefore VQL’s syntax requires “tables” to take arguments (in VQL these are termed plugins):</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=err>”</span><span class=k>C</span><span class=p>:</span><span class=err>\\</span><span class=n>Windows</span><span class=err>\\</span><span class=n>notepad</span><span class=p>.</span><span class=n>exe</span><span class=err>”</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>The VQL equivalent to the file table is the glob() plugin, which accepts a glob expression (i.e. wildcards) to search the filesystem directly. (Note also that VQL does not use a semicolon “;” as a statement separator — it is not needed, just string multiple statements together).</p>
+<pre><code class=language-sql>SELECT * FROM glob(globs=”C:\\Windows\\notepad.exe”)
+</code></pre>
+<p>The VQL equivalent to the file table is the glob() plugin, which accepts a glob expression (i.e. wildcards) to search the filesystem directly. (Note also that VQL does not use a semicolon “;” as a statement separator — it is not needed, just string multiple statements together).</p>
 <p>So far both queries simply return a single row for a specific file. OSQuery allows us to specify a wildcard for filenames as well, however it uses the SQL <strong>like</strong> syntax. For example to return all dlls in the system32 directory:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=k>like</span><span class=w> </span><span class=err>“</span><span class=k>C</span><span class=p>:</span><span class=err>\</span><span class=n>Windows</span><span class=err>\</span><span class=n>system32</span><span class=err>\</span><span class=o>%</span><span class=p>.</span><span class=n>dll</span><span class=err>”</span><span class=p>;</span><span class=w>
-</span></code></pre></div><p>The equivalent VQL is</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=err>”</span><span class=k>C</span><span class=p>:</span><span class=err>\\</span><span class=n>Windows</span><span class=err>\\</span><span class=n>System32</span><span class=err>\\</span><span class=o>*</span><span class=p>.</span><span class=n>dll</span><span class=err>”</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>You can test the VQL in the Velociraptor notebook right in the GUI. Simply select <strong>Notebooks</strong> from the sidebar and add a new notebook. Click on the top cell and add a new VQL cell where you can write arbitrary queries.</p>
+<pre><code class=language-sql>SELECT * FROM file WHERE path like “C:\Windows\system32\%.dll”;
+</code></pre>
+<p>The equivalent VQL is</p>
+<pre><code class=language-sql>SELECT * FROM glob(globs=”C:\\Windows\\System32\\*.dll”)
+</code></pre>
+<p>You can test the VQL in the Velociraptor notebook right in the GUI. Simply select <strong>Notebooks</strong> from the sidebar and add a new notebook. Click on the top cell and add a new VQL cell where you can write arbitrary queries.</p>
 <p>
 <img src=../../img/1604zaUCaHumz_aHKaJY1Ig.png alt>
 </p>
@@ -448,8 +452,9 @@ Migrating from OSQuery to Velociraptor
 <p>Although being targeted is helpful, With VQL we can confidently run the exhaustive search because VQL has our back, in case our queries are more expensive than expected. VQL is designed to deal with many rows (e.g. the <code>Windows.NTFS.MFT</code> Artifact can return the entire contents of the MFT which can be around 400–500k rows within a couple minutes). VQL queries stream their results as soon as possible, so Velociraptor can maintain a low memory footprint even for very large result sets (typical memory footprint is 50–100mb).</p>
 <p><strong>NOTE</strong>: VQL does not use the <strong>like</strong> keyword as in SQL. Instead VQL has the <strong>=~</strong> operator which means a regular expression match. SQL’s <strong>like</strong> syntax is archaic and much less powerful than a simple regular expression.</p>
 <p>The following selects all user details for usernames matching “user” followed by a digit.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>Artifact</span><span class=p>.</span><span class=n>Windows</span><span class=p>.</span><span class=n>Sys</span><span class=p>.</span><span class=n>Users</span><span class=p>()</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=err>“</span><span class=k>user</span><span class=p>[</span><span class=mi>0</span><span class=err>–</span><span class=mi>9</span><span class=p>]</span><span class=err>”</span><span class=w>
-</span></code></pre></div><h3 id=queries-and-artifacts>Queries and Artifacts</h3>
+<pre><code class=language-sql>SELECT * FROM Artifact.Windows.Sys.Users() WHERE Name =~ “user[0–9]”
+</code></pre>
+<h3 id=queries-and-artifacts>Queries and Artifacts</h3>
 <p>One major difference between OSQuery and Velociraptor is that Velociraptor does not usually directly run queries on endpoints. Instead, a VQL query is wrapped in an “Artifact” — a specially formatted YAML file which is stored within the Velociraptor server. Artifacts make queries discoverable and allow for queries to be shared with the community. Once an artifact is written, the user does not need to worry about remembering or entering a query.</p>
 <p>Artifacts can also be directly used within another VQL query. This allows VQL to encapsulate a complex algorithm, but at the same time, users can easily build on top of this.</p>
 <p>In contrast OSQuery uses hard coded internal tables to provide a lot of functionality requiring c++ coding to add a lot of simpler functionality to the tool.</p>
@@ -522,15 +527,15 @@ Migrating from OSQuery to Velociraptor
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server.Import.ArtifactExchange :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -381,44 +381,44 @@ Server.Import.ArtifactExchange
 </div>
 <p>This artifact will automatically import the latest
 artifact exchange bundle into the current server.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Server.Import.ArtifactExchange</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   This artifact will automatically import the latest
-</span><span class=sd>   artifact exchange bundle into the current server.</span><span class=w>   
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>SERVER</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>required_permissions</span><span class=p>:</span><span class=w>
-</span><span class=w></span>- <span class=l>SERVER_ADMIN</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>ExchangeURL</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/Velocidex/velociraptor-docs/raw/gh-pages/exchange/artifact_exchange.zip</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Prefix</span><span class=w>
-</span><span class=w>     </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Add artifacts with this prefix</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Exchange</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET X = SELECT artifact_set(prefix=Prefix, definition=Definition) AS Definition
-</span><span class=sd>        FROM foreach(row={
-</span><span class=sd>          SELECT Content FROM http_client(
-</span><span class=sd>             remove_last=TRUE,
-</span><span class=sd>             tempfile_extension=&#34;.zip&#34;, url=ExchangeURL)
-</span><span class=sd>        }, query={
-</span><span class=sd>          SELECT FullPath,
-</span><span class=sd>               regex_replace(re=&#39;&#39;&#39;(?sm)^name: +([^\n]+)&#39;&#39;&#39;,
-</span><span class=sd>                 replace=&#34;name: &#34; + Prefix + &#34;.$1&#34;,
-</span><span class=sd>                 source=read_file(accessor=&#34;zip&#34;, filename=FullPath)) AS Definition
-</span><span class=sd>          FROM glob(globs=url(path=Content, fragment=&#39;/**/*.yaml&#39;), accessor=&#34;zip&#34;)
-</span><span class=sd>        })
-</span><span class=sd>
-</span><span class=sd>        SELECT Definition.name AS Name,
-</span><span class=sd>               Definition.description AS Description,
-</span><span class=sd>               Definition.author AS Author
-</span><span class=sd>        FROM X</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Server.Import.ArtifactExchange
+description: |
+   This artifact will automatically import the latest
+   artifact exchange bundle into the current server.
+
+type: SERVER
+
+required_permissions:
+- SERVER_ADMIN
+
+parameters:
+   - name: ExchangeURL
+     default: https://github.com/Velocidex/velociraptor-docs/raw/gh-pages/exchange/artifact_exchange.zip
+   - name: Prefix
+     description: Add artifacts with this prefix
+     default: Exchange
+
+sources:
+  - query: |
+        LET X = SELECT artifact_set(prefix=Prefix, definition=Definition) AS Definition
+        FROM foreach(row={
+          SELECT Content FROM http_client(
+             remove_last=TRUE,
+             tempfile_extension=&quot;.zip&quot;, url=ExchangeURL)
+        }, query={
+          SELECT FullPath,
+               regex_replace(re='''(?sm)^name: +([^\n]+)''',
+                 replace=&quot;name: &quot; + Prefix + &quot;.$1&quot;,
+                 source=read_file(accessor=&quot;zip&quot;, filename=FullPath)) AS Definition
+          FROM glob(globs=url(path=Content, fragment='/**/*.yaml'), accessor=&quot;zip&quot;)
+        })
+
+        SELECT Definition.name AS Name,
+               Definition.description AS Description,
+               Definition.author AS Author
+        FROM X
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -429,15 +429,15 @@ artifact exchange bundle into the current server.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

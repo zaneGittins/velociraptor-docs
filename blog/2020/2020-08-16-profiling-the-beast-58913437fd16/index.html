@@ -6,17 +6,17 @@
 <meta name=description content="Velociraptors exposing their inner workings…">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Profiling the beast :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -368,18 +368,9 @@ Profiling the beast
 <nav id=TableOfContents>
 <ul>
 <li><a href=#endpoint-telemetry>Endpoint Telemetry</a></li>
-<li><a href=#profiling>Profiling</a></li>
-</ul>
-<ul>
-<li>
+<li><a href=#profiling>Profiling</a>
 <ul>
 <li><a href=#example--recursive-file-hash>Example — recursive file hash</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#conclusions>Conclusions</a></li>
 </ul>
 </li>
@@ -423,9 +414,10 @@ Profiling the beast
 <h2 id=profiling>Profiling</h2>
 <p>Velociraptor is written in Golang and one of the more useful (if not well advertised) feature of the Go runtime is the ability to profile the running program. Most programming languages have mechanisms to profile running code and collect information about memory allocations, backtraces etc — however in many programming languages, this information can only be collected by running a special debug build of the binary.</p>
 <p>What makes Golang different is that <strong>every binary</strong> has the ability to profile itself out of the box. Obviously this capability is disabled by default (since profiling itself has a non-trivial runtime cost) but it can simply be switched on at runtime for a limited time and then switched off. This means that we do not need to restart the binary in debug mode, nor replace a running binary with a special debug build! As a developer, I can not overstate the usefulness of this!</p>
-<blockquote>
-<h1 id=if-we-see-a-golang-process-running-in-production-and-want-to-inspect-its-inner-working-all-we-need-to-do-is-enable-profiling-for-a-short-time-say-30-seconds-capturing-execution-traces-without-restarting-or-otherwise-affecting-the-running-process>If we see a Golang process running in production and want to inspect its inner working all we need to do is enable profiling for a short time (say 30 seconds) capturing execution traces <strong>without restarting or otherwise affecting the running process!</strong></h1>
-</blockquote>
+<div class="mynotices note">
+<div heading=note><p>If we see a Golang process running in production and want to inspect its inner working all we need to do is enable profiling for a short time (say 30 seconds) capturing execution traces <strong>without restarting or otherwise affecting the running process!</strong></p>
+</div>
+</div>
 <p>Velociraptor exposes this functionality by simply offering the <strong>profile()</strong> VQL function. This is then utilized by two artifacts:</p>
 <ol>
 <li>
@@ -459,10 +451,9 @@ Profiling the beast
 <img src=../../img/17ZeuBYe5dIV_LATRLZkUaw.png alt>
 </p>
 <p>After downloading the profile file, I convert it to a callgrind format, so it can be viewed by my favourite profile inspector <a href=https://kcachegrind.github.io/html/Home.html>kcachegrind</a> (there are other similar viewers and the Golang one is <a href=https://github.com/google/pprof>called pprof</a>).</p>
-<blockquote>
-<p>$ go tool pprof -callgrind -output=profile.grind profile.bin
-$ kcachegrind profile.grind</p>
-</blockquote>
+<pre><code class=language-sh>$ go tool pprof -callgrind -output=profile.grind profile.bin
+$ kcachegrind profile.grind
+</code></pre>
 <p>
 <img src=../../img/1GFekz4L0I4hm-LzR6EZbCQ.png alt>
 </p>
@@ -471,9 +462,10 @@ $ kcachegrind profile.grind</p>
 <img src=../../img/1VV4GJRhUlO2rnN8zG1ahKA.png alt>
 </p>
 <p>Scrolling the call graph in this case shows that the os.Open() function spends about 35% of the time. Since os.Open() is not a part of our own code, it shows we end up spending most of our time in the operating system. In fact 35% of our time is spent waiting for Windows Defender’s real time scanner (which blocks os.Open for us as it scans the files on demand — Windows defender is a huge performance killer.).</p>
-<blockquote>
-<h1 id=our-job-as-velociraptor-developers-is-to-spend-as-little-time-as-possible-in-our-own-code-relative-to-the-time-spent-in-the-operating-system-or-external-libraries>Our job as Velociraptor developers is to spend as little time as possible in our own code relative to the time spent in the operating system or external libraries.</h1>
-</blockquote>
+<div class="mynotices note">
+<div heading=note><p>Our job as Velociraptor developers is to spend as little time as possible in our own code relative to the time spent in the operating system or external libraries.</p>
+</div>
+</div>
 <p>The function’s source code is shown in the top right pane and we see how much time is spent at each line of code. This makes it easy to see what function calls end up taking the most time and guides our thinking into possible optimizations</p>
 <p>A performance bug arises when our function does more work than is necessary and therefore spends too long doing it. This slows down processing. Clearly in this case the biggest contributors are hashing and filesystem operations which exist outside our code base — so this VQL query is pretty good already.</p>
 <p>NOTE: The astute reader may spot 5.8% lost to the garbage collector through calls to <em>makeslice()</em> in line 67. These calls were eliminated by a recent commit.</p>
@@ -482,9 +474,10 @@ $ kcachegrind profile.grind</p>
 <p>By exposing debugging and profiling tools in an easy way to end users, developers enable users to attach more useful traces to bug reports, and allow developers to assist in a more efficient way than simply reporting qualitative information such as high memory use or non-performant code.</p>
 <p>The profiling traces are typically much smaller than full memory core dumps and usually do not contain sensitive information. Profiles only contain high level statistics about memory and CPU usage (For example the CPU profile we saw in this article are obtained by statistic analysis of<a href=https://golang.org/pkg/net/http/pprof/> sampled backtrace</a>s).</p>
 <p>We find this extremely valuable in the Velociraptor project, but the same approach can be replicated by any Golang project:</p>
-<blockquote>
-<h1 id=by-exposing-profiling-and-debugging-information-to-our-users-in-running-production-binaries-we-are-able-to-easily-get-high-value-visibility-into-hard-to-reproduce-error-conditions-and-therefore-be-more-effective-in-isolating-and-fixing-bugs>By exposing profiling and debugging information to our users, in running production binaries we are able to easily get high value visibility into hard to reproduce error conditions and therefore be more effective in isolating and fixing bugs.</h1>
-</blockquote>
+<div class="mynotices note">
+<div heading=note><p>By exposing profiling and debugging information to our users, in running production binaries we are able to easily get high value visibility into hard to reproduce error conditions and therefore be more effective in isolating and fixing bugs.</p>
+</div>
+</div>
 <p>If you are interested in looking inside Velociraptor’s inner workings, check out the<a href=https://github.com/Velocidex/velociraptor> Github</a> page and join us on Discord and our mailing list.</p>
 <footer class=footline>
 </footer>
@@ -496,15 +489,15 @@ $ kcachegrind profile.grind</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

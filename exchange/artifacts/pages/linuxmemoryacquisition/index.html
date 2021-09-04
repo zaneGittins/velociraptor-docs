@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Linux.Memory.Acquisition :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -384,66 +384,66 @@ acquire a full memory image.</p>
 <p>NOTE: This artifact usually transfers a lot of data. You should
 increase the default timeout to allow it to complete.
 ( Example : 2Gb of memory time takes about 50s )</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Linux.Memory.Acquisition</span><span class=w>
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>URCA (Corentin Garcia / Emmanuel Mesnard)</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>  Acquires a full memory image. We download LiME and use it to
-</span><span class=sd>  acquire a full memory image.
-</span><span class=sd>
-</span><span class=sd>  NOTE: This artifact usually transfers a lot of data. You should
-</span><span class=sd>  increase the default timeout to allow it to complete.
-</span><span class=sd>  ( Example : 2Gb of memory time takes about 50s )</span><span class=w>  
-</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>required_permissions</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=l>EXECVE</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>LiME</span><span class=w>
-</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/504ensicsLabs/LiME/archive/refs/heads/master.zip</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Volatility</span><span class=w>
-</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/volatilityfoundation/volatility/archive/master.zip</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>StartVolatility</span><span class=w>
-</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
-</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=kc>Y</span><span class=w>
-</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Zipname</span><span class=w>
-</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
-</span><span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Name of the zip containing the Volatility profile</span><span class=w>
-</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Ubuntu</span><span class=w>
-</span><span class=w>    </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Dumpname</span><span class=w>
-</span><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
-</span><span class=w>      </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Name of the memory dump</span><span class=w>
-</span><span class=w>      </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>dump</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>precondition</span><span class=p>:</span><span class=w> </span><span class=l>SELECT OS From info() where OS = &#39;linux&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>queries</span><span class=p>:</span><span class=w>
-</span><span class=w>    </span>- <span class=l>LET Volatility = SELECT * FROM Artifact.Linux.Volatility.Create.Profile(Zipname=Zipname)</span><span class=w>
-</span><span class=w>    
-</span><span class=w>      </span><span class=l>LET Lime = SELECT FullPath, Stdout, Stderr, if(condition=Complete, then=upload(file=&#34;/tmp/&#34; + Dumpname + &#34;.raw&#34;, name=Dumpname + &#34;.raw&#34;)) As Upload FROM execve(argv=[&#39;bash&#39;, &#39;-c&#39;, &#39;mv /tmp/master.zip /tmp/lime-master.zip ; unzip -o /tmp/lime-master.zip -d /tmp/ ; cd /tmp/LiME-master/src/ ; apt-get -y install build-essential linux-headers-$(uname -r) ; make ; insmod /tmp/LiME-master/src/lime-*.ko &#34;path=/tmp/&#34;&#39; + Dumpname + &#39;&#34;.raw format=lime&#34;&#39;])</span><span class=w>
-</span><span class=w>    
-</span><span class=w>      </span><span class=l>LET dirtmp = tempdir(remove_last=true)</span><span class=w>
-</span><span class=w>    
-</span><span class=w>      </span><span class=l>SELECT * FROM foreach(</span><span class=w>
-</span><span class=w>          </span><span class=l>row={</span><span class=w>
-</span><span class=w>            </span><span class=l>SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&#34;LiME&#34;)</span><span class=w>
-</span><span class=w>          </span>}<span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=l>query={</span><span class=w>
-</span><span class=w>            </span><span class=l>SELECT * FROM chain(</span><span class=w>
-</span><span class=w>            </span><span class=l>a={SELECT * FROM Lime},</span><span class=w>
-</span><span class=w>            </span><span class=l>b={SELECT * FROM execve(argv=[&#39;bash&#39;, &#39;-c&#39;, &#39;mv /tmp/LiME-master /tmp/lime-master.zip /tmp/&#39; + Dumpname + &#39;.raw &#39; + dirtmp])},</span><span class=w>
-</span><span class=w>            </span><span class=l>c={SELECT * FROM if(</span><span class=w>
-</span><span class=w>                </span><span class=l>condition=StartVolatility,</span><span class=w>
-</span><span class=w>                </span><span class=l>then=Volatility,</span><span class=w>
-</span><span class=w>                </span><span class=l>else=scope()</span><span class=w>
-</span><span class=w>            </span><span class=l>)}</span><span class=w>
-</span><span class=w>            </span><span class=l>)  </span><span class=w>
-</span><span class=w>          </span>}<span class=l>)</span><span class=w>
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Linux.Memory.Acquisition
+author: URCA (Corentin Garcia / Emmanuel Mesnard)
+description: |
+  Acquires a full memory image. We download LiME and use it to
+  acquire a full memory image.
+
+  NOTE: This artifact usually transfers a lot of data. You should
+  increase the default timeout to allow it to complete.
+  ( Example : 2Gb of memory time takes about 50s )
+
+
+required_permissions:
+  - EXECVE
+
+tools:
+  - name: LiME
+    url: https://github.com/504ensicsLabs/LiME/archive/refs/heads/master.zip
+  - name: Volatility
+    url: https://github.com/volatilityfoundation/volatility/archive/master.zip
+
+parameters:
+    - name: StartVolatility
+      type: bool
+      default: Y
+    - name: Zipname
+      type: string
+      description: Name of the zip containing the Volatility profile
+      default: Ubuntu
+    - name: Dumpname
+      type: string
+      description: Name of the memory dump
+      default: dump
+
+precondition: SELECT OS From info() where OS = 'linux'
+
+sources:
+  - queries:
+    - LET Volatility = SELECT * FROM Artifact.Linux.Volatility.Create.Profile(Zipname=Zipname)
+    
+      LET Lime = SELECT FullPath, Stdout, Stderr, if(condition=Complete, then=upload(file=&quot;/tmp/&quot; + Dumpname + &quot;.raw&quot;, name=Dumpname + &quot;.raw&quot;)) As Upload FROM execve(argv=['bash', '-c', 'mv /tmp/master.zip /tmp/lime-master.zip ; unzip -o /tmp/lime-master.zip -d /tmp/ ; cd /tmp/LiME-master/src/ ; apt-get -y install build-essential linux-headers-$(uname -r) ; make ; insmod /tmp/LiME-master/src/lime-*.ko &quot;path=/tmp/&quot;' + Dumpname + '&quot;.raw format=lime&quot;'])
+    
+      LET dirtmp = tempdir(remove_last=true)
+    
+      SELECT * FROM foreach(
+          row={
+            SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;LiME&quot;)
+          },
+          query={
+            SELECT * FROM chain(
+            a={SELECT * FROM Lime},
+            b={SELECT * FROM execve(argv=['bash', '-c', 'mv /tmp/LiME-master /tmp/lime-master.zip /tmp/' + Dumpname + '.raw ' + dirtmp])},
+            c={SELECT * FROM if(
+                condition=StartVolatility,
+                then=Volatility,
+                else=scope()
+            )}
+            )  
+          })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -454,15 +454,15 @@ increase the default timeout to allow it to complete.
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

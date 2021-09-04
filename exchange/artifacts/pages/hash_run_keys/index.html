@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>HashRunKeys :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -381,53 +381,53 @@ HashRunKeys
 </div>
 <p>Iterate over all the run keys and locate their binary then hash it.</p>
 <p>Tags: #windows #registry #detection</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>HashRunKeys</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    Iterate over all the run keys and locate their binary then hash it.
-</span><span class=sd>
-</span><span class=sd>    Tags: #windows #registry #detection</span><span class=w>    
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>runKeys</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      </span><span class=w>      </span><span class=l>HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Run\*</span><span class=w>
-</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pathRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>hidden</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=c># Pick the first part - either quoted or not.</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=p>&gt;-</span><span class=sd>
-</span><span class=sd>      </span><span class=w>      </span><span class=l>(^&#34;(?P&lt;quoted_path&gt;[^&#34;]+)&#34;|(?P&lt;unquoted_path&gt;^[^ ]+))</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      LET paths = SELECT FullPath,Name, Data.value AS Value,
-</span><span class=sd>               parse_string_with_regex(string=Data.value,
-</span><span class=sd>                                       regex=pathRegex) as regData
-</span><span class=sd>      FROM glob(globs=split(string=runKeys, sep=&#34;[, \\n]+&#34;),
-</span><span class=sd>                accessor=&#34;reg&#34;)
-</span><span class=sd>      WHERE Data.value
-</span><span class=sd>
-</span><span class=sd>      -- Handle some variations we see in the value:
-</span><span class=sd>      -- system32\drivers\XXX.sys -&gt; %systemRoot%\System32\
-</span><span class=sd>      -- \SystemRoot\ -&gt; %SystemRoot%\
-</span><span class=sd>      LET normalized = SELECT *,
-</span><span class=sd>           expand(path=
-</span><span class=sd>              regex_replace(re=&#39;(?i)^system32\\\\&#39;,
-</span><span class=sd>                            replace=&#34;%SystemRoot%\\system32\\&#34;,
-</span><span class=sd>              source=regex_replace(
-</span><span class=sd>                  source=regData.quoted_path + regData.unquoted_path,
-</span><span class=sd>                  re=&#34;^\\\\SystemRoot\\\\&#34;,
-</span><span class=sd>                  replace=&#34;%SystemRoot%\\&#34;))) AS RealPath
-</span><span class=sd>      FROM paths
-</span><span class=sd>
-</span><span class=sd>      SELECT FullPath, Name, Value, RealPath,
-</span><span class=sd>               hash(path=expand(path=RealPath)).SHA256 AS Hash
-</span><span class=sd>      FROM normalized</span><span class=w>      
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: HashRunKeys
+description: |
+    Iterate over all the run keys and locate their binary then hash it.
+
+    Tags: #windows #registry #detection
+
+parameters:
+  - name: runKeys
+    default: |
+      HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Run\*
+
+  - name: pathRegex
+    type: hidden
+
+    # Pick the first part - either quoted or not.
+    default: &gt;-
+      (^&quot;(?P&lt;quoted_path&gt;[^&quot;]+)&quot;|(?P&lt;unquoted_path&gt;^[^ ]+))
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+    query: |
+      LET paths = SELECT FullPath,Name, Data.value AS Value,
+               parse_string_with_regex(string=Data.value,
+                                       regex=pathRegex) as regData
+      FROM glob(globs=split(string=runKeys, sep=&quot;[, \\n]+&quot;),
+                accessor=&quot;reg&quot;)
+      WHERE Data.value
+
+      -- Handle some variations we see in the value:
+      -- system32\drivers\XXX.sys -&gt; %systemRoot%\System32\
+      -- \SystemRoot\ -&gt; %SystemRoot%\
+      LET normalized = SELECT *,
+           expand(path=
+              regex_replace(re='(?i)^system32\\\\',
+                            replace=&quot;%SystemRoot%\\system32\\&quot;,
+              source=regex_replace(
+                  source=regData.quoted_path + regData.unquoted_path,
+                  re=&quot;^\\\\SystemRoot\\\\&quot;,
+                  replace=&quot;%SystemRoot%\\&quot;))) AS RealPath
+      FROM paths
+
+      SELECT FullPath, Name, Value, RealPath,
+               hash(path=expand(path=RealPath)).SHA256 AS Hash
+      FROM normalized
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -438,15 +438,15 @@ HashRunKeys
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

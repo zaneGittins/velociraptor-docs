@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Custom.Server.Slack.Clients.Enrolled :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -382,63 +382,63 @@ Custom.Server.Slack.Clients.Enrolled
 <p>Send a message to slack when clients become enrolled.</p>
 <p>This artifact triggers when a client is interrogated
 within 60 seconds of it being seen for the first time.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Server.Slack.Clients.Enrolled</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   Send a message to slack when clients become enrolled.
-</span><span class=sd>
-</span><span class=sd>   This artifact triggers when a client is interrogated 
-</span><span class=sd>   within 60 seconds of it being seen for the first time.</span><span class=w>   
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>SERVER_EVENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>FirstSeenDelay</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;60&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>int</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        </span><span class=w>        </span><span class=l>The time between first_seen_time and Generic.Client.Info collection.</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SlackToken</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        The token URL obtained from Slack. Leave blank to use server metadata.
-</span><span class=sd>        e.g. https://hooks.slack.com/services/XXXX/YYYY/ZZZZ</span><span class=w>        
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET token_url = if(
-</span><span class=sd>                   condition=SlackToken,
-</span><span class=sd>                   then=SlackToken,
-</span><span class=sd>                   else=server_metadata().SlackToken)
-</span><span class=sd>        
-</span><span class=sd>        -- Returns an event for each interrogation that occurs within 60 seconds
-</span><span class=sd>        -- of first seen timestamp.
-</span><span class=sd>        LET completions = SELECT *, 
-</span><span class=sd>                client_info(client_id=ClientId) AS ClientInfo ,
-</span><span class=sd>                now() AS Now
-</span><span class=sd>          FROM watch_monitoring(artifact=&#34;System.Flow.Completion&#34;)
-</span><span class=sd>          WHERE Flow.artifacts_with_results =~ &#34;Generic.Client.Info/BasicInformation&#34;
-</span><span class=sd>            AND Now - ClientInfo.first_seen_at &lt; FirstSeenDelay
-</span><span class=sd>        
-</span><span class=sd>        -- Sends the message to a slack channel.
-</span><span class=sd>        LET SendToSlack(Message) = SELECT *
-</span><span class=sd>            FROM http_client(
-</span><span class=sd>              method=&#34;POST&#34;,
-</span><span class=sd>              headers=dict(`Content-Type`=&#34;application/json&#34;),
-</span><span class=sd>              data=serialize(format=&#34;json&#34;, item=dict(text=Message)),
-</span><span class=sd>              url=token_url)
-</span><span class=sd>        
-</span><span class=sd>        SELECT * FROM foreach(row=completions, query={
-</span><span class=sd>          SELECT * FROM foreach(row={
-</span><span class=sd>            SELECT * FROM source(
-</span><span class=sd>               artifact=&#34;Generic.Client.Info/BasicInformation&#34;, 
-</span><span class=sd>               client_id=ClientId, flow_id=FlowId)
-</span><span class=sd>          }, query={  
-</span><span class=sd>            SELECT * FROM SendToSlack(
-</span><span class=sd>               Message=format(format=&#34;Enrollment FROM %v with ClientID %v!&#34;, 
-</span><span class=sd>                  args=[Fqdn, ClientId]))
-</span><span class=sd>          })
-</span><span class=sd>        })</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Custom.Server.Slack.Clients.Enrolled
+description: |
+   Send a message to slack when clients become enrolled.
+
+   This artifact triggers when a client is interrogated 
+   within 60 seconds of it being seen for the first time.
+
+type: SERVER_EVENT
+
+parameters:
+  - name: FirstSeenDelay
+    default: &quot;60&quot;
+    type: int
+    description: |
+        The time between first_seen_time and Generic.Client.Info collection.
+  - name: SlackToken
+    description: |
+        The token URL obtained from Slack. Leave blank to use server metadata.
+        e.g. https://hooks.slack.com/services/XXXX/YYYY/ZZZZ
+
+sources:
+  - query: |
+        LET token_url = if(
+                   condition=SlackToken,
+                   then=SlackToken,
+                   else=server_metadata().SlackToken)
+        
+        -- Returns an event for each interrogation that occurs within 60 seconds
+        -- of first seen timestamp.
+        LET completions = SELECT *, 
+                client_info(client_id=ClientId) AS ClientInfo ,
+                now() AS Now
+          FROM watch_monitoring(artifact=&quot;System.Flow.Completion&quot;)
+          WHERE Flow.artifacts_with_results =~ &quot;Generic.Client.Info/BasicInformation&quot;
+            AND Now - ClientInfo.first_seen_at &lt; FirstSeenDelay
+        
+        -- Sends the message to a slack channel.
+        LET SendToSlack(Message) = SELECT *
+            FROM http_client(
+              method=&quot;POST&quot;,
+              headers=dict(`Content-Type`=&quot;application/json&quot;),
+              data=serialize(format=&quot;json&quot;, item=dict(text=Message)),
+              url=token_url)
+        
+        SELECT * FROM foreach(row=completions, query={
+          SELECT * FROM foreach(row={
+            SELECT * FROM source(
+               artifact=&quot;Generic.Client.Info/BasicInformation&quot;, 
+               client_id=ClientId, flow_id=FlowId)
+          }, query={  
+            SELECT * FROM SendToSlack(
+               Message=format(format=&quot;Enrollment FROM %v with ClientID %v!&quot;, 
+                  args=[Fqdn, ClientId]))
+          })
+        })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -449,15 +449,15 @@ within 60 seconds of it being seen for the first time.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

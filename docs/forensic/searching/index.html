@@ -9,17 +9,17 @@ based on user provided rules.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Searching Content :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -415,7 +415,7 @@ detecting suspicious binaries using common patterns.</p>
 <p>Velociraptor supports YARA scanning of bulk data (via accessors) and
 memory using the <code>yara()</code> and <code>proc_yara()</code> plugins.</p>
 <p>An example of a YARA rule is shown below.</p>
-<pre tabindex=0><code class=language-yara data-lang=yara>rule X {
+<pre><code class=language-yara>rule X {
    strings:
        $a = “hello” nocase
        $b = “Goodbye” wide
@@ -424,7 +424,8 @@ memory using the <code>yara()</code> and <code>proc_yara()</code> plugins.</p>
    condition:
        $a and ($b or $c)
 }
-</code></pre><p>The rule consists of a <code>strings</code> section and a <code>condition</code>
+</code></pre>
+<p>The rule consists of a <code>strings</code> section and a <code>condition</code>
 section. Strings represent a set of keywords which might include ASCII
 or UTF16 encoded strings, as well as regular expressions. You can refer to the <a href=https://yara.readthedocs.io/en/stable/>Yara rules reference page</a> to learn about how to construct rules.</p>
 <div class="mynotices tip">
@@ -457,23 +458,24 @@ clicked and downloaded malware delivered by mail, ads etc).</p>
 you have no idea of the internal structure of the browser
 cache/history etc. Write an artifact to extract potential URLs from
 the Edge browser directory.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>YaraRule</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;&#39;&#39;
-</span><span class=s1>rule URL {
-</span><span class=s1>  strings: $a = /https?:\\/\\/[a-z0-9\\/+&amp;#:\\?.-]+/i
-</span><span class=s1>  condition: any of them
-</span><span class=s1>}
-</span><span class=s1>&#39;&#39;&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w></span><span class=k>row</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s1>&#39;&#39;&#39;C:\Users\*\AppData\Local\Microsoft\Edge\**&#39;&#39;&#39;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>str</span><span class=p>(</span><span class=n>str</span><span class=o>=</span><span class=n>Strings</span><span class=p>.</span><span class=k>Data</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Hit</span><span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=n>String</span><span class=p>.</span><span class=k>Offset</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Offset</span><span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=n>FileName</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>yara</span><span class=p>(</span><span class=n>files</span><span class=o>=</span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>rules</span><span class=o>=</span><span class=n>YaraRule</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>
+<pre><code class=language-sql>LET YaraRule = '''
+rule URL {
+  strings: $a = /https?:\\/\\/[a-z0-9\\/+&amp;#:\\?.-]+/i
+  condition: any of them
+}
+'''
+
+SELECT * FROM foreach(
+row={
+   SELECT FullPath FROM glob(globs='''C:\Users\*\AppData\Local\Microsoft\Edge\**''')
+}, query={
+   SELECT str(str=Strings.Data) AS Hit,
+          String.Offset AS Offset,
+          FileName
+   FROM yara(files=FullPath, rules=YaraRule)
+})
+</code></pre>
+<p>
 <figure>
 <img src=image18.png alt="URL scanning" class=captioned>
 <figcaption>URL scanning</figcaption>
@@ -507,10 +509,10 @@ parameter which renames the file as sent to the server.</p>
 <h3 id=example-collect-all-executables-in-users-home-directory>Example: Collect all executables in users’ home directory</h3>
 <p>This is a common use of compbining a <code>glob()</code> plugin with an
 <code>upload()</code> function:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>upload</span><span class=p>(</span><span class=n>path</span><span class=o>=</span><span class=n>FullPath</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Upload</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s1>&#39;&#39;&#39;C:\Users\*\Downloads\*&#39;&#39;&#39;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=n>IsDir</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-sql>SELECT upload(path=FullPath) AS Upload
+FROM glob(globs='''C:\Users\*\Downloads\*''')
+WHERE NOT IsDir
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -521,15 +523,15 @@ parameter which renames the file as sent to the server.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

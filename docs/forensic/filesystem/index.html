@@ -8,17 +8,17 @@ based on their file names.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Searching Filenames :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -415,16 +415,17 @@ following represent the syntax of the glob expressions:</p>
 </ul>
 <p>For example, the following quickly searches all users' home
 directories for files with &ldquo;.exe&rdquo; extension.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s1>&#39;C:\\Users\\**\\*.exe&#39;</span><span class=p>)</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-sql>SELECT * FROM glob(globs='C:\\Users\\**\\*.exe')
+</code></pre>
 <div class="mynotices warning">
 <div heading=" String escaping and VQL "><p>VQL strings can include a backslash escape sequence. Since Windows
 paths often use backslashes for path separator you will need to escape
 the backslashes. Alternatively paths can be written with a forward
 slash <code>/</code> or a raw VQL string can be used - for example this is a bit
 easier to write:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s1>&#39;&#39;&#39;C:\Users\**\*.exe&#39;&#39;&#39;</span><span class=p>)</span><span class=w>
-</span></code></pre></div></div>
+<pre><code class=language-sql>SELECT * FROM glob(globs='''C:\Users\**\*.exe''')
+</code></pre>
+</div>
 </div>
 <p>The <code>glob()</code> plugin is optimized to visit files on the filesystem as
 quickly as possible. Therefore if multiple glob expressions are
@@ -434,9 +435,10 @@ better to provide multiple glob expressions than to run the <code>glob()</code>
 plugin multiple times. For example the following will only make a
 single pass over the filesystem while searching for both exe and dll
 files.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;C:/Users/**/*.exe&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>                          </span><span class=s1>&#39;C:/Users/**/*.dll&#39;</span><span class=p>])</span><span class=w>
-</span></code></pre></div><p>Velociraptor paths are separated by <code>/</code> or <code>\</code> into path
+<pre><code class=language-sql>SELECT * FROM glob(globs=['C:/Users/**/*.exe',
+                          'C:/Users/**/*.dll'])
+</code></pre>
+<p>Velociraptor paths are separated by <code>/</code> or <code>\</code> into path
 components. Internally, paths are considered as made up of a list of
 components. Sometimes path component (e.g. a file or directory) can
 also contain path separator characters in which case the component is
@@ -536,23 +538,25 @@ registry accessor can read the urls it is producing.</p>
 <p>If you need to extract the key path within the registry hive, you can
 use the <code>url()</code> function with the <code>parse</code> argument to parse the url
 again. The <code>Fragment</code> field represents the key path.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text>url(scheme=&#39;file&#39;, path=&#39;C:/Users/test/ntuser.dat&#39;, fragment=&#39;/**/Run/*&#39;)
+<pre><code class=language-text>url(scheme='file', path='C:/Users/test/ntuser.dat', fragment='/**/Run/*')
 
 file:///C:/Users/test/ntuser.dat#/**/Run/*
-</code></pre></div><h4 id=example-find-autorun-files-from-ntuserdat>Example: Find autorun files from ntuser.dat</h4>
+</code></pre>
+<h4 id=example-find-autorun-files-from-ntuserdat>Example: Find autorun files from ntuser.dat</h4>
 <p>Let&rsquo;s combine the above query to search all Run keys in all user&rsquo;s
 ntuser.dat files.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w></span><span class=k>row</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>NTUserPath</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;C:/Users/*/ntuser.dat&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>NTUserPath</span><span class=p>,</span><span class=w> </span><span class=n>url</span><span class=p>(</span><span class=n>parse</span><span class=o>=</span><span class=n>FullPath</span><span class=p>).</span><span class=n>Fragment</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Value</span><span class=p>,</span><span class=w> </span><span class=n>Mtime</span><span class=p>,</span><span class=w> </span><span class=k>Data</span><span class=p>.</span><span class=n>value</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=w>
-</span><span class=w>       </span><span class=n>globs</span><span class=o>=</span><span class=n>url</span><span class=p>(</span><span class=n>scheme</span><span class=o>=</span><span class=s2>&#34;file&#34;</span><span class=p>,</span><span class=w> </span><span class=n>path</span><span class=o>=</span><span class=n>NTUserPath</span><span class=p>,</span><span class=w>
-</span><span class=w>                 </span><span class=n>fragment</span><span class=o>=</span><span class=s2>&#34;SOFTWARE/Microsoft/Windows/**/Run/*&#34;</span><span class=p>),</span><span class=w>
-</span><span class=w>       </span><span class=n>accessor</span><span class=o>=</span><span class=s2>&#34;raw_reg&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>We glob for ntuser.dat files in all user&rsquo;s home directory, then
+<pre><code class=language-sql>SELECT * FROM foreach(
+row={
+   SELECT FullPath AS NTUserPath FROM glob(globs=&quot;C:/Users/*/ntuser.dat&quot;)
+}, query={
+   SELECT NTUserPath, url(parse=FullPath).Fragment AS Value, Mtime, Data.value
+   FROM glob(
+       globs=url(scheme=&quot;file&quot;, path=NTUserPath,
+                 fragment=&quot;SOFTWARE/Microsoft/Windows/**/Run/*&quot;),
+       accessor=&quot;raw_reg&quot;)
+})
+</code></pre>
+<p>We glob for ntuser.dat files in all user&rsquo;s home directory, then
 foreach one of those, we search the raw registry hive for values under
 the Run or RunOnce key.</p>
 <p>
@@ -579,15 +583,15 @@ passed as the filename.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

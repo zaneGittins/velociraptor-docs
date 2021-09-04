@@ -6,17 +6,17 @@
 <meta name=description content="Building a stand-alone collector with the GUI">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Triage with Velociraptor — Pt 4 :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -370,12 +370,6 @@ Triage with Velociraptor — Pt 4
 <li>
 <ul>
 <li><a href=#installing-a-local-server>Installing a local server</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#building-the-offline-collector>Building the offline collector</a></li>
 <li><a href=#configuring-the-artifacts>Configuring the artifacts</a></li>
 <li><a href=#running-the-collector>Running the collector</a></li>
@@ -417,17 +411,15 @@ Triage with Velociraptor — Pt 4
 <p>Before we can create a new custom collector, we need to access the GUI — this means running a minimal Velociraptor server. If you already have a proper Velociraptor server deployed you could just use that. For this article I will work on windows by spinning up a local temporary server.</p>
 <p>First I have downloaded and installed the official MSI package from the <a href=https://github.com/Velocidex/velociraptor/releases>Velociraptor releases page</a>. This will unpack the executable in the **C:\Program Files\Velociraptor\ ** directory.</p>
 <p>In order to start a Velociraptor server I will create new server configuration file by running the interactive wizard using</p>
-<blockquote>
-<h1 id=velociraptorexe-config-generate--i><strong>velociraptor.exe config generate -i</strong></h1>
-</blockquote>
+<pre><code class=language-sh># velociraptor.exe config generate -i
+</code></pre>
 <p>
 <img src=../../img/15wHG_tix0ZpeXIJuYScWKg.png alt>
 </p>
 <p>We will be running the server on <strong>Windows</strong>, Using the <strong>FileBaseDataStore</strong> with a <strong>Self Signed SSL</strong> configuration. I will also add a user called “<strong>mic</strong>” to the server (basically I pressed enter on each question to accept the default).</p>
 <p>Now I can start the frontend using:</p>
-<blockquote>
-<h1 id=velociraptorexe--c-serverconfigyaml-frontend--v>Velociraptor.exe -c server.config.yaml frontend -v</h1>
-</blockquote>
+<pre><code class=language-sh># velociraptor.exe -c server.config.yaml frontend -v
+</code></pre>
 <p>
 <img src=../../img/1MneJxbjF5TmYUxzmCaOrWw.png alt>
 </p>
@@ -472,9 +464,12 @@ Triage with Velociraptor — Pt 4
 <h3 id=including-external-tools>Including external tools</h3>
 <p>Since release 0.4.6, Velociraptor has built in support for external tools. This means that artifacts that declare tools that they need will receive those binaries on the endpoint when they are being collected. We previously described<a href="https://medium.com/velociraptor-ir/velociraptor-in-the-tool-age-d896dfe71b9?source=friends_link&sk=20178bda3d9accc46d343b1c825c75a6"> this process</a> using the client/server model.</p>
 <p>When building an Offline collector, Velociraptor will also embed the external tools directly into the binary without needing to do anything different with the artifact. Note that the offline collector <strong>does not download</strong> the tool from an external URL — the tool is already packaged in the collector binary itself.</p>
-<blockquote>
-<p>The artifact will run the same way when used in client/server mode or in offline collector mode. This makes it easier to use the same reusable VQL in different contexts.</p>
-</blockquote>
+<div class="mynotices tip">
+<div heading=tip><p>The artifact will run the same way when used in client/server mode or
+in offline collector mode. This makes it easier to use the same
+reusable VQL in different contexts.</p>
+</div>
+</div>
 <p>Let’s try to collect the same artifact we did previously — the <strong>hollows hunter</strong> artifact. Just to recap the artifact is shown below</p>
 <script src=https://gist.github.com/scudette/0f5d5102b6e3b1580b4feccdf7d59b53.js></script>
 <p>I will just add it to the Offline Collector builder</p>
@@ -510,15 +505,15 @@ Triage with Velociraptor — Pt 4
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

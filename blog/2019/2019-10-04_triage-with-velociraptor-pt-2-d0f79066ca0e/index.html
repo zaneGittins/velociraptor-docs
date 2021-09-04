@@ -6,17 +6,17 @@
 <meta name=description content="Help others to collect files …">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Triage with Velociraptor — Pt 2 :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -347,7 +347,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2019/2019-10-04_Triage-with-Velociraptor---Pt-2-d0f79066ca0e/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -394,8 +394,9 @@ Triage with Velociraptor — Pt 2
 <p>In the <a href=https://medium.com/@mike_89870/triage-with-velociraptor-pt-1-253f57ce96c0>previous part</a> of this series of articles we saw how Velociraptor can be used to automatically collect and preserve files from a remote system. This is great if you have Velociraptor installed as an agent on the endpoint — but what if you (or your customer) does not?</p>
 <h4 id=interactive-collection>Interactive collection</h4>
 <p>Velociraptor is essentially a query engine. All its operations are controlled by VQL queries normally encapsulated in a YAML files called artifacts. As such it does not really need a server to operate. It is possible to collect those same artifacts interactively on the command line (In this example we collect the KapeFiles artifact as we did in the last part but you can collect any Velociraptor artifact this way):</p>
-<pre tabindex=0><code>F:&gt; velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets --output test.zip --args RegistryHives=Y
-</code></pre><p>Invoking Velociraptor with the <strong>artifacts collect</strong> command specifies that we should collect the artifact interactively. If we also specify the “ <strong>—-output</strong> ” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “<strong>—-args</strong>” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.</p>
+<pre><code>F:&gt; velociraptor.exe -v artifacts collect Windows.KapeFiles.Targets --output test.zip --args RegistryHives=Y
+</code></pre>
+<p>Invoking Velociraptor with the <strong>artifacts collect</strong> command specifies that we should collect the artifact interactively. If we also specify the “ <strong>—-output</strong> ” flag we will collect the result into the zip file. We can then specify any argument to the artifact using the “<strong>—-args</strong>” flag (which may be specified more than once). If you can not remember which args the artifact takes then simple provide and incorrect arg for Velociraptor to tell you.</p>
 <p>The example above simply collects all registry hives on the system (Registry hives are typically locked but Velociraptor uses raw NTFS parsing to extract the files from the filesystem — thus bypassing all locks).</p>
 <p>
 <img src=../../img/1__80qDOPpgzzmmBOo8Pf4sFQ.png alt>
@@ -405,7 +406,7 @@ Triage with Velociraptor — Pt 2
 <p>Sometimes in our DFIR work we need to rely on other’s help — sometimes a system administrator or even an end user with limited command line skills. It is unreasonable to expect all our helpers to be able to type the above command line. We need to make it as easy as possible for our accomplices.</p>
 <p>Velociraptor features a method for packing a configuration file within the binary itself. We can use this feature to have Velociraptor automatically execute the correct artifact collection when started without any parameters (or double clicked).</p>
 <p>Simply create a configuration file with an autoexec field containing all the command line args (let’s call it <strong>myconfig.yaml</strong> ):</p>
-<pre tabindex=0><code>autoexec:
+<pre><code>autoexec:
   argv: \[&quot;artifacts&quot;, &quot;collect&quot;, &quot;-v&quot;, &quot;Windows.KapeFiles.Targets&quot;,
          &quot;--output&quot;, &quot;collection\_$COMPUTERNAME.zip&quot;,
          &quot;--args&quot;, &quot;WebBrowsers=Y&quot;,
@@ -418,10 +419,12 @@ Triage with Velociraptor — Pt 2
          &quot;--args&quot;, &quot;WebBrowsers=Y&quot;,
          &quot;--args&quot;, &quot;MOF=Y&quot;,
          &quot;--args&quot;, &quot;VSSAnalysis=Y&quot;\]
-</code></pre><p>Note that this config file invokes Velociraptor with a list of KapeFiles targets and instructs the result to be saved to a zip file named after the computer name.</p>
+</code></pre>
+<p>Note that this config file invokes Velociraptor with a list of KapeFiles targets and instructs the result to be saved to a zip file named after the computer name.</p>
 <p>Next we simply repack the binary — this effectively copies the config file inside the binary so when the new binary restarts, it automatically loads this config file (and therefore runs the instructions above):</p>
-<pre tabindex=0><code>F:&gt; velociraptor.exe config repack myconfig.yaml my\_velo.exe
-</code></pre><p>This will produce a new binary with our config embedded in it. Now when this binary is run it will immediately begin to collect the targets listed. Note that the collector needs to run as an administrator so typically the user will need to right click, select “Run As Administrator” and click through the UAC dialog:</p>
+<pre><code>F:&gt; velociraptor.exe config repack myconfig.yaml my\_velo.exe
+</code></pre>
+<p>This will produce a new binary with our config embedded in it. Now when this binary is run it will immediately begin to collect the targets listed. Note that the collector needs to run as an administrator so typically the user will need to right click, select “Run As Administrator” and click through the UAC dialog:</p>
 <p>
 <img src=../../img/1__qfSv52u3RLwpoOBqSz1lCg.png alt>
 </p>
@@ -439,15 +442,15 @@ Triage with Velociraptor — Pt 2
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

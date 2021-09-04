@@ -6,17 +6,17 @@
 <meta name=description content="What do they mean?">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows Event Logs :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -347,7 +347,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2019/2019-11-12_Windows-Event-Logs-d8d8e615c9ca/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -417,14 +417,13 @@ Windows Event Logs
 How the Windows Event Viewer displays event log messages</p>
 <p>When a user selects an event in the Event Viewer, the application reads the <strong>Provider</strong>, <strong>EventID</strong> and <strong>EventData</strong> fields from the event itself — in the above example, the Provider was <strong>Microsoft-Windows-Security-Auditing</strong>, EventID was <strong>4672</strong> and the EventData has items such as <strong>SubjectUserSid</strong> etc.</p>
 <p>Next the event viewer consults the registry at the key <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security\Microsoft-Windows-Security-Auditing</strong> and reads the value <strong>EventMessageFile</strong>.</p>
-<p>That value is the location of a dll which contains the messages for this provider. On my system, the DLL is located at **%SystemRoot%\system32\adtschema.dll (**Note that many DLLs use localizations and so the dll could be located in MUI files).</p>
+<p>That value is the location of a dll which contains the messages for this provider. On my system, the DLL is located at <strong>%SystemRoot%\system32\adtschema.dll</strong> (Note that many DLLs use localizations and so the dll could be located in MUI files).</p>
 <p>
 <img src=../../img/1__SLH4iiByHYIz8HyJyOxAEw.png alt>
 </p>
 <p>The DLL has a resource section with a MESSAGE_TABLE type. The event viewer then uses this to extract the message which looks like:</p>
-<blockquote>
-<p>Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5</p>
-</blockquote>
+<pre><code class=language-sh>Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5
+</code></pre>
 <p>The event viewer then interpolates the EventData items into the message by their position — for example %1 is replaced with <strong>SubjectUserSid</strong> etc. Additionally %t is a tab and %n is a new line.</p>
 <h4 id=what-could-gowrong>What could go wrong?</h4>
 <p>The previous section examined how event logs are actually stored on the system. In practice there are a number of pitfalls with this scheme:</p>
@@ -446,7 +445,8 @@ How the Windows Event Viewer displays event log messages</p>
 </figure>
 Velociraptor can interpolate and attach the event message to every log message it relays</p>
 <p>In the above we see the result of the simple VQL query:</p>
-<p><strong>SELECT</strong> <strong>*</strong> <strong>FROM</strong> <strong>parse_evtx(</strong> filename**=**&lsquo;c:/Windows/System32/Winevt/logs/Security.evtx&rsquo;**)**</p>
+<pre><code class=language-vql>SELECT * FROM parse_evtx(filename='c:/Windows/System32/Winevt/logs/Security.evtx')
+</code></pre>
 <p>You can see an additional field now, called <strong>Message</strong> containing the event message with the Event Data interpolated into it. This provides a lot of context around what the event is supposed to do.</p>
 <h4 id=what-about-existing-evtxfiles>What about existing EVTX files?</h4>
 <p>In the last section we saw how Velociraptor can enrich event logs as it is forwarding them to the server but what if we have just the evtx files — possibly we just acquired the files using bulk upload artifacts such as the <strong>Windows.KapeFiles.Targets</strong> artifact?</p>
@@ -491,15 +491,15 @@ Parsing the EVTX file with the assistance of the event id database. The message 
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

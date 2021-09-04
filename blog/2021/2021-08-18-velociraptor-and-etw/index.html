@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Event Tracing for Windows Part 1 :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -462,9 +462,10 @@ provider looks like a likely candidate.</p>
 <p>Let&rsquo;s get Velociraptor to watch the provider&rsquo;s GUID for any
 events. VQL provides the <code>watch_etw()</code> plugin to attach Velociraptor
 to the provider.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_etw</span><span class=p>(</span><span class=n>guid</span><span class=o>=</span><span class=s2>&#34;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&#34;</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>
+<pre><code class=language-sql>SELECT *
+FROM watch_etw(guid=&quot;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&quot;)
+</code></pre>
+<p>
 <figure>
 <img src=watching_dns_provider.png alt="Watching the Windows DNS Client provider" class=captioned>
 <figcaption>Watching the Windows DNS Client provider</figcaption>
@@ -475,13 +476,14 @@ as being ID 3020. We can consult with the manifest file to get more
 information, such as the event data provided. Limiting the VQL query
 to filter for event 3020 and extracting the most relevant columns
 gives a nice DNS monitoring query:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=k>TimeStamp</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Timestamp</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryName</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Query</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryType</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Type</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>QueryResults</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Answer</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_etw</span><span class=p>(</span><span class=n>guid</span><span class=o>=</span><span class=s2>&#34;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=n>ID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>3020</span><span class=w>
-</span></code></pre></div><h2 id=deploying-the-query-on-endpoints>Deploying the query on endpoints</h2>
+<pre><code class=language-sql>SELECT System.TimeStamp AS Timestamp,
+       EventData.QueryName AS Query,
+       EventData.QueryType AS Type,
+       EventData.QueryResults AS Answer
+FROM watch_etw(guid=&quot;{1C95126E-7EEA-49A9-A3FE-A378B03DDB4D}&quot;)
+WHERE System.ID = 3020
+</code></pre>
+<h2 id=deploying-the-query-on-endpoints>Deploying the query on endpoints</h2>
 <p>Our VQL query is able to monitor the endpoint for DNS lookups but we
 need a way to deploy the query to the endpoint. In Velociraptor,
 client side event queries are encapsulated in <code>Client Event</code> artifacts
@@ -585,15 +587,15 @@ Exchange</a>.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

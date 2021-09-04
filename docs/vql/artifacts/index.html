@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Artifacts :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -402,25 +402,26 @@ query into the UI.</p>
 <p>Usually an artifact is geared towards collecting a single type of
 information from the endpoint. For example consider the following
 artifact:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Artifact.Name</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   </span><span class=w>   </span><span class=l>This is the human readable description of the artifact.</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>FirstParameter</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>Default Value of first parameter</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>MySource</span><span class=w>
-</span><span class=w>    </span><span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39; OR OS = &#39;linux&#39; OR OS = &#39;darwin&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      SELECT * FROM info()
-</span><span class=sd>      LIMIT 10</span><span class=w>      
-</span></code></pre></div><p>The Artifact contains a number of important parameters:</p>
+<pre><code class=language-yaml>name: Custom.Artifact.Name
+description: |
+   This is the human readable description of the artifact.
+
+type: CLIENT
+
+parameters:
+   - name: FirstParameter
+     default: Default Value of first parameter
+
+sources:
+  - name: MySource
+    precondition:
+      SELECT OS From info() where OS = 'windows' OR OS = 'linux' OR OS = 'darwin'
+
+    query: |
+      SELECT * FROM info()
+      LIMIT 10
+</code></pre>
+<p>The Artifact contains a number of important parameters:</p>
 <ol>
 <li><strong>Name</strong>: The artifact contains a name. By convention the name is
 segmented by dots in a hierarchy. The Name appears in the GUI and
@@ -533,15 +534,15 @@ definitions on the server without needing to update the client itself.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

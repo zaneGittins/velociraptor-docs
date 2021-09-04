@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Applications.FTKImager :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -382,55 +382,55 @@ Windows.Applications.FTKImager
 <p>Create an E01 Image of the C drive using FTK Imager (Command Line Version)</p>
 <p>SourceDriveToImage usually will be 0 (as in \.\PHYSICALDRIVE0) for the C: drive, on a Windows system.</p>
 <p>If you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \.\PHYSICALDRIVE1</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.Applications.FTKImager</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    Create an E01 Image of the C drive using FTK Imager (Command Line Version)
-</span><span class=sd>    
-</span><span class=sd>    SourceDriveToImage usually will be 0 (as in \\.\PHYSICALDRIVE0) for the C: drive, on a Windows system.
-</span><span class=sd>    
-</span><span class=sd>    If you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \\.\PHYSICALDRIVE1</span><span class=w>    
-</span><span class=w>
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>Eduardo Mattos - @eduardfir</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>reference</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=l>https://accessdata.com/products-services/forensic-toolkit-ftk/ftkimager</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>FTKImager</span><span class=w>
-</span><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://ad-zip.s3.amazonaws.com/FTKImager.3.1.1_win32.zip</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>precondition</span><span class=p>:</span><span class=w> </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SourceDriveToImage</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;0&#34;</span><span class=w>
-</span><span class=w>    
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>OutputPath</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;D:\\E01&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- get context on target binary
-</span><span class=sd>      LET bin &lt;= SELECT * FROM Artifact.Generic.Utils.FetchBinary(
-</span><span class=sd>                    ToolName=&#34;FTKImager&#34;)
-</span><span class=sd>
-</span><span class=sd>      LET tmpdir &lt;= tempdir()
-</span><span class=sd>
-</span><span class=sd>      LET zip_file &lt;= SELECT *
-</span><span class=sd>                        FROM unzip(filename=bin[0].FullPath,
-</span><span class=sd>                        output_directory=tmpdir)
-</span><span class=sd>                        WHERE OriginalPath =~ &#34;ftkimager.exe&#34;
-</span><span class=sd>
-</span><span class=sd>      -- execute payload
-</span><span class=sd>        SELECT Stdout, Stderr
-</span><span class=sd>        FROM execve(argv=[
-</span><span class=sd>            zip_file.NewPath[0],
-</span><span class=sd>            &#34;\\\\.\\PHYSICALDRIVE&#34; + SourceDriveToImage,
-</span><span class=sd>            OutputPath])</span><span class=w>      
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.Applications.FTKImager
+description: |
+    Create an E01 Image of the C drive using FTK Imager (Command Line Version)
+    
+    SourceDriveToImage usually will be 0 (as in \\.\PHYSICALDRIVE0) for the C: drive, on a Windows system.
+    
+    If you intend to image the secondary drive, use, for example, SourceDriveToImage = 1, for \\.\PHYSICALDRIVE1
+
+author: Eduardo Mattos - @eduardfir
+
+reference:
+  - https://accessdata.com/products-services/forensic-toolkit-ftk/ftkimager
+
+type: CLIENT
+
+tools:
+  - name: FTKImager
+    url: https://ad-zip.s3.amazonaws.com/FTKImager.3.1.1_win32.zip
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: SourceDriveToImage
+    default: &quot;0&quot;
+    
+  - name: OutputPath
+    default: &quot;D:\\E01&quot;
+
+sources:
+  - query: |
+      -- get context on target binary
+      LET bin &lt;= SELECT * FROM Artifact.Generic.Utils.FetchBinary(
+                    ToolName=&quot;FTKImager&quot;)
+
+      LET tmpdir &lt;= tempdir()
+
+      LET zip_file &lt;= SELECT *
+                        FROM unzip(filename=bin[0].FullPath,
+                        output_directory=tmpdir)
+                        WHERE OriginalPath =~ &quot;ftkimager.exe&quot;
+
+      -- execute payload
+        SELECT Stdout, Stderr
+        FROM execve(argv=[
+            zip_file.NewPath[0],
+            &quot;\\\\.\\PHYSICALDRIVE&quot; + SourceDriveToImage,
+            OutputPath])
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -441,15 +441,15 @@ Windows.Applications.FTKImager
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

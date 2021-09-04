@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.ETW.AMSI :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -381,61 +381,61 @@ Windows.ETW.AMSI
 </div>
 <p>This artifact uses the ETW provider:
 (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.ETW.AMSI</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    This artifact uses the ETW provider:
-</span><span class=sd>    (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</span><span class=w>    
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT_EVENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>IocRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex of strings to filter for&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>WhitelistRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex of strings to witelist&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>AppNameRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Application name Regex to enable filtering on source.&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
-</span><span class=w>
-</span><span class=w>    
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- collect a small cache of process information for enrichment
-</span><span class=sd>      LET proc = cache(key=&#39;Pid&#39;, period=600,
-</span><span class=sd>        query={
-</span><span class=sd>            SELECT Pid, Name, Exe,CommandLine, Username,TokenIsElevated 
-</span><span class=sd>            FROM pslist()
-</span><span class=sd>        })</span><span class=w>      
-</span><span class=w> 
-</span><span class=w>      </span>-- <span class=l>watch ETW provider and first round data manipulation</span><span class=w>
-</span><span class=w>      </span><span class=l>LET hits = SELECT *,</span><span class=w>
-</span><span class=w>          </span><span class=l>timestamp(epoch=timestamp(string=System.TimeStamp).unix) as EventTime,</span><span class=w>
-</span><span class=w>         </span><span class=l>System,</span><span class=w>
-</span><span class=w>         </span><span class=l>get(member=&#34;EventData&#34;) AS EventData,</span><span class=w>
-</span><span class=w>         </span><span class=l>get(item=proc, field=System.ProcessID) AS ProcInfo</span><span class=w>
-</span><span class=w>      </span><span class=l>FROM watch_etw(guid=&#34;{2A576B87-09A7-520E-C21A-4942F0271D67}&#34;)</span><span class=w>
-</span><span class=w>      </span><span class=l>WHERE EventData.appname =~ AppNameRegex</span><span class=w>
-</span><span class=w>
-</span><span class=w>      </span>-- <span class=l>print rows</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT</span><span class=w>
-</span><span class=w>        </span><span class=l>EventTime,</span><span class=w>
-</span><span class=w>        </span><span class=l>System,</span><span class=w>
-</span><span class=w>        </span><span class=l>ProcInfo,</span><span class=w>
-</span><span class=w>        </span><span class=l>EventData,</span><span class=w>
-</span><span class=w>        </span><span class=l>utf16(string=</span><span class=w>
-</span><span class=w>            </span><span class=l>unhex(string=regex_replace(</span><span class=w>
-</span><span class=w>                </span><span class=l>source=EventData.Content,re=&#39;^0x&#39;,replace=&#39;&#39;))</span><span class=w>
-</span><span class=w>        </span><span class=l>) as Content</span><span class=w>
-</span><span class=w>      </span><span class=l>FROM hits</span><span class=w>
-</span><span class=w>      </span><span class=l>WHERE </span><span class=w>
-</span><span class=w>        </span><span class=l>Content =~ IocRegex</span><span class=w>
-</span><span class=w>        </span><span class=l>AND if(condition= WhitelistRegex,</span><span class=w>
-</span><span class=w>            </span><span class=l>then= NOT Content =~ WhitelistRegex,</span><span class=w>
-</span><span class=w>            </span><span class=l>else= True)</span><span class=w>
-</span><span class=w>            
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.ETW.AMSI
+description: |
+    This artifact uses the ETW provider:
+    (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}
+
+type: CLIENT_EVENT
+
+parameters:
+  - name: IocRegex
+    description: &quot;Regex of strings to filter for&quot;
+    default: .
+  - name: WhitelistRegex
+    description: &quot;Regex of strings to witelist&quot;
+  - name: AppNameRegex
+    description: &quot;Application name Regex to enable filtering on source.&quot;
+    default: .
+
+    
+sources:
+  - query: |
+      -- collect a small cache of process information for enrichment
+      LET proc = cache(key='Pid', period=600,
+        query={
+            SELECT Pid, Name, Exe,CommandLine, Username,TokenIsElevated 
+            FROM pslist()
+        })
+ 
+      -- watch ETW provider and first round data manipulation
+      LET hits = SELECT *,
+          timestamp(epoch=timestamp(string=System.TimeStamp).unix) as EventTime,
+         System,
+         get(member=&quot;EventData&quot;) AS EventData,
+         get(item=proc, field=System.ProcessID) AS ProcInfo
+      FROM watch_etw(guid=&quot;{2A576B87-09A7-520E-C21A-4942F0271D67}&quot;)
+      WHERE EventData.appname =~ AppNameRegex
+
+      -- print rows
+      SELECT
+        EventTime,
+        System,
+        ProcInfo,
+        EventData,
+        utf16(string=
+            unhex(string=regex_replace(
+                source=EventData.Content,re='^0x',replace=''))
+        ) as Content
+      FROM hits
+      WHERE 
+        Content =~ IocRegex
+        AND if(condition= WhitelistRegex,
+            then= NOT Content =~ WhitelistRegex,
+            else= True)
+            
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -446,15 +446,15 @@ Windows.ETW.AMSI
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

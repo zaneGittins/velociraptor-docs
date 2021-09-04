@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Event Plugins :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -424,8 +424,9 @@ will be a go <a href=https://golang.org/pkg/time/#Time>time.Time</a>
 object. You can access its unix epoch time with the Sec column.</p>
 <h3 id=example>Example</h3>
 <p>The following will generate an event every 10 seconds.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>Sec</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>clock</span><span class=p>(</span><span class=n>period</span><span class=o>=</span><span class=mi>10</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>The <code>start</code> parameter can be used to schedule the plugin to start
+<pre><code class=language-sql>SELECT Sec FROM clock(period=10)
+</code></pre>
+<p>The <code>start</code> parameter can be used to schedule the plugin to start
 at a particular time. This can be an integer (which will be
 interpreted as seconds since the epoch), a string or a time value.</p>
 <div class=vqlargs></div>
@@ -476,19 +477,20 @@ of other columns. For example <code>format(format="%s%d", args=[Name, Pid])</cod
 <p>The following VQL monitors all removable drives and lists files on
 newly inserted drives, or files that have been added to removable
 drives.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>removable_disks</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Drive</span><span class=p>,</span><span class=w> </span><span class=k>Size</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;/*&#34;</span><span class=p>,</span><span class=w> </span><span class=n>accessor</span><span class=o>=</span><span class=s2>&#34;file&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>Data</span><span class=p>.</span><span class=n>Description</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s2>&#34;Removable&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=n>LET</span><span class=w> </span><span class=n>file_listing</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>Mtime</span><span class=w> </span><span class=k>As</span><span class=w> </span><span class=n>Modified</span><span class=p>,</span><span class=w> </span><span class=k>Size</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=n>Drive</span><span class=o>+</span><span class=s2>&#34;\\**&#34;</span><span class=p>,</span><span class=w> </span><span class=n>accessor</span><span class=o>=</span><span class=s2>&#34;file&#34;</span><span class=p>)</span><span class=w> </span><span class=k>LIMIT</span><span class=w> </span><span class=mi>1000</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>diff</span><span class=p>(</span><span class=w>
-</span><span class=w>  </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=k>row</span><span class=o>=</span><span class=n>removable_disks</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=n>file_listing</span><span class=p>)</span><span class=w> </span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=k>key</span><span class=o>=</span><span class=s2>&#34;FullPath&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=n>period</span><span class=o>=</span><span class=mi>10</span><span class=p>)</span><span class=w>
-</span><span class=w>  </span><span class=k>WHERE</span><span class=w> </span><span class=n>Diff</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s2>&#34;added&#34;</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-sql>LET removable_disks = SELECT Name AS Drive, Size
+FROM glob(globs=&quot;/*&quot;, accessor=&quot;file&quot;)
+WHERE Data.Description =~ &quot;Removable&quot;
+
+LET file_listing = SELECT FullPath, Mtime As Modified, Size
+FROM glob(globs=Drive+&quot;\\**&quot;, accessor=&quot;file&quot;) LIMIT 1000
+
+SELECT * FROM diff(
+  query={ SELECT * FROM foreach(row=removable_disks, query=file_listing) },
+  key=&quot;FullPath&quot;,
+  period=10)
+  WHERE Diff = &quot;added&quot;
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -534,33 +536,34 @@ can check the recent failed ones in its queue.</p>
 <h3 id=example-2>Example</h3>
 <p>The following checks for 5 failed logons followed by a successful
 logon.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>failed_logon</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>EventData</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>FailedEventData</span><span class=p>,</span><span class=w>
-</span><span class=w>   </span><span class=k>System</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>FailedSystem</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_evtx</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>securityLogFile</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=n>EventID</span><span class=p>.</span><span class=n>Value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>4625</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=n>LET</span><span class=w> </span><span class=n>last_5_events</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>FailedEventData</span><span class=p>,</span><span class=w> </span><span class=n>FailedSystem</span><span class=w>
-</span><span class=w>    </span><span class=k>FROM</span><span class=w> </span><span class=n>fifo</span><span class=p>(</span><span class=n>query</span><span class=o>=</span><span class=n>failed_logon</span><span class=p>,</span><span class=w>
-</span><span class=w>              </span><span class=n>max_rows</span><span class=o>=</span><span class=mi>500</span><span class=p>,</span><span class=w>
-</span><span class=w>              </span><span class=n>max_age</span><span class=o>=</span><span class=n>atoi</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=n>failedLogonTimeWindow</span><span class=p>))</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=n>LET</span><span class=w> </span><span class=n>success_logon</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>EventData</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>SuccessEventData</span><span class=p>,</span><span class=w>
-</span><span class=w>   </span><span class=k>System</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>SuccessSystem</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_evtx</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>securityLogFile</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=n>EventID</span><span class=p>.</span><span class=n>Value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>4624</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w>  </span><span class=k>row</span><span class=o>=</span><span class=n>success_logon</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>SuccessSystem</span><span class=p>.</span><span class=n>TimeCreated</span><span class=p>.</span><span class=n>SystemTime</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>LogonTime</span><span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=n>SuccessSystem</span><span class=p>,</span><span class=w> </span><span class=n>SuccessEventData</span><span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=n>enumerate</span><span class=p>(</span><span class=n>items</span><span class=o>=</span><span class=n>FailedEventData</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>FailedEventData</span><span class=p>,</span><span class=w>
-</span><span class=w>          </span><span class=n>FailedSystem</span><span class=p>,</span><span class=w> </span><span class=k>count</span><span class=p>(</span><span class=n>items</span><span class=o>=</span><span class=n>SuccessSystem</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=k>Count</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>last_5_events</span><span class=w>
-</span><span class=w>   </span><span class=k>WHERE</span><span class=w> </span><span class=n>FailedEventData</span><span class=p>.</span><span class=n>SubjectUserName</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>SuccessEventData</span><span class=p>.</span><span class=n>SubjectUserName</span><span class=w>
-</span><span class=w>   </span><span class=k>GROUP</span><span class=w> </span><span class=k>BY</span><span class=w> </span><span class=n>LogonTime</span><span class=w>
-</span><span class=w>      </span><span class=err>}</span><span class=p>)</span><span class=w>  </span><span class=k>WHERE</span><span class=w> </span><span class=k>Count</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=n>atoi</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=n>failureCount</span><span class=p>)</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-sql>LET failed_logon = SELECT EventData as FailedEventData,
+   System as FailedSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID.Value = 4625
+
+LET last_5_events = SELECT FailedEventData, FailedSystem
+    FROM fifo(query=failed_logon,
+              max_rows=500,
+              max_age=atoi(string=failedLogonTimeWindow))
+
+LET success_logon = SELECT EventData as SuccessEventData,
+   System as SuccessSystem
+FROM watch_evtx(filename=securityLogFile)
+WHERE System.EventID.Value = 4624
+
+SELECT * FROM foreach(
+  row=success_logon,
+  query={
+   SELECT SuccessSystem.TimeCreated.SystemTime AS LogonTime,
+          SuccessSystem, SuccessEventData,
+          enumerate(items=FailedEventData) as FailedEventData,
+          FailedSystem, count(items=SuccessSystem) as Count
+   FROM last_5_events
+   WHERE FailedEventData.SubjectUserName = SuccessEventData.SubjectUserName
+   GROUP BY LogonTime
+      })  WHERE Count &gt; atoi(string=failureCount)
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -849,15 +852,15 @@ plugin will produce events from all clients.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

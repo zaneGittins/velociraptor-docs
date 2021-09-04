@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Remediation.PrintSpooler :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -394,70 +394,70 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpool
 </ul>
 <p>NOTE: ChangeServiceStartup will set to disable, not stop the printspool service.
 Its always reccomended to use group policy to deploy these settings.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.Remediation.PrintSpooler</span><span class=w>
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>Matt Green - @mgreen27</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   This artifact will enable mitigation of PrintSpooler exploitation used by 
-</span><span class=sd>   PrintNightmare - CVE-2021-34527 and CVE-2021-1675.
-</span><span class=sd>   
-</span><span class=sd>   There are two selectable mitigations:  
-</span><span class=sd>     
-</span><span class=sd>     - disabling the print spooler service.   
-</span><span class=sd>     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start = 4 (service disabled).   
-</span><span class=sd>         
-</span><span class=sd>     - disable remote registration of the spool service.    
-</span><span class=sd>     HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).  
-</span><span class=sd>   
-</span><span class=sd>   NOTE: ChangeServiceStartup will set to disable, not stop the printspool service. 
-</span><span class=sd>   Its always reccomended to use group policy to deploy these settings.
-</span><span class=sd>   
-</span><span class=sd>   </span><span class=w>   
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>TargetGlobs</span><span class=w>
-</span><span class=w>   </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>csv</span><span class=w>
-</span><span class=w>   </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>    Target,Description,Potential Values
-</span><span class=sd>    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start,Print spooler service startup,&#34;0 = Boot, 1 = System, 2 = Automatic, 3 = Manual, 4 = Disabled&#34;
-</span><span class=sd>    HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration,&#34;Enabled = 1, Disabled = 2&#34;
-</span><span class=sd>    HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration WOW6432Node,&#34;Enabled = 1, Disabled = 2&#34;</span><span class=w>    
-</span><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>MitigateServiceStartup</span><span class=w>
-</span><span class=w>   </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
-</span><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>MitigateRegisterSpoolerRemoteRpcEndPoint</span><span class=w>
-</span><span class=w>   </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- remediation template
-</span><span class=sd>      LET execute_reg(key,name,value) = SELECT * FROM execve(argv=[&#39;reg&#39;,&#39;add&#39;,key,&#39;/v&#39;,name,&#39;/t&#39;,&#39;REG_DWORD&#39;,&#39;/d&#39;,value,&#39;/f&#39;])
-</span><span class=sd>      LET Arch = SELECT PROCESSOR_ARCHITECTURE FROM environ()
-</span><span class=sd>      
-</span><span class=sd>      LET remediation &lt;= SELECT * FROM chain(
-</span><span class=sd>            a=if(condition=MitigateServiceStartup,
-</span><span class=sd>                then = execute_reg(key=&#39;HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler&#39;,name=&#39;Start&#39;,value=4)),
-</span><span class=sd>            b= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
-</span><span class=sd>                then= execute_reg(key=&#39;HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers&#39;,name=&#39;RegisterSpoolerRemoteRpcEndPoint&#39;,value=2)),
-</span><span class=sd>            c= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
-</span><span class=sd>                then= if(condition= Arch.PROCESSOR_ARCHITECTURE[0]=&#39;AMD64&#39;,
-</span><span class=sd>                    then= execute_reg(key=&#39;HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows NT\\Printers&#39;,name=&#39;RegisterSpoolerRemoteRpcEndPoint&#39;,value=2)))
-</span><span class=sd>            )
-</span><span class=sd>      
-</span><span class=sd>      SELECT * FROM foreach(row=TargetGlobs,
-</span><span class=sd>        query={
-</span><span class=sd>            SELECT
-</span><span class=sd>                Description,
-</span><span class=sd>                `Potential Values`,
-</span><span class=sd>                mtime as ModifiedTime,FullPath,
-</span><span class=sd>                basename(path=FullPath) as KeyName,
-</span><span class=sd>                Data.type as KeyType,
-</span><span class=sd>                Data.value as KeyValue
-</span><span class=sd>            FROM glob(globs=Target, accessor=&#34;reg&#34;)
-</span><span class=sd>        })
-</span><span class=sd>        
-</span><span class=sd>      </span><span class=w>      
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.Remediation.PrintSpooler
+author: Matt Green - @mgreen27
+description: |
+   This artifact will enable mitigation of PrintSpooler exploitation used by 
+   PrintNightmare - CVE-2021-34527 and CVE-2021-1675.
+   
+   There are two selectable mitigations:  
+     
+     - disabling the print spooler service.   
+     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start = 4 (service disabled).   
+         
+     - disable remote registration of the spool service.    
+     HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).  
+   
+   NOTE: ChangeServiceStartup will set to disable, not stop the printspool service. 
+   Its always reccomended to use group policy to deploy these settings.
+   
+   
+type: CLIENT
+
+parameters:
+ - name: TargetGlobs
+   type: csv
+   default: |
+    Target,Description,Potential Values
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start,Print spooler service startup,&quot;0 = Boot, 1 = System, 2 = Automatic, 3 = Manual, 4 = Disabled&quot;
+    HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration,&quot;Enabled = 1, Disabled = 2&quot;
+    HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration WOW6432Node,&quot;Enabled = 1, Disabled = 2&quot;
+ - name: MitigateServiceStartup
+   type: bool
+ - name: MitigateRegisterSpoolerRemoteRpcEndPoint
+   type: bool
+
+sources:
+  - query: |
+      -- remediation template
+      LET execute_reg(key,name,value) = SELECT * FROM execve(argv=['reg','add',key,'/v',name,'/t','REG_DWORD','/d',value,'/f'])
+      LET Arch = SELECT PROCESSOR_ARCHITECTURE FROM environ()
+      
+      LET remediation &lt;= SELECT * FROM chain(
+            a=if(condition=MitigateServiceStartup,
+                then = execute_reg(key='HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler',name='Start',value=4)),
+            b= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
+                then= execute_reg(key='HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers',name='RegisterSpoolerRemoteRpcEndPoint',value=2)),
+            c= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
+                then= if(condition= Arch.PROCESSOR_ARCHITECTURE[0]='AMD64',
+                    then= execute_reg(key='HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows NT\\Printers',name='RegisterSpoolerRemoteRpcEndPoint',value=2)))
+            )
+      
+      SELECT * FROM foreach(row=TargetGlobs,
+        query={
+            SELECT
+                Description,
+                `Potential Values`,
+                mtime as ModifiedTime,FullPath,
+                basename(path=FullPath) as KeyName,
+                Data.type as KeyType,
+                Data.value as KeyValue
+            FROM glob(globs=Target, accessor=&quot;reg&quot;)
+        })
+        
+      
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -468,15 +468,15 @@ Its always reccomended to use group policy to deploy these settings.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

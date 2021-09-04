@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Volatile machine state :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -450,8 +450,9 @@ into namespaces.</p>
 <p>VQL provides direct access to WMI via the <code>wmi()</code> plugin. The plugin
 simply takes a <code>query</code> parameter which is passed to WMI and the
 results are emitted from the plugin one row at a time.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>wmi</span><span class=p>(</span><span class=n>query</span><span class=o>=</span><span class=s2>&#34;SELECT * FROM Win32_DiskDrive&#34;</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>There are many providers in WMI and it is possible to gather a lot of
+<pre><code class=language-sql>SELECT * FROM wmi(query=&quot;SELECT * FROM Win32_DiskDrive&quot;)
+</code></pre>
+<p>There are many providers in WMI and it is possible to gather a lot of
 information about the system&rsquo;s current configuration and state in this
 way. Use a tool such as <code>wmie2</code> to figure out interesting providers
 and structure VQL queries around these. Note that with VQL you are
@@ -473,16 +474,17 @@ malware strain because it is easy to see if the mutant name exists on
 a system.</p>
 <h3 id=exercise---mutants>Exercise - Mutants</h3>
 <p>For example, comsider the following powershell snippet:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nv>$createdNew</span> <span class=p>=</span> <span class=nv>$False</span>
-<span class=nv>$mutex</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>-TypeName</span> <span class=n>System</span><span class=p>.</span><span class=n>Threading</span><span class=p>.</span><span class=n>Mutex</span><span class=p>(</span>
-      <span class=nv>$true</span><span class=p>,</span> <span class=s2>&#34;Global\MyBadMutex&#34;</span><span class=p>,</span> <span class=no>[ref]</span><span class=nv>$createdNew</span><span class=p>)</span>
-<span class=k>if</span> <span class=p>(</span><span class=nv>$createdNew</span><span class=p>)</span> <span class=p>{</span>
-    <span class=nb>echo </span><span class=s2>&#34;Acquired Mutex&#34;</span>
-    <span class=n>sleep</span><span class=p>(</span><span class=n>1000</span><span class=p>)</span>
-<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-    <span class=nb>echo </span><span class=s2>&#34;Someone else has the mutex&#34;</span>
-<span class=p>}</span>
-</code></pre></div><p>The first time it is run, the mutant will be &ldquo;acquired&rdquo; and the
+<pre><code class=language-powershell>$createdNew = $False
+$mutex = New-Object -TypeName System.Threading.Mutex(
+      $true, &quot;Global\MyBadMutex&quot;, [ref]$createdNew)
+if ($createdNew) {
+    echo &quot;Acquired Mutex&quot;
+    sleep(1000)
+} else {
+    echo &quot;Someone else has the mutex&quot;
+}
+</code></pre>
+<p>The first time it is run, the mutant will be &ldquo;acquired&rdquo; and the
 program will simply go to sleep. Further instances of the script will
 be unable to acquire the mutant and will exist immediately.</p>
 <h3 id=enumerate-the-mutants>Enumerate the mutants</h3>
@@ -552,9 +554,10 @@ mis-reported by the pslist() plugin.</p>
 </div>
 <h3 id=example---find-elevated-command-shell>Example - Find elevated command shell</h3>
 <p>Write an artifact to find all currently running elevated command shells</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>TokenIsElevated</span><span class=w>
-</span></code></pre></div><h2 id=mapped-memory>Mapped Memory</h2>
+<pre><code class=language-sql>SELECT * FROM pslist()
+WHERE TokenIsElevated
+</code></pre>
+<h2 id=mapped-memory>Mapped Memory</h2>
 <p>When a binary runs it links many DLLs into it in order to call
 functions from these dlls. A linked DLL is a copy on write memory
 mapping of a file on disk into the process memory space. DLLs can be
@@ -570,18 +573,18 @@ memory is mapped to file, the filename it is mapped from.</p>
 internet. By virtue of this command, the powershell process will link
 <code>winhttp.dll</code>.</p>
 <p>We can write VQL to list all the DLL modules that powershell is running.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>processes</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Exe</span><span class=p>,</span><span class=w> </span><span class=n>CommandLine</span><span class=p>,</span><span class=w> </span><span class=n>Pid</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>Exe</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s1>&#39;PowerShell&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=k>row</span><span class=o>=</span><span class=n>processes</span><span class=p>,</span><span class=w>
-</span><span class=w></span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>Exe</span><span class=p>,</span><span class=w> </span><span class=n>CommandLine</span><span class=p>,</span><span class=w> </span><span class=n>Pid</span><span class=p>,</span><span class=w> </span><span class=n>MappingName</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>vad</span><span class=p>(</span><span class=n>pid</span><span class=o>=</span><span class=n>Pid</span><span class=p>)</span><span class=w>
-</span><span class=w>   </span><span class=k>GROUP</span><span class=w> </span><span class=k>BY</span><span class=w> </span><span class=n>MappingName</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>MappingName</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s1>&#39;winhttp&#39;</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-sql>LET processes = SELECT Exe, CommandLine, Pid
+FROM pslist()
+WHERE Exe =~ 'PowerShell'
+
+SELECT * FROM foreach(row=processes,
+query={
+   SELECT Exe, CommandLine, Pid, MappingName
+   FROM vad(pid=Pid)
+   GROUP BY MappingName
+})
+WHERE MappingName =~ 'winhttp'
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -592,15 +595,15 @@ internet. By virtue of this command, the powershell process will link
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

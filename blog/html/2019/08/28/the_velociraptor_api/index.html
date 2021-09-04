@@ -10,17 +10,17 @@ to present the client's VFS as a FUSE filesystem.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>The Velociraptor API and FUSE :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -392,6 +392,11 @@ The Velociraptor API and FUSE
 <div class="author pull-right">
 <span class=date>2019-08-26</span>
 </div>
+<div class="mynotices warning">
+<div heading=warning><p>This page is written about a very old version of Velociraptor and is
+retained for historical purposes. Currently the fuse feature was removed.</p>
+</div>
+</div>
 <p>The Velociraptor GUI is very useful, but for the power user, the
 Velociraptor API provides a powerful mechanism to integrate and
 automate. We previously discussed how the Velociraptor API can be used
@@ -485,17 +490,19 @@ project. You will need to
 first.</p>
 <p>We require an API key to use the fuse feature so generate one first on
 the server:</p>
-<pre tabindex=0><code>   $ velociraptor --config server.config.yaml \
+<pre><code>   $ velociraptor --config server.config.yaml \
         config api_client --name FUSE &gt; api_client.yaml
-</code></pre><p>Now simply copy the generate <code>api_client.yaml</code> file to the analyst&rsquo;s
+</code></pre>
+<p>Now simply copy the generate <code>api_client.yaml</code> file to the analyst&rsquo;s
 workstation. You can mount any client&rsquo;s VFS by simply specifying its
 client id and a drive letter to access it:</p>
-<pre tabindex=0><code>C:\Program Files\Velociraptor&gt;Velociraptor.exe --api_config f:\api_client.yaml -v fuse q: C.8b6623b1d7c42adf
+<pre><code>C:\Program Files\Velociraptor&gt;Velociraptor.exe --api_config f:\api_client.yaml -v fuse q: C.8b6623b1d7c42adf
 The service Velociraptor has been started.
 [INFO] 2019-08-26T14:12:28Z Initiating VFSRefreshDirectory for /file/C:/Go/ (aff4:/clients/C.8b6623b1d7c42adf/flows/F.BLHUHJ0RDGCRU)
 [INFO] 2019-08-26T14:12:28Z Flow for /file/C:/Go/ still outstanding (aff4:/clients/C.8b6623b1d7c42adf/flows/F.BLHUHJ0RDGCRU)
 ...
-</code></pre><p>Simply press Ctrl-C to stop the FUSE program as any time.</p>
+</code></pre>
+<p>Simply press Ctrl-C to stop the FUSE program as any time.</p>
 <h2 id=conclusions>Conclusions</h2>
 <p>The FUSE feature is a perfect example of a useful API program. The
 program fully automates the Velociraptor server - it received cached
@@ -527,15 +534,15 @@ devices.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

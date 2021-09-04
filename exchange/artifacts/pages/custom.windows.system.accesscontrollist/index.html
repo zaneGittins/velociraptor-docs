@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Custom.Windows.System.AccessControlList :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -381,45 +381,45 @@ Custom.Windows.System.AccessControlList
 </div>
 <p>This artifact displays the access control lists of files.</p>
 <p>Note: This artifact uses Powershell to gather the information.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Windows.System.AccessControlList</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   This artifact displays the access control lists of files.
-</span><span class=sd>   
-</span><span class=sd>   Note: This artifact uses Powershell to gather the information.</span><span class=w>   
-</span><span class=w>
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>CLIENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Glob</span><span class=w>
-</span><span class=w>     </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>A search expression that will be passed to Powershell</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>C:\Windows\System32\Config\s*</span><span class=w>
-</span><span class=w>   </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>ACLFilter</span><span class=w>
-</span><span class=w>     </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=l>Only show files with ACLs that match this regex.</span><span class=w>
-</span><span class=w>     </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>BUILTIN\\Users.+Allow</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39; OR OS = &#39;linux&#39; OR OS = &#39;darwin&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET Script &lt;= tempfile(data=&#39;&#39;&#39;
-</span><span class=sd>        $glob = $args[0]
-</span><span class=sd>        Get-Acl $glob | select Path, Owner, Group, AccessToString | convertto-json
-</span><span class=sd>        &#39;&#39;&#39;, extension=&#34;.ps1&#34;)
-</span><span class=sd>        
-</span><span class=sd>        LET Results = SELECT parse_json_array(data=Stdout) AS Rows 
-</span><span class=sd>           FROM execve(argv=[&#34;powershell&#34;, &#34;-executionpolicy&#34;, 
-</span><span class=sd>               &#34;bypass&#34;, &#34;-file&#34;, Script, Glob], length=100000)
-</span><span class=sd>        
-</span><span class=sd>        SELECT * FROM foreach(row=Results.Rows,
-</span><span class=sd>        query={
-</span><span class=sd>            SELECT parse_string_with_regex(string=Path, regex=&#34;FileSystem::(.+)&#34;).g1 AS Path,
-</span><span class=sd>                   Owner, Group, split(string=AccessToString, sep=&#34;\n&#34;) AS ACLS 
-</span><span class=sd>            FROM _value
-</span><span class=sd>        })
-</span><span class=sd>        WHERE ACLS =~ ACLFilter</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Custom.Windows.System.AccessControlList
+description: |
+   This artifact displays the access control lists of files.
+   
+   Note: This artifact uses Powershell to gather the information.
+
+type: CLIENT
+
+parameters:
+   - name: Glob
+     description: A search expression that will be passed to Powershell
+     default: C:\Windows\System32\Config\s*
+   - name: ACLFilter
+     description: Only show files with ACLs that match this regex.
+     default: BUILTIN\\Users.+Allow
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows' OR OS = 'linux' OR OS = 'darwin'
+
+    query: |
+        LET Script &lt;= tempfile(data='''
+        $glob = $args[0]
+        Get-Acl $glob | select Path, Owner, Group, AccessToString | convertto-json
+        ''', extension=&quot;.ps1&quot;)
+        
+        LET Results = SELECT parse_json_array(data=Stdout) AS Rows 
+           FROM execve(argv=[&quot;powershell&quot;, &quot;-executionpolicy&quot;, 
+               &quot;bypass&quot;, &quot;-file&quot;, Script, Glob], length=100000)
+        
+        SELECT * FROM foreach(row=Results.Rows,
+        query={
+            SELECT parse_string_with_regex(string=Path, regex=&quot;FileSystem::(.+)&quot;).g1 AS Path,
+                   Owner, Group, split(string=AccessToString, sep=&quot;\n&quot;) AS ACLS 
+            FROM _value
+        })
+        WHERE ACLS =~ ACLFilter
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -430,15 +430,15 @@ Custom.Windows.System.AccessControlList
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

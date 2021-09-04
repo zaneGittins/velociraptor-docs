@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Parsers :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -539,13 +539,14 @@ objects, and each such code object is emitted as a row.</p>
 a profile to the binary string and generating an object from
 that. Profiles are a json structure describing the binary format. For
 example a profile might be:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>[</span>
-  <span class=p>[</span><span class=s2>&#34;StructName&#34;</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=p>[</span>
-     <span class=p>[</span><span class=s2>&#34;field1&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;unsigned int&#34;</span><span class=p>],</span>
-     <span class=p>[</span><span class=s2>&#34;field2&#34;</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=s2>&#34;unsigned long long&#34;</span><span class=p>],</span>
-   <span class=p>]]]</span>
-<span class=err>]</span>
-</code></pre></div><p>The profile is compiled and overlayed on top of the offset specified,
+<pre><code class=language-json>[
+  [&quot;StructName&quot;, 10, [
+     [&quot;field1&quot;, 2, &quot;unsigned int&quot;],
+     [&quot;field2&quot;, 6, &quot;unsigned long long&quot;],
+   ]]]
+]
+</code></pre>
+<p>The profile is compiled and overlayed on top of the offset specified,
 then the object is emitted with its required fields.</p>
 <p>You can read more about profiles here <a href=https://github.com/Velocidex/vtypes>https://github.com/Velocidex/vtypes</a></p>
 <div class=vqlargs></div>
@@ -603,11 +604,12 @@ or to stack using group by.</p>
 <h3 id=example>Example</h3>
 <p>The following stacks the result from a
 <code>Windows.Applications.Chrome.Extensions</code> artifact:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=k>count</span><span class=p>(</span><span class=n>items</span><span class=o>=</span><span class=k>User</span><span class=p>)</span><span class=w> </span><span class=k>As</span><span class=w> </span><span class=n>TotalUsers</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>parse_csv</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=s2>&#34;All Windows.Applications.Chrome.Extensions.csv&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>Order</span><span class=w> </span><span class=k>By</span><span class=w> </span><span class=n>TotalUsers</span><span class=w>
-</span><span class=w></span><span class=k>Group</span><span class=w> </span><span class=k>By</span><span class=w> </span><span class=n>Name</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-sql>SELECT count(items=User) As TotalUsers, Name
+FROM parse_csv(filename=&quot;All Windows.Applications.Chrome.Extensions.csv&quot;)
+Order By TotalUsers
+Group By Name
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -681,16 +683,17 @@ contains common data for all events - including the Event ID.</p>
 <p>You should probably almost always filter by one or more event ids
 (using the <code>System.EventID.Value</code> field).</p>
 <h3 id=example-1>Example</h3>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=k>System</span><span class=p>.</span><span class=n>TimeCreated</span><span class=p>.</span><span class=n>SystemTime</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=k>Timestamp</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=k>System</span><span class=p>.</span><span class=n>EventID</span><span class=p>.</span><span class=n>Value</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>EventID</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>ImagePath</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>ImagePath</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>ServiceName</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>ServiceName</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=p>.</span><span class=n>ServiceType</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=k>Type</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=k>System</span><span class=p>.</span><span class=k>Security</span><span class=p>.</span><span class=n>UserID</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>UserSID</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=n>EventData</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>_EventData</span><span class=p>,</span><span class=w>
-</span><span class=w>       </span><span class=k>System</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>_System</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>watch_evtx</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>systemLogFile</span><span class=p>)</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>EventID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>7045</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-sql>SELECT System.TimeCreated.SystemTime as Timestamp,
+       System.EventID.Value as EventID,
+       EventData.ImagePath as ImagePath,
+       EventData.ServiceName as ServiceName,
+       EventData.ServiceType as Type,
+       System.Security.UserID as UserSID,
+       EventData as _EventData,
+       System as _System
+FROM watch_evtx(filename=systemLogFile) WHERE EventID = 7045
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1029,8 +1032,9 @@ syntax</a>. They are expected to
 contain capture variables to name the matches extracted.</p>
 <p>For example, consider a HTML file with simple links. The regular
 expression might be:</p>
-<pre tabindex=0><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
-</code></pre><p>To produce rows with a column Link.</p>
+<pre><code>regex='&lt;a.+?href=&quot;(?P&lt;Link&gt;[^&quot;]+?)&quot;'
+</code></pre>
+<p>To produce rows with a column Link.</p>
 <p>The aim of this plugin is to split the file into records which can be
 further parsed. For example, if the file consists of multiple records,
 this plugin can be used to extract each record, while
@@ -1040,7 +1044,7 @@ regex which tries to capture a lot of details in one pass.</p>
 <h3 id=example-2>Example</h3>
 <p>Here is an example of parsing the /var/lib/dpkg/status files. These
 files consist of records separated by empty lines:</p>
-<pre tabindex=0><code>Package: ubuntu-advantage-tools
+<pre><code>Package: ubuntu-advantage-tools
 Status: install ok installed
 Priority: important
 Section: misc
@@ -1060,21 +1064,23 @@ Description: management tools for Ubuntu Advantage
  Subscribers to Ubuntu Advantage will find helpful tools for accessing
  services in this package.
 Homepage: https://buy.ubuntu.com
-</code></pre><p>The following query extracts the fields in two passes. The first pass
+</code></pre>
+<p>The following query extracts the fields in two passes. The first pass
 uses parse_records_with_regex() to extract records in blocks, while
 using parse_string_with_regex() to further break the block into
 fields.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>parse_string_with_regex</span><span class=p>(</span><span class=w>
-</span><span class=w>   </span><span class=n>string</span><span class=o>=</span><span class=n>Record</span><span class=p>,</span><span class=w>
-</span><span class=w>   </span><span class=n>regex</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;Package:\\s(?P&lt;Package&gt;.+)&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>     </span><span class=s1>&#39;Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>     </span><span class=s1>&#39;Version:\\s(?P&lt;Version&gt;.+)&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>     </span><span class=s1>&#39;Source:\\s(?P&lt;Source&gt;.+)&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>     </span><span class=s1>&#39;Architecture:\\s(?P&lt;Architecture&gt;.+)&#39;</span><span class=p>])</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>Record</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>parse_records_with_regex</span><span class=p>(</span><span class=w>
-</span><span class=w>     </span><span class=n>file</span><span class=o>=</span><span class=n>linuxDpkgStatus</span><span class=p>,</span><span class=w>
-</span><span class=w>     </span><span class=n>regex</span><span class=o>=</span><span class=s1>&#39;(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n&#39;</span><span class=p>)</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-sql>SELECT parse_string_with_regex(
+   string=Record,
+   regex=['Package:\\s(?P&lt;Package&gt;.+)',
+     'Installed-Size:\\s(?P&lt;InstalledSize&gt;.+)',
+     'Version:\\s(?P&lt;Version&gt;.+)',
+     'Source:\\s(?P&lt;Source&gt;.+)',
+     'Architecture:\\s(?P&lt;Architecture&gt;.+)']) as Record
+   FROM parse_records_with_regex(
+     file=linuxDpkgStatus,
+     regex='(?sm)^(?P&lt;Record&gt;Package:.+?)\\n\\n')
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1427,15 +1433,15 @@ fields.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

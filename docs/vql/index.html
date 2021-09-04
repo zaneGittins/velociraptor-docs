@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>VQL Fundamentals :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -531,25 +531,26 @@ column value if the entire row will be filtered out.</p>
 queries. Let&rsquo;s examine how this work using a series of
 experiments. For these experiments we will use the <code>log()</code> VQL
 function, which simply produces a log message when evaluated.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=c1>-- Case 1: One row and one log message
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>OS</span><span class=p>,</span><span class=w> </span><span class=n>log</span><span class=p>(</span><span class=n>message</span><span class=o>=</span><span class=s2>&#34;I Ran!&#34;</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Log</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c1>-- Case 2: No rows and no log messages
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>OS</span><span class=p>,</span><span class=w> </span><span class=n>log</span><span class=p>(</span><span class=n>message</span><span class=o>=</span><span class=s2>&#34;I Ran!&#34;</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Log</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>OS</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s2>&#34;Unknown&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c1>-- Case 3: Log message but no rows
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>OS</span><span class=p>,</span><span class=w> </span><span class=n>log</span><span class=p>(</span><span class=n>message</span><span class=o>=</span><span class=s2>&#34;I Ran!&#34;</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Log</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>Log</span><span class=w> </span><span class=k>AND</span><span class=w> </span><span class=n>OS</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s2>&#34;Unknown&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c1>-- Case 4: No rows and no log messages
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>OS</span><span class=p>,</span><span class=w> </span><span class=n>log</span><span class=p>(</span><span class=n>message</span><span class=o>=</span><span class=s2>&#34;I Ran!&#34;</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Log</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>OS</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s2>&#34;Unknown&#34;</span><span class=w> </span><span class=k>AND</span><span class=w> </span><span class=n>Log</span><span class=w>
-</span></code></pre></div><p>In Case 1, a single row will be emitted by the query and the associated log function will be evaluated, producing a log message.</p>
+<pre><code class=language-sql>-- Case 1: One row and one log message
+SELECT OS, log(message=&quot;I Ran!&quot;) AS Log
+FROM info()
+
+-- Case 2: No rows and no log messages
+SELECT OS, log(message=&quot;I Ran!&quot;) AS Log
+FROM info()
+WHERE OS = &quot;Unknown&quot;
+
+-- Case 3: Log message but no rows
+SELECT OS, log(message=&quot;I Ran!&quot;) AS Log
+FROM info()
+WHERE Log AND OS = &quot;Unknown&quot;
+
+-- Case 4: No rows and no log messages
+SELECT OS, log(message=&quot;I Ran!&quot;) AS Log
+FROM info()
+WHERE OS = &quot;Unknown&quot; AND Log
+</code></pre>
+<p>In Case 1, a single row will be emitted by the query and the associated log function will be evaluated, producing a log message.</p>
 <p>Case 2 adds a condition which should eliminate the row. <strong>Because the
 row is eliminated VQL can skip evaluation of the log()
 function.</strong> No log message will be produced.</p>
@@ -562,8 +563,9 @@ evaluated e.g. <code>hash()</code> or <code>upload()</code>.</p>
 VQL. A scope is a bag of names that is used to resolve symbols,
 functions and plugins in the query.</p>
 <p>For example, consider the query</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>OS</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span></code></pre></div><p>VQL sees “info” as a plugin and looks in the scope to get the real
+<pre><code class=language-sql>SELECT OS FROM info()
+</code></pre>
+<p>VQL sees “info” as a plugin and looks in the scope to get the real
 implementation of the plugin.</p>
 <p>Scopes can be nested, which means that in different parts of the query a
 new child scope is used to evaluate the query. The child scope is
@@ -590,11 +592,12 @@ sometimes unintentionally hide variables of the same name which are
 defined at a parent scope. If you find this happens to your query you
 can rename earlier symbols using the <code>AS</code> keyword to avoid this
 problem. For example:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>Pid</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=p>,</span><span class=w> </span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>(</span><span class=n>pid</span><span class=o>=</span><span class=n>Ppid</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>ParentName</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span></code></pre></div><p>In this query, the symbol <code>Name</code> in the outer query will be resolved
+<pre><code class=language-sql>SELECT Pid, Name, {
+   SELECT Name FROM pslist(pid=Ppid)
+} AS ParentName
+FROM pslist()
+</code></pre>
+<p>In this query, the symbol <code>Name</code> in the outer query will be resolved
 from the rows emitted by <code>pslist()</code> but the second <code>Name</code> will be
 resolved from the row emitted by <code>pslist(pid=Ppid)</code> - or in other
 words, the parent&rsquo;s name.</p>
@@ -628,10 +631,11 @@ select from any plugin at all.</p>
 current scope as a single row. If you even need to write a query but
 do not want to actually run a plugin, use <code>scope()</code> as a noop
 plugin. For example</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=c1>-- Returns one row with Value=4
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Value</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span></code></pre></div><h2 id=the-foreach-plugin>The Foreach plugin</h2>
+<pre><code class=language-sql>-- Returns one row with Value=4
+SELECT 2 + 2 AS Value
+FROM scope()
+</code></pre>
+<h2 id=the-foreach-plugin>The Foreach plugin</h2>
 <p>VQL is modeled on basic SQL since SQL is a familiar language for new
 users to pick up. However, SQL quickly becomes more complex with very
 subtle syntax that only experienced SQL users use regularly. One of
@@ -656,14 +660,15 @@ subscope containing each row that is emitted by the <code>row</code> argument.</
 </li>
 </ol>
 <p>Consider the following query:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=k>row</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>        </span><span class=k>SELECT</span><span class=w> </span><span class=n>Exe</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>(</span><span class=n>pid</span><span class=o>=</span><span class=n>getpid</span><span class=p>())</span><span class=w>
-</span><span class=w>    </span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>        </span><span class=k>SELECT</span><span class=w> </span><span class=n>ModTime</span><span class=p>,</span><span class=w> </span><span class=k>Size</span><span class=p>,</span><span class=w> </span><span class=n>FullPath</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>stat</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>Exe</span><span class=p>)</span><span class=w>
-</span><span class=w>    </span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>Note how <code>Exe</code> is resolved from the produced row since the query is
+<pre><code class=language-sql>SELECT * FROM foreach(
+    row={
+        SELECT Exe FROM pslist(pid=getpid())
+    },
+    query={
+        SELECT ModTime, Size, FullPath FROM stat(filename=Exe)
+    })
+</code></pre>
+<p>Note how <code>Exe</code> is resolved from the produced row since the query is
 evaluated within the nested scope.</p>
 <p>Foreach is useful when we want to run a query on the output of another
 query.</p>
@@ -674,10 +679,11 @@ than 1, <code>foreach()</code> will use multiple threads and evaluate the <code>
 query in each worker thread. This allows the query to evaluate values in parallel.</p>
 <p>For example, the following query retrieves all the
 files in the System32 directory and calculates their hash.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>hash</span><span class=p>(</span><span class=n>path</span><span class=o>=</span><span class=n>FullPath</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;C:/Windows/system32/*&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=n>IsDir</span><span class=w>
-</span></code></pre></div><p>As each row is emitted from the <code>glob()</code> plugin with a filename of a
+<pre><code class=language-sql>SELECT FullPath, hash(path=FullPath)
+FROM glob(globs=&quot;C:/Windows/system32/*&quot;)
+WHERE NOT IsDir
+</code></pre>
+<p>As each row is emitted from the <code>glob()</code> plugin with a filename of a
 file, the <code>hash()</code> function is evaluated and the hash is
 calculated.</p>
 <p>However this is linear, since each hash is calculated before the next
@@ -686,17 +692,18 @@ hash is started - hence only one hash is calculated at once.</p>
 all files is quite fast, but hashing the
 files can be slow. If we delegate the hashing to multiple threads, we
 can make more effective use of the CPU.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w></span><span class=k>row</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;C:/Windows/system32/*&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w>   </span><span class=k>WHERE</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=n>IsDir</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>hash</span><span class=p>(</span><span class=n>path</span><span class=o>=</span><span class=n>FullPath</span><span class=p>)</span><span class=w>
-</span><span class=w>   </span><span class=k>FROM</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>,</span><span class=w> </span><span class=n>worker</span><span class=o>=</span><span class=mi>10</span><span class=p>)</span><span class=w>
-</span><span class=w>
-</span></code></pre></div><h2 id=let-expressions>LET expressions</h2>
+<pre><code class=language-sql>SELECT * FROM foreach(
+row={
+   SELECT FullPath
+   FROM glob(globs=&quot;C:/Windows/system32/*&quot;)
+   WHERE NOT IsDir
+}, query={
+   SELECT FullPath, hash(path=FullPath)
+   FROM scope()
+}, worker=10)
+
+</code></pre>
+<h2 id=let-expressions>LET expressions</h2>
 <p>We know that subqueries can be used in various parts of
 the query, such as in a column specifier or as an argument to a
 plugin. While subqueries are convenient, they can become unweildy when
@@ -707,13 +714,13 @@ the scope. Wherever the stored query is used it will be evaluated on
 demand. Consider the example below, where for each process, we
 evaluate the <code>stat()</code> plugin on the executable to check the
 modification time of the executable file.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>myprocess</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Exe</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=n>LET</span><span class=w> </span><span class=n>mystat</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>ModTime</span><span class=p>,</span><span class=w> </span><span class=k>Size</span><span class=p>,</span><span class=w> </span><span class=n>FullPath</span><span class=w>
-</span><span class=w>        </span><span class=k>FROM</span><span class=w> </span><span class=n>stat</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>Exe</span><span class=p>)</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=k>row</span><span class=o>=</span><span class=n>myprocess</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=n>mystat</span><span class=p>)</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-sql>LET myprocess = SELECT Exe FROM pslist()
+
+LET mystat = SELECT ModTime, Size, FullPath
+        FROM stat(filename=Exe)
+
+SELECT * FROM foreach(row=myprocess, query=mystat)
+</code></pre>
 <div class="mynotices note">
 <div heading=note><p>A Stored Query is simply a query that is stored into a variable. It is
 not actually evaluated at the point of definition. At the point where
@@ -728,12 +735,13 @@ row given by <code>myprocess</code> as part of the <code>foreach()</code> plugin
 <p>We have previously seen VQL goes out of its way to do as little work
 as possible.</p>
 <p>Consider the following query</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>myhashes</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>hash</span><span class=p>(</span><span class=n>path</span><span class=o>=</span><span class=n>FullPath</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;C:/Windows/system32/*&#34;</span><span class=p>)</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>myhashes</span><span class=w>
-</span><span class=w></span><span class=k>LIMIT</span><span class=w> </span><span class=mi>5</span><span class=w>
-</span></code></pre></div><p>The <code>myhashes</code> stored query hashes all files in System32 (many
+<pre><code class=language-sql>LET myhashes = SELECT FullPath, hash(path=FullPath)
+FROM glob(globs=&quot;C:/Windows/system32/*&quot;)
+
+SELECT * FROM myhashes
+LIMIT 5
+</code></pre>
+<p>The <code>myhashes</code> stored query hashes all files in System32 (many
 thousands of files). However, this query is used in a second query
 with a <code>LIMIT</code> clause.</p>
 <p>When the query emits 5 rows in total, the entire query is cancelled
@@ -757,28 +765,30 @@ the query.</p>
 <p>For example, consider the following query that lists all sockets on
 the machine, and attempts to resolve the process ID to a process name
 using the <code>pslist()</code> plugin.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>process_lookup</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Pid</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>ProcessPid</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>Laddr</span><span class=p>,</span><span class=w> </span><span class=n>Status</span><span class=p>,</span><span class=w> </span><span class=n>Pid</span><span class=p>,</span><span class=w> </span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>process_lookup</span><span class=w>
-</span><span class=w>   </span><span class=k>WHERE</span><span class=w> </span><span class=n>Pid</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>ProcessPid</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>ProcessName</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>netstat</span><span class=p>()</span><span class=w>
-</span></code></pre></div><p>This query will be very slow because the <code>process_lookup</code> stored query
+<pre><code class=language-sql>LET process_lookup = SELECT Pid AS ProcessPid, Name FROM pslist()
+
+SELECT Laddr, Status, Pid, {
+   SELECT Name FROM process_lookup
+   WHERE Pid = ProcessPid
+} AS ProcessName
+FROM netstat()
+</code></pre>
+<p>This query will be very slow because the <code>process_lookup</code> stored query
 will be re-evaluated for each row returned from netstat (that is, for each
 socket).</p>
 <p>The process listing will not likely change during the few seconds it takes the query to run.
 It would be more efficient to have the process listing cached in memory
 for the entire length of the query.</p>
 <p>We recommend that you <code>Materialize</code> the query:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>process_lookup</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Pid</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>ProcessPid</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>Laddr</span><span class=p>,</span><span class=w> </span><span class=n>Status</span><span class=p>,</span><span class=w> </span><span class=n>Pid</span><span class=p>,</span><span class=w> </span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>process_lookup</span><span class=w>
-</span><span class=w>   </span><span class=k>WHERE</span><span class=w> </span><span class=n>Pid</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>ProcessPid</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>ProcessName</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=n>netstat</span><span class=p>()</span><span class=w>
-</span></code></pre></div><p>The difference between this query and the previous one is that
+<pre><code class=language-sql>LET process_lookup &lt;= SELECT Pid AS ProcessPid, Name FROM pslist()
+
+SELECT Laddr, Status, Pid, {
+   SELECT Name FROM process_lookup
+   WHERE Pid = ProcessPid
+} AS ProcessName
+FROM netstat()
+</code></pre>
+<p>The difference between this query and the previous one is that
 the <code>LET</code> clause uses <code>&lt;=</code> instead of <code>=</code>. The <code>&lt;=</code> is the materialize
 operator. It tells VQL to expand the query in place into an array
 which is then assigned to the variable <code>process_lookup</code>.</p>
@@ -792,23 +802,24 @@ and have the queries evaluated in a subscope at the point of use.</p>
 variables.</p>
 <p>Consider the following example which is identical to the example
 above:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>myprocess</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Exe</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=n>LET</span><span class=w> </span><span class=n>mystat</span><span class=p>(</span><span class=n>Exe</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>ModTime</span><span class=p>,</span><span class=w> </span><span class=k>Size</span><span class=p>,</span><span class=w> </span><span class=n>FullPath</span><span class=w>
-</span><span class=w>        </span><span class=k>FROM</span><span class=w> </span><span class=n>stat</span><span class=p>(</span><span class=n>filename</span><span class=o>=</span><span class=n>Exe</span><span class=p>)</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=k>row</span><span class=o>=</span><span class=n>myprocess</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>  </span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>mystat</span><span class=p>(</span><span class=n>Exe</span><span class=o>=</span><span class=n>Exe</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>This time <code>mystat</code> is declares as a <code>VQL Local Plugin</code> that
+<pre><code class=language-sql>LET myprocess = SELECT Exe FROM pslist()
+
+LET mystat(Exe) = SELECT ModTime, Size, FullPath
+        FROM stat(filename=Exe)
+
+SELECT * FROM foreach(row=myprocess, query={
+  SELECT * FROM mystat(Exe=Exe)
+})
+</code></pre>
+<p>This time <code>mystat</code> is declares as a <code>VQL Local Plugin</code> that
 takes arguments. Therefore we now pass it an parameter explicitly and
 it behaves as a plugin.</p>
 <p>Similarly we can define a <code>VQL Local Function</code>.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>MyFunc</span><span class=p>(</span><span class=n>X</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>X</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>5</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=c1>-- Return 11
-</span><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>MyFunc</span><span class=p>(</span><span class=n>X</span><span class=o>=</span><span class=mi>6</span><span class=p>)</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-sql>LET MyFunc(X) = X + 5
+
+-- Return 11
+SELECT MyFunc(X=6) FROM scope()
+</code></pre>
 <div class="mynotices tip">
 <div heading=" Differences between a VQL plugin and VQL function "><p>Remember the difference between a VQL plugin and a VQL function is
 that a plugin returns multiple rows and therefore needs to appear
@@ -823,42 +834,47 @@ can also receive any iterable type (like an array).</p>
 <h3 id=looping-over-rows>Looping over rows</h3>
 <p>VQL does not have a JOIN operator - we use the foreach plugin to
 iterate over the results of one query and apply a second query on it.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=k>row</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=n>goes</span><span class=w> </span><span class=n>here</span><span class=o>&gt;</span><span class=w> </span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=n>goes</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><h3 id=looping-over-arrays>Looping over arrays</h3>
+<pre><code class=language-sql>SELECT * FROM foreach(
+    row={ &lt;sub query goes here&gt; },
+    query={ &lt;sub query goes here &gt;})
+</code></pre>
+<h3 id=looping-over-arrays>Looping over arrays</h3>
 <p>Sometimes arrays are present in column data. We can iterate over these
 using the foreach plugin.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=k>row</span><span class=o>=&lt;</span><span class=n>An</span><span class=w> </span><span class=n>iterable</span><span class=w> </span><span class=k>type</span><span class=o>&gt;</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=n>goes</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>If row is an array, the value will be assigned to <code>_value</code> as a special placeholder.</p>
+<pre><code class=language-sql>SELECT * FROM foreach(
+    row=&lt;An iterable type&gt;,
+    query={ &lt;sub query goes here &gt;})
+</code></pre>
+<p>If row is an array, the value will be assigned to <code>_value</code> as a special placeholder.</p>
 <h3 id=conditional-if-plugin-and-function>Conditional: if plugin and function</h3>
 <p>The <code>if()</code> plugin and function allows branching in VQL.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>if</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=n>condition</span><span class=o>=&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=k>or</span><span class=w> </span><span class=n>value</span><span class=o>&gt;</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=k>then</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=n>goes</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=k>else</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=n>goes</span><span class=w> </span><span class=n>here</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>If the condition is a query it is true if it returns any rows. Next, we&rsquo;ll
+<pre><code class=language-sql>SELECT * FROM if(
+    condition=&lt;sub query or value&gt;,
+    then={ &lt;sub query goes here &gt;},
+    else={ &lt;sub query goes here &gt;})
+</code></pre>
+<p>If the condition is a query it is true if it returns any rows. Next, we&rsquo;ll
 evaluate the <code>then</code> subquery or the <code>else</code> subquery. Note that as usual,
 VQL is lazy and will not evaluate the unused query or expression.</p>
 <h3 id=conditional-switch-plugin>Conditional: switch plugin</h3>
 <p>The <code>switch()</code> plugin and function allows multiple branching in VQL.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>switch</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=n>a</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=n>b</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=k>c</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>Evaluate all subqueries in order and when any of them returns any rows
+<pre><code class=language-sql>SELECT * FROM switch(
+    a={ &lt;sub query &gt;},
+    b={ &lt;sub query &gt;},
+    c={ &lt;sub query &gt;})
+</code></pre>
+<p>Evaluate all subqueries in order and when any of them returns any rows
 we stop evaluation the rest of the queries.</p>
 <p>As usual VQL is lazy - this means that branches that are not taken are
 essentially free!</p>
 <h3 id=conditional-chain-plugin>Conditional: chain plugin</h3>
 <p>The <code>chain()</code> plugin allows multiple queries to be combined.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>chain</span><span class=p>(</span><span class=w>
-</span><span class=w>    </span><span class=n>a</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=n>b</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>    </span><span class=k>c</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=o>&lt;</span><span class=n>sub</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>&gt;</span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>Evaluate all subqueries in order and append all the rows together.</p>
+<pre><code class=language-sql>SELECT * FROM chain(
+    a={ &lt;sub query &gt;},
+    b={ &lt;sub query &gt;},
+    c={ &lt;sub query &gt;})
+</code></pre>
+<p>Evaluate all subqueries in order and append all the rows together.</p>
 <h2 id=group-by-clause>Group by clause</h2>
 <p>A common need in VQL is to use the <code>GROUP BY</code> clause to stack all rows
 which have the same value, but what exactly does the <code>GROUP BY</code> clause
@@ -900,10 +916,11 @@ increments a number in its own state.</p>
 separate context for each <code>GROUP BY</code> bin. Therefore, the following
 query will produce a count of all the rows in each bin (because each
 bin has a separate state).</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>X</span><span class=p>,</span><span class=w> </span><span class=k>count</span><span class=p>()</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=k>Count</span><span class=w>
-</span><span class=w></span><span class=k>FROM</span><span class=w> </span><span class=err>…</span><span class=w>
-</span><span class=w></span><span class=k>GROUP</span><span class=w> </span><span class=k>BY</span><span class=w> </span><span class=n>X</span><span class=w>
-</span></code></pre></div><p>Aggregate functions are used to calculate values that consider
+<pre><code class=language-sql>SELECT X, count() AS Count
+FROM …
+GROUP BY X
+</code></pre>
+<p>Aggregate functions are used to calculate values that consider
 multiple rows.</p>
 <p>Some aggregate functions:</p>
 <ul>
@@ -930,15 +947,15 @@ invocation and its previous one.</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

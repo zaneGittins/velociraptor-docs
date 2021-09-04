@@ -6,17 +6,17 @@
 <meta name=description content="Protect your Velociraptor with OAuth2">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor SSO Authentication :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -373,12 +373,6 @@ Velociraptor SSO Authentication
 <li><a href=#oauth2-flow>OAuth2 flow</a></li>
 <li><a href=#google-oauth2>Google OAuth2</a></li>
 <li><a href=#github-oauth2-flow>GitHub OAuth2 flow</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#microsoft-azure-oauth2-flow>Microsoft Azure OAuth2 flow</a></li>
 </ul>
 </li>
@@ -449,17 +443,15 @@ Velociraptor SSO Authentication
 <img src=../../img/1V0SFCRyBB3EgaTnRGEvbvg.png alt>
 </p>
 <p>The most important item in this form is the Authorization callback URL, which must be of the form</p>
-<blockquote>
-<h1 id=httpspublic-dns-nameauthgithubcallback>https://public DNS name/auth/github/callback</h1>
-</blockquote>
+<pre><code>https://public DNS name/auth/github/callback
+</code></pre>
 <p>Once I click Register Application, Github will provide me with a client id and a client secret — Those are used by Velociraptor to send authorization requests to Github for authentication.</p>
 <p>
 <img src=../../img/1ZU-eolQPeo8inmTfq4VkVA.png alt>
 </p>
 <p>Now that we have the client id and secret we can create our configuration file using the interactive config generator</p>
-<blockquote>
-<p>velociraptor.exe config generate -i</p>
-</blockquote>
+<pre><code class=language-sh>velociraptor.exe config generate -i
+</code></pre>
 <p>
 <img src=../../img/1yJ7sIPl_qnL9UUrJvNZJLA.png alt>
 </p>
@@ -508,7 +500,7 @@ Velociraptor SSO Authentication
 <p>
 <img src=../../img/18xUczf1PP7eyM9XaBzTBEw.png alt>
 </p>
-<p>You can assign or delete users using the **velociraptor user add **command. You can also assign roles to users using the <strong>velociraptor acl grant</strong> commands. The configuration wizard offers to provision an initial set of administrator users for smoother install, but you can always add users later using the command line.</p>
+<p>You can assign or delete users using the <strong>velociraptor user add</strong> command. You can also assign roles to users using the <strong>velociraptor acl grant</strong> commands. The configuration wizard offers to provision an initial set of administrator users for smoother install, but you can always add users later using the command line.</p>
 <p>If your favorite authentication provider is not yet supported, please file a feature request on our <a href=https://github.com/Velocidex/velociraptor>GitHub</a> project, or even send us a pull request!</p>
 <footer class=footline>
 </footer>
@@ -520,15 +512,15 @@ Velociraptor SSO Authentication
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

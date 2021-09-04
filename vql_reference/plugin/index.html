@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Client Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -465,11 +465,12 @@ multiple event plugins into the same artifact output.</p>
 <h3 id=example>Example</h3>
 <p>The following returns the rows from the first query then the rows from
 the second query.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>chain</span><span class=p>(</span><span class=w>
-</span><span class=w>  </span><span class=n>a</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=p>...</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=n>b</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=p>...</span><span class=err>}</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=n>async</span><span class=o>=</span><span class=k>TRUE</span><span class=p>)</span><span class=w>
-</span></code></pre></div><div class=vql_item></div>
+<pre><code class=language-sql>SELECT * FROM chain(
+  a={ SELECT ...},
+  b={ SELECT ...},
+  async=TRUE)
+</code></pre>
+<div class=vql_item></div>
 <h2 id=collect>collect</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Collect artifacts into a local file.</p>
@@ -721,8 +722,9 @@ possible to quote the component to keep it together. For example, the
 windows registry contains keys with forward slash in their
 names. Therefore we may use these to prevent the glob from getting
 confused:</p>
-<pre tabindex=0><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
-</code></pre><p>Glob expressions are case insensitive and may contain the following wild cards:</p>
+<pre><code>HKEY_LOCAL_MACHINE\Microsoft\Windows\&quot;Some Key With http://www.microsoft.com/&quot;\Some Value
+</code></pre>
+<p>Glob expressions are case insensitive and may contain the following wild cards:</p>
 <ul>
 <li>The <code>*</code> matches one or more characters.</li>
 <li>The <code>?</code> matches a single character.</li>
@@ -731,13 +733,15 @@ confused:</p>
 </ul>
 <p>By default globs do not expand environment variables. If you need to
 expand environment variables use the <code>expand()</code> function explicitly:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>glob</span><span class=p>(</span><span class=n>globs</span><span class=o>=</span><span class=n>expand</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=s2>&#34;%SystemRoot%\System32\Winevt\Logs\*&#34;</span><span class=p>))</span><span class=w>
-</span></code></pre></div><h3 id=example-1>Example</h3>
+<pre><code class=language-sql>glob(globs=expand(string=&quot;%SystemRoot%\System32\Winevt\Logs\*&quot;))
+</code></pre>
+<h3 id=example-1>Example</h3>
 <p>The following searches the raw NTFS disk for event logs.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>glob</span><span class=p>(</span><span class=w>
-</span><span class=w></span><span class=n>globs</span><span class=o>=</span><span class=s2>&#34;C:\Windows\System32\Winevt\Logs\*.evtx&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w></span><span class=n>accessor</span><span class=o>=</span><span class=s2>&#34;ntfs&#34;</span><span class=p>)</span><span class=w>
-</span></code></pre></div><h3 id=the-root-parameter>The root parameter</h3>
+<pre><code class=language-sql>SELECT FullPath FROM glob(
+globs=&quot;C:\Windows\System32\Winevt\Logs\*.evtx&quot;,
+accessor=&quot;ntfs&quot;)
+</code></pre>
+<h3 id=the-root-parameter>The root parameter</h3>
 <p>If the root parameter is specified, we start globbing from this
 directory - i.e. the glob pattern is appended to the root
 parameter. The <code>root</code> parameter is useful if the directory name
@@ -878,8 +882,9 @@ Content column.</p>
 <h3 id=example-2>Example</h3>
 <p>The following VQL returns the client&rsquo;s external IP as seen by the
 externalip service.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=n>Content</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>IP</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=n>http_client</span><span class=p>(</span><span class=n>url</span><span class=o>=</span><span class=s1>&#39;http://www.myexternalip.com/raw&#39;</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>You can use this plugin to download file contents by passing the
+<pre><code class=language-sql>SELECT Content as IP from http_client(url='http://www.myexternalip.com/raw')
+</code></pre>
+<p>You can use this plugin to download file contents by passing the
 <code>tempfile_extension</code> parameter. In this case this plugin will
 create a new temp file with the speicfied extension, write the
 content of the HTTP request into it and then emit a row with
@@ -1021,8 +1026,9 @@ print it in a human readable way.</p>
 <p>This currently does not support IPv6 addresses. Those are usually
 encoded as an array of 8 bytes which makes it easy to format using the
 <code>format()</code> function:</p>
-<pre tabindex=0><code>  format(format=&quot;%x:%x:%x:%x:%x:%x:%x:%x&quot;, value)
-</code></pre><div class=vqlargs></div>
+<pre><code>  format(format=&quot;%x:%x:%x:%x:%x:%x:%x:%x&quot;, value)
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1173,8 +1179,9 @@ configuration files etc.</p>
 <p>The main use for this plugin is as a NOOP plugin in those cases we
 dont want to actually run anything.</p>
 <h3 id=example-3>Example</h3>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT 1+1 As Two FROM scope()
-</code></pre><div class=vql_item></div>
+<pre><code class=language-vql>SELECT 1+1 As Two FROM scope()
+</code></pre>
+<div class=vql_item></div>
 <h2 id=stat>stat</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Get file information. Unlike glob() this does not support wildcards.</p>
@@ -1517,8 +1524,9 @@ it more efficient since we do not need to hash the rules each time.</p>
 we only search for keywords so writing a full yara syntax rule is
 tedious. Therefore we provide a shorthand way to specify the
 keywords. For example:</p>
-<pre tabindex=0><code>wide nocase:foo,bar,baz
-</code></pre><p>When the rule is provided in the above form, the plugin will
+<pre><code>wide nocase:foo,bar,baz
+</code></pre>
+<p>When the rule is provided in the above form, the plugin will
 automatically generate a yara rule which matches any of the specified
 keywords. The specification before the <code>:</code> means the same thing as the
 yara DSL and the following combinations are supported <code>wide</code>, <code>wide ascii</code>, <code>wide nocase</code>, <code>wide nocase ascii</code>.</p>
@@ -1594,15 +1602,15 @@ scanning stops after one hit is found.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

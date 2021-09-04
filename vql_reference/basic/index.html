@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Basic VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -473,8 +473,9 @@ or in condition clauses (i.e. after the <code>WHERE</code> keyword).</p>
 flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <code>[1, 2]</code>.</p>
 <p>You can use this to flatten a subquery as well:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=nb>array</span><span class=p>(</span><span class=n>a1</span><span class=o>=</span><span class=err>{</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=k>User</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>Artifact</span><span class=p>.</span><span class=n>Windows</span><span class=p>.</span><span class=k>System</span><span class=p>.</span><span class=n>Users</span><span class=p>()</span><span class=w> </span><span class=err>}</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>Users</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span></code></pre></div><p>Will return a single row with Users being an array of names.</p>
+<pre><code class=language-sql>SELECT array(a1={ SELECT User FROM Artifact.Windows.System.Users() }) as Users FROM scope()
+</code></pre>
+<p>Will return a single row with Users being an array of names.</p>
 <div class=vql_item></div>
 <h2 id=atoi>atoi</h2>
 <p><span class="vql_type pull-right">Function</span></p>
@@ -574,12 +575,13 @@ value store - when the key is accessed, the function will be
 calculated producing a value. If the key is accessed again, the
 value is returned from the cache without calculating it again.</p>
 <p>For example consider the following:</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>    LET get_pid_query(Lpid) =
+<pre><code class=language-vql>    LET get_pid_query(Lpid) =
        SELECT Pid, Ppid, Name FROM pslist(pid=Lpid)
 
     SELECT cache(func=get_pid_query(Lpid=Pid), key=str(str=Pid))
     FROM ....
-</code></pre><p>The cache will ensure that get_pid_query() is only called once per
+</code></pre>
+<p>The cache will ensure that get_pid_query() is only called once per
 unique Pid by comparing the key against the internal memory store.</p>
 <div class=vqlargs></div>
 <table>
@@ -623,9 +625,10 @@ example is to extract a file from a zip file using the <code>zip</code>
 accessor into a file on disk.</p>
 <p>This function can also be used to create new files with prescribed
 content - for example:</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT copy(filename=&quot;Hello world&quot;, accessor=&quot;data&quot;, dest=&quot;C:/hi.txt&quot;)
+<pre><code class=language-vql>SELECT copy(filename=&quot;Hello world&quot;, accessor=&quot;data&quot;, dest=&quot;C:/hi.txt&quot;)
 FROM scope()
-</code></pre><p>NOTE: Sparse files are padded out</p>
+</code></pre>
+<p>NOTE: Sparse files are padded out</p>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -701,9 +704,10 @@ the lazy evaluation property of VQL columns.</p>
 dictionaries always have string keys. Sometimes key names contain
 special characters like dots etc, in that case you can use
 backticks to escape the name. For example:</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT dict(Foo=&quot;Bar&quot;, `Name.With.Dots`=&quot;Baz&quot;)
+<pre><code class=language-vql>SELECT dict(Foo=&quot;Bar&quot;, `Name.With.Dots`=&quot;Baz&quot;)
 FROM scope()
-</code></pre><p>See the <code>to_dict()</code> function to create dicts from a query with
+</code></pre>
+<p>See the <code>to_dict()</code> function to create dicts from a query with
 unpredictable key names.</p>
 <div class=vql_item></div>
 <h2 id=dirname>dirname</h2>
@@ -819,9 +823,10 @@ depend on the specific user account which reads the registry value
 <p>This function uses the Golang standard for expanding variables
 (using $varname ). On Windows, we also support using the Windows
 notation with % before and after the variable name.</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT expand(path=&quot;My Username is %USERNAME%&quot;)
+<pre><code class=language-vql>SELECT expand(path=&quot;My Username is %USERNAME%&quot;)
 FROM scope()
-</code></pre><p>NOTE: The environment strings are set per user and Velociraptor&rsquo;s
+</code></pre>
+<p>NOTE: The environment strings are set per user and Velociraptor&rsquo;s
 own environment may not reflect any other process&rsquo;s
 environment. See <code>Windows.Forensics.ProcessInfo</code> for a
 forensically sound manner of obtaining the environment from any
@@ -910,14 +915,15 @@ fmt.Sprintf() function and uses the same format specifiers.</p>
 <p>Gets the member field from item.</p>
 <p>This is useful to index an item from an array. For example:</p>
 <h3 id=example>Example</h3>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>select</span><span class=w> </span><span class=k>get</span><span class=p>(</span><span class=n>item</span><span class=o>=</span><span class=p>[</span><span class=n>dict</span><span class=p>(</span><span class=n>foo</span><span class=o>=</span><span class=mi>3</span><span class=p>),</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>],</span><span class=w> </span><span class=n>member</span><span class=o>=</span><span class=s1>&#39;0.foo&#39;</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=n>Foo</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=p>[</span><span class=w>
-</span><span class=w> </span><span class=err>{</span><span class=w>
-</span><span class=w>   </span><span class=s2>&#34;Foo&#34;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=w>
-</span><span class=w> </span><span class=err>}</span><span class=w>
-</span><span class=w></span><span class=p>]</span><span class=w>
-</span></code></pre></div><p>Using the member parameter you can index inside a nested
+<pre><code class=language-sql>select get(item=[dict(foo=3), 2, 3, 4], member='0.foo') AS Foo from scope()
+
+[
+ {
+   &quot;Foo&quot;: 3
+ }
+]
+</code></pre>
+<p>Using the member parameter you can index inside a nested
 dictionary using dots to separate the layers.</p>
 <p>If you need to access a field with dots in its name, you can use
 the field parameter which simply fetches the named field.</p>
@@ -1179,8 +1185,9 @@ given, then perform hash or upload to the server.</p>
 <h3 id=example-1>Example</h3>
 <p>The following query lists all the processes and shows the largest
 bash pid of all bash processes.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-SQL data-lang=SQL><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=p>,</span><span class=w> </span><span class=k>max</span><span class=p>(</span><span class=n>items</span><span class=o>=</span><span class=n>Pid</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>LargestPid</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w> </span><span class=k>Where</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s1>&#39;bash&#39;</span><span class=w> </span><span class=k>group</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>Name</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-SQL>SELECT Name, max(items=Pid) as LargestPid from pslist() Where Name =~ 'bash' group by Name
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1236,8 +1243,9 @@ bash pid of all bash processes.</p>
 <h3 id=example-2>Example</h3>
 <p>The following query lists all the processes and shows the smallest
 bash pid of all bash processes.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-SQL data-lang=SQL><span class=k>SELECT</span><span class=w> </span><span class=n>Name</span><span class=p>,</span><span class=w> </span><span class=k>min</span><span class=p>(</span><span class=n>items</span><span class=o>=</span><span class=n>Pid</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>SmallestPid</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=n>pslist</span><span class=p>()</span><span class=w> </span><span class=k>Where</span><span class=w> </span><span class=n>Name</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s1>&#39;bash&#39;</span><span class=w> </span><span class=k>group</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>Name</span><span class=w>
-</span></code></pre></div><div class=vqlargs></div>
+<pre><code class=language-SQL>SELECT Name, min(items=Pid) as SmallestPid from pslist() Where Name =~ 'bash' group by Name
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1556,16 +1564,18 @@ representations. Most commonly from strings, Unix epoch times etc.</p>
 of the time automatically. For example, you can provide the epoch
 parameter as an integer representing seconds since the epoch,
 milliseconds or microseconds since the epoch.</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT timestamp(epoch=1630414425) AS Time1,
+<pre><code class=language-vql>SELECT timestamp(epoch=1630414425) AS Time1,
        timestamp(epoch=1630414425000) AS Time2,
        timestamp(epoch=1630414425000000) AS Time3,
 FROM scope()
-</code></pre><p>You can also provide a string, and <code>timestamp()</code> will try to parse
+</code></pre>
+<p>You can also provide a string, and <code>timestamp()</code> will try to parse
 it by guessing what it represents. For example</p>
-<pre tabindex=0><code>SELECT timestamp(string='March 3 2019'),
+<pre><code>SELECT timestamp(string='March 3 2019'),
        timestamp(string='07/25/2019 5pm')
 FROM scope()
-</code></pre><p>For more control over the parsing of strings, use the <code>format</code>
+</code></pre>
+<p>For more control over the parsing of strings, use the <code>format</code>
 parameter to specify a template which will be used to parse the
 timestamp.</p>
 <p>The format template uses a constant time as an example of how the
@@ -1583,9 +1593,10 @@ AM/PM mark: &ldquo;PM&rdquo;</p>
 <p>&ldquo;-0700&rdquo; ±hhmm
 &ldquo;-07:00&rdquo; ±hh:mm
 &ldquo;-07&rdquo; ±hh</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>SELECT timestamp(string=&quot;8/30/2021 6:01:28 PM&quot;,
+<pre><code class=language-vql>SELECT timestamp(string=&quot;8/30/2021 6:01:28 PM&quot;,
                  format=&quot;1/2/2006 3:04:05 PM&quot;)
-</code></pre><div class=vqlargs></div>
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1661,14 +1672,15 @@ string the row will be ignored.</p>
 ProcessNames in order to cache Pid->Name lookups. We then resolve
 Pid to Name within other queries. Note the use of &lt;= to
 materialize the dict into memory once.</p>
-<pre tabindex=0><code class=language-vql data-lang=vql>LET PidLookup &lt;= to_dict(item={
+<pre><code class=language-vql>LET PidLookup &lt;= to_dict(item={
     SELECT str(str=Pid) AS _key, Name AS _value
     FROM pslist()
 })
 
 SELECT Pid, get(item=PidLookup, field=str(str=Pid))
 FROM pslist()
-</code></pre><div class=vqlargs></div>
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1928,11 +1940,12 @@ possible to cater for multiple versions in the VQL using an if()
 plugin.</p>
 <p>For example the following can chose from a legacy query or a
 modern query based on the plugin version:</p>
-<pre tabindex=0><code> SELECT * FROM if(
+<pre><code> SELECT * FROM if(
   condition=version(plugin=&quot;glob&quot;) &gt;= 1,
   then=NewQuery,
   else=LegacyQuery)
-</code></pre><div class=vqlargs></div>
+</code></pre>
+<div class=vqlargs></div>
 <table>
 <thead>
 <tr>
@@ -1964,15 +1977,15 @@ modern query based on the plugin version:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

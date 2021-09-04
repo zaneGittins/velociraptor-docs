@@ -6,17 +6,17 @@
 <meta name=description content="Windows information security techniques are heavily reliant on the availability and integrity of event logs. Many state of the art systems use event log forwarding to aggregate information from endpoints and detect malicious behavior across the enterprise. Did you know that logs can be trivially disabled? Learn how Velociraptor can help...">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Disabled Event Log files :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -411,8 +411,9 @@ Disabled Event Log files
 <p>For this post I will use the example of a BITS transfer using bitsadmin.exe. BITS is a transfer service built into the Windows operating system, normally used to fetch windows (or application) updates. However, is it also commonly used by threat actors to deliver malicious payloads because BITS is typically trusted by endpoint tools (since it is a standard windows service). See <a href=https://attack.mitre.org/techniques/T1197/>Mitre Att&ck T1197</a>.</p>
 <p>For this test I will use bitsadmin to download a page from the internet and store it on the filesystem. By default, the BITS service will generate several log messages in the log file <code>%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-Bits-Client%4Operational.evtx</code> as shown in the screenshot below</p>
 <p>The command I will run fetches a file from the internet and stores it locally</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>bitsadmin.exe /transfer /download /priority foreground <span class=o>[</span>https://www.google.com<span class=o>](</span>https://www.google.com<span class=o>)</span> c:<span class=se>\U</span>sers<span class=se>\t</span>est<span class=se>\t</span>est.ps1
-</code></pre></div><p>
+<pre><code class=language-shell>bitsadmin.exe /transfer /download /priority foreground [https://www.google.com](https://www.google.com) c:\Users\test\test.ps1
+</code></pre>
+<p>
 <img src=../../img/1o74NoHxr20avTkbAplRlHQ.png alt>
 </p>
 <p>Many tools rely on the presence of these eventlog messages to escalate an alert for this malicious activity.</p>
@@ -484,11 +485,11 @@ Disabled Event Log files
 <p>The above example is just one of the exercises we do in our hands on Velociraptor courses. If you are interested in learning more about Velociraptor, check out our hands on training courses on <a href=https://www.velocidex.com/training/>https://www.velocidex.com/training/</a> or join us on discord <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>.</p>
 <h3 id=ps>P.S.</h3>
 <p>You can automate event log enable/disable using the following powershell</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nv>$logName</span> <span class=p>=</span> <span class=err>‘</span><span class=nb>Microsoft-Windows</span><span class=n>-DNS-Client</span><span class=p>/</span><span class=n>Operational</span><span class=err>’</span>
-<span class=nv>$log</span> <span class=p>=</span> <span class=nb>New-Object</span> <span class=n>System</span><span class=p>.</span><span class=n>Diagnostics</span><span class=p>.</span><span class=n>Eventing</span><span class=p>.</span><span class=n>Reader</span><span class=p>.</span><span class=n>EventLogConfiguration</span> <span class=nv>$logName</span>
-<span class=nv>$log</span><span class=p>.</span><span class=n>IsEnabled</span><span class=p>=</span><span class=nv>$true</span>
-<span class=nv>$log</span><span class=p>.</span><span class=n>SaveChanges</span><span class=p>()</span>
-</code></pre></div>
+<pre><code class=language-powershell>$logName = ‘Microsoft-Windows-DNS-Client/Operational’
+$log = New-Object System.Diagnostics.Eventing.Reader.EventLogConfiguration $logName
+$log.IsEnabled=$true
+$log.SaveChanges()
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -499,15 +500,15 @@ Disabled Event Log files
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

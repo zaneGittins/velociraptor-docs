@@ -6,17 +6,17 @@
 <meta name=description content="How do we know if a windows executable is a legitimate program written by the purported developer and not malware?  This post covers the basics of Authenticode signatures in windows and how to verify and query them using Velociraptor.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Verifying executables on Windows :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -371,12 +371,6 @@ Verifying executables on Windows
 <ul>
 <li><a href=#is-a-binary-signed>Is a binary signed?</a></li>
 <li><a href=#authenticode-hashes>Authenticode hashes</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#catalog-files>Catalog files</a></li>
 <li><a href=#verifying-signed-files>Verifying Signed files</a></li>
 <li><a href=#putting-it-all-together>Putting it all together</a></li>
@@ -420,10 +414,9 @@ Verifying executables on Windows
 <p>The above diagram shows that signing information is embedded in the PE file itself, and consists of a PKCS#7 structure, itself an ASN.1 encoded binary blob. The information contains a hash of the PE file, and a list of certificates of verifying authorities.</p>
 <p>Velociraptor can parse the authenticode information from the PE file using the parse_pe() VQL function. This allows a VQL query to extract signing information from any executable binary (Since this is just a file parser and does not use native APIs, you can use this function on all supported OSs).</p>
 <p>Let’s parse Velociraptor’s own PE file in a Velociraptor notebook using the following simple query:</p>
-<blockquote>
-<p>SELECT parse_pe(file=’’’C:\Program Files\velociraptor\velociraptor.exe’’’)
-FROM scope()</p>
-</blockquote>
+<pre><code class=language-vql>SELECT parse_pe(file=’’’C:\Program Files\velociraptor\velociraptor.exe’’’)
+FROM scope()
+</code></pre>
 <p>
 <img src=../../img/16bcC41eUaZxiHUieQpd9Nw.png alt>
 </p>
@@ -434,9 +427,10 @@ FROM scope()</p>
 <img src=../../img/1tqLP9HIDA8glYRg0ULZScA.png alt>
 </p>
 <p>None of the calculated hashes is the same as the “ExpectedHash” provided in the Authenticode signature! This is because Authenticode hashes do not cover the entire PE file, as regular hashes do. Authenticode hashes only cover specific PE sections, in a specific order. They specifically allow PE sections to be reordered, and some regions in the file to be modified.</p>
-<blockquote>
-<h1 id=many-people-find-it-surprising-that-signed-pe-files-can-be-modified-without-invalidating-the-signature>Many people find it surprising that signed PE files can be modified without invalidating the signature.</h1>
-</blockquote>
+<div class="mynotices warning">
+<div heading=warning><p>Many people find it surprising that signed PE files can be modified without invalidating the signature.</p>
+</div>
+</div>
 <p>This means that hash database detection commonly used in DFIR do not work to identify malicious signed binaries. I have demonstrated this recently in a <a href="https://www.youtube.com/watch?v=dmmliSh91uQ">video</a> where I modified a vulnerable driver to change its file hash, maintaining it’s authenticode hash. This allowed the driver to be loaded, even through its file hash was completely different and not found on Virus Total.</p>
 <p>
 <img src=../../img/0unSBclcWJdSgJwhe alt>
@@ -518,15 +512,15 @@ FROM scope()</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

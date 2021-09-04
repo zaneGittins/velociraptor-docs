@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Deploying Clients :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -420,8 +420,9 @@ telling the binary to behave as a server or client.</p>
 <h2 id=running-clients-interactively>Running clients interactively</h2>
 <p>This method is most suitable for testing your deployment. In a command
 shell, simply run the client using the client configuration.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ velociraptor --config client.config.yaml client -v
-</code></pre></div><p>The first time the client connects it will <code>enroll</code>. The enrolment
+<pre><code class=language-shell>$ velociraptor --config client.config.yaml client -v
+</code></pre>
+<p>The first time the client connects it will <code>enroll</code>. The enrolment
 process requires the client to reveal basic information about itself
 to the server.</p>
 <p>Note that this type of interactive execution will work effectively the
@@ -541,8 +542,9 @@ executable to a subdirectory of your build directory called <code>output</code>.
 <h2 id=installing-the-client-as-a-service>Installing the client as a service</h2>
 <h3 id=windows>Windows</h3>
 <p>When installing using an MSI, simply run</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>msiexec /i velociraptor_custom.msi
-</code></pre></div><p>To install the binary, create the service and start it.</p>
+<pre><code class=language-shell>msiexec /i velociraptor_custom.msi
+</code></pre>
+<p>To install the binary, create the service and start it.</p>
 <p>It is also possible to tell the executable to install itself as a
 Windows service instead of using an MSI. This option is not
 recommended because it does not use a proper package manager, and
@@ -550,8 +552,9 @@ therefore Velociraptor can not be easily uninstalled or upgraded.</p>
 <p>Nevertheless this approach is possible to do via the Group Policy
 scheduled tasks procedure outlined below. Simply run the following
 command:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># velociraptor.exe --config client.config.yaml service install</span>
-</code></pre></div><p>This will copy the binary to the location specified in the
+<pre><code class=language-shell># velociraptor.exe --config client.config.yaml service install
+</code></pre>
+<p>This will copy the binary to the location specified in the
 configuration file under <code>Client.windows_installer</code>. You can also
 change the name of the binary and the service name if you wish.</p>
 <h3 id=mac>Mac</h3>
@@ -559,10 +562,12 @@ change the name of the binary and the service name if you wish.</p>
 Mac client. The following command installs binary & config to /usr/local/sbin.
 Persistence is via launchd (check with <code>ps -eaf | grep velo</code> and
 <code>sudo launchctl list | grep velo</code>)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># velociraptor --config client.config.yaml service install</span>
-</code></pre></div><p>The service can be uninstalled with the following command:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># /usr/local/sbin/velociraptor service remove --config=/usr/local/sbin/velociraptor.config.yaml</span>
-</code></pre></div><p>Confirm with <code>ps -eaf | grep velo</code> and <code>sudo launchctl list | grep velo</code>.</p>
+<pre><code class=language-shell># velociraptor --config client.config.yaml service install
+</code></pre>
+<p>The service can be uninstalled with the following command:</p>
+<pre><code class=language-shell># /usr/local/sbin/velociraptor service remove --config=/usr/local/sbin/velociraptor.config.yaml
+</code></pre>
+<p>Confirm with <code>ps -eaf | grep velo</code> and <code>sudo launchctl list | grep velo</code>.</p>
 <h2 id=agentless-deployment>Agentless deployment</h2>
 <p>There has been a lot of interest in &ldquo;agentless hunting&rdquo; especially
 using PowerShell.</p>
@@ -706,15 +711,15 @@ program. Now you can verify that Velociraptor is running:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

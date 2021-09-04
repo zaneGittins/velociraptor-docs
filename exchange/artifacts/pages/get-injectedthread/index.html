@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Custom.Windows.Memory.InjectedThread :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -383,110 +383,110 @@ Custom.Windows.Memory.InjectedThread
 Note: this query is complex powershell. Run it after a scriptblock hunt.</p>
 <p><a href=https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2>https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2</a>
 <a href=https://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1>https://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1</a></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Windows.Memory.InjectedThread</span><span class=w>
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Matt Green - @mgreen27&#34;</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   Use Get-InjetedThreads to detect process injections.
-</span><span class=sd>   Note: this query is complex powershell. Run it after a scriptblock hunt.
-</span><span class=sd>
-</span><span class=sd>   https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2
-</span><span class=sd>   https://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1</span><span class=w>   
-</span><span class=w>
-</span><span class=w></span><span class=nt>tools</span><span class=p>:</span><span class=w>
-</span><span class=w> </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Get-InjectedThread</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- Get the path to the Get-InjectedThread tool
-</span><span class=sd>      LET script &lt;= SELECT FullPath
-</span><span class=sd>            FROM Artifact.Generic.Utils.FetchBinary(
-</span><span class=sd>                ToolName=&#34;Get-InjectedThread&#34;,
-</span><span class=sd>                IsExecutable=&#39;N&#39;
-</span><span class=sd>                )
-</span><span class=sd>
-</span><span class=sd>      -- Run the tool and relay back the output
-</span><span class=sd>      LET results &lt;= SELECT parse_string_with_regex(
-</span><span class=sd>                string=Stdout,
-</span><span class=sd>                regex=[
-</span><span class=sd>                    &#34;^\\s+ProcessName\\s+:\\s+(?P&lt;ProcessName&gt;[\\s|\\S]*)\\s+ProcessId\\s+:&#34;+
-</span><span class=sd>                    &#34;\\s+(?P&lt;ProcessId&gt;[\\s|\\d]*)\\s+Path\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;Path&gt;[\\s|\\S]*)\\s+KernelPath&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;KernelPath&gt;[\\s|\\S]*)\\s+CommandLine\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;CommandLine&gt;[\\s|\\S]*)\\s+PathMismatch\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;PathMismatch&gt;[\\s|\\S]*)\\s+ThreadId\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;ThreadId&gt;[\\s|\\d]*)\\s+ThreadStartTime\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;ThreadStartTime&gt;[\\s|\\S]*)\\s+AllocatedMemoryProtection\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;AllocatedMemoryProtection&gt;[\\s|\\S]*)\\s+MemoryProtection\\s+:&#34;+
-</span><span class=sd>                    &#34;\\s+(?P&lt;MemoryProtection&gt;[\\s|\\S]*)\\s+MemoryState\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;MemoryState&gt;[\\s|\\S]*)\\s+MemoryType\\s+:&#34;+
-</span><span class=sd>                    &#34;\\s+(?P&lt;MemoryType&gt;[\\s|\\S]*)\\s+BasePriority\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;BasePriority&gt;[\\s|\\d]*)\\s+IsUniqueThreadToken\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;IsUniqueThreadToken&gt;.*)\\s+Integrity\\s+:&#34;+
-</span><span class=sd>                    &#34;\\s+(?P&lt;Integrity&gt;[\\s|\\S]*)\\s+Privilege\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;Privilege&gt;[\\s|\\S]*)\\s+LogonId\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;LogonId&gt;[\\s|\\d]*)\\s+SecurityIdentifier\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;SecurityIdentifier&gt;.*)\\s+UserName\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;UserName&gt;[\\s|\\S]*)\\s+LogonSessionStartTime\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;LogonSessionStartTime&gt;.*)\\s+LogonType\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;LogonType&gt;[\\s|\\S]*)\\s+AuthenticationPackage\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;AuthenticationPackage&gt;.*)\\s+BaseAddress\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;BaseAddress&gt;[\\s|\\d]*)\\s+Size\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;Size&gt;[\\s|\\d]*)\\s+Bytes\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;Bytes&gt;[\\s\\S]*)\\s+FirstBytes\\s+:&#34; +
-</span><span class=sd>                    &#34;\\s+(?P&lt;FirstBytes&gt;[\\s\\S]*)\\s+$&#34;
-</span><span class=sd>                ]) as threads,Stdout
-</span><span class=sd>            FROM execve(argv=[&#39;powershell&#39;,&#39;-ExecutionPolicy&#39;,&#39;Unrestricted&#39;,script.FullPath[0]])
-</span><span class=sd>            WHERE Stdout
-</span><span class=sd>
-</span><span class=sd>      -- Finally output the regex results
-</span><span class=sd>      SELECT
-</span><span class=sd>            threads.ProcessName AS ProcessName,
-</span><span class=sd>            threads.ProcessId AS ProcessId,
-</span><span class=sd>            threads.Path AS Path,
-</span><span class=sd>            threads.KernelPath AS KernelPath,
-</span><span class=sd>            threads.CommandLine AS CommandLine,
-</span><span class=sd>            threads.PathMismatch AS PathMismatch,
-</span><span class=sd>            threads.ThreadId AS ThreadId,
-</span><span class=sd>            threads.ThreadStartTime AS ThreadStartTime,
-</span><span class=sd>            threads.AllocatedMemoryProtection AS AllocatedMemoryProtection,
-</span><span class=sd>            threads.MemoryProtection AS MemoryProtection,
-</span><span class=sd>            threads.MemoryState AS MemoryState,
-</span><span class=sd>            threads.MemoryType AS MemoryType,
-</span><span class=sd>            threads.BasePriority AS BasePriority,
-</span><span class=sd>            threads.IsUniqueThreadToken AS IsUniqueThreadToken,
-</span><span class=sd>            threads.Integrity AS Integrity,
-</span><span class=sd>            threads.Privilege AS Privilege,
-</span><span class=sd>            threads.LogonId AS LogonId,
-</span><span class=sd>            threads.SecurityIdentifier AS SecurityIdentifier,
-</span><span class=sd>            threads.UserName AS UserName,
-</span><span class=sd>            threads.LogonSessionStartTime AS LogonSessionStartTime,
-</span><span class=sd>            threads.LogonType AS LogonType,
-</span><span class=sd>            threads.AuthenticationPackage AS AuthenticationPackage,
-</span><span class=sd>            threads.BaseAddress AS BaseAddress,
-</span><span class=sd>            threads.Size AS Size,
-</span><span class=sd>            threads.FirstBytes AS FirstBytes
-</span><span class=sd>      FROM results</span><span class=w>      
-</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>InjectedSection</span><span class=w>
-</span><span class=w>    </span><span class=nt>queries</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span>- <span class=p>|</span><span class=sd>
-</span><span class=sd>        SELECT
-</span><span class=sd>            threads.ProcessName AS ProcessName,
-</span><span class=sd>            threads.ProcessId AS ProcessId,
-</span><span class=sd>            threads.BaseAddress AS BaseAddress,
-</span><span class=sd>            regex_replace(source=threads.Bytes,replace=&#39;&#39;,re=&#39;\\s&#39;) As Bytes
-</span><span class=sd>        FROM results</span><span class=w>        
-</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>RawResults</span><span class=w>
-</span><span class=w>    </span><span class=nt>queries</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span>- <span class=p>|</span><span class=sd>
-</span><span class=sd>        SELECT StdOut
-</span><span class=sd>        FROM results</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Custom.Windows.Memory.InjectedThread
+author: &quot;Matt Green - @mgreen27&quot;
+description: |
+   Use Get-InjetedThreads to detect process injections.
+   Note: this query is complex powershell. Run it after a scriptblock hunt.
+
+   https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2
+   https://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1
+
+tools:
+ - name: Get-InjectedThread
+
+precondition:
+      SELECT OS From info() where OS = 'windows'
+
+sources:
+  - query: |
+      -- Get the path to the Get-InjectedThread tool
+      LET script &lt;= SELECT FullPath
+            FROM Artifact.Generic.Utils.FetchBinary(
+                ToolName=&quot;Get-InjectedThread&quot;,
+                IsExecutable='N'
+                )
+
+      -- Run the tool and relay back the output
+      LET results &lt;= SELECT parse_string_with_regex(
+                string=Stdout,
+                regex=[
+                    &quot;^\\s+ProcessName\\s+:\\s+(?P&lt;ProcessName&gt;[\\s|\\S]*)\\s+ProcessId\\s+:&quot;+
+                    &quot;\\s+(?P&lt;ProcessId&gt;[\\s|\\d]*)\\s+Path\\s+:&quot; +
+                    &quot;\\s+(?P&lt;Path&gt;[\\s|\\S]*)\\s+KernelPath&quot; +
+                    &quot;\\s+(?P&lt;KernelPath&gt;[\\s|\\S]*)\\s+CommandLine\\s+:&quot; +
+                    &quot;\\s+(?P&lt;CommandLine&gt;[\\s|\\S]*)\\s+PathMismatch\\s+:&quot; +
+                    &quot;\\s+(?P&lt;PathMismatch&gt;[\\s|\\S]*)\\s+ThreadId\\s+:&quot; +
+                    &quot;\\s+(?P&lt;ThreadId&gt;[\\s|\\d]*)\\s+ThreadStartTime\\s+:&quot; +
+                    &quot;\\s+(?P&lt;ThreadStartTime&gt;[\\s|\\S]*)\\s+AllocatedMemoryProtection\\s+:&quot; +
+                    &quot;\\s+(?P&lt;AllocatedMemoryProtection&gt;[\\s|\\S]*)\\s+MemoryProtection\\s+:&quot;+
+                    &quot;\\s+(?P&lt;MemoryProtection&gt;[\\s|\\S]*)\\s+MemoryState\\s+:&quot; +
+                    &quot;\\s+(?P&lt;MemoryState&gt;[\\s|\\S]*)\\s+MemoryType\\s+:&quot;+
+                    &quot;\\s+(?P&lt;MemoryType&gt;[\\s|\\S]*)\\s+BasePriority\\s+:&quot; +
+                    &quot;\\s+(?P&lt;BasePriority&gt;[\\s|\\d]*)\\s+IsUniqueThreadToken\\s+:&quot; +
+                    &quot;\\s+(?P&lt;IsUniqueThreadToken&gt;.*)\\s+Integrity\\s+:&quot;+
+                    &quot;\\s+(?P&lt;Integrity&gt;[\\s|\\S]*)\\s+Privilege\\s+:&quot; +
+                    &quot;\\s+(?P&lt;Privilege&gt;[\\s|\\S]*)\\s+LogonId\\s+:&quot; +
+                    &quot;\\s+(?P&lt;LogonId&gt;[\\s|\\d]*)\\s+SecurityIdentifier\\s+:&quot; +
+                    &quot;\\s+(?P&lt;SecurityIdentifier&gt;.*)\\s+UserName\\s+:&quot; +
+                    &quot;\\s+(?P&lt;UserName&gt;[\\s|\\S]*)\\s+LogonSessionStartTime\\s+:&quot; +
+                    &quot;\\s+(?P&lt;LogonSessionStartTime&gt;.*)\\s+LogonType\\s+:&quot; +
+                    &quot;\\s+(?P&lt;LogonType&gt;[\\s|\\S]*)\\s+AuthenticationPackage\\s+:&quot; +
+                    &quot;\\s+(?P&lt;AuthenticationPackage&gt;.*)\\s+BaseAddress\\s+:&quot; +
+                    &quot;\\s+(?P&lt;BaseAddress&gt;[\\s|\\d]*)\\s+Size\\s+:&quot; +
+                    &quot;\\s+(?P&lt;Size&gt;[\\s|\\d]*)\\s+Bytes\\s+:&quot; +
+                    &quot;\\s+(?P&lt;Bytes&gt;[\\s\\S]*)\\s+FirstBytes\\s+:&quot; +
+                    &quot;\\s+(?P&lt;FirstBytes&gt;[\\s\\S]*)\\s+$&quot;
+                ]) as threads,Stdout
+            FROM execve(argv=['powershell','-ExecutionPolicy','Unrestricted',script.FullPath[0]])
+            WHERE Stdout
+
+      -- Finally output the regex results
+      SELECT
+            threads.ProcessName AS ProcessName,
+            threads.ProcessId AS ProcessId,
+            threads.Path AS Path,
+            threads.KernelPath AS KernelPath,
+            threads.CommandLine AS CommandLine,
+            threads.PathMismatch AS PathMismatch,
+            threads.ThreadId AS ThreadId,
+            threads.ThreadStartTime AS ThreadStartTime,
+            threads.AllocatedMemoryProtection AS AllocatedMemoryProtection,
+            threads.MemoryProtection AS MemoryProtection,
+            threads.MemoryState AS MemoryState,
+            threads.MemoryType AS MemoryType,
+            threads.BasePriority AS BasePriority,
+            threads.IsUniqueThreadToken AS IsUniqueThreadToken,
+            threads.Integrity AS Integrity,
+            threads.Privilege AS Privilege,
+            threads.LogonId AS LogonId,
+            threads.SecurityIdentifier AS SecurityIdentifier,
+            threads.UserName AS UserName,
+            threads.LogonSessionStartTime AS LogonSessionStartTime,
+            threads.LogonType AS LogonType,
+            threads.AuthenticationPackage AS AuthenticationPackage,
+            threads.BaseAddress AS BaseAddress,
+            threads.Size AS Size,
+            threads.FirstBytes AS FirstBytes
+      FROM results
+
+  - name: InjectedSection
+    queries:
+      - |
+        SELECT
+            threads.ProcessName AS ProcessName,
+            threads.ProcessId AS ProcessId,
+            threads.BaseAddress AS BaseAddress,
+            regex_replace(source=threads.Bytes,replace='',re='\\s') As Bytes
+        FROM results
+
+  - name: RawResults
+    queries:
+      - |
+        SELECT StdOut
+        FROM results
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -497,15 +497,15 @@ Note: this query is complex powershell. Run it after a scriptblock hunt.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

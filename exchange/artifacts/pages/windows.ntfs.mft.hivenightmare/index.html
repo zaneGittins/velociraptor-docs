@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.NTFS.MFT.HiveNightmare :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -390,102 +390,102 @@ Windows.NTFS.MFT.HiveNightmare
 See Florian Roth&rsquo;s rule here:</li>
 <li><a href=https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml>https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml</a></li>
 </ul>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Windows.NTFS.MFT.HiveNightmare</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>  This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to find several files created as part of the POC tooling for HiveNightmare (CVE-2021-36934):
-</span><span class=sd>  
-</span><span class=sd>    - \hive_sam_ - https://github.com/FireFart/hivenightmare
-</span><span class=sd>    - \SAM-20 - https://github.com/GossiTheDog/HiveNightmare
-</span><span class=sd>    - \SAM-haxx - https://github.com/GossiTheDog/HiveNightmare
-</span><span class=sd>    - \Sam.save - PowerShell version
-</span><span class=sd>    - \Sam.hive - https://github.com/WiredPulse/Invoke-HiveNightmare
-</span><span class=sd>    - C:\windows\temp\sam - https://github.com/cube0x0/CVE-2021-36934
-</span><span class=sd>  See Florian Roth&#39;s rule here:
-</span><span class=sd>  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml</span><span class=w>  
-</span><span class=w></span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Zach Stanford - @svch0st&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>MFTFilename</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;C:/$MFT&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Accessor</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>ntfs</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>PathRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex search over FullPath.&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Windows/Temp/sam$&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>FileRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Regex search over File Name&#34;</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;^(hive_sam_|SAM-2021-|SAM-2022-|SAM-haxx$|Sam.save$|Sam.hive$)&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>DateAfter</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>timestamp</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search for events after this date. YYYY-MM-DDTmm:hh:ssZ&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>DateBefore</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>timestamp</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SizeMax</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>int64</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Entries in the MFT under this size in bytes.&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>SizeMin</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>int64</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Entries in the MFT over this size in bytes.&#34;</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>AllDrives</span><span class=w>
-</span><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>bool</span><span class=w>
-</span><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Select MFT search on all attached ntfs drives.&#34;</span><span class=w>
-</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>      -- firstly set timebounds for performance
-</span><span class=sd>      LET DateAfterTime &lt;= if(condition=DateAfter,
-</span><span class=sd>            then=DateAfter, else=&#34;1600-01-01&#34;)
-</span><span class=sd>      LET DateBeforeTime &lt;= if(condition=DateBefore,
-</span><span class=sd>            then=DateBefore, else=&#34;2200-01-01&#34;)
-</span><span class=sd>      -- find all ntfs drives
-</span><span class=sd>      LET ntfs_drives = SELECT FullPath + &#39;/$MFT&#39;as Path
-</span><span class=sd>        FROM glob(globs=&#34;/*&#34;, accessor=&#34;ntfs&#34;)
-</span><span class=sd>      -- function returning MFT entries
-</span><span class=sd>      LET mftsearch(MFTPath) = SELECT EntryNumber,InUse,ParentEntryNumber,
-</span><span class=sd>            MFTPath,FullPath,FileName,FileSize,ReferenceCount,IsDir,
-</span><span class=sd>            Created0x10,Created0x30,LastModified0x10,LastModified0x30,
-</span><span class=sd>            LastRecordChange0x10,LastRecordChange0x30,LastAccess0x10,LastAccess0x30
-</span><span class=sd>        FROM parse_mft(filename=MFTPath, accessor=Accessor)
-</span><span class=sd>        WHERE FullPath =~ PathRegex  OR FileName =~ FileRegex
-</span><span class=sd>            AND Created0x10 &lt; DateBeforeTime
-</span><span class=sd>            AND Created0x10 &gt; DateAfterTime
-</span><span class=sd>            AND Created0x30 &lt; DateBeforeTime
-</span><span class=sd>            AND Created0x30 &gt; DateAfterTime
-</span><span class=sd>            AND LastModified0x10 &lt; DateBeforeTime
-</span><span class=sd>            AND LastModified0x10 &gt; DateAfterTime
-</span><span class=sd>            AND LastModified0x30 &lt; DateBeforeTime
-</span><span class=sd>            AND LastModified0x30 &gt; DateAfterTime
-</span><span class=sd>            AND LastRecordChange0x10 &lt; DateBeforeTime
-</span><span class=sd>            AND LastRecordChange0x10 &gt; DateAfterTime
-</span><span class=sd>            AND LastRecordChange0x30 &lt; DateBeforeTime
-</span><span class=sd>            AND LastRecordChange0x30 &gt; DateAfterTime
-</span><span class=sd>            AND LastAccess0x10 &lt; DateBeforeTime
-</span><span class=sd>            AND LastAccess0x10 &gt; DateAfterTime
-</span><span class=sd>            AND LastAccess0x30 &lt; DateBeforeTime
-</span><span class=sd>            AND LastAccess0x30 &gt; DateAfterTime
-</span><span class=sd>            AND if(condition=SizeMax,
-</span><span class=sd>                then=FileSize &lt; atoi(string=SizeMax),
-</span><span class=sd>                else=TRUE)
-</span><span class=sd>            AND if(condition=SizeMin,
-</span><span class=sd>                then=FileSize &gt; atoi(string=SizeMin),
-</span><span class=sd>                else=TRUE)
-</span><span class=sd>      -- include all attached drives
-</span><span class=sd>      LET all_drives = SELECT * FROM foreach(row=ntfs_drives,
-</span><span class=sd>            query={
-</span><span class=sd>                SELECT *
-</span><span class=sd>                FROM mftsearch(MFTPath=Path)
-</span><span class=sd>                WHERE log(message=&#34;Processing &#34; + Path)
-</span><span class=sd>              })
-</span><span class=sd>      -- return rows
-</span><span class=sd>      SELECT * FROM if(condition=AllDrives,
-</span><span class=sd>        then= all_drives,
-</span><span class=sd>        else= {
-</span><span class=sd>           SELECT * FROM mftsearch(MFTPath=MFTFilename)
-</span><span class=sd>        })</span><span class=w>      
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Windows.NTFS.MFT.HiveNightmare
+description: |
+  This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to find several files created as part of the POC tooling for HiveNightmare (CVE-2021-36934):
+  
+    - \hive_sam_ - https://github.com/FireFart/hivenightmare
+    - \SAM-20 - https://github.com/GossiTheDog/HiveNightmare
+    - \SAM-haxx - https://github.com/GossiTheDog/HiveNightmare
+    - \Sam.save - PowerShell version
+    - \Sam.hive - https://github.com/WiredPulse/Invoke-HiveNightmare
+    - C:\windows\temp\sam - https://github.com/cube0x0/CVE-2021-36934
+  See Florian Roth's rule here:
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml
+author: &quot;Zach Stanford - @svch0st&quot;
+
+parameters:
+  - name: MFTFilename
+    default: &quot;C:/$MFT&quot;
+  - name: Accessor
+    default: ntfs
+  - name: PathRegex
+    description: &quot;Regex search over FullPath.&quot;
+    default: &quot;Windows/Temp/sam$&quot;
+  - name: FileRegex
+    description: &quot;Regex search over File Name&quot;
+    default: &quot;^(hive_sam_|SAM-2021-|SAM-2022-|SAM-haxx$|Sam.save$|Sam.hive$)&quot;
+  - name: DateAfter
+    type: timestamp
+    description: &quot;search for events after this date. YYYY-MM-DDTmm:hh:ssZ&quot;
+  - name: DateBefore
+    type: timestamp
+    description: &quot;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&quot;
+  - name: SizeMax
+    type: int64
+    description: &quot;Entries in the MFT under this size in bytes.&quot;
+  - name: SizeMin
+    type: int64
+    description: &quot;Entries in the MFT over this size in bytes.&quot;
+  - name: AllDrives
+    type: bool
+    description: &quot;Select MFT search on all attached ntfs drives.&quot;
+
+
+sources:
+  - query: |
+      -- firstly set timebounds for performance
+      LET DateAfterTime &lt;= if(condition=DateAfter,
+            then=DateAfter, else=&quot;1600-01-01&quot;)
+      LET DateBeforeTime &lt;= if(condition=DateBefore,
+            then=DateBefore, else=&quot;2200-01-01&quot;)
+      -- find all ntfs drives
+      LET ntfs_drives = SELECT FullPath + '/$MFT'as Path
+        FROM glob(globs=&quot;/*&quot;, accessor=&quot;ntfs&quot;)
+      -- function returning MFT entries
+      LET mftsearch(MFTPath) = SELECT EntryNumber,InUse,ParentEntryNumber,
+            MFTPath,FullPath,FileName,FileSize,ReferenceCount,IsDir,
+            Created0x10,Created0x30,LastModified0x10,LastModified0x30,
+            LastRecordChange0x10,LastRecordChange0x30,LastAccess0x10,LastAccess0x30
+        FROM parse_mft(filename=MFTPath, accessor=Accessor)
+        WHERE FullPath =~ PathRegex  OR FileName =~ FileRegex
+            AND Created0x10 &lt; DateBeforeTime
+            AND Created0x10 &gt; DateAfterTime
+            AND Created0x30 &lt; DateBeforeTime
+            AND Created0x30 &gt; DateAfterTime
+            AND LastModified0x10 &lt; DateBeforeTime
+            AND LastModified0x10 &gt; DateAfterTime
+            AND LastModified0x30 &lt; DateBeforeTime
+            AND LastModified0x30 &gt; DateAfterTime
+            AND LastRecordChange0x10 &lt; DateBeforeTime
+            AND LastRecordChange0x10 &gt; DateAfterTime
+            AND LastRecordChange0x30 &lt; DateBeforeTime
+            AND LastRecordChange0x30 &gt; DateAfterTime
+            AND LastAccess0x10 &lt; DateBeforeTime
+            AND LastAccess0x10 &gt; DateAfterTime
+            AND LastAccess0x30 &lt; DateBeforeTime
+            AND LastAccess0x30 &gt; DateAfterTime
+            AND if(condition=SizeMax,
+                then=FileSize &lt; atoi(string=SizeMax),
+                else=TRUE)
+            AND if(condition=SizeMin,
+                then=FileSize &gt; atoi(string=SizeMin),
+                else=TRUE)
+      -- include all attached drives
+      LET all_drives = SELECT * FROM foreach(row=ntfs_drives,
+            query={
+                SELECT *
+                FROM mftsearch(MFTPath=Path)
+                WHERE log(message=&quot;Processing &quot; + Path)
+              })
+      -- return rows
+      SELECT * FROM if(condition=AllDrives,
+        then= all_drives,
+        else= {
+           SELECT * FROM mftsearch(MFTPath=MFTFilename)
+        })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -496,15 +496,15 @@ See Florian Roth&rsquo;s rule here:</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>

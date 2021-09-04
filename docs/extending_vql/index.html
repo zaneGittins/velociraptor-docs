@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Extending VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711622 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711622 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711622 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711622 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711622 rel=stylesheet>
-<link href=/css/theme.css?1630711622 rel=stylesheet>
-<link href=/css/tabs.css?1630711622 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711622 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711622 rel=stylesheet>
-<link href=/css/dark.css?1630711622 rel=stylesheet><link href=/css/syntax.css?1630711622 rel=stylesheet><link href=/css/light.css?1630711622 rel=stylesheet><link href=/css/hljs.css?1630711622 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711622 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711622></script>
+<link href=/css/nucleus.css?1630761929 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761929 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761929 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761929 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761929 rel=stylesheet>
+<link href=/css/theme.css?1630761929 rel=stylesheet>
+<link href=/css/tabs.css?1630761929 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761929 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761929 rel=stylesheet>
+<link href=/css/dark.css?1630761929 rel=stylesheet><link href=/css/syntax.css?1630761929 rel=stylesheet><link href=/css/light.css?1630761929 rel=stylesheet><link href=/css/hljs.css?1630761929 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761929 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761929></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -436,8 +436,9 @@ similar.</p>
 <p>For this example we will use the following very simple snippet of
 PowerShell which simply lists the names, process id and binary path of
 all running processes.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=nb>Get-Process</span> <span class=p>|</span> <span class=nb>Select </span><span class=n>Name</span><span class=p>,</span> <span class=n>Id</span><span class=p>,</span> <span class=n>Path</span>
-</code></pre></div><p>
+<pre><code class=language-powershell>Get-Process | Select Name, Id, Path
+</code></pre>
+<p>
 <figure>
 <img src=image8.png alt="Powershell snippet for listing processes" class=captioned>
 <figcaption>Powershell snippet for listing processes</figcaption>
@@ -460,16 +461,17 @@ argument to be explicitely provided.</p>
 </div>
 </div>
 <p>Here is a simple artifact that runs the powershell script via <code>execve()</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.PowershellTest</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET PowershellScript = &#39;&#39;&#39;Get-Process | SELECT Name, Id, Path&#39;&#39;&#39;
-</span><span class=sd>        SELECT * FROM execve(argv=[&#34;Powershell&#34;, &#34;-ExecutionPolicy&#34;,
-</span><span class=sd>            &#34;unrestricted&#34;, &#34;-c&#34;, PowershellScript])</span><span class=w>        
-</span></code></pre></div><p>
+<pre><code class=language-yaml>name: Custom.PowershellTest
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    query: |
+        LET PowershellScript = '''Get-Process | SELECT Name, Id, Path'''
+        SELECT * FROM execve(argv=[&quot;Powershell&quot;, &quot;-ExecutionPolicy&quot;,
+            &quot;unrestricted&quot;, &quot;-c&quot;, PowershellScript])
+</code></pre>
+<p>
 <figure>
 <img src=ps1.png alt="Extending VQL with Powershell" class=captioned>
 <figcaption>Extending VQL with Powershell</figcaption>
@@ -488,15 +490,17 @@ script in an Stdout column.</p>
 powershell script to the powershell interpreter on the
 commandline. For more reliable encoding, we can base64 encode the
 script:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>execve</span><span class=p>(</span><span class=n>argv</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;Powershell&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;-ExecutionPolicy&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w> </span><span class=s2>&#34;unrestricted&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;-EncodedCommand&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w> </span><span class=n>base64encode</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=n>utf16_encode</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=n>PowershellScript</span><span class=p>))])</span><span class=w>
-</span></code></pre></div><p>Alternative, we can write the Powershell script into a temporary file
+<pre><code class=language-sql>SELECT * FROM execve(argv=[&quot;Powershell&quot;, &quot;-ExecutionPolicy&quot;,
+ &quot;unrestricted&quot;, &quot;-EncodedCommand&quot;,
+ base64encode(string=utf16_encode(string=PowershellScript))])
+</code></pre>
+<p>Alternative, we can write the Powershell script into a temporary file
 and run it from there:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>LET</span><span class=w> </span><span class=n>ps1</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=n>tempfile</span><span class=p>(</span><span class=n>extension</span><span class=o>=</span><span class=s2>&#34;.ps1&#34;</span><span class=p>,</span><span class=w> </span><span class=k>data</span><span class=o>=</span><span class=n>PowershellScript</span><span class=p>)</span><span class=w>
-</span><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>execve</span><span class=p>(</span><span class=w>
-</span><span class=w>  </span><span class=n>argv</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;Powershell&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;-ExecutionPolicy&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;unrestricted&#34;</span><span class=p>,</span><span class=w> </span><span class=n>ps1</span><span class=p>)</span><span class=w>
-</span></code></pre></div></div>
+<pre><code class=language-sql>LET ps1 &lt;= tempfile(extension=&quot;.ps1&quot;, data=PowershellScript)
+SELECT * FROM execve(
+  argv=[&quot;Powershell&quot;, &quot;-ExecutionPolicy&quot;, &quot;unrestricted&quot;, ps1)
+</code></pre>
+</div>
 </div>
 <h3 id=dealing-with-output>Dealing with output</h3>
 <p>Using the <code>execve()</code> plugin we can see the output in the <code>Stdout</code>
@@ -506,21 +510,22 @@ produce structured data that can be further processed by VQL.</p>
 <p>We can use powershell&rsquo;s <code>ConvertTo-Json</code> to convert output to JSON,
 and then use Velociraptor&rsquo;s <code>parse_json()</code> plugin to obtain structured
 output.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.PowershellTest</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>        </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET PowershellScript = &#39;&#39;&#39;Get-Process | SELECT Name, Id, Path | ConvertTo-Json&#39;&#39;&#39;
-</span><span class=sd>        SELECT * FROM foreach(
-</span><span class=sd>          row={
-</span><span class=sd>            SELECT Stdout FROM execve(argv=[&#34;Powershell&#34;, &#34;-ExecutionPolicy&#34;,
-</span><span class=sd>                &#34;unrestricted&#34;, &#34;-c&#34;, PowershellScript], length=1000000)
-</span><span class=sd>          }, query={
-</span><span class=sd>            SELECT * FROM parse_json_array(data=Stdout)
-</span><span class=sd>        })</span><span class=w>        
-</span></code></pre></div><p>Normally the <code>execve()</code> plugin emits a row with the child process&rsquo;s
+<pre><code class=language-yaml>name: Custom.PowershellTest
+sources:
+  - precondition:
+        SELECT OS From info() where OS = 'windows'
+
+    query: |
+        LET PowershellScript = '''Get-Process | SELECT Name, Id, Path | ConvertTo-Json'''
+        SELECT * FROM foreach(
+          row={
+            SELECT Stdout FROM execve(argv=[&quot;Powershell&quot;, &quot;-ExecutionPolicy&quot;,
+                &quot;unrestricted&quot;, &quot;-c&quot;, PowershellScript], length=1000000)
+          }, query={
+            SELECT * FROM parse_json_array(data=Stdout)
+        })
+</code></pre>
+<p>Normally the <code>execve()</code> plugin emits a row with the child process&rsquo;s
 Stdout as soon as data is available. However in this case, splitting
 the output will break the JSON string and prevent Velociraptor from
 properly parsing it. Therefore, we supply the <code>length=1000000</code>
@@ -565,8 +570,9 @@ hunt everywhere.</p>
 <p>For this example we will schedule a task to run daily. This emulates a
 common persistance used by malware to re-infect the machine daily,
 even after the machine is cleaned up.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-ps1 data-lang=ps1><span class=n>SCHTASKS</span> <span class=p>/</span><span class=n>CREATE</span> <span class=p>/</span><span class=nb>SC </span><span class=n>DAILY</span> <span class=p>/</span><span class=n>TN</span> <span class=s2>&#34;EvilTask&#34;</span> <span class=p>/</span><span class=n>TR</span> <span class=s2>&#34;dir c:&#34;</span> <span class=p>/</span><span class=n>ST</span> <span class=n>20</span><span class=err>:</span><span class=n>01</span>
-</code></pre></div><p>First let us find our evil task by collecting the
+<pre><code class=language-ps1>SCHTASKS /CREATE /SC DAILY /TN &quot;EvilTask&quot; /TR &quot;dir c:&quot; /ST 20:01
+</code></pre>
+<p>First let us find our evil task by collecting the
 <code>Windows.System.TaskScheduler</code> artifact.</p>
 <p>
 <figure>
@@ -578,22 +584,23 @@ even after the machine is cleaned up.</p>
 example of such a remediation artifact is in
 <code>Windows.Remediation.ScheduledTasks</code> artifact. Here is the relevant
 VQL from that artifact.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>foreach</span><span class=p>(</span><span class=k>row</span><span class=o>=</span><span class=n>tasks</span><span class=p>,</span><span class=w>
-</span><span class=w>  </span><span class=n>query</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>    </span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=k>if</span><span class=p>(</span><span class=n>condition</span><span class=o>=</span><span class=w> </span><span class=n>ReallyDoIt</span><span class=o>=</span><span class=s1>&#39;Y&#39;</span><span class=p>,</span><span class=w>
-</span><span class=w>      </span><span class=k>then</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>        </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=p>,</span><span class=w> </span><span class=n>Command</span><span class=p>,</span><span class=w> </span><span class=n>Arguments</span><span class=p>,</span><span class=w> </span><span class=n>ComHandler</span><span class=p>,</span><span class=w> </span><span class=n>UserId</span><span class=p>,</span><span class=w> </span><span class=n>_XML</span><span class=w>
-</span><span class=w>        </span><span class=k>FROM</span><span class=w> </span><span class=n>execve</span><span class=p>(</span><span class=n>argv</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;powershell&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w>           </span><span class=s2>&#34;-ExecutionPolicy&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;Unrestricted&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;-encodedCommand&#34;</span><span class=p>,</span><span class=w>
-</span><span class=w>              </span><span class=n>base64encode</span><span class=p>(</span><span class=n>string</span><span class=o>=</span><span class=n>utf16_encode</span><span class=p>(</span><span class=w>
-</span><span class=w>              </span><span class=n>string</span><span class=o>=</span><span class=n>format</span><span class=p>(</span><span class=n>format</span><span class=o>=</span><span class=n>script</span><span class=p>,</span><span class=w> </span><span class=n>args</span><span class=o>=</span><span class=p>[</span><span class=n>Name</span><span class=p>])))</span><span class=w>
-</span><span class=w>        </span><span class=p>])</span><span class=w>
-</span><span class=w>      </span><span class=err>}</span><span class=p>,</span><span class=w> </span><span class=k>else</span><span class=o>=</span><span class=err>{</span><span class=w>
-</span><span class=w>        </span><span class=k>SELECT</span><span class=w> </span><span class=n>FullPath</span><span class=p>,</span><span class=w> </span><span class=n>Name</span><span class=p>,</span><span class=w> </span><span class=n>Command</span><span class=p>,</span><span class=w> </span><span class=n>Arguments</span><span class=p>,</span><span class=w> </span><span class=n>ComHandler</span><span class=p>,</span><span class=w> </span><span class=n>UserId</span><span class=p>,</span><span class=w> </span><span class=n>_XML</span><span class=w>
-</span><span class=w>        </span><span class=k>FROM</span><span class=w> </span><span class=k>scope</span><span class=p>()</span><span class=w>
-</span><span class=w>      </span><span class=err>}</span><span class=p>)</span><span class=w>
-</span><span class=w>  </span><span class=err>}</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>Note the <code>ReallyDoIt</code> condition ensuring a dry run - if the parameter
+<pre><code class=language-sql>SELECT * FROM foreach(row=tasks,
+  query={
+    SELECT * FROM if(condition= ReallyDoIt='Y',
+      then={
+        SELECT FullPath, Name, Command, Arguments, ComHandler, UserId, _XML
+        FROM execve(argv=[&quot;powershell&quot;,
+           &quot;-ExecutionPolicy&quot;, &quot;Unrestricted&quot;, &quot;-encodedCommand&quot;,
+              base64encode(string=utf16_encode(
+              string=format(format=script, args=[Name])))
+        ])
+      }, else={
+        SELECT FullPath, Name, Command, Arguments, ComHandler, UserId, _XML
+        FROM scope()
+      })
+  })
+</code></pre>
+<p>Note the <code>ReallyDoIt</code> condition ensuring a dry run - if the parameter
 is not set, the artifact will report all the tasks that match but will
 not actually remove them.</p>
 <p>We can perform a wider hunt to uncover potential malicious tasks and
@@ -634,31 +641,34 @@ tool uniquely.</p>
 if required.</p>
 </li>
 </ol>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>name</span><span class=p>:</span><span class=w> </span><span class=n>Windows</span><span class=p>.</span><span class=n>Sysinternals</span><span class=p>.</span><span class=n>Autoruns</span><span class=w>
-</span><span class=w></span><span class=n>tools</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=o>-</span><span class=w> </span><span class=n>name</span><span class=p>:</span><span class=w> </span><span class=n>Autorun_amd64</span><span class=w>
-</span><span class=w>    </span><span class=n>url</span><span class=p>:</span><span class=w> </span><span class=n>https</span><span class=p>:</span><span class=o>//</span><span class=n>live</span><span class=p>.</span><span class=n>sysinternals</span><span class=p>.</span><span class=n>com</span><span class=o>/</span><span class=n>tools</span><span class=o>/</span><span class=n>autorunsc64</span><span class=p>.</span><span class=n>exe</span><span class=w>
-</span></code></pre></div><ol start=2>
+<pre><code class=language-sql>name: Windows.Sysinternals.Autoruns
+tools:
+  - name: Autorun_amd64
+    url: https://live.sysinternals.com/tools/autorunsc64.exe
+</code></pre>
+<ol start=2>
 <li>Next we call the <code>Generic.Utils.FetchBinary</code> artifact within the
 query in order to materialize the tool on the endpoint. In this
 case we fetch the correct tool based on the architecture.</li>
 </ol>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=n>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=o>-</span><span class=w> </span><span class=n>query</span><span class=p>:</span><span class=w> </span><span class=o>|</span><span class=w>
-</span><span class=w>      </span><span class=n>LET</span><span class=w> </span><span class=n>os_info</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=n>Architecture</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>info</span><span class=p>()</span><span class=w>
-</span><span class=w>
-</span><span class=w>      </span><span class=o>//</span><span class=w> </span><span class=k>Get</span><span class=w> </span><span class=n>the</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=k>to</span><span class=w> </span><span class=n>the</span><span class=w> </span><span class=nb>binary</span><span class=p>.</span><span class=w>
-</span><span class=w>      </span><span class=n>LET</span><span class=w> </span><span class=n>bin</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>Artifact</span><span class=p>.</span><span class=n>Generic</span><span class=p>.</span><span class=n>Utils</span><span class=p>.</span><span class=n>FetchBinary</span><span class=p>(</span><span class=w>
-</span><span class=w>              </span><span class=n>ToolName</span><span class=o>=</span><span class=w> </span><span class=s2>&#34;Autorun_&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>os_info</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>Architecture</span><span class=p>,</span><span class=w>
-</span><span class=w>              </span><span class=n>ToolInfo</span><span class=o>=</span><span class=n>ToolInfo</span><span class=p>)</span><span class=w>
-</span></code></pre></div><ol start=3>
+<pre><code class=language-sql>sources:
+  - query: |
+      LET os_info &lt;= SELECT Architecture FROM info()
+
+      // Get the path to the binary.
+      LET bin &lt;= SELECT * FROM Artifact.Generic.Utils.FetchBinary(
+              ToolName= &quot;Autorun_&quot; + os_info[0].Architecture,
+              ToolInfo=ToolInfo)
+</code></pre>
+<ol start=3>
 <li>Next we simply run the tool and collect its output.</li>
 </ol>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=w>      </span><span class=n>LET</span><span class=w> </span><span class=k>output</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>execve</span><span class=p>(</span><span class=n>argv</span><span class=o>=</span><span class=p>[</span><span class=w>
-</span><span class=w>           </span><span class=n>bin</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>FullPath</span><span class=p>,</span><span class=w>
-</span><span class=w>           </span><span class=s1>&#39;-nobanner&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;-accepteula&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;-t&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;-a&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;*&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;-c&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;*&#39;</span><span class=p>],</span><span class=w>
-</span><span class=w>           </span><span class=k>length</span><span class=o>=</span><span class=mi>10000000</span><span class=p>)</span><span class=w>
-</span></code></pre></div><p>Let&rsquo;s collect the artifact. Simply click &ldquo;New collection&rdquo; then search
+<pre><code class=language-sql>      LET output = SELECT * FROM execve(argv=[
+           bin[0].FullPath,
+           '-nobanner', '-accepteula', '-t', '-a', '*', '-c', '*'],
+           length=10000000)
+</code></pre>
+<p>Let&rsquo;s collect the artifact. Simply click &ldquo;New collection&rdquo; then search
 for the autoruns artifact.</p>
 <p>
 <figure>
@@ -703,9 +713,10 @@ the permanent cache directory.</li>
 use tools. For example, the <code>Windows.Sysinternals.Autoruns</code> artifact
 can be used directly. Velociraptor will ensure dependent tools are
 present on the endpoint for all dependencies.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>Artifact</span><span class=p>.</span><span class=n>Windows</span><span class=p>.</span><span class=n>Sysinternals</span><span class=p>.</span><span class=n>Autoruns</span><span class=p>()</span><span class=w>
-</span><span class=w></span><span class=k>WHERE</span><span class=w> </span><span class=n>Category</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s2>&#34;Services&#34;</span><span class=w> </span><span class=k>AND</span><span class=w> </span><span class=o>`</span><span class=n>Launch</span><span class=w> </span><span class=n>String</span><span class=o>`</span><span class=w> </span><span class=o>=~</span><span class=w> </span><span class=s2>&#34;COMSPEC&#34;</span><span class=w>
-</span></code></pre></div></div>
+<pre><code class=language-sql>SELECT * FROM Artifact.Windows.Sysinternals.Autoruns()
+WHERE Category =~ &quot;Services&quot; AND `Launch String` =~ &quot;COMSPEC&quot;
+</code></pre>
+</div>
 </div>
 <footer class=footline>
 </footer>
@@ -717,15 +728,15 @@ present on the endpoint for all dependencies.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.min.js?1630711622></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711622></script>
-<script src=/js/jquery.sticky.js?1630711622></script>
-<script src=/js/featherlight.min.js?1630711622></script>
-<script src=/js/highlight.min.js?1630711622></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711622></script>
-<script src=/js/learn.js?1630711622></script>
-<script src=/js/hugo-learn.js?1630711622></script>
+<script src=/js/clipboard.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.min.js?1630761929></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761929></script>
+<script src=/js/jquery.sticky.js?1630761929></script>
+<script src=/js/featherlight.min.js?1630761929></script>
+<script src=/js/highlight.min.js?1630761929></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761929></script>
+<script src=/js/learn.js?1630761929></script>
+<script src=/js/hugo-learn.js?1630761929></script>
 </body>
 </html>

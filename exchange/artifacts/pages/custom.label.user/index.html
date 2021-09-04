@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Custom.Label.User :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1630711621 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1630711621 rel=stylesheet>
-<link href=/css/featherlight.min.css?1630711621 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1630711621 rel=stylesheet>
-<link href=/css/auto-complete.css?1630711621 rel=stylesheet>
-<link href=/css/theme.css?1630711621 rel=stylesheet>
-<link href=/css/tabs.css?1630711621 rel=stylesheet>
-<link href=/css/hugo-theme.css?1630711621 rel=stylesheet>
-<link href=/css/theme-mine.css?1630711621 rel=stylesheet>
-<link href=/css/dark.css?1630711621 rel=stylesheet><link href=/css/syntax.css?1630711621 rel=stylesheet><link href=/css/light.css?1630711621 rel=stylesheet><link href=/css/hljs.css?1630711621 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630711621 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1630711621></script>
+<link href=/css/nucleus.css?1630761928 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1630761928 rel=stylesheet>
+<link href=/css/featherlight.min.css?1630761928 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1630761928 rel=stylesheet>
+<link href=/css/auto-complete.css?1630761928 rel=stylesheet>
+<link href=/css/theme.css?1630761928 rel=stylesheet>
+<link href=/css/tabs.css?1630761928 rel=stylesheet>
+<link href=/css/hugo-theme.css?1630761928 rel=stylesheet>
+<link href=/css/theme-mine.css?1630761928 rel=stylesheet>
+<link href=/css/dark.css?1630761928 rel=stylesheet><link href=/css/syntax.css?1630761928 rel=stylesheet><link href=/css/light.css?1630761928 rel=stylesheet><link href=/css/hljs.css?1630761928 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1630761928 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1630761928></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -385,43 +385,43 @@ the client with the required label if the user exists.</p>
 based on any other property - just change the artifact to watch and the result
 filter.</p>
 <p>#server #event #labels</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Custom.Label.User</span><span class=w>
-</span><span class=w></span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>   This artifact watches for new client enrolments and automatically label 
-</span><span class=sd>   the client with the required label if the user exists.
-</span><span class=sd>   
-</span><span class=sd>   This artifact can be the starting point for automatically labeling a machine 
-</span><span class=sd>   based on any other property - just change the artifact to watch and the result 
-</span><span class=sd>   filter.
-</span><span class=sd>   
-</span><span class=sd>   #server #event #labels
-</span><span class=sd>   </span><span class=w>   
-</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>SERVER_EVENT</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>parameters</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Label</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>MikesBox</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>NameRegex</span><span class=w>
-</span><span class=w>    </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=l>mike</span><span class=w>
-</span><span class=w>
-</span><span class=w></span><span class=nt>sources</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span>- <span class=nt>precondition</span><span class=p>:</span><span class=w>
-</span><span class=w>      </span><span class=l>SELECT OS From info() where OS = &#39;windows&#39;</span><span class=w>
-</span><span class=w>
-</span><span class=w>    </span><span class=nt>query</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
-</span><span class=sd>        LET user_flows = SELECT * 
-</span><span class=sd>        FROM watch_monitoring(artifact=&#34;System.Flow.Completion&#34;)
-</span><span class=sd>        WHERE Flow.artifacts_with_results =~ &#34;Generic.Client.Info/Users&#34;
-</span><span class=sd>
-</span><span class=sd>        LET results = SELECT *, 
-</span><span class=sd>           label(client_id=ClientId, labels=Label, op=&#34;set&#34;)
-</span><span class=sd>           FROM source(artifact=&#34;Generic.Client.Info/Users&#34; ,
-</span><span class=sd>                       client_id=ClientId, flow_id=FlowId)
-</span><span class=sd>           WHERE Name =~ NameRegex
-</span><span class=sd>        
-</span><span class=sd>        SELECT * FROM foreach(row=user_flows, query=results)</span><span class=w>        
-</span><span class=w>
-</span></code></pre></div>
+<pre><code class=language-yaml>name: Custom.Label.User
+description: |
+   This artifact watches for new client enrolments and automatically label 
+   the client with the required label if the user exists.
+   
+   This artifact can be the starting point for automatically labeling a machine 
+   based on any other property - just change the artifact to watch and the result 
+   filter.
+   
+   #server #event #labels
+   
+type: SERVER_EVENT
+
+parameters:
+  - name: Label
+    default: MikesBox
+  - name: NameRegex
+    default: mike
+
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    query: |
+        LET user_flows = SELECT * 
+        FROM watch_monitoring(artifact=&quot;System.Flow.Completion&quot;)
+        WHERE Flow.artifacts_with_results =~ &quot;Generic.Client.Info/Users&quot;
+
+        LET results = SELECT *, 
+           label(client_id=ClientId, labels=Label, op=&quot;set&quot;)
+           FROM source(artifact=&quot;Generic.Client.Info/Users&quot; ,
+                       client_id=ClientId, flow_id=FlowId)
+           WHERE Name =~ NameRegex
+        
+        SELECT * FROM foreach(row=user_flows, query=results)
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -432,15 +432,15 @@ filter.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.min.js?1630711621></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1630711621></script>
-<script src=/js/jquery.sticky.js?1630711621></script>
-<script src=/js/featherlight.min.js?1630711621></script>
-<script src=/js/highlight.min.js?1630711621></script>
-<script></script>
-<script src=/js/modernizr.custom-3.6.0.js?1630711621></script>
-<script src=/js/learn.js?1630711621></script>
-<script src=/js/hugo-learn.js?1630711621></script>
+<script src=/js/clipboard.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.min.js?1630761928></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1630761928></script>
+<script src=/js/jquery.sticky.js?1630761928></script>
+<script src=/js/featherlight.min.js?1630761928></script>
+<script src=/js/highlight.min.js?1630761928></script>
+<script>hljs.highlightAll()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1630761928></script>
+<script src=/js/learn.js?1630761928></script>
+<script src=/js/hugo-learn.js?1630761928></script>
 </body>
 </html>
