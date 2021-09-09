@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor 0.6.1 Release :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1631148932 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1631148932 rel=stylesheet>
-<link href=/css/featherlight.min.css?1631148932 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1631148932 rel=stylesheet>
-<link href=/css/auto-complete.css?1631148932 rel=stylesheet>
-<link href=/css/theme.css?1631148932 rel=stylesheet>
-<link href=/css/tabs.css?1631148932 rel=stylesheet>
-<link href=/css/hugo-theme.css?1631148932 rel=stylesheet>
-<link href=/css/theme-mine.css?1631148932 rel=stylesheet>
-<link href=/css/dark.css?1631148932 rel=stylesheet><link href=/css/syntax.css?1631148932 rel=stylesheet><link href=/css/light.css?1631148932 rel=stylesheet><link href=/css/hljs.css?1631148932 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631148932 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1631148932></script>
+<link href=/css/nucleus.css?1631157821 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1631157821 rel=stylesheet>
+<link href=/css/featherlight.min.css?1631157821 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1631157821 rel=stylesheet>
+<link href=/css/auto-complete.css?1631157821 rel=stylesheet>
+<link href=/css/theme.css?1631157821 rel=stylesheet>
+<link href=/css/tabs.css?1631157821 rel=stylesheet>
+<link href=/css/hugo-theme.css?1631157821 rel=stylesheet>
+<link href=/css/theme-mine.css?1631157821 rel=stylesheet>
+<link href=/css/dark.css?1631157821 rel=stylesheet><link href=/css/syntax.css?1631157821 rel=stylesheet><link href=/css/light.css?1631157821 rel=stylesheet><link href=/css/hljs.css?1631157821 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631157821 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1631157821></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script></script>
 </head>
@@ -370,22 +370,30 @@ Velociraptor 0.6.1 Release
 <ul>
 <li><a href=#gui-visible-changes>GUI Visible changes</a>
 <ul>
-<li></li>
+<li><a href=#most-recently-used>Most Recently Used</a></li>
+<li><a href=#free-disk-space>Free disk space</a></li>
+<li><a href=#quarantine-hosts>Quarantine hosts</a></li>
+<li><a href=#notebook-full-screen>Notebook full screen</a></li>
+<li><a href=#favorite-collections>Favorite collections</a></li>
+<li><a href=#event-monitoring-tables>Event Monitoring tables</a></li>
+<li><a href=#timelines>Timelines</a></li>
 </ul>
 </li>
 <li><a href=#vql-changes>VQL Changes</a>
 <ul>
-<li></li>
+<li><a href=#starlark-is-now-available-in-vql>Starlark is now available in VQL</a></li>
+<li><a href=#functions-that-manipulate-endpoint-state>Functions that manipulate endpoint state</a></li>
+<li><a href=#server-side-vql-functions>Server side VQL functions</a></li>
 </ul>
 </li>
 <li><a href=#notable-artifacts>Notable artifacts</a>
 <ul>
-<li></li>
+<li><a href=#carving-cobalt-strike-configurations-from-memory>Carving Cobalt Strike configurations from memory</a></li>
 </ul>
 </li>
 <li><a href=#other-changes>Other changes</a>
 <ul>
-<li></li>
+<li><a href=#client-index-rewrite>Client index rewrite</a></li>
 </ul>
 </li>
 </ul>
@@ -413,7 +421,7 @@ has a lot of new features. I wanted to take some time to tell you all
 about it in our blog so I can show some of the new screenshots in more
 detail.</p>
 <h2 id=gui-visible-changes>GUI Visible changes</h2>
-<h4 id=most-recently-used>Most Recently Used</h4>
+<h3 id=most-recently-used>Most Recently Used</h3>
 <p>One of my favorite new features is the new <code>Most Recently Used</code> (MRU)
 list in the GUI. Typically, a Velociraptor deployment may contain many
 thousands of clients, but an investigator typically only interacts
@@ -438,7 +446,7 @@ their own list of hosts. The username after the <code>recent:</code> is currentl
 ignored.</p>
 </div>
 </div>
-<h4 id=free-disk-space>Free disk space</h4>
+<h3 id=free-disk-space>Free disk space</h3>
 <p>Many users asked to be able to see the free disk space available in
 the dashboard. This is useful to keep an eye during investigations. If
 the disk fills up during a large hunt, the client connections will
@@ -451,7 +459,7 @@ space in all mounted filesystems.</p>
 <figcaption>Free disk space</figcaption>
 </figure>
 </p>
-<h4 id=quarantine-hosts>Quarantine hosts</h4>
+<h3 id=quarantine-hosts>Quarantine hosts</h3>
 <p>Velociraptor allows users to quarantine hosts using the
 <code>Windows.Remediation.Quarantine</code> artifact. This artifact updates the
 client&rsquo;s firewall rules so it can only communicate with the
@@ -495,7 +503,7 @@ or click the &ldquo;Unquarantine Host&rdquo; button. This will immediately relea
 the host from the quarantine.</p>
 </div>
 </div>
-<h4 id=notebook-full-screen>Notebook full screen</h4>
+<h3 id=notebook-full-screen>Notebook full screen</h3>
 <p>Velociraptor Notebooks have always been the best way for running and
 exploring VQL queries. The notebooks are a collaborative shared
 document, allowing a group of investigators to share their work and
@@ -518,7 +526,7 @@ takes on full screen.</p>
 </p>
 <p>Note that the URL contains the full screen mode so you can share a
 notebook URL with your team already in full screen.</p>
-<h4 id=favorite-collections>Favorite collections</h4>
+<h3 id=favorite-collections>Favorite collections</h3>
 <p>If you are like me and often use the same combination of artifacts
 with similar parameters, but are just too lazy to create a custom
 artifact that combines them all, you might enjoy the latest <code>Favorite</code>
@@ -555,7 +563,7 @@ so a team may create a set of common favorites using a SERVER VQL
 artifact.</p>
 </div>
 </div>
-<h4 id=event-monitoring-tables>Event Monitoring tables</h4>
+<h3 id=event-monitoring-tables>Event Monitoring tables</h3>
 <p>Velociraptor&rsquo;s <code>CLIENT_EVENT</code> artifacts run an event query on the
 client and stream the results back to the server. This can be used to
 create sophisticated monitoring rules on the endpoint.</p>
@@ -597,7 +605,7 @@ view visible events. If you need to export the data, simply click the
 functionality applies to the visible time range so you can finely tune
 which events should be exported (simply zoom the visible range in or
 out).</p>
-<h4 id=timelines>Timelines</h4>
+<h3 id=timelines>Timelines</h3>
 <p>One of the most exciting new features in 0.6.1 is the new built in
 timeline functionality. What is a timeline? It is a way to visualize
 time based rows from multiple sources. The main concepts to understand
@@ -611,7 +619,7 @@ can be anything at all, as long as a single column is specified as the
 time column and it is sorted by time order.</p>
 <p>It is even possible (and necessary) to add the same rows multiple
 times to each super timeline, each time having a different key column.</p>
-<h5 id=adding-timelines>Adding timelines</h5>
+<h4 id=adding-timelines>Adding timelines</h4>
 <p>The first step is to view a table in a notebook - any table generated
 using any query. In the example below, I collected the MFT then post
 processed it by filtering it. Once I can see a table with some
@@ -647,13 +655,13 @@ column to use as the index.</p>
 </p>
 <p>In this case I will add the Created times from the MFT to the timeline
 <code>MFT Analysis</code>. Velociraptor will sort the table on the Created Time and will add the timeline to the super timeline.</p>
-<p>Since I dont have a Super Timeline yet, I can create a new one by
+<p>Since I do not have a Super Timeline yet, I can create a new one by
 starting to type in the box. Later I can add other timelines from any
 tables to the same supertimeline.</p>
 <p>
 <img src=timeline-4.png alt>
 </p>
-<h5 id=viewing-timelines>Viewing timelines</h5>
+<h4 id=viewing-timelines>Viewing timelines</h4>
 <p>Once this is done, nothing appears to have happened! But really the
 supertimeline is added to the notebook. We just need to view it.</p>
 <p>Timelines are simply rendered through special markdown syntax. I can
@@ -674,7 +682,7 @@ just add a new cell with the timeline in it.</p>
 <p>And we get to see the super timeline (which currently has only one
 timeline). It is actually a bit easier to see with full screen so I
 recommend to switch to that now.</p>
-<h5 id=inspecting-timelines>Inspecting timelines</h5>
+<h4 id=inspecting-timelines>Inspecting timelines</h4>
 <p>The cell is divided into two: At the top we see the timeline - it has
 a bar for each child timeline added as well as the top bar
 representing the visible range of the table.</p>
@@ -716,7 +724,7 @@ of the child timeline within the timeline view.</p>
 <p>In this release there are many improvements to the VQL language
 including new plugins, functions and enhanced capability. Let&rsquo;s talk
 about some of the interesting changes.</p>
-<h5 id=starlark-is-now-available-in-vql>Starlark is now available in VQL</h5>
+<h3 id=starlark-is-now-available-in-vql>Starlark is now available in VQL</h3>
 <p>VQL has always been more of a glue language - connecting the results
 of multiple plugins, filtering and some basic manipulation of the
 results. Although VQL is getting more powerful all the time, sometimes
@@ -724,7 +732,7 @@ it is just easier to do more complicated operations in a more
 traditional language, such as Python.</p>
 <p><a href=https://github.com/bazelbuild/starlark>Starlark</a> is a mini-python
 interpreter that can be embedded into Go programs. Velociraptor now
-features a starlart interpreter built in! This is useful when you need
+features a starlark interpreter built in! This is useful when you need
 to perform more intricate functional style of programming.</p>
 <p>Here is a very simple example</p>
 <pre><code class=language-vql>LET StarCode = starl(code='''
@@ -741,7 +749,7 @@ compiles the code into a module. VQL queries can then access code
 within the Startlark module by just calling is as normal. This is most
 helpful when we need to do specific manipulation of strings, numbers
 etc.</p>
-<h5 id=functions-that-manipulate-endpoint-state>Functions that manipulate endpoint state</h5>
+<h3 id=functions-that-manipulate-endpoint-state>Functions that manipulate endpoint state</h3>
 <p>When we first designed Velociraptor we wanted it to be a read only,
 forensic system. However, as people use Velociraptor more and more for
 <code>Response</code> we realized that the R in DFIR requires the tool to
@@ -751,7 +759,7 @@ needed the ability to change settings on the endpoint.</p>
 <p>That is why the latest release introduces a number of new VQL
 functions, such as <code>rm</code>, <code>reg_set_value</code>,<code>reg_rm_value</code> and <code>reg_rm_key</code>
 that allow VQL queries to modify the registry or files.</p>
-<h5 id=server-side-vql-functions>Server side VQL functions</h5>
+<h3 id=server-side-vql-functions>Server side VQL functions</h3>
 <p>On the server, Velociraptor now has the <code>user_delete()</code> and
 <code>user_create()</code> to manipulate GUI users. This allows for VQL to
 automate initial server provisioning by adding the right users to a
@@ -760,13 +768,19 @@ new server.</p>
 function. This function allows using a MaxMind database to resolve IP
 addresses to location.</p>
 <h2 id=notable-artifacts>Notable artifacts</h2>
-<h5 id=carving-cobalt-strike-configurations-from-memory>Carving Cobalt Strike configurations from memory</h5>
+<h3 id=carving-cobalt-strike-configurations-from-memory>Carving Cobalt Strike configurations from memory</h3>
 <p>The <code>Windows.Carving.CobaltStrike</code> artifact can now carve and decode
 the CobaltStrike configuration from memory. This is very helpful to
 identify the C&C and other configuration parameters encoded within the
 configuration.</p>
+<p>
+<figure>
+<img src=cs.png alt="Uncovering Cobalt Strike Config from memory" class=captioned>
+<figcaption>Uncovering Cobalt Strike Config from memory</figcaption>
+</figure>
+</p>
 <h2 id=other-changes>Other changes</h2>
-<h5 id=client-index-rewrite>Client index rewrite</h5>
+<h3 id=client-index-rewrite>Client index rewrite</h3>
 <p>The client index is used in Velociraptor to quickly search for clients
 in the GUI. Previously this was implemented in a way that proved very
 inefficient on network volumes like EFS. The index has been upgraded
@@ -803,15 +817,15 @@ Exchange</a>.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1631148932></script>
-<script src=/js/perfect-scrollbar.min.js?1631148932></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1631148932></script>
-<script src=/js/jquery.sticky.js?1631148932></script>
-<script src=/js/featherlight.min.js?1631148932></script>
-<script src=/js/highlight.min.js?1631148932></script>
+<script src=/js/clipboard.min.js?1631157821></script>
+<script src=/js/perfect-scrollbar.min.js?1631157821></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1631157821></script>
+<script src=/js/jquery.sticky.js?1631157821></script>
+<script src=/js/featherlight.min.js?1631157821></script>
+<script src=/js/highlight.min.js?1631157821></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1631148932></script>
-<script src=/js/learn.js?1631148932></script>
-<script src=/js/hugo-learn.js?1631148932></script>
+<script src=/js/modernizr.custom-3.6.0.js?1631157821></script>
+<script src=/js/learn.js?1631157821></script>
+<script src=/js/hugo-learn.js?1631157821></script>
 </body>
 </html>
