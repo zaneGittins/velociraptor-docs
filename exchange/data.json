@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Applications.OfficeServerCache",
+        "author": "eduardomcm",
+        "description": "Return Office Internet Server Cache Registry keys and values in order to identify possible C2 URLs from malicious opened Office documents.\n\nSuch keys should be written by exploits such as CVE-2021-40444 (Microsoft MSHTML Remote Code Execution Vulnerability)\n",
+        "link": "/exchange/artifacts/pages/officeservercache",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2021-09-10"
+    },
+    {
         "title": "Linux.Applications.WgetHSTS",
         "author": "scudette",
         "description": "Wget creates a HSTS log file in a user's home directory. \nThis can contain forensically relevant informtion.\n",
