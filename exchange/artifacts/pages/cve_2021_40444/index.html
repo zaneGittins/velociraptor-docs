@@ -6,18 +6,22 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Custom.Windows.Registry.CVE_2021_40444 :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1631260175 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1631260175 rel=stylesheet>
-<link href=/css/featherlight.min.css?1631260175 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1631260175 rel=stylesheet>
-<link href=/css/auto-complete.css?1631260175 rel=stylesheet>
-<link href=/css/theme.css?1631260175 rel=stylesheet>
-<link href=/css/tabs.css?1631260175 rel=stylesheet>
-<link href=/css/hugo-theme.css?1631260175 rel=stylesheet>
-<link href=/css/theme-mine.css?1631260175 rel=stylesheet>
-<link href=/css/dark.css?1631260175 rel=stylesheet><link href=/css/syntax.css?1631260175 rel=stylesheet><link href=/css/light.css?1631260175 rel=stylesheet><link href=/css/hljs.css?1631260175 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631260175 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1631260175></script>
+<link href=/css/nucleus.css?1631283906 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1631283906 rel=stylesheet>
+<link href=/css/featherlight.min.css?1631283906 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1631283906 rel=stylesheet>
+<link href=/css/auto-complete.css?1631283906 rel=stylesheet>
+<link href=/css/theme.css?1631283906 rel=stylesheet>
+<link href=/css/tabs.css?1631283906 rel=stylesheet>
+<link href=/css/hugo-theme.css?1631283906 rel=stylesheet>
+<link href=/css/theme-mine.css?1631283906 rel=stylesheet>
+<link href=/css/dark.css?1631283906 rel=stylesheet><link href=/css/syntax.css?1631283906 rel=stylesheet><link href=/css/light.css?1631283906 rel=stylesheet><link href=/css/hljs.css?1631283906 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631283906 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1631283906></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-QYH72LMYCS','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
 <body data-url=/exchange/artifacts/pages/cve_2021_40444/>
@@ -386,60 +390,66 @@ mitigates this attack. This can be accomplished for all sites by updating
 the registry. Previously-installed ActiveX controls will continue to run,
 but do not expose this vulnerability.</p>
 <p>To disable installing ActiveX controls in Internet Explorer in all zones</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0]<br>
-&ldquo;1001&rdquo;=dword:00000003<br>
-&ldquo;1004&rdquo;=dword:00000003</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1]<br>
-&ldquo;1001&rdquo;=dword:00000003<br>
-&ldquo;1004&rdquo;=dword:00000003</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2]<br>
-&ldquo;1001&rdquo;=dword:00000003<br>
-&ldquo;1004&rdquo;=dword:00000003</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3]<br>
-&ldquo;1001&rdquo;=dword:00000003<br>
-&ldquo;1004&rdquo;=dword:00000003</p>
-<p>This sets the URLACTION_DOWNLOAD_SIGNED_ACTIVEX (0x1001) and
-URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX (0x1004) to DISABLED (3) for all
+<pre><code>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0]
+&quot;1001&quot;=dword:00000003
+&quot;1004&quot;=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1]
+&quot;1001&quot;=dword:00000003
+&quot;1004&quot;=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2]
+&quot;1001&quot;=dword:00000003
+&quot;1004&quot;=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3]
+&quot;1001&quot;=dword:00000003
+&quot;1004&quot;=dword:00000003
+</code></pre>
+<p>This sets the <code>URLACTION_DOWNLOAD_SIGNED_ACTIVEX</code> (0x1001) and
+<code>URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX</code> (0x1004) to <code>DISABLED</code> (3) for all
 internet zones for 64-bit and 32-bit processes. New ActiveX controls will
 not be installed. Previously-installed ActiveX controls will continue to run.</p>
-<p>NOTE: if both AddMitigation and DeleteMitigation is selected DeleteMitigation
-will take preference. Reboot may be required.</p>
+<p><strong>NOTE</strong>: if both AddMitigation and DeleteMitigation is selected
+DeleteMitigation will take preference. Reboot may be required.</p>
 <pre><code class=language-yaml>name: Custom.Windows.Registry.CVE_2021_40444
 author: Matt Green - @mgreen27
 description: |
-    This artifact will enable both application and removal of the reccomended 
+    This artifact will enable both application and removal of the reccomended
     mitigation for CVE-2021-40444.
-    
-    Disabling the installation of all ActiveX controls in Internet Explorer 
-    mitigates this attack. This can be accomplished for all sites by updating 
-    the registry. Previously-installed ActiveX controls will continue to run, 
+
+    Disabling the installation of all ActiveX controls in Internet Explorer
+    mitigates this attack. This can be accomplished for all sites by updating
+    the registry. Previously-installed ActiveX controls will continue to run,
     but do not expose this vulnerability.
 
     To disable installing ActiveX controls in Internet Explorer in all zones
 
-    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0]  
-    &quot;1001&quot;=dword:00000003  
-    &quot;1004&quot;=dword:00000003  
+    ```
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0]
+    &quot;1001&quot;=dword:00000003
+    &quot;1004&quot;=dword:00000003
 
-    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1]  
-    &quot;1001&quot;=dword:00000003  
-    &quot;1004&quot;=dword:00000003  
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1]
+    &quot;1001&quot;=dword:00000003
+    &quot;1004&quot;=dword:00000003
 
-    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2]  
-    &quot;1001&quot;=dword:00000003  
-    &quot;1004&quot;=dword:00000003 
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2]
+    &quot;1001&quot;=dword:00000003
+    &quot;1004&quot;=dword:00000003
 
-    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3]  
-    &quot;1001&quot;=dword:00000003  
-    &quot;1004&quot;=dword:00000003 
-    
-    This sets the URLACTION_DOWNLOAD_SIGNED_ACTIVEX (0x1001) and 
-    URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX (0x1004) to DISABLED (3) for all 
-    internet zones for 64-bit and 32-bit processes. New ActiveX controls will 
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3]
+    &quot;1001&quot;=dword:00000003
+    &quot;1004&quot;=dword:00000003
+    ```
+
+    This sets the `URLACTION_DOWNLOAD_SIGNED_ACTIVEX` (0x1001) and
+    `URLACTION_DOWNLOAD_UNSIGNED_ACTIVEX` (0x1004) to `DISABLED` (3) for all
+    internet zones for 64-bit and 32-bit processes. New ActiveX controls will
     not be installed. Previously-installed ActiveX controls will continue to run.
-    
-    NOTE: if both AddMitigation and DeleteMitigation is selected DeleteMitigation 
-    will take preference. Reboot may be required.  
+
+    **NOTE**: if both AddMitigation and DeleteMitigation is selected
+    DeleteMitigation will take preference. Reboot may be required.
 
 reference:
   - https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-40444
@@ -454,7 +464,7 @@ parameters:
     default: HKEY_LOCAL_MACHINE/SOFTWARE/Policies/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/{0,1,2,3}/*
   - name: AddMitigation
     type: bool
-    description: Add registry key mitigations for CVE-2021-40444. 
+    description: Add registry key mitigations for CVE-2021-40444.
   - name: DeleteMitigation
     type: bool
     description: Remove registry key mitigations for CVE-2021-40444.
@@ -491,15 +501,15 @@ sources:
             reg_rm_value(path='HKEY_LOCAL_MACHINE/SOFTWARE/Policies/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1001/'),
             reg_rm_value(path='HKEY_LOCAL_MACHINE/SOFTWARE/Policies/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1004/')
         FROM scope()
-        
-        LET values &lt;= SELECT * 
+
+        LET values &lt;= SELECT *
             FROM if(condition=DeleteMitigation,
                 then= rmvalues,
                 else=if(condition=AddMitigation,
                     then=setvalues))
-        
+
         -- output rows add some description on applied settings.
-        SELECT 
+        SELECT
             timestamp(string=Mtime) as ModifiedTime,
             FullPath as KeyPath,
             Data.value as Value,
@@ -522,15 +532,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1631260175></script>
-<script src=/js/perfect-scrollbar.min.js?1631260175></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1631260175></script>
-<script src=/js/jquery.sticky.js?1631260175></script>
-<script src=/js/featherlight.min.js?1631260175></script>
-<script src=/js/highlight.min.js?1631260175></script>
+<script src=/js/clipboard.min.js?1631283906></script>
+<script src=/js/perfect-scrollbar.min.js?1631283906></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1631283906></script>
+<script src=/js/jquery.sticky.js?1631283906></script>
+<script src=/js/featherlight.min.js?1631283906></script>
+<script src=/js/highlight.min.js?1631283906></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1631260175></script>
-<script src=/js/learn.js?1631260175></script>
-<script src=/js/hugo-learn.js?1631260175></script>
+<script src=/js/modernizr.custom-3.6.0.js?1631283906></script>
+<script src=/js/learn.js?1631283906></script>
+<script src=/js/hugo-learn.js?1631283906></script>
 </body>
 </html>
