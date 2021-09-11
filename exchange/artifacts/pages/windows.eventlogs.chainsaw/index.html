@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1631283906 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1631283906 rel=stylesheet>
-<link href=/css/featherlight.min.css?1631283906 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1631283906 rel=stylesheet>
-<link href=/css/auto-complete.css?1631283906 rel=stylesheet>
-<link href=/css/theme.css?1631283906 rel=stylesheet>
-<link href=/css/tabs.css?1631283906 rel=stylesheet>
-<link href=/css/hugo-theme.css?1631283906 rel=stylesheet>
-<link href=/css/theme-mine.css?1631283906 rel=stylesheet>
-<link href=/css/dark.css?1631283906 rel=stylesheet><link href=/css/syntax.css?1631283906 rel=stylesheet><link href=/css/light.css?1631283906 rel=stylesheet><link href=/css/hljs.css?1631283906 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631283906 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1631283906></script>
+<link href=/css/nucleus.css?1631355335 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1631355335 rel=stylesheet>
+<link href=/css/featherlight.min.css?1631355335 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1631355335 rel=stylesheet>
+<link href=/css/auto-complete.css?1631355335 rel=stylesheet>
+<link href=/css/theme.css?1631355335 rel=stylesheet>
+<link href=/css/tabs.css?1631355335 rel=stylesheet>
+<link href=/css/hugo-theme.css?1631355335 rel=stylesheet>
+<link href=/css/theme-mine.css?1631355335 rel=stylesheet>
+<link href=/css/dark.css?1631355335 rel=stylesheet><link href=/css/syntax.css?1631355335 rel=stylesheet><link href=/css/light.css?1631355335 rel=stylesheet><link href=/css/hljs.css?1631355335 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1631355335 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1631355335></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -422,19 +422,22 @@ sources:
                         &quot;--json&quot;, TmpResults,
                         &quot;--rules&quot;, SigmaRules,
                         &quot;--mapping&quot;, SigmaMapping], length=100000)
-        LET Data = SELECT * FROM foreach(row=Results, query={SELECT parse_json_array(data=Data) AS Content FROM scope()})
-        SELECT * FROM foreach(row=Data, query={
-            SELECT
-                get(member=&quot;event.Event.System.TimeCreated.#attributes.SystemTime&quot;) AS EventTime,
-                get(member=&quot;detection&quot;) AS Detection, 
-                get(member=&quot;event.Event.System.EventID&quot;) AS _EventID, 
-                get(member=&quot;event.Event.System.Computer&quot;) AS _Computer, 
-                get(member=&quot;event.Event.EventData.User&quot;) AS _User,
-                get(member=&quot;event.Event.System.Channel&quot;) AS _Channel,
-                get(member=&quot;event.Event.EventData&quot;) AS SystemData,  
-                get(member=&quot;event.Event.System&quot;) AS EventData
-            FROM Content    
-        })
+        
+        -- we need to parse the results with regex to account for improperly formatted json.
+        LET ParseResults = SELECT parse_json(data=JsonRecord) AS JsonRecord 
+           FROM parse_records_with_regex(file=TmpResults, 
+              regex='''(?sm)(?P&lt;JsonRecord&gt;(^|\n\{\n).+?\n\}\n)''')
+        
+        -- output final rows from extracted Record
+        SELECT 
+            get(member=&quot;JsonRecord.event.Event.System.TimeCreated.#attributes.SystemTime&quot;) AS EventTime,
+            JsonRecord.detection as Detection,
+            JsonRecord.event.Event.System.Computer AS Computer, 
+            JsonRecord.event.Event.EventData.User AS User,
+            JsonRecord.event.Event.System.Channel AS Channel,
+            JsonRecord.event.Event.System as SystemData,
+            JsonRecord.event.Event.EventData as EventData
+        FROM ParseResults
 
 </code></pre>
 <footer class=footline>
@@ -447,15 +450,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1631283906></script>
-<script src=/js/perfect-scrollbar.min.js?1631283906></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1631283906></script>
-<script src=/js/jquery.sticky.js?1631283906></script>
-<script src=/js/featherlight.min.js?1631283906></script>
-<script src=/js/highlight.min.js?1631283906></script>
+<script src=/js/clipboard.min.js?1631355335></script>
+<script src=/js/perfect-scrollbar.min.js?1631355335></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1631355335></script>
+<script src=/js/jquery.sticky.js?1631355335></script>
+<script src=/js/featherlight.min.js?1631355335></script>
+<script src=/js/highlight.min.js?1631355335></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1631283906></script>
-<script src=/js/learn.js?1631283906></script>
-<script src=/js/hugo-learn.js?1631283906></script>
+<script src=/js/modernizr.custom-3.6.0.js?1631355335></script>
+<script src=/js/learn.js?1631355335></script>
+<script src=/js/hugo-learn.js?1631355335></script>
 </body>
 </html>
