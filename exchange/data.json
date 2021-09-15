@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Analysis.Capa",
+        "author": "weslambert",
+        "description": "Analyze PE, ELF, or shellcode files with capa.\n\n\"capa detects capabilities in executable files. You run it against a PE, ELF, or shellcode file and it tells you what it thinks the program can do. For example, it might suggest that the file is a backdoor, is capable of installing services, or relies on HTTP to communicate.\"\n\nhttps://github.com/fireeye/capa\n",
+        "link": "/exchange/artifacts/pages/windows.analysis.capa",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2021-09-15"
+    },
+    {
         "title": "Windows.Applications.OfficeServerCache",
         "author": "eduardomcm",
         "description": "Return Office Internet Server Cache Registry keys and values in order to identify possible C2 URLs from malicious opened Office documents.\n\nSuch keys should be written by exploits such as CVE-2021-40444 (Microsoft MSHTML Remote Code Execution Vulnerability)\n",

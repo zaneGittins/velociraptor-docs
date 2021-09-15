@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.88.1">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Linux.Volatility.Create.Profile :: Velociraptor - Digging deeper!</title>
+<title>Windows.Analysis.Capa :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1631749585 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1631749585 rel=stylesheet>
 <link href=/css/featherlight.min.css?1631749585 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/volatility_profile/>
+<body data-url=/exchange/artifacts/pages/windows.analysis.capa/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -351,7 +351,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Volatility_profile.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.Analysis.Capa.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -364,7 +364,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Linux.Volatility.Create.Profile
+Windows.Analysis.Capa
 </span>
 </div>
 <div class=progress>
@@ -378,47 +378,60 @@ Linux.Volatility.Create.Profile
 </div>
 <div id=body-inner>
 <h1>
-Linux.Volatility.Create.Profile
+Windows.Analysis.Capa
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>This artifact is used to create the profile to the environnements Debian / Ubuntu.</p>
-<pre><code class=language-yaml>name: Linux.Volatility.Create.Profile
-author: URCA (Corentin Garcia / Emmanuel Mesnard)
+<p>Analyze PE, ELF, or shellcode files with capa.</p>
+<p>&ldquo;capa detects capabilities in executable files. You run it against a PE, ELF, or shellcode file and it tells you what it thinks the program can do. For example, it might suggest that the file is a backdoor, is capable of installing services, or relies on HTTP to communicate.&rdquo;</p>
+<p><a href=https://github.com/fireeye/capa>https://github.com/fireeye/capa</a></p>
+<pre><code class=language-yaml>name: Windows.Analysis.Capa
 description: |
-  This artifact is used to create the profile to the environnements Debian / Ubuntu.
-
-
-required_permissions:
-  - EXECVE
-
+   Analyze PE, ELF, or shellcode files with capa.
+   
+   &quot;capa detects capabilities in executable files. You run it against a PE, ELF, or shellcode file and it tells you what it thinks the program can do. For example, it might suggest that the file is a backdoor, is capable of installing services, or relies on HTTP to communicate.&quot;
+   
+   https://github.com/fireeye/capa
+   
+type: CLIENT
+author: Wes Lambert - @therealwlambert
 tools:
-  - name: Volatility
-    url: https://github.com/volatilityfoundation/volatility/archive/master.zip
-
+  - name: CapaWindows
+    url: https://github.com/fireeye/capa/releases/download/v3.0.0/capa-v3.0.0-windows.zip
 parameters:
-    - name: Zipname
-      type: string
-      default: Ubuntu
-      
-precondition: SELECT OS From info() where OS = 'linux'
-
+   - name: File
 sources:
-  - queries:
-    - LET dirtmp = tempdir(remove_last=true)
-    
-      LET vola = SELECT * FROM execve(argv=['bash', '-c', 'mv /tmp/master.zip /tmp/volatility-master.zip ; cd /tmp/ ; apt install -y dwarfdump zip unzip ; unzip -o /tmp/volatility-master.zip -d /tmp/  ; cd /tmp/volatility-master/tools/linux/ ; make clean ; make ; zip /tmp/' + Zipname + '.zip /tmp/volatility-master/tools/linux/module.dwarf /boot/System.map-$(uname -r)'])
-    
-      SELECT * FROM foreach(
-          row={
-            SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;Volatility&quot;)
-          },
-          query={
-            SELECT * FROM chain(
-                a={SELECT *, if(condition=Complete, then=upload(file=&quot;/tmp/&quot; + Zipname + &quot;.zip&quot;, name=Zipname + &quot;.zip&quot;)) As Upload FROM vola},
-                b={SELECT * FROM execve(argv=['bash', '-c', 'mv /tmp/volatility-master /tmp/volatility-master.zip /tmp/' + Zipname + '.zip ' + dirtmp])})
-          })
+   - query: |
+        LET Capa &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(
+              ToolName=&quot;CapaWindows&quot;)
+        LET CapaPath &lt;= tempfile(extension=&quot;.exe&quot;)
+        LET UnzipIt &lt;= SELECT
+            copy(filename=url(path=Capa[0].FullPath,
+                fragment=&quot;capa.exe&quot;).String,
+                dest=CapaPath,
+                accessor='zip')
+        FROM scope()
+        Let ExecCapa &lt;= SELECT * FROM execve(argv=[
+            CapaPath,
+            '-j',
+            File
+        ], length=10000000)
+        LET Data = SELECT * FROM foreach (row={ 
+            SELECT parse_json(data=Stdout) 
+            AS Data 
+            FROM ExecCapa}, query={ 
+                SELECT rules FROM Data})
+        SELECT * FROM foreach(row=items(item=Data.rules[0]), query={ 
+            SELECT _key AS Rule,
+                _value.matches AS Matches,
+                get(member=&quot;_value.meta.namespace&quot;) AS Namespace,
+                get(member=&quot;_value.meta.scope&quot;) AS _Scope,
+                get(member=&quot;_value.meta.att&amp;ck.0.tactic&quot;) AS Tactic, 
+                get(member=&quot;_value.meta.att&amp;ck.0.technique&quot;) + &quot; - &quot; + get(member=&quot;_value.meta.att&amp;ck.0.id&quot;)  AS Technique,
+                get(member=&quot;_value.meta.author&quot;) AS _Author,
+                get(member=&quot;_value.meta&quot;) AS _Meta
+            FROM scope()})
 
 </code></pre>
 <footer class=footline>
