@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.Telerik",
+        "author": "mgreen27",
+        "description": "This Artifact will hunt for evidence of Telerik exploitation in the Application \nEvent Log.  \n\nTelerik is a commonly exploited component of IIS web pages that has been \nactively targeted by actors via several CVEs. Several tools and attack \ncapabilities exist making exploitation of vulnerable services trivial. Due to \nthe nature of the software and typical deployments the patches may require \nmanual application.  \n\nIocRegex enables searching for regex in the whole EventData field.  \nOutput of this artifact is targeted fields from EventID 1309 to provide \ncontext for the hit.\n\nThis Artifact will hunt for evidence of Telerik exploitation in the Application Event Log.\n",
+        "link": "/exchange/artifacts/pages/telerik",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-09-16"
+    },
+    {
         "title": "Windows.Analysis.Capa",
         "author": "weslambert",
         "description": "Analyze PE, ELF, or shellcode files with capa.\n\n\"capa detects capabilities in executable files. You run it against a PE, ELF, or shellcode file and it tells you what it thinks the program can do. For example, it might suggest that the file is a backdoor, is capable of installing services, or relies on HTTP to communicate.\"\n\nhttps://github.com/fireeye/capa\n",

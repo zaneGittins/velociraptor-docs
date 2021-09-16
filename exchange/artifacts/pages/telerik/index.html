@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.88.1">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Windows.System.AccessControlList :: Velociraptor - Digging deeper!</title>
+<title>Windows.EventLogs.Telerik :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1631791305 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1631791305 rel=stylesheet>
 <link href=/css/featherlight.min.css?1631791305 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/custom.windows.system.accesscontrollist/>
+<body data-url=/exchange/artifacts/pages/telerik/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -351,7 +351,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Windows.System.AccessControlList.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Telerik.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -364,7 +364,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Windows.System.AccessControlList
+Windows.EventLogs.Telerik
 </span>
 </div>
 <div class=progress>
@@ -378,50 +378,125 @@ Custom.Windows.System.AccessControlList
 </div>
 <div id=body-inner>
 <h1>
-Custom.Windows.System.AccessControlList
+Windows.EventLogs.Telerik
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>This artifact displays the access control lists of files.</p>
-<p>Note: This artifact uses Powershell to gather the information.</p>
-<pre><code class=language-yaml>name: Custom.Windows.System.AccessControlList
+<p>This Artifact will hunt for evidence of Telerik exploitation in the Application
+Event Log.</p>
+<p>Telerik is a commonly exploited component of IIS web pages that has been
+actively targeted by actors via several CVEs. Several tools and attack
+capabilities exist making exploitation of vulnerable services trivial. Due to
+the nature of the software and typical deployments the patches may require
+manual application.</p>
+<p>IocRegex enables searching for regex in the whole EventData field.<br>
+Output of this artifact is targeted fields from EventID 1309 to provide
+context for the hit.</p>
+<p>This Artifact will hunt for evidence of Telerik exploitation in the Application Event Log.</p>
+<pre><code class=language-yaml>name: Windows.EventLogs.Telerik
+author: Matt Green - @mgreen27
 description: |
-   This artifact displays the access control lists of files.
-   
-   Note: This artifact uses Powershell to gather the information.
+  This Artifact will hunt for evidence of Telerik exploitation in the Application 
+  Event Log.  
+ 
+  Telerik is a commonly exploited component of IIS web pages that has been 
+  actively targeted by actors via several CVEs. Several tools and attack 
+  capabilities exist making exploitation of vulnerable services trivial. Due to 
+  the nature of the software and typical deployments the patches may require 
+  manual application.  
+  
+  IocRegex enables searching for regex in the whole EventData field.  
+  Output of this artifact is targeted fields from EventID 1309 to provide 
+  context for the hit.
+  
+  This Artifact will hunt for evidence of Telerik exploitation in the Application Event Log.
 
-type: CLIENT
-
+reference:
+  - https://www.cyber.gov.au/acsc/view-all-content/advisories/advisory-2020-004-remote-code-execution-vulnerability-being-actively-exploited-vulnerable-versions-telerik-ui-sophisticated-actors
+  - https://attack.mitre.org/techniques/T1190/
+  
 parameters:
-   - name: Glob
-     description: A search expression that will be passed to Powershell
-     default: C:\Windows\System32\Config\s*
-   - name: ACLFilter
-     description: Only show files with ACLs that match this regex.
-     default: BUILTIN\\Users.+Allow
+  - name: EvtxGlob
+    default: '%SystemRoot%\System32\Winevt\Logs\Application.evtx'
+  - name: IocRegex
+    description: &quot;IOC Regex&quot;
+    default: telerik.*\\?type=rau
+  - name: WhitelistRegex
+    description: &quot;Regex of string to witelist&quot;
+  - name: SearchVSS
+    description: &quot;Add VSS into query.&quot;
+    type: bool
+  - name: DateAfter
+    type: timestamp
+    description: &quot;search for events after this date. YYYY-MM-DDTmm:hh:ssZ&quot;
+  - name: DateBefore
+    type: timestamp
+    description: &quot;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&quot;
 
 sources:
-  - precondition:
-      SELECT OS From info() where OS = 'windows' OR OS = 'linux' OR OS = 'darwin'
-
+  - precondition: SELECT OS From info() where OS = 'windows'
+    
     query: |
-        LET Script &lt;= tempfile(data='''
-        $glob = $args[0]
-        Get-Acl $glob | select Path, Owner, Group, AccessToString | convertto-json
-        ''', extension=&quot;.ps1&quot;)
-        
-        LET Results = SELECT parse_json_array(data=Stdout) AS Rows 
-           FROM execve(argv=[&quot;powershell&quot;, &quot;-executionpolicy&quot;, 
-               &quot;bypass&quot;, &quot;-file&quot;, Script, Glob], length=100000)
-        
-        SELECT * FROM foreach(row=Results.Rows,
-        query={
-            SELECT parse_string_with_regex(string=Path, regex=&quot;FileSystem::(.+)&quot;).g1 AS Path,
-                   Owner, Group, split(string=AccessToString, sep=&quot;\n&quot;) AS ACLS 
-            FROM _value
-        })
-        WHERE ACLS =~ ACLFilter
+      -- firstly set timebounds for performance
+      LET DateAfterTime &lt;= if(condition=DateAfter, 
+        then = DateAfter, else = &quot;1600-01-01&quot; )
+      LET DateBeforeTime &lt;= if(condition=DateBefore, 
+        then = DateBefore, else = &quot;2200-01-01&quot; )
+
+      -- expand provided glob into a list of paths on the file system (fs)
+      LET fspaths &lt;= SELECT FullPath 
+        FROM glob(globs=expand(path=EvtxGlob))
+      
+      -- function returning list of VSS paths corresponding to path
+      LET vsspaths(path) = SELECT FullPath 
+        FROM Artifact.Windows.Search.VSS(SearchFilesGlob=path)
+          
+      -- function returning IOC hits
+      LET evtxsearch(PathList) = SELECT * FROM foreach(
+            row=PathList,
+            query={
+                SELECT 
+                    timestamp(epoch=int(int=System.TimeCreated.SystemTime)) AS EventTime,
+                    System.Computer as Computer, 
+                    System.Channel as Channel,
+                    System.EventID.Value as EventID,
+                    System.EventRecordID as EventRecordID,
+                    EventData.Data[17] as Exception,
+                    EventData.Data[16] as User,
+                    EventData.Data[15] as Process,
+                    EventData.Data[14] as Pid,
+                    EventData.Data[21] as SourceIP,
+                    EventData.Data[19] as Uri,
+                    EventData.Data[11] as SitePath,
+                    FullPath
+                FROM parse_evtx(filename=FullPath)
+                WHERE EventID = 1309
+                    AND format(format='%v',args=EventData.Data) =~ IocRegex
+                    AND NOT if(condition=WhitelistRegex,
+                        then= format(format='%v',args=EventData.Data) =~ WhitelistRegex,
+                        else= FALSE )
+            }
+          )
+
+      -- include VSS in calculation and deduplicate with GROUP BY by file
+      LET include_vss = SELECT * FROM foreach(row=fspaths, 
+            query={
+                SELECT *
+                FROM evtxsearch(PathList={
+                        SELECT FullPath FROM vsspaths(path=FullPath)
+                    })
+                GROUP BY EventRecordID
+              })
+
+      -- exclude VSS in EvtxHunt`
+      LET exclude_vss = SELECT * 
+        FROM evtxsearch(PathList={SELECT FullPath FROM fspaths})
+      
+      -- return rows
+      SELECT * FROM if(condition=SearchVSS, 
+        then=include_vss,
+        else=exclude_vss)
 
 </code></pre>
 <footer class=footline>
