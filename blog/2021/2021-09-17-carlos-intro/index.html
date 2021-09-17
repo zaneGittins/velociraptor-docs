@@ -3,9 +3,10 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=generator content="Hugo 0.88.1">
-<meta name=description content>
+<meta name=description content="Carlos Canto joins Velociraptor as its new Community Manager.  Read on to learn more.
+">
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Server.Slack.Clients.Enrolled :: Velociraptor - Digging deeper!</title>
+<title>Welome to Velociraptor, Carlos :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1631887337 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1631887337 rel=stylesheet>
 <link href=/css/featherlight.min.css?1631887337 rel=stylesheet>
@@ -24,7 +25,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/custom.server.slack.clients.enrolled/>
+<body data-url=/blog/2021/2021-09-17-carlos-intro/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -289,7 +290,7 @@
 <a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
 </div>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
@@ -308,7 +309,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -351,7 +352,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Server.Slack.Clients.Enrolled.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2021/2021-09-17-carlos-intro/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -364,7 +365,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Server.Slack.Clients.Enrolled
+Welome to Velociraptor, Carlos
 </span>
 </div>
 <div class=progress>
@@ -375,74 +376,27 @@ Custom.Server.Slack.Clients.Enrolled
 </div>
 </div>
 <div id=head-tags>
+<div class=tags>
+<a class=tag-link href=/tags/release>Release</a>
+</div>
 </div>
 <div id=body-inner>
 <h1>
-Custom.Server.Slack.Clients.Enrolled
+Welome to Velociraptor, Carlos
 </h1>
 <div class="author pull-right">
-<span class=date></span>
+Carlos Canto
+<span class=date>2021-09-17</span>
 </div>
-<p>Send a message to slack when clients become enrolled.</p>
-<p>This artifact triggers when a client is interrogated
-within 60 seconds of it being seen for the first time.</p>
-<pre><code class=language-yaml>name: Custom.Server.Slack.Clients.Enrolled
-description: |
-   Send a message to slack when clients become enrolled.
-
-   This artifact triggers when a client is interrogated 
-   within 60 seconds of it being seen for the first time.
-
-type: SERVER_EVENT
-
-parameters:
-  - name: FirstSeenDelay
-    default: &quot;60&quot;
-    type: int
-    description: |
-        The time between first_seen_time and Generic.Client.Info collection.
-  - name: SlackToken
-    description: |
-        The token URL obtained from Slack. Leave blank to use server metadata.
-        e.g. https://hooks.slack.com/services/XXXX/YYYY/ZZZZ
-
-sources:
-  - query: |
-        LET token_url = if(
-                   condition=SlackToken,
-                   then=SlackToken,
-                   else=server_metadata().SlackToken)
-        
-        -- Returns an event for each interrogation that occurs within 60 seconds
-        -- of first seen timestamp.
-        LET completions = SELECT *, 
-                client_info(client_id=ClientId) AS ClientInfo ,
-                now() AS Now
-          FROM watch_monitoring(artifact=&quot;System.Flow.Completion&quot;)
-          WHERE Flow.artifacts_with_results =~ &quot;Generic.Client.Info/BasicInformation&quot;
-            AND Now - ClientInfo.first_seen_at &lt; FirstSeenDelay
-        
-        -- Sends the message to a slack channel.
-        LET SendToSlack(Message) = SELECT *
-            FROM http_client(
-              method=&quot;POST&quot;,
-              headers=dict(`Content-Type`=&quot;application/json&quot;),
-              data=serialize(format=&quot;json&quot;, item=dict(text=Message)),
-              url=token_url)
-        
-        SELECT * FROM foreach(row=completions, query={
-          SELECT * FROM foreach(row={
-            SELECT * FROM source(
-               artifact=&quot;Generic.Client.Info/BasicInformation&quot;, 
-               client_id=ClientId, flow_id=FlowId)
-          }, query={  
-            SELECT * FROM SendToSlack(
-               Message=format(format=&quot;Enrollment FROM %v with ClientID %v!&quot;, 
-                  args=[Fqdn, ClientId]))
-          })
-        })
-
-</code></pre>
+<p>Hello Velociraptor Community!</p>
+<p>My name is Carlos Canto and I have recently joined Rapid7 as the Community Engagement Manager for Velociraptor. You may be wondering what that means. In a nutshell, my job will be to increase awareness of the Velociraptor project and increase engagement among its users and contributors. Expect to hear from me a lot in the coming weeks as I begin to get my feet wet in all things DFIR. That includes blog posts, emails, social media content and other special events. Our very own digital paleontologist, Mike Cohen, will continue to provide his regular updates and insight as well. In short, we want to make the Velociraptor Community an engaging and rewarding place for everyone involved, but that means we’ll need participation from <strong>YOU</strong> as well.</p>
+<p>You may be wondering what my deal is. So a little bit about me… I have over 10 years experience managing communities of various forms including those in several fields such as investor services, software & hardware testing, and crowdsourcing. I’ve met a lot of great people and have learned a ton along the way, so I hope to bring as much of that experience as I possibly can to this role as well.</p>
+<p>But what makes Carlos tick? Well, when I&rsquo;m not engaging with our amazing VR contributors, you can usually find me at home spending time with my family. I&rsquo;ve had the honor of being married to my lovely wife for the last 13 years and we&rsquo;ve been blessed with two amazing children. They keep me busy, that’s for sure, but I wouldn&rsquo;t trade it away for anything in the world. When I have some free time you can usually find me doing one of the following: watching football, drinking craft beer, mountain biking and playing video games with my kids, not necessarily in that order.</p>
+<p>Enough about me. What I really want is to hear from <strong>YOU</strong>! Remember, this Community doesn’t thrive without active participation from all our contributors. Make your voice heard! Participate in the comments section of the blog. If a particular article or post really speaks to you, let us know what you think. If you haven’t already, follow us on Twitter (@velocidex). Let us know what’s working, what’s not. Share your cool, if only half-baked thoughts &ndash; those sometimes end up being the best kind. We’ll be creating official LinkedIn and Facebook pages as well (details to come).</p>
+<p>Finally, don’t ever hesitate to reach out to me and let me know what’s on your mind. I can be reached at <a href=mailto:carlos_canto@rapid7.com>carlos_canto@rapid7.com</a> or by tweeting <strong>@velocidex</strong>. Additionally, if you have any support or technical questions, you can email <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a> and we’ll aim to get back to you ASAP.</p>
+<p>I can’t wait to begin working with all of you!</p>
+<p>Keep digging!
+Carlos</p>
 <footer class=footline>
 </footer>
 </div>
