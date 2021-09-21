@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server.Import.ArtifactExchange :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1632193712 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1632193712 rel=stylesheet>
-<link href=/css/featherlight.min.css?1632193712 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1632193712 rel=stylesheet>
-<link href=/css/auto-complete.css?1632193712 rel=stylesheet>
-<link href=/css/theme.css?1632193712 rel=stylesheet>
-<link href=/css/tabs.css?1632193712 rel=stylesheet>
-<link href=/css/hugo-theme.css?1632193712 rel=stylesheet>
-<link href=/css/theme-mine.css?1632193712 rel=stylesheet>
-<link href=/css/dark.css?1632193712 rel=stylesheet><link href=/css/syntax.css?1632193712 rel=stylesheet><link href=/css/light.css?1632193712 rel=stylesheet><link href=/css/hljs.css?1632193712 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1632193712 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1632193712></script>
+<link href=/css/nucleus.css?1632264450 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1632264450 rel=stylesheet>
+<link href=/css/featherlight.min.css?1632264450 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1632264450 rel=stylesheet>
+<link href=/css/auto-complete.css?1632264450 rel=stylesheet>
+<link href=/css/theme.css?1632264450 rel=stylesheet>
+<link href=/css/tabs.css?1632264450 rel=stylesheet>
+<link href=/css/hugo-theme.css?1632264450 rel=stylesheet>
+<link href=/css/theme-mine.css?1632264450 rel=stylesheet>
+<link href=/css/dark.css?1632264450 rel=stylesheet><link href=/css/syntax.css?1632264450 rel=stylesheet><link href=/css/light.css?1632264450 rel=stylesheet><link href=/css/hljs.css?1632264450 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1632264450 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1632264450></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -383,44 +383,81 @@ Server.Import.ArtifactExchange
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>This artifact will automatically import the latest
-artifact exchange bundle into the current server.</p>
+<p>This artifact will automatically import the latest artifact exchange bundle
+into the current server.</p>
+<p>We can filter on ArtifactNameRegex or add a list of Artifacts (list takes preference).
+Select DoIt to import content.</p>
 <pre><code class=language-yaml>name: Server.Import.ArtifactExchange
+author: Matt Green - @mgreen27
 description: |
-   This artifact will automatically import the latest
-   artifact exchange bundle into the current server.
-
+   This artifact will automatically import the latest artifact exchange bundle 
+   into the current server.
+   
+   We can filter on ArtifactNameRegex or add a list of Artifacts (list takes preference).
+   Select DoIt to import content.  
+            
 type: SERVER
 
 required_permissions:
 - SERVER_ADMIN
 
 parameters:
-   - name: ExchangeURL
-     default: https://github.com/Velocidex/velociraptor-docs/raw/gh-pages/exchange/artifact_exchange.zip
-   - name: Prefix
-     description: Add artifacts with this prefix
-     default: Exchange
-
+  - name: ExchangeURL
+    default: https://github.com/Velocidex/velociraptor-docs/raw/gh-pages/exchange/artifact_exchange.zip
+  - name: Prefix
+    description: The prefix we want to add to added artifacts.
+    default: Exchange.
+  - name: ArtifactNameRegex
+    description: Regex of Artifact names to add.
+    default: .
+  - name: DoIt
+    description: When selected will add artifacts, else will show.
+    type: bool
+  - name: ArtifactList
+    description: Copy and paste custom list with artifact per line.
+     
 sources:
   - query: |
-        LET X = SELECT artifact_set(prefix=Prefix, definition=Definition) AS Definition
-        FROM foreach(row={
-          SELECT Content FROM http_client(
-             remove_last=TRUE,
-             tempfile_extension=&quot;.zip&quot;, url=ExchangeURL)
-        }, query={
-          SELECT FullPath,
-               regex_replace(re='''(?sm)^name: +([^\n]+)''',
-                 replace=&quot;name: &quot; + Prefix + &quot;.$1&quot;,
-                 source=read_file(accessor=&quot;zip&quot;, filename=FullPath)) AS Definition
-          FROM glob(globs=url(path=Content, fragment='/**/*.yaml'), accessor=&quot;zip&quot;)
-        })
-
-        SELECT Definition.name AS Name,
-               Definition.description AS Description,
-               Definition.author AS Author
-        FROM X
+      -- firstly split ArtifactList
+      Let MyList = SELECT _value as Name FROM foreach(row=split(string=ArtifactList,sep='\\s'))
+      
+      -- download artifact zip from URL
+      LET web_content &lt;= SELECT Content FROM http_client(
+            remove_last=TRUE, tempfile_extension=&quot;.zip&quot;, url=ExchangeURL)
+      
+      -- function to clean up removing Custom. prefix from Definition.        
+      LET normalise(Definition,OldName,Name) = regex_replace(source=Definition,
+                re= 'name: ' + OldName, replace='name: ' + Name)
+        
+      -- determine which definitions are in scope
+      LET definitions = SELECT 
+                parse_yaml(filename=Definition, accessor='data').name as OldName,
+                regex_replace(source=parse_yaml(filename=Definition, 
+                    accessor='data').name,re='^Custom\\.',replace='') as Name,
+                Definition
+        FROM foreach(row= web_content, 
+            query={
+                SELECT read_file(accessor=&quot;zip&quot;, filename=FullPath) AS Definition
+                FROM glob(globs=url(path=Content, fragment='/**/*.yaml'), accessor=&quot;zip&quot;)
+            })
+        WHERE if(condition=MyList.Name[0]='',
+            then= Name=~ArtifactNameRegex OR OldName=~ArtifactNameRegex,
+            else= Name in MyList.Name OR OldName in MyList.Name )
+      
+      -- show and add definition functions to return same fields
+      LET show_definitions = SELECT parse_yaml(filename=Definition, accessor='data') as Definition FROM definitions
+      LET add_definitions = SELECT artifact_set(prefix=Prefix, definition=normalise(Definition=Definition,Old=OldName,New=Name)) AS Definition FROM definitions
+      
+      -- output rows
+      SELECT
+        Definition.name as Name,
+        Definition.description as Description,
+        Definition.author as Author,
+        Definition as _Definition,
+        DoIt
+      FROM if(condition= DoIt,
+        then= add_definitions,
+        else= show_definitions)
 
 </code></pre>
 <footer class=footline>
@@ -433,15 +470,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1632193712></script>
-<script src=/js/perfect-scrollbar.min.js?1632193712></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1632193712></script>
-<script src=/js/jquery.sticky.js?1632193712></script>
-<script src=/js/featherlight.min.js?1632193712></script>
-<script src=/js/highlight.min.js?1632193712></script>
+<script src=/js/clipboard.min.js?1632264450></script>
+<script src=/js/perfect-scrollbar.min.js?1632264450></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1632264450></script>
+<script src=/js/jquery.sticky.js?1632264450></script>
+<script src=/js/featherlight.min.js?1632264450></script>
+<script src=/js/highlight.min.js?1632264450></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1632193712></script>
-<script src=/js/learn.js?1632193712></script>
-<script src=/js/hugo-learn.js?1632193712></script>
+<script src=/js/modernizr.custom-3.6.0.js?1632264450></script>
+<script src=/js/learn.js?1632264450></script>
+<script src=/js/hugo-learn.js?1632264450></script>
 </body>
 </html>
