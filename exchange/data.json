@@ -10,6 +10,16 @@
         "date": "2021-09-21"
     },
     {
+        "title": "Windows.Applications.OfficeMacros.MacroRaptor",
+        "author": "mgreen27",
+        "description": "This artifact implements OleTools MacroRaptor capability in VQL.\n\nUse as a Hunt or triage capability.\n",
+        "link": "/exchange/artifacts/pages/macroraptor",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-09-21"
+    },
+    {
         "title": "Windows.Bulk.File",
         "author": "mgreen27",
         "description": "Search for some simple bulk File IOCs and upload if desired.   \nTypical upload workflow may be to firstly search, then if returned \nrows match expectations rerun query with upload tickbox selected.  \nNOTE: strings with comma \",\" requre quotes.  \n\nIocLookupTable csv details:  \nGlob - \"Quote\" items with { glob } barckets.  \nWhitelist - Velociraptor regex to whitelist FullPath field.  \nDescription - Free text  \n",

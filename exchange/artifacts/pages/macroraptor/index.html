@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.88.1">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Windows.Remediation.PrintSpooler :: Velociraptor - Digging deeper!</title>
+<title>Windows.Applications.OfficeMacros.MacroRaptor :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1632189727 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1632189727 rel=stylesheet>
 <link href=/css/featherlight.min.css?1632189727 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/printspoolerremediation/>
+<body data-url=/exchange/artifacts/pages/macroraptor/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -351,7 +351,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/PrintSpoolerRemediation.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/MacroRaptor.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -364,7 +364,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Windows.Remediation.PrintSpooler
+Windows.Applications.OfficeMacros.MacroRaptor
 </span>
 </div>
 <div class=progress>
@@ -378,88 +378,61 @@ Windows.Remediation.PrintSpooler
 </div>
 <div id=body-inner>
 <h1>
-Windows.Remediation.PrintSpooler
+Windows.Applications.OfficeMacros.MacroRaptor
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>This artifact will enable mitigation of PrintSpooler exploitation used by
-PrintNightmare - CVE-2021-34527 and CVE-2021-1675.</p>
-<p>There are two selectable mitigations:</p>
-<ul>
-<li>
-<p>disabling the print spooler service.<br>
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start = 4 (service disabled).</p>
-</li>
-<li>
-<p>disable remote registration of the spool service. <br>
-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).</p>
-</li>
-</ul>
-<p>NOTE: ChangeServiceStartup will set to disable, not stop the printspool service.
-Its always reccomended to use group policy to deploy these settings.</p>
-<pre><code class=language-yaml>name: Windows.Remediation.PrintSpooler
+<p>This artifact implements OleTools MacroRaptor capability in VQL.</p>
+<p>Use as a Hunt or triage capability.</p>
+<pre><code class=language-yaml>name: Windows.Applications.OfficeMacros.MacroRaptor
 author: Matt Green - @mgreen27
 description: |
-   This artifact will enable mitigation of PrintSpooler exploitation used by 
-   PrintNightmare - CVE-2021-34527 and CVE-2021-1675.
-   
-   There are two selectable mitigations:  
-     
-     - disabling the print spooler service.   
-     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start = 4 (service disabled).   
-         
-     - disable remote registration of the spool service.    
-     HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint = 2 (RegisterSpoolerRemoteRpcEndPoint disables).  
-   
-   NOTE: ChangeServiceStartup will set to disable, not stop the printspool service. 
-   Its always reccomended to use group policy to deploy these settings.
-   
-   
-type: CLIENT
+  This artifact implements OleTools MacroRaptor capability in VQL.
+  
+  Use as a Hunt or triage capability.
 
+reference:
+  - http://www.decalage.info/mraptor
+  - https://github.com/decalage2/oletools/wiki/mraptor
+  
 parameters:
- - name: TargetGlobs
-   type: csv
-   default: |
-    Target,Description,Potential Values
-    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler\Start,Print spooler service startup,&quot;0 = Boot, 1 = System, 2 = Automatic, 3 = Manual, 4 = Disabled&quot;
-    HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration,&quot;Enabled = 1, Disabled = 2&quot;
-    HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows NT\Printers\RegisterSpoolerRemoteRpcEndPoint,Print spooler RemoteRpcEndPoint registration WOW6432Node,&quot;Enabled = 1, Disabled = 2&quot;
- - name: MitigateServiceStartup
-   type: bool
- - name: MitigateRegisterSpoolerRemoteRpcEndPoint
-   type: bool
+  - name: TargetGlob
+    default: &quot;C:\\Users\\**\\*.{xls,xlsm,xlsm,doc,docx,dotm,ppt,pptm}&quot;
+    description: The directory to search for office documents.
+  - name: AutoExecRegex
+    default: &quot;\\b(?:Auto(?:Exec|_?Open|_?Close|Exit|New)|Document(?:_?Open|_Close|_?BeforeClose|Change|_New)|NewDocument|Workbook(?:_Open|_Activate|_Close|_BeforeClose)|\\w+_(?:Painted|Painting|GotFocus|LostFocus|MouseHover|Layout|Click|Change|Resize|BeforeNavigate2|BeforeScriptExecute|DocumentComplete|DownloadBegin|DownloadComplete|FileDownload|NavigateComplete2|NavigateError|ProgressChange|PropertyChange|SetSecureLockIcon|StatusTextChange|TitleChange|MouseMove|MouseEnter|MouseLeave|OnConnecting))|Auto_Ope\\b&quot;
+  - name: WriteRegex
+    default: &quot;\\b(?:FileCopy|CopyFile|Kill|CreateTextFile|VirtualAlloc|RtlMoveMemory|URLDownloadToFileA?|AltStartupPath|WriteProcessMemory|ADODB\\.Stream|WriteText|SaveToFile|SaveAs|SaveAsRTF|FileSaveAs|MkDir|RmDir|SaveSetting|SetAttr)\\b|(?:\\bOpen\\b[^\\n]+\\b(?:Write|Append|Binary|Output|Random)\\b)&quot;
+  - name: ExecRegex
+    default: &quot;\\b(?:Shell|CreateObject|GetObject|SendKeys|RUN|CALL|MacScript|FollowHyperlink|CreateThread|ShellExecuteA?|ExecuteExcel4Macro|EXEC|REGISTER|SetTimer)\\b|(?:\\bDeclare\\b[^\\n]+\\bLib\\b)&quot;
 
 sources:
-  - query: |
-      -- remediation template
-      LET execute_reg(key,name,value) = SELECT * FROM execve(argv=['reg','add',key,'/v',name,'/t','REG_DWORD','/d',value,'/f'])
-      LET Arch = SELECT PROCESSOR_ARCHITECTURE FROM environ()
-      
-      LET remediation &lt;= SELECT * FROM chain(
-            a=if(condition=MitigateServiceStartup,
-                then = execute_reg(key='HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler',name='Start',value=4)),
-            b= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
-                then= execute_reg(key='HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers',name='RegisterSpoolerRemoteRpcEndPoint',value=2)),
-            c= if(condition=MitigateRegisterSpoolerRemoteRpcEndPoint,
-                then= if(condition= Arch.PROCESSOR_ARCHITECTURE[0]='AMD64',
-                    then= execute_reg(key='HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows NT\\Printers',name='RegisterSpoolerRemoteRpcEndPoint',value=2)))
-            )
-      
-      SELECT * FROM foreach(row=TargetGlobs,
-        query={
-            SELECT
-                Description,
-                `Potential Values`,
-                mtime as ModifiedTime,FullPath,
-                basename(path=FullPath) as KeyName,
-                Data.type as KeyType,
-                Data.value as KeyValue
-            FROM glob(globs=Target, accessor=&quot;reg&quot;)
-        })
-        
-      
+  - queries:
+      - |
+        SELECT * FROM foreach(
+           row={
+              SELECT FullPath,Name,Size,IsLink,Mtime,Atime,Ctime,Btime FROM glob(globs=TargetGlob)
+           },
+           query={
+                SELECT 
+                    dict(FullPath=FullPath,Name=Name,Size=Size,IsLink=IsLink) as FileDetails,
+                    dict(Mtime=Mtime,Atime=Atime,Ctime=Ctime,Btime=Btime) as SI,
+                    dict(
+                        AutoExec = if(condition= Code=~AutoExecRegex,
+                                then= True,
+                                else= False),
+                        Write = if(condition= Code=~WriteRegex,
+                                then= True,
+                                else= False),
+                        Exec = if(condition= Code=~ExecRegex,
+                                then= True,
+                                else= False)
+                            ) as MacroDetection,
+                    dict(Type=Type,StreamName=StreamName,ModuleName=ModuleName,Code=Code) as MacroCode
+                FROM olevba(file=FullPath)
+                WHERE Code =~ AutoExecRegex OR Code =~ WriteRegex OR Code=~ ExecRegex
+           })
 
 </code></pre>
 <footer class=footline>
