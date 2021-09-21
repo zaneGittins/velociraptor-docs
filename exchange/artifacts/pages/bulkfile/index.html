@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.88.1">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Velociraptor :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1632189578 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1632189578 rel=stylesheet>
-<link href=/css/featherlight.min.css?1632189578 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1632189578 rel=stylesheet>
-<link href=/css/auto-complete.css?1632189578 rel=stylesheet>
-<link href=/css/theme.css?1632189578 rel=stylesheet>
-<link href=/css/tabs.css?1632189578 rel=stylesheet>
-<link href=/css/hugo-theme.css?1632189578 rel=stylesheet>
-<link href=/css/theme-mine.css?1632189578 rel=stylesheet>
-<link href=/css/dark.css?1632189578 rel=stylesheet><link href=/css/syntax.css?1632189578 rel=stylesheet><link href=/css/light.css?1632189578 rel=stylesheet><link href=/css/hljs.css?1632189578 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1632189578 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1632189578></script>
+<title>Windows.Bulk.File :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1632189577 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1632189577 rel=stylesheet>
+<link href=/css/featherlight.min.css?1632189577 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1632189577 rel=stylesheet>
+<link href=/css/auto-complete.css?1632189577 rel=stylesheet>
+<link href=/css/theme.css?1632189577 rel=stylesheet>
+<link href=/css/tabs.css?1632189577 rel=stylesheet>
+<link href=/css/hugo-theme.css?1632189577 rel=stylesheet>
+<link href=/css/theme-mine.css?1632189577 rel=stylesheet>
+<link href=/css/dark.css?1632189577 rel=stylesheet><link href=/css/syntax.css?1632189577 rel=stylesheet><link href=/css/light.css?1632189577 rel=stylesheet><link href=/css/hljs.css?1632189577 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1632189577 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1632189577></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/velociraptor/>
+<body data-url=/exchange/artifacts/pages/bulkfile/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -308,7 +308,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -350,6 +350,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/bulkfile.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -358,11 +364,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Velociraptor
+Windows.Bulk.File
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -371,15 +378,91 @@ Velociraptor
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Velociraptor
+Windows.Bulk.File
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<ul>
-<li><a href=/blog/2021/2021-04-29-scaling-velociraptor-57acc4df76ed/>Scaling Velociraptor</a></li>
-</ul>
+<p>Search for some simple bulk File IOCs and upload if desired.<br>
+Typical upload workflow may be to firstly search, then if returned
+rows match expectations rerun query with upload tickbox selected.<br>
+NOTE: strings with comma &ldquo;,&rdquo; requre quotes.</p>
+<p>IocLookupTable csv details:<br>
+Glob - &ldquo;Quote&rdquo; items with { glob } barckets.<br>
+Whitelist - Velociraptor regex to whitelist FullPath field.<br>
+Description - Free text</p>
+<pre><code class=language-yaml>name: Windows.Bulk.File
+author: Matt Green - @mgreen27
+description: |
+    Search for some simple bulk File IOCs and upload if desired.   
+    Typical upload workflow may be to firstly search, then if returned 
+    rows match expectations rerun query with upload tickbox selected.  
+    NOTE: strings with comma &quot;,&quot; requre quotes.  
+
+    IocLookupTable csv details:  
+    Glob - &quot;Quote&quot; items with { glob } barckets.  
+    Whitelist - Velociraptor regex to whitelist FullPath field.  
+    Description - Free text  
+
+parameters:
+  - name: UploadHits
+    description: Upload hits to server. 
+    type: bool
+    
+  - name: IocLookupTable
+    type: csv
+    default: |
+        Glob,Whitelist,Description
+        &quot;C:\Windows\Speech\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Staging location expect FPs
+        &quot;C:\Windows\Installer\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Staging location expect FPs
+        &quot;C:\intel\Logs\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Carbanak staging location
+        &quot;C:\users\public\temp\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Carbanak staging location
+        &quot;C:\Windows\SystemApps\*\*.{ps1,vbs,js,bat,cpl}&quot;,,Carbanak staging location
+        &quot;C:\windows\temp\temp1\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Carbanak staging location
+        &quot;C:\Windows\System32\spool*\*.{ps1,vbs,js,bat,cpl}&quot;,,Common staging location
+        C:\Perflogs\**,\\.(ini|txt|zip|etl|html|xml|xsl|log|blg)$,Staging location
+        &quot;C:\ProgramData\*.{msg,bin,dat,txt,log,ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Staging location
+        &quot;C:\ProgramData\.*\*.{bin,dat,txt,log,ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Copy-Paste staging location
+        &quot;C:\Users\Public\Sounds\*&quot;,,Investigation
+        &quot;C:\Users\*\Sounds\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Investigation staging
+        &quot;C:\Windows\Temp\winsyslog\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Current investigation X1002
+        &quot;C:\Windows\Help\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Staging location
+        &quot;C:\Windows\twain_32\*.{ps1,vbs,js,exe,dll,bat,cpl}&quot;,,Staging location
+
+
+sources:
+  - query: |
+      -- extract IOCs from lookupTable
+      LET hits = SELECT * FROM foreach(
+            row=IocLookupTable,
+            query={
+                SELECT 
+                    FullPath,
+                    Name,
+                    Description,
+                    timestamp(epoch=Mtime) as Mtime,
+                    timestamp(epoch=Atime) as Atime,
+                    timestamp(epoch=Ctime) as Ctime,
+                    timestamp(epoch=Btime) as Btime,
+                    Size,
+                    IsLink,IsDir,
+                    hash(path=FullPath) as Hash
+                FROM glob(globs=Glob)
+                WHERE NOT IsDir
+                    AND NOT if(condition=Whitelist, 
+                        then=FullPath =~ Whitelist,
+                        else=FALSE)
+            })
+            
+      -- upload hits
+      LET upload_hits = SELECT *, upload(file=FullPath) FROM hits
+      
+      -- output rows 
+      SELECT * FROM if(condition=UploadHits,
+            then= upload_hits,
+            else= hits)
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -390,15 +473,15 @@ Velociraptor
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1632189578></script>
-<script src=/js/perfect-scrollbar.min.js?1632189578></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1632189578></script>
-<script src=/js/jquery.sticky.js?1632189578></script>
-<script src=/js/featherlight.min.js?1632189578></script>
-<script src=/js/highlight.min.js?1632189578></script>
+<script src=/js/clipboard.min.js?1632189577></script>
+<script src=/js/perfect-scrollbar.min.js?1632189577></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1632189577></script>
+<script src=/js/jquery.sticky.js?1632189577></script>
+<script src=/js/featherlight.min.js?1632189577></script>
+<script src=/js/highlight.min.js?1632189577></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1632189578></script>
-<script src=/js/learn.js?1632189578></script>
-<script src=/js/hugo-learn.js?1632189578></script>
+<script src=/js/modernizr.custom-3.6.0.js?1632189577></script>
+<script src=/js/learn.js?1632189577></script>
+<script src=/js/hugo-learn.js?1632189577></script>
 </body>
 </html>
