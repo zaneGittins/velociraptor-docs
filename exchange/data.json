@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Binary.Exports",
+        "author": "mgreen27",
+        "description": "This artifact can be used to extract all binary exports to research potential lolbins.\nSelecting the AllBinaryInfo tickbox will return complete Binary information.\n",
+        "link": "/exchange/artifacts/pages/exports",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-09-24"
+    },
+    {
         "title": "Windows.Applications.Cylance",
         "author": "mgreen27",
         "description": "Parse Cylance logs.\n",
