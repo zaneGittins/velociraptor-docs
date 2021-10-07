@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Misc :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1633408423 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1633408423 rel=stylesheet>
-<link href=/css/featherlight.min.css?1633408423 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1633408423 rel=stylesheet>
-<link href=/css/auto-complete.css?1633408423 rel=stylesheet>
-<link href=/css/theme.css?1633408423 rel=stylesheet>
-<link href=/css/tabs.css?1633408423 rel=stylesheet>
-<link href=/css/hugo-theme.css?1633408423 rel=stylesheet>
-<link href=/css/theme-mine.css?1633408423 rel=stylesheet>
-<link href=/css/dark.css?1633408423 rel=stylesheet><link href=/css/syntax.css?1633408423 rel=stylesheet><link href=/css/light.css?1633408423 rel=stylesheet><link href=/css/hljs.css?1633408423 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1633408423 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1633408423></script>
+<link href=/css/nucleus.css?1633635432 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1633635432 rel=stylesheet>
+<link href=/css/featherlight.min.css?1633635432 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1633635432 rel=stylesheet>
+<link href=/css/auto-complete.css?1633635432 rel=stylesheet>
+<link href=/css/theme.css?1633635432 rel=stylesheet>
+<link href=/css/tabs.css?1633635432 rel=stylesheet>
+<link href=/css/hugo-theme.css?1633635432 rel=stylesheet>
+<link href=/css/theme-mine.css?1633635432 rel=stylesheet>
+<link href=/css/dark.css?1633635432 rel=stylesheet><link href=/css/syntax.css?1633635432 rel=stylesheet><link href=/css/light.css?1633635432 rel=stylesheet><link href=/css/hljs.css?1633635432 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1633635432 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1633635432></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -374,8 +374,13 @@ Misc
 <ul>
 <li><a href=#amsi>amsi</a></li>
 <li><a href=#atexit>atexit</a></li>
+<li><a href=#batch>batch</a></li>
+<li><a href=#cidr_contains>cidr_contains</a></li>
 <li><a href=#column_filter>column_filter</a></li>
+<li><a href=#combine>combine</a></li>
+<li><a href=#commandline_split>commandline_split</a></li>
 <li><a href=#gcs_pubsub_publish>gcs_pubsub_publish</a></li>
+<li><a href=#generate>generate</a></li>
 <li><a href=#geoip>geoip</a></li>
 <li><a href=#import_collection>import_collection</a></li>
 <li><a href=#parse_pkcs7>parse_pkcs7</a></li>
@@ -386,12 +391,16 @@ Misc
 <li><a href=#reg_rm_key>reg_rm_key</a></li>
 <li><a href=#reg_rm_value>reg_rm_value</a></li>
 <li><a href=#reg_set_value>reg_set_value</a></li>
+<li><a href=#regex_transform>regex_transform</a></li>
 <li><a href=#relpath>relpath</a></li>
 <li><a href=#rm>rm</a></li>
 <li><a href=#send_event>send_event</a></li>
+<li><a href=#sequence>sequence</a></li>
+<li><a href=#set>set</a></li>
 <li><a href=#slice>slice</a></li>
 <li><a href=#sql>sql</a></li>
 <li><a href=#starl>starl</a></li>
+<li><a href=#example>Example</a></li>
 <li><a href=#substr>substr</a></li>
 <li><a href=#sum>sum</a></li>
 <li><a href=#timeline>timeline</a></li>
@@ -480,6 +489,86 @@ clean up when the query ends.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=batch>batch</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Batches query rows into multiple arrays.</p>
+<p>This is useful for batching multiple rows from a query into
+another query (for example sending into an API endpoint). For
+example:</p>
+<pre><code class=language-vql>SELECT * FROM batch(query={
+  SELECT _value
+  FROM range(start=0, end=10, step=1)
+}, batch_size=3)
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch_size</td>
+<td>Size of batch (defaults to 10).</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>batch_func</td>
+<td>A VQL Lambda that determines when a batch is ready. Example</td>
+<td></td>
+</tr>
+<tr>
+<td>&lsquo;x=>len(list=x) >= 10&rsquo;.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query over the item.</td>
+<td>StoredQuery (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=cidr_contains>cidr_contains</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Calculates if an IP address falls within a range of CIDR specified
+networks.</p>
+<pre><code class=language-vql>SELECT cidr_contains(ip=&quot;192.168.0.132&quot;, ranges=[
+    &quot;192.168.0.0/24&quot;, &quot;127.0.0.1/8&quot;])
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td>An IP address</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>ranges</td>
+<td>A list of CIDR notation network ranges</td>
+<td>list of string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=column_filter>column_filter</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Select columns from another query using regex.</p>
@@ -524,6 +613,43 @@ columns with the letter B (so it will have A and AA above).</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=combine>combine</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Combine the output of several queries into the same result set.A convenience plugin acting like chain(async=TRUE).</p>
+<div class=vql_item></div>
+<h2 id=commandline_split>commandline_split</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Split a commandline into separate components following the windows
+convensions.</p>
+<p>Example:</p>
+<pre><code class=language-vql>SELECT
+  commandline_split(command='''&quot;C:\Program Files\Velociraptor\Velociraptor.exe&quot; service run'''),
+  commandline_split(command=&quot;/usr/bin/ls -l 'file with space.txt'&quot;, bash_style=TRUE)
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>Commandline to split into components.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>bash_style</td>
+<td>Use bash rules (Uses Windows rules by default).</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=gcs_pubsub_publish>gcs_pubsub_publish</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Publish a message to Google PubSub.</p>
@@ -556,6 +682,57 @@ columns with the letter B (so it will have A and AA above).</p>
 <td>credentials</td>
 <td>The credentials to use</td>
 <td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=generate>generate</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Create a named generator that receives rows from the query.</p>
+<p>This plugin allow multiple queries to efficiently filter rows from
+the same query. For example:</p>
+<pre><code class=language-vql>LET SystemLog = generate(query={
+   SELECT * FROM parse_evtx(filename='''C:\Windows\system32\winevt\logs\System.evtx''')
+})
+
+SELECT timestamp(epoch=System.TimeCreated.SystemTime) AS Timestamp,
+   Type, EventData
+FROM combine(
+a={
+  SELECT *, &quot;Kernel Driver Install&quot; AS Type
+  FROM SystemLog
+  WHERE System.EventID.Value = 7045 AND EventData.ServiceType =~ &quot;kernel&quot;
+}, b={
+  SELECT *, &quot;Log File Cleared&quot; AS Type,
+            UserData.LogFileCleared AS EventData
+  FROM SystemLog
+  WHERE System.EventID.Value = 104
+})
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Name to call the generator</td>
+<td>string</td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query to generator rows.</td>
+<td>StoredQuery</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>Wait before starting the query</td>
+<td>int64</td>
 </tr>
 </tbody>
 </table>
@@ -840,6 +1017,43 @@ manual offline collection to an ongoing hunt.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=regex_transform>regex_transform</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Search and replace a string with multiple regex. Note you can use $1
+to replace the capture string.</p>
+<pre><code class=language-vql>SELECT regex_transform(source=&quot;Hello world&quot;, map=dict(
+   `^Hello`=&quot;Goodbye&quot;,
+   `world`=&quot;Space&quot;), key=&quot;A&quot;)
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>The source string to replace.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>map</td>
+<td>A dict with keys reg, values substitutions.</td>
+<td>ordereddict.Dict (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>A key for caching</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=relpath>relpath</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Return the relative path of .</p>
@@ -917,6 +1131,89 @@ an external program waiting for this event via the API.</p>
 <td>row</td>
 <td>The row to send to the artifact</td>
 <td>ordereddict.Dict (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=sequence>sequence</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Combines the output of many queries into an in memory fifo. After
+each row is received from any subquery runs the query specified in
+the &lsquo;query&rsquo; parameter to retrieve rows from the memory SEQUENCE
+object.</p>
+<p>The <code>sequence()</code> plugin is very useful to correlate temporally close
+events from multiple queries - for example, say a process execution
+query and a network query. The <code>query</code> can then search for relevant
+network event closely followed by a process event.</p>
+<p>For example:</p>
+<pre><code class=language-vql>SELECT * FROM sequence(
+network={
+  SELECT * FROM Artifact.Windows.ETW.DNS()
+  WHERE Query =~ &quot;github&quot;
+},
+process={
+  SELECT * FROM Artifact.Windows.Detection.WMIProcessCreation()
+  WHERE Name =~ &quot;cmd.exe&quot;
+},
+query={
+  SELECT Name, CommandLine, {  -- search for a DNS lookup
+    SELECT * FROM SEQUENCE
+    WHERE Query =~ &quot;github&quot;
+  } AS DNSInfo
+  FROM SEQUENCE
+  WHERE DNSInfo AND Name
+})
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>Run this query to generator rows. The query should select from SEQUENCE which will contain the current set of rows in the sequence. The query will be run on each new row that is pushed to the sequence.</td>
+<td>StoredQuery (required)</td>
+</tr>
+<tr>
+<td>max_age</td>
+<td>Maximum number of seconds to hold rows in the sequence.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=set>set</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Sets the member field of the item. If item is omitted sets the scope.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td></td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>field</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>value</td>
+<td></td>
+<td>Any (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1001,6 +1298,25 @@ an external program waiting for this event via the API.</p>
 <h2 id=starl>starl</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Compile a starlark code block - returns a module usable in VQL</p>
+<p>Starl allows python like code to be used with VQL. This helps when
+we need some small functions with more complex needs. We can use a
+more powerful language to create small functions to transform
+certain fields etc.</p>
+<h2 id=example>Example</h2>
+<p>In the following example we define a Starl code block and compile
+it into a module. VQL code can then reference any functions
+defined within it directly.</p>
+<pre><code class=language-vql>LET MyCode &lt;= starl(code='''
+load(&quot;math.star&quot;, &quot;math&quot;)
+
+def Foo(X):
+  return math.sin(X)
+
+''')
+
+SELECT MyCode.Foo(X=32)
+FROM scope()
+</code></pre>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -1362,15 +1678,15 @@ an external program waiting for this event via the API.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1633408423></script>
-<script src=/js/perfect-scrollbar.min.js?1633408423></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1633408423></script>
-<script src=/js/jquery.sticky.js?1633408423></script>
-<script src=/js/featherlight.min.js?1633408423></script>
-<script src=/js/highlight.min.js?1633408423></script>
+<script src=/js/clipboard.min.js?1633635432></script>
+<script src=/js/perfect-scrollbar.min.js?1633635432></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1633635432></script>
+<script src=/js/jquery.sticky.js?1633635432></script>
+<script src=/js/featherlight.min.js?1633635432></script>
+<script src=/js/highlight.min.js?1633635432></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1633408423></script>
-<script src=/js/learn.js?1633408423></script>
-<script src=/js/hugo-learn.js?1633408423></script>
+<script src=/js/modernizr.custom-3.6.0.js?1633635432></script>
+<script src=/js/learn.js?1633635432></script>
+<script src=/js/hugo-learn.js?1633635432></script>
 </body>
 </html>

@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Basic VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1633408423 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1633408423 rel=stylesheet>
-<link href=/css/featherlight.min.css?1633408423 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1633408423 rel=stylesheet>
-<link href=/css/auto-complete.css?1633408423 rel=stylesheet>
-<link href=/css/theme.css?1633408423 rel=stylesheet>
-<link href=/css/tabs.css?1633408423 rel=stylesheet>
-<link href=/css/hugo-theme.css?1633408423 rel=stylesheet>
-<link href=/css/theme-mine.css?1633408423 rel=stylesheet>
-<link href=/css/dark.css?1633408423 rel=stylesheet><link href=/css/syntax.css?1633408423 rel=stylesheet><link href=/css/light.css?1633408423 rel=stylesheet><link href=/css/hljs.css?1633408423 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1633408423 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1633408423></script>
+<link href=/css/nucleus.css?1633635432 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1633635432 rel=stylesheet>
+<link href=/css/featherlight.min.css?1633635432 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1633635432 rel=stylesheet>
+<link href=/css/auto-complete.css?1633635432 rel=stylesheet>
+<link href=/css/theme.css?1633635432 rel=stylesheet>
+<link href=/css/tabs.css?1633635432 rel=stylesheet>
+<link href=/css/hugo-theme.css?1633635432 rel=stylesheet>
+<link href=/css/theme-mine.css?1633635432 rel=stylesheet>
+<link href=/css/dark.css?1633635432 rel=stylesheet><link href=/css/syntax.css?1633635432 rel=stylesheet><link href=/css/light.css?1633635432 rel=stylesheet><link href=/css/hljs.css?1633635432 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1633635432 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1633635432></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -1461,6 +1461,11 @@ bash pid of all bash processes.</p>
 <td>The number of seconds to sleep</td>
 <td>int64</td>
 </tr>
+<tr>
+<td>ms</td>
+<td>The number of ms to sleep</td>
+<td>int64</td>
+</tr>
 </tbody>
 </table>
 <div class=vql_item></div>
@@ -1585,18 +1590,20 @@ timestamp.</p>
 <p>The format template uses a constant time as an example of how the
 time is layed out. It represents a template for a timestamp that
 <strong>must</strong> use the following date constants</p>
-<p>Year: &ldquo;2006&rdquo; &ldquo;06&rdquo;
-Month: &ldquo;Jan&rdquo; &ldquo;January&rdquo;
-Textual day of the week: &ldquo;Mon&rdquo; &ldquo;Monday&rdquo;
-Numeric day of the month: &ldquo;2&rdquo; &ldquo;_2&rdquo; &ldquo;02&rdquo;
-Numeric day of the year: &ldquo;__2&rdquo; &ldquo;002&rdquo;
-Hour: &ldquo;15&rdquo; &ldquo;3&rdquo; &ldquo;03&rdquo; (PM or AM)
-Minute: &ldquo;4&rdquo; &ldquo;04&rdquo;
-Second: &ldquo;5&rdquo; &ldquo;05&rdquo;
-AM/PM mark: &ldquo;PM&rdquo;</p>
-<p>&ldquo;-0700&rdquo; ±hhmm
-&ldquo;-07:00&rdquo; ±hh:mm
-&ldquo;-07&rdquo; ±hh</p>
+<ul>
+<li>Year: &ldquo;2006&rdquo; &ldquo;06&rdquo;</li>
+<li>Month: &ldquo;Jan&rdquo; &ldquo;January&rdquo;</li>
+<li>Textual day of the week: &ldquo;Mon&rdquo; &ldquo;Monday&rdquo;</li>
+<li>Numeric day of the month: &ldquo;2&rdquo; &ldquo;_2&rdquo; &ldquo;02&rdquo;</li>
+<li>Numeric day of the year: &ldquo;__2&rdquo; &ldquo;002&rdquo;</li>
+<li>Hour: &ldquo;15&rdquo; &ldquo;3&rdquo; &ldquo;03&rdquo; (PM or AM)</li>
+<li>Minute: &ldquo;4&rdquo; &ldquo;04&rdquo;</li>
+<li>Second: &ldquo;5&rdquo; &ldquo;05&rdquo;</li>
+<li>AM/PM mark: &ldquo;PM&rdquo;</li>
+<li>&ldquo;-0700&rdquo; ±hhmm</li>
+<li>&ldquo;-07:00&rdquo; ±hh:mm</li>
+<li>&ldquo;-07&rdquo; ±hh</li>
+</ul>
 <pre><code class=language-vql>SELECT timestamp(string=&quot;8/30/2021 6:01:28 PM&quot;,
                  format=&quot;1/2/2006 3:04:05 PM&quot;)
 </code></pre>
@@ -1636,19 +1643,17 @@ AM/PM mark: &ldquo;PM&rdquo;</p>
 <td>string</td>
 </tr>
 <tr>
-<td>us_style</td>
-<td>US Style Month/Day/Year</td>
-<td>bool</td>
+<td>timezone</td>
+<td>A default timezone (UTC)</td>
+<td>string</td>
 </tr>
 <tr>
 <td>format</td>
-<td>A format specifier.</td>
-<td></td>
+<td>A format specifier as per Golangs time.Parse</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
-<p>This format specifier is the same as golang&rsquo;s time.Parse.
-|string</p>
 <div class=vql_item></div>
 <h2 id=to_dict>to_dict</h2>
 <p><span class="vql_type pull-right">Function</span></p>
@@ -1981,15 +1986,15 @@ modern query based on the plugin version:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1633408423></script>
-<script src=/js/perfect-scrollbar.min.js?1633408423></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1633408423></script>
-<script src=/js/jquery.sticky.js?1633408423></script>
-<script src=/js/featherlight.min.js?1633408423></script>
-<script src=/js/highlight.min.js?1633408423></script>
+<script src=/js/clipboard.min.js?1633635432></script>
+<script src=/js/perfect-scrollbar.min.js?1633635432></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1633635432></script>
+<script src=/js/jquery.sticky.js?1633635432></script>
+<script src=/js/featherlight.min.js?1633635432></script>
+<script src=/js/highlight.min.js?1633635432></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1633408423></script>
-<script src=/js/learn.js?1633408423></script>
-<script src=/js/hugo-learn.js?1633408423></script>
+<script src=/js/modernizr.custom-3.6.0.js?1633635432></script>
+<script src=/js/learn.js?1633635432></script>
+<script src=/js/hugo-learn.js?1633635432></script>
 </body>
 </html>
