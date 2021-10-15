@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1634163869 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1634163869 rel=stylesheet>
-<link href=/css/featherlight.min.css?1634163869 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1634163869 rel=stylesheet>
-<link href=/css/auto-complete.css?1634163869 rel=stylesheet>
-<link href=/css/theme.css?1634163869 rel=stylesheet>
-<link href=/css/tabs.css?1634163869 rel=stylesheet>
-<link href=/css/hugo-theme.css?1634163869 rel=stylesheet>
-<link href=/css/theme-mine.css?1634163869 rel=stylesheet>
-<link href=/css/dark.css?1634163869 rel=stylesheet><link href=/css/syntax.css?1634163869 rel=stylesheet><link href=/css/light.css?1634163869 rel=stylesheet><link href=/css/hljs.css?1634163869 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1634163869 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1634163869></script>
+<link href=/css/nucleus.css?1634307796 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1634307796 rel=stylesheet>
+<link href=/css/featherlight.min.css?1634307796 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1634307796 rel=stylesheet>
+<link href=/css/auto-complete.css?1634307796 rel=stylesheet>
+<link href=/css/theme.css?1634307796 rel=stylesheet>
+<link href=/css/tabs.css?1634307796 rel=stylesheet>
+<link href=/css/hugo-theme.css?1634307796 rel=stylesheet>
+<link href=/css/theme-mine.css?1634307796 rel=stylesheet>
+<link href=/css/dark.css?1634307796 rel=stylesheet><link href=/css/syntax.css?1634307796 rel=stylesheet><link href=/css/light.css?1634307796 rel=stylesheet><link href=/css/hljs.css?1634307796 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1634307796 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1634307796></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -395,7 +395,11 @@ Server Side
 <li><a href=#get_client_monitoring>get_client_monitoring</a></li>
 <li><a href=#get_server_monitoring>get_server_monitoring</a></li>
 <li><a href=#gui_users>gui_users</a></li>
-<li><a href=#hunt>hunt</a></li>
+<li><a href=#hunt>hunt</a>
+<ul>
+<li><a href=#notes>NOTES</a></li>
+</ul>
+</li>
 <li><a href=#hunt_add>hunt_add</a></li>
 <li><a href=#adding-an-existing-flow-to-a-hunt>Adding an existing flow to a hunt.</a></li>
 <li><a href=#hunt_flows>hunt_flows</a></li>
@@ -845,6 +849,11 @@ complete or just kick it off asynchronously.</p>
 <td>Report template to use (defaults to Reporting.Default).</td>
 <td>string</td>
 </tr>
+<tr>
+<td>password</td>
+<td>An optional password to encrypt the collection zip.</td>
+<td>string</td>
+</tr>
 </tbody>
 </table>
 <div class=vql_item></div>
@@ -889,6 +898,11 @@ complete or just kick it off asynchronously.</p>
 <tr>
 <td>base</td>
 <td>Base filename to write to.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>password</td>
+<td>An optional password to encrypt the collection zip.</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1198,14 +1212,27 @@ the data structure to add additional event queries.</p>
 artifacts. The artifacts to collect are provided in the
 <code>artifacts</code> parameter. Artifact parameters are provided in the
 <code>spec</code> parameter (see example below).</p>
-<p>NOTE: In the GUI hunts are always created in the paused
+<h3 id=notes>NOTES</h3>
+<ol>
+<li>
+<p>In the GUI hunts are always created in the paused
 state. This is not the default state when using this function (all
-hunts are immediately active).</p>
+hunts are immediately active - if you want the hunt to be created
+in the paused state provide the <code>pause=TRUE</code> parameter).</p>
+</li>
+<li>
+<p>The expiry time is specified in any of the usual time
+specification ways (seconds since epoch, or ISO format like
+&ldquo;2021-10-02&rdquo;). If the expiry time is in the past, the hunt will
+not be created.</p>
+</li>
+</ol>
 <pre><code class=language-vql>SELECT hunt(
     description=&quot;A general hunt&quot;,
     artifacts='Windows.KapeFiles.Targets',
     spec=dict(`Windows.KapeFiles.Targets`=dict(
-        Device ='C:', VSSAnalysis='Y', KapeTriage='Y')))
+        Device ='C:', VSSAnalysis='Y', KapeTriage='Y'),
+    expires=now() + 18000))
 FROM scope()
 </code></pre>
 <div class=vqlargs></div>
@@ -1230,8 +1257,8 @@ FROM scope()
 </tr>
 <tr>
 <td>expires</td>
-<td>Number of milliseconds since epoch for expiry</td>
-<td>uint64</td>
+<td>A time for expiry (e.g. now() + 1800)</td>
+<td>LazyExpr</td>
 </tr>
 <tr>
 <td>spec</td>
@@ -1554,6 +1581,11 @@ be accessible over a network share).</p>
 <td>list of string (required)</td>
 </tr>
 <tr>
+<td>from</td>
+<td>The from email address.</td>
+<td>string</td>
+</tr>
+<tr>
 <td>cc</td>
 <td>A cc for the mail</td>
 <td>list of string</td>
@@ -1572,6 +1604,26 @@ be accessible over a network share).</p>
 <td>period</td>
 <td>How long to wait before sending the next mail - help to throttle mails.</td>
 <td>int64 (required)</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td>The SMTP server port to use (default 587).</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>server</td>
+<td>The SMTP server to use (if not specified we try the config file).</td>
+<td>string</td>
+</tr>
+<tr>
+<td>auth_username</td>
+<td>The SMTP username we authenticate to the server.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>auth_password</td>
+<td>The SMTP username password we use to authenticate to the server.</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -2144,15 +2196,15 @@ multi-source artifacts).</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1634163869></script>
-<script src=/js/perfect-scrollbar.min.js?1634163869></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1634163869></script>
-<script src=/js/jquery.sticky.js?1634163869></script>
-<script src=/js/featherlight.min.js?1634163869></script>
-<script src=/js/highlight.min.js?1634163869></script>
+<script src=/js/clipboard.min.js?1634307796></script>
+<script src=/js/perfect-scrollbar.min.js?1634307796></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1634307796></script>
+<script src=/js/jquery.sticky.js?1634307796></script>
+<script src=/js/featherlight.min.js?1634307796></script>
+<script src=/js/highlight.min.js?1634307796></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1634163869></script>
-<script src=/js/learn.js?1634163869></script>
-<script src=/js/hugo-learn.js?1634163869></script>
+<script src=/js/modernizr.custom-3.6.0.js?1634307796></script>
+<script src=/js/learn.js?1634307796></script>
+<script src=/js/hugo-learn.js?1634307796></script>
 </body>
 </html>

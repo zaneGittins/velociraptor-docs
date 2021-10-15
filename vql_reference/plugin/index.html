@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Client Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1634163869 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1634163869 rel=stylesheet>
-<link href=/css/featherlight.min.css?1634163869 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1634163869 rel=stylesheet>
-<link href=/css/auto-complete.css?1634163869 rel=stylesheet>
-<link href=/css/theme.css?1634163869 rel=stylesheet>
-<link href=/css/tabs.css?1634163869 rel=stylesheet>
-<link href=/css/hugo-theme.css?1634163869 rel=stylesheet>
-<link href=/css/theme-mine.css?1634163869 rel=stylesheet>
-<link href=/css/dark.css?1634163869 rel=stylesheet><link href=/css/syntax.css?1634163869 rel=stylesheet><link href=/css/light.css?1634163869 rel=stylesheet><link href=/css/hljs.css?1634163869 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1634163869 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1634163869></script>
+<link href=/css/nucleus.css?1634307796 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1634307796 rel=stylesheet>
+<link href=/css/featherlight.min.css?1634307796 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1634307796 rel=stylesheet>
+<link href=/css/auto-complete.css?1634307796 rel=stylesheet>
+<link href=/css/theme.css?1634307796 rel=stylesheet>
+<link href=/css/tabs.css?1634307796 rel=stylesheet>
+<link href=/css/hugo-theme.css?1634307796 rel=stylesheet>
+<link href=/css/theme-mine.css?1634307796 rel=stylesheet>
+<link href=/css/dark.css?1634307796 rel=stylesheet><link href=/css/syntax.css?1634307796 rel=stylesheet><link href=/css/light.css?1634307796 rel=stylesheet><link href=/css/hljs.css?1634307796 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1634307796 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1634307796></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -395,6 +395,7 @@ Client Side
 <li><a href=#http_client>http_client</a>
 <ul>
 <li><a href=#example-2>Example</a></li>
+<li><a href=#example-uploading-files>Example: Uploading files</a></li>
 </ul>
 </li>
 <li><a href=#if>if</a></li>
@@ -885,15 +886,16 @@ the binary.</p>
 </div>
 </div>
 <p>The <code>http_client()</code> plugin allows use to interact with any web
-services. If the web service returns a json blob, we can parse it with
-the <code>parse_json()</code> function (or <code>parse_xml()</code> for SOAP
-endpoints). Using the parameters with a POST method we may actually
-invoke actions from within VQL (e.g. send an SMS via an SMS gateway
-when a VQL event is received).So this is a very powerful plugin.</p>
+services. If the web service returns a json blob, we can parse it
+with the <code>parse_json()</code> function (or <code>parse_xml()</code> for SOAP
+endpoints). Using the parameters with a POST method we may
+actually invoke actions from within VQL (e.g. send an SMS via an
+SMS gateway when a VQL event is received). So this is a very
+powerful plugin - see examples below.</p>
 <p>When the <code>tempfile_extension</code> parameter is provided, the HTTP
-request body will be written to a tempfile with that
+response body will be written to a tempfile with that
 extension. The name of this tempfile will be emitted as the
-Content column.</p>
+<code>Content</code> column.</p>
 <p>This plugin will emit rows with the following columns:</p>
 <ul>
 <li>Url string: The url we fetched.</li>
@@ -911,6 +913,32 @@ create a new temp file with the speicfied extension, write the
 content of the HTTP request into it and then emit a row with
 <code>Content</code> being the name of the file. The file will be
 automatically removed when the query ends.</p>
+<h3 id=example-uploading-files>Example: Uploading files</h3>
+<p>Many API handlers support uploading files via POST messages. While
+this is not directly supported by http_client it is possible to
+upload a file using simple VQL - by formatting the POST body using
+the multipart rules.</p>
+<pre><code class=language-vql>LET file_bytes = read_file(filename=&quot;/bin/ls&quot;)
+
+SELECT *
+FROM http_client(
+    url='http://localhost:8002/test/',
+    method='POST',
+    headers=dict(
+        `Content-Type`=&quot;multipart/form-data;boundary=83fcda3640aca670&quot;
+    ),
+    data=regex_replace(re='\n', '\r\n', '''
+--83fcda3640aca670
+Content-Disposition: form-data; name=&quot;file&quot;;filename=&quot;ls&quot;
+Content-Type: application/octet-stream
+
+''' + file_bytes + '''
+--83fcda3640aca670--
+''')
+</code></pre>
+<p>Note how custom headers can be provided using a dict - note also
+how dict keys with special characters in them can be constructed
+using the backtick quoting.</p>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -1623,15 +1651,15 @@ scanning stops after one hit is found.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1634163869></script>
-<script src=/js/perfect-scrollbar.min.js?1634163869></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1634163869></script>
-<script src=/js/jquery.sticky.js?1634163869></script>
-<script src=/js/featherlight.min.js?1634163869></script>
-<script src=/js/highlight.min.js?1634163869></script>
+<script src=/js/clipboard.min.js?1634307796></script>
+<script src=/js/perfect-scrollbar.min.js?1634307796></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1634307796></script>
+<script src=/js/jquery.sticky.js?1634307796></script>
+<script src=/js/featherlight.min.js?1634307796></script>
+<script src=/js/highlight.min.js?1634307796></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1634163869></script>
-<script src=/js/learn.js?1634163869></script>
-<script src=/js/hugo-learn.js?1634163869></script>
+<script src=/js/modernizr.custom-3.6.0.js?1634307796></script>
+<script src=/js/learn.js?1634307796></script>
+<script src=/js/hugo-learn.js?1634307796></script>
 </body>
 </html>
