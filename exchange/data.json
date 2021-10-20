@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Analysis.CyberChefServer",
+        "author": "weslambert",
+        "description": "Analyze/transform data with CyberChef-server. \n\nNote that this requires an accessible Cyberchef-server instance to work.\n\nIf you prefer not to run a local instance, you might consider altering the artifact to leverage something like https://prod.apifor.io.\n  \n**Reference**: https://github.com/gchq/CyberChef-server\n\n**Examples**:\n\n  This artifact can be called from within another artifact to analyze/transform the data made available by that artifact.\n\n  `SELECT * from Artifact.Custom.Analysis.CyberchefServer(Input=$YOURDATA,Recipe=$YOURRECIPE)`\n\n  \n  If a default recipe is used, only the input will need to be passed, like so:\n   \n  `SELECT * from Artifact.Custom.Analysis.CyberchefServer(Input=$YOURDATA)`\n  \n  \n  The server metadata store can be used to store the URL of Cyberchef-server (with a key value of `CyberChefServerURL`). \n  \n  \n  Examples of recipes can be found here:\n  \n  https://github.com/mattnotmax/cyberchef-recipes\n",
+        "link": "/exchange/artifacts/pages/cyberchefserver",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2021-10-20"
+    },
+    {
         "title": "Windows.Carving.SquirrelWaffle",
         "author": "eduardomcm",
         "description": "This artifact yara-scans memory or process dumps for \nunpacked SquirrelWaffle Dlls, decodes the configuration and\nreturns the C2s and the payload.\n\nDepending on the initial infection vector (the macro within .doc or\n.xls maldoc), SquirrelWaffle packed droper will be loaded by either rundll32 \nor regsvr32 and unpack itself in memory.\n\nThe decoded configurations found so far contain (1) a list of C2 URLS, \n(2*) *may* contain a list of C2 IPs, and lastly, (3) contains the command \n\"regsvr32.exe -s\". The command is used to launch its second-stage payload \ndownloaded from its C2 addresses, as a \".txt\" file that is in fact a \ndisguised PE, to be loaded in memory.\n\nNOTE:  \nThis content simply carves the configuration and does not unpack files on\ndisk. That means pointing this artifact as a packed or obfuscated file will not \nobtain the expected results.\n",
