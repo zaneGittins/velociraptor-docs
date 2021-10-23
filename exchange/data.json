@@ -2,7 +2,7 @@
     {
         "title": "Linux.Sysinternals.Sysmon",
         "author": "weslambert",
-        "description": "\nParses syslog for Sysmon events on Linux\n",
+        "description": "Parses syslog for Sysmon events on Linux\n\n**Reference**: https://github.com/Sysinternals/SysmonForLinux\n\nThis artifact can also be modified to forward events (as a client event artifact), similar to Windows.Sysinternals.SysmonLogForward.\n",
         "link": "/exchange/artifacts/pages/linux.sysinternals.sysmon",
         "tags": [],
         "author_link": "https://github.com/weslambert",
