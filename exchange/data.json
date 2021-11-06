@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.AttackSimulation.AtomicRedTeam",
+        "author": "weslambert",
+        "description": "This artifact allows you to run Atomic Red Team tests on Windows endpoints using Invoke-AtomicRedTeam. Linux and MacOS endpoints will soon be supported. \n\nNOTE: All tests may not work out OOB. You may notice interference or inoperability of some tests with Windows Defender/antivirus/EDR enabled. Best-effort checks are made using the built-in **-GetPreReqs** flag. This is an initial PoC, and as such, much testing is needed, and feedback is welcome.\n\n**Reference:**\n\nhttps://github.com/redcanaryco/invoke-atomicredteam\n\n**Description:**\n\nInvoke-AtomicRedTeam is a PowerShell module to execute tests as defined in the atomics folder of Red Canary's Atomic Red Team project. The \"atomics folder\" contains a folder for each Technique defined by the MITRE ATT&CK\u2122 Framework. Inside of each of these \"T#\" folders you'll find a yaml file that defines the attack procedures for each atomic test as well as an easier to read markdown (md) version of the same data.\n\n- Executing atomic tests may leave your system in an undesirable state. You are responsible for understanding what a test does before executing.\n\n- Ensure you have permission to test before you begin.\n\n- It is recommended to set up a test machine for atomic test execution that is similar to the build in your environment. Be sure you have your collection/EDR solution in place, and that the endpoint is checking in and active.\n",
+        "link": "/exchange/artifacts/pages/windows.attacksimulation.atomicredteam",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2021-11-06"
+    },
+    {
         "title": "Linux.Sysinternals.Sysmon",
         "author": "weslambert",
         "description": "Parses syslog for Sysmon events on Linux\n\n**Reference**: https://github.com/Sysinternals/SysmonForLinux\n\nThis artifact can also be modified to forward events (as a client event artifact), similar to Windows.Sysinternals.SysmonLogForward.\n",
