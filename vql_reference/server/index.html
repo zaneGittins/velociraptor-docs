@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340103 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340103 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340103 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340103 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340103 rel=stylesheet>
+<link href=/css/theme.css?1636340103 rel=stylesheet>
+<link href=/css/tabs.css?1636340103 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340103 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340103 rel=stylesheet>
+<link href=/css/dark.css?1636340103 rel=stylesheet><link href=/css/syntax.css?1636340103 rel=stylesheet><link href=/css/light.css?1636340103 rel=stylesheet><link href=/css/hljs.css?1636340103 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340103 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340103></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -552,7 +552,7 @@ the GUI.</p>
 <h2 id=cancel_flow>cancel_flow</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Cancels the flow.</p>
-<p>This sends the client an immediate cacnellation message and stops
+<p>This sends the client an immediate cancelation message and stops
 the flow. It also removes any outstanding requests for the client
 if there are any.</p>
 <div class=vqlargs></div>
@@ -610,10 +610,10 @@ if there are any.</p>
 <p>Returns client info (like the fqdn) from the datastore.</p>
 <p>Velociraptor maintains basic information about the client in the
 data store, such as its hostname, OS etc.</p>
-<p>This information is refereshed each time the <code>Generic.Client.Info</code>
+<p>This information is refreshed each time the <code>Generic.Client.Info</code>
 artifact is collected from the endpoint so it can be out of
 date. This process is called &ldquo;interrogation&rdquo; of the endpoint.</p>
-<p>You can refresh the entire fleet&rsquo;s datastore by schduling a
+<p>You can refresh the entire fleet&rsquo;s datastore by scheduling a
 <code>Generic.Client.Info</code> hunt.</p>
 <div class=vqlargs></div>
 <table>
@@ -695,7 +695,7 @@ client_metadata() function).</p>
 <tbody>
 <tr>
 <td>search</td>
-<td>Client search string. Can have the following prefixes: &lsquo;lable:&rsquo;, &lsquo;host:&rsquo;</td>
+<td>Client search string. Can have the following prefixes: &lsquo;label:&rsquo;, &lsquo;host:&rsquo;</td>
 <td>string</td>
 </tr>
 <tr>
@@ -733,7 +733,7 @@ parameters. For example:</p>
     env=dict(Device ='C:', VSSAnalysis='Y', KapeTriage='Y')).request AS Flow
 FROM scope()
 </code></pre>
-<p>Sometimes we have a numebr of artifacts that use the same
+<p>Sometimes we have a number of artifacts that use the same
 parameter name for different purposes. In that case we wish to
 specify precisely which artifact receives which parameter. This
 more complex way of specifying the collection using the <code>spec</code>
@@ -939,7 +939,7 @@ complete or just kick it off asynchronously.</p>
 <p>This uses the Elastic bulk upload API to push arbitrary rows to
 elastic. The query specified in <code>query</code> will be run and each row
 it emits will be uploaded as a separate event to Elastic.</p>
-<p>You can either specify the elastic index explicitely using the
+<p>You can either specify the elastic index explicitly using the
 <code>index</code> parameter or provide an <code>_index</code> column in the query
 itself to send the row to a different index each time.</p>
 <div class=vqlargs></div>
@@ -1602,7 +1602,7 @@ be accessible over a network share).</p>
 <tbody>
 <tr>
 <td>to</td>
-<td>Receipient of the mail</td>
+<td>Recipient of the mail</td>
 <td>list of string (required)</td>
 </tr>
 <tr>
@@ -1703,12 +1703,12 @@ be accessible over a network share).</p>
 </tr>
 <tr>
 <td>notebook_id</td>
-<td>The notebook to read from (shoud also include cell id)</td>
+<td>The notebook to read from (should also include cell id)</td>
 <td>string</td>
 </tr>
 <tr>
 <td>notebook_cell_id</td>
-<td>The notebook cell read from (shoud also include notebook id)</td>
+<td>The notebook cell read from (should also include notebook id)</td>
 <td>string</td>
 </tr>
 <tr>
@@ -1810,12 +1810,12 @@ be accessible over a network share).</p>
 </tr>
 <tr>
 <td>notebook_id</td>
-<td>The notebook to read from (shoud also include cell id)</td>
+<td>The notebook to read from (should also include cell id)</td>
 <td>string</td>
 </tr>
 <tr>
 <td>notebook_cell_id</td>
-<td>The notebook cell read from (shoud also include notebook id)</td>
+<td>The notebook cell read from (should also include notebook id)</td>
 <td>string</td>
 </tr>
 <tr>
@@ -2094,12 +2094,12 @@ multi-source artifacts).</p>
 </tr>
 <tr>
 <td>notebook_id</td>
-<td>The notebook to read from (shoud also include cell id)</td>
+<td>The notebook to read from (should also include cell id)</td>
 <td>string</td>
 </tr>
 <tr>
 <td>notebook_cell_id</td>
-<td>The notebook cell read from (shoud also include notebook id)</td>
+<td>The notebook cell read from (should also include notebook id)</td>
 <td>string</td>
 </tr>
 <tr>
@@ -2221,15 +2221,15 @@ multi-source artifacts).</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340103></script>
+<script src=/js/jquery.sticky.js?1636340103></script>
+<script src=/js/featherlight.min.js?1636340103></script>
+<script src=/js/highlight.min.js?1636340103></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340103></script>
+<script src=/js/learn.js?1636340103></script>
+<script src=/js/hugo-learn.js?1636340103></script>
 </body>
 </html>

@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Triage and acquisition :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340103 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340103 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340103 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340103 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340103 rel=stylesheet>
+<link href=/css/theme.css?1636340103 rel=stylesheet>
+<link href=/css/tabs.css?1636340103 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340103 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340103 rel=stylesheet>
+<link href=/css/dark.css?1636340103 rel=stylesheet><link href=/css/syntax.css?1636340103 rel=stylesheet><link href=/css/light.css?1636340103 rel=stylesheet><link href=/css/hljs.css?1636340103 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340103 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340103></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -432,7 +432,7 @@ alternative to full disk acquisition), in Velociraptor, there is no
 real difference between collecting files or other non-volatile
 artifacts: Everything that Velociraptor collects is just a VQL
 Artifact.</p>
-<p>We like to think of triage as simply captuing machine state - where
+<p>We like to think of triage as simply capturing machine state - where
 the state may be bulk files (like the <code>$MFT</code> or registry hives) or any
 other volatile data, such as process information, network connections
 etc.</p>
@@ -441,7 +441,7 @@ etc.</p>
 important for being able to capture machine state at a point in
 time. It is also useful to be able to use these collected files with
 other forensic tools that might be able to handle the file formats
-invoved.</p>
+involved.</p>
 <p>One of the most commonly used artifact is the
 <code>Windows.KapeFiles.Targets</code> artifact. This artifact is automatically
 built from the open source
@@ -517,12 +517,12 @@ network in client/server mode? With Velociraptor not installed on the
 endpoint, how shall we collect and triage artifacts?</p>
 <p>Velociraptor is just a VQL engine! All we need is Velociraptor to be
 able to collect the VQL artifacts into a file, and then we can
-transport the file ourselve for analysis. Velociraptor does not
+transport the file ourselves for analysis. Velociraptor does not
 really need a server&mldr;</p>
 <p>Often we rely of an external helper (such as a local admin) to
 actually perform the collection for us. However, these helpers are
 often not DFIR experts. We would like to provide them with a solution
-that performs the required collection with minimal intervension - even
+that performs the required collection with minimal intervention - even
 to the point where they do not need to type any command line
 arguments.</p>
 <p>The <code>Offline collector</code> aims to solve this problem. Velociraptor
@@ -577,16 +577,16 @@ same directory the collector is launched from.</p>
 </li>
 <li>
 <p>Google Cloud Bucket: The zip file will be uploaded to a cloud
-bucket. When selecting this you can provice GCP credentials to control
+bucket. When selecting this you can provide GCP credentials to control
 the upload bucket.</p>
 </li>
 <li>
 <p>AWS Bucket: The zip file will be uploaded to a cloud
-bucket. When selecting this you can provice AWS credentials and
+bucket. When selecting this you can provide AWS credentials and
 details to control the upload bucket.</p>
 </li>
 <li>
-<p>SFTP: This allows the collector to upload the file to an SFP
+<p>SFTP: This allows the collector to upload the file to an SFTP
 server using a private key.</p>
 </li>
 </ul>
@@ -600,8 +600,8 @@ download from the &ldquo;Uploads&rdquo; tab. Simply click on the link to get the
 collector.</p>
 <p>
 <figure>
-<img src=image13.png alt="Retreiving the Offline Collector binary" class=captioned>
-<figcaption>Retreiving the Offline Collector binary</figcaption>
+<img src=image13.png alt="Retrieving the Offline Collector binary" class=captioned>
+<figcaption>Retrieving the Offline Collector binary</figcaption>
 </figure>
 </p>
 <p>Once the collector is run without command line arguments, the
@@ -615,7 +615,7 @@ elevated administrator shell.</p>
 </figure>
 </p>
 <p>The collector creates a zip file containing the collected files as
-well as an optional reprot.</p>
+well as an optional report.</p>
 <p>
 <figure>
 <img src=image29.png alt="Viewing the Offline Collector in the console" class=captioned>
@@ -682,7 +682,7 @@ collection is going and how many resources are consumed.</p>
 more difficult to pivot and dig deeper based on analysis results to
 search for more results. For this reason offline collections tend to
 err on the side of collecting more data rather than being more
-targetted and focused on answering the investigative questions.</p>
+targeted and focused on answering the investigative questions.</p>
 <footer class=footline>
 </footer>
 </div>
@@ -693,15 +693,15 @@ targetted and focused on answering the investigative questions.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340103></script>
+<script src=/js/jquery.sticky.js?1636340103></script>
+<script src=/js/featherlight.min.js?1636340103></script>
+<script src=/js/highlight.min.js?1636340103></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340103></script>
+<script src=/js/learn.js?1636340103></script>
+<script src=/js/hugo-learn.js?1636340103></script>
 </body>
 </html>

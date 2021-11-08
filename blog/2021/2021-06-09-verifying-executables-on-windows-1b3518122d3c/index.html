@@ -6,17 +6,17 @@
 <meta name=description content="How do we know if a windows executable is a legitimate program written by the purported developer and not malware?  This post covers the basics of Authenticode signatures in windows and how to verify and query them using Velociraptor.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Verifying executables on Windows :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340102 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340102 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340102 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340102 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340102 rel=stylesheet>
+<link href=/css/theme.css?1636340102 rel=stylesheet>
+<link href=/css/tabs.css?1636340102 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340102 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340102 rel=stylesheet>
+<link href=/css/dark.css?1636340102 rel=stylesheet><link href=/css/syntax.css?1636340102 rel=stylesheet><link href=/css/light.css?1636340102 rel=stylesheet><link href=/css/hljs.css?1636340102 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340102 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340102></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -504,7 +504,7 @@ FROM scope()
 <p>The file is typically locked so you would need to use Velociraptor to collect it (Velociraptor will automatically parse the file out of the NTFS volume). The database contains tables mapping the hash to a cat file name and may contain hashes of old cat files that have been uninstalled from the system.</p>
 <h3 id=verifying-signed-files>Verifying Signed files</h3>
 <p>So far we have learned how authenticode stores hashes in the PE file and we can verify if the hash of the current file matches the hash within the signature information, but how can we trust that this hash is correct?</p>
-<p>To really verify a signature, Windows must verify the trust chain by following the certificates to a trusted root certificate. Windows maintains a list of trusted certificates in a “Cerificate Root Store” within the registry. There are several stores, a main one for the OS and each user also has a certificate store in their NTUSER.dat hive.</p>
+<p>To really verify a signature, Windows must verify the trust chain by following the certificates to a trusted root certificate. Windows maintains a list of trusted certificates in a “Certificate Root Store” within the registry. There are several stores, a main one for the OS and each user also has a certificate store in their NTUSER.dat hive.</p>
 <p>Velociraptor can inspect the certificate root store using the certificates() plugin. This plugin uses the Windows APIs to query the root store and report the trusted certificates. It is typically important to verify the trusted certificate root store since if a adversary adds a new certificate to the root store, their executables will be trusted by the OS.</p>
 <p>For example, I added the Velociraptor CA (a self signed CA cert) to the windows root store below. I can see now that Windows trusts this certificate</p>
 <p>
@@ -541,15 +541,15 @@ FROM scope()
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340102></script>
+<script src=/js/jquery.sticky.js?1636340102></script>
+<script src=/js/featherlight.min.js?1636340102></script>
+<script src=/js/highlight.min.js?1636340102></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340102></script>
+<script src=/js/learn.js?1636340102></script>
+<script src=/js/hugo-learn.js?1636340102></script>
 </body>
 </html>

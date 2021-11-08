@@ -9,17 +9,17 @@ overview of VQL.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velocidex Query Language (VQL) :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298360 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298360 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298360 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298360 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298360 rel=stylesheet>
-<link href=/css/theme.css?1636298360 rel=stylesheet>
-<link href=/css/tabs.css?1636298360 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298360 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298360 rel=stylesheet>
-<link href=/css/dark.css?1636298360 rel=stylesheet><link href=/css/syntax.css?1636298360 rel=stylesheet><link href=/css/light.css?1636298360 rel=stylesheet><link href=/css/hljs.css?1636298360 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298360 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298360></script>
+<link href=/css/nucleus.css?1636340102 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340102 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340102 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340102 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340102 rel=stylesheet>
+<link href=/css/theme.css?1636340102 rel=stylesheet>
+<link href=/css/tabs.css?1636340102 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340102 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340102 rel=stylesheet>
+<link href=/css/dark.css?1636340102 rel=stylesheet><link href=/css/syntax.css?1636340102 rel=stylesheet><link href=/css/light.css?1636340102 rel=stylesheet><link href=/css/hljs.css?1636340102 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340102 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340102></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -492,7 +492,7 @@ addition, comparisons:</p>
 </code></pre>
 <p>In this case it is often useful to add a Column Alias (Note that column
 aliases can also be used in the WHERE clause):</p>
-<pre><code class=language-vql>SELECT FullPath + '.bindir' as Santized, Size from glob(globs=&quot;/bin/*&quot;)
+<pre><code class=language-vql>SELECT FullPath + '.bindir' as Sanitized, Size from glob(globs=&quot;/bin/*&quot;)
 </code></pre>
 <p>VQL Functions provide a way to extend VQL expressions. Unlike full
 plugins they do not produce a sequence of rows, but simply produce a
@@ -570,13 +570,13 @@ cheap since it is just an integer comparison.</p>
 <p>However, VQL is not aware of the relative cost of the two conditions -it
 does not know that grep() is inherently an expensive operation since to
 VQL it just looks like another function. Although VQL does some
-shortcutting (for example it will cancel the grep() function if Size >=
+short cutting (for example it will cancel the grep() function if Size >=
 1000) this shortcut cancellation may arrive too late to stop grep() from
 doing a significant amount of work. The VQL author must be aware of the
 relative costs of the different operations and how the query should be
 structured for maximum efficiency.</p>
-<p>What we would really like is for VQL to evaluate the cheap condst, and
-only for those files smaller than 1000 bytes, evaluate the grep()
+<p>What we would really like is for VQL to evaluate the cheap condition,
+and only for those files smaller than 1000 bytes, evaluate the grep()
 condition. This allows us to eliminate most files immediately (since
 most files are larger than 1000 bytes) such that we only bother to
 grep() very few files.</p>
@@ -643,15 +643,15 @@ become inputs to your query and the query becomes a reusable function.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298360></script>
-<script src=/js/perfect-scrollbar.min.js?1636298360></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298360></script>
-<script src=/js/jquery.sticky.js?1636298360></script>
-<script src=/js/featherlight.min.js?1636298360></script>
-<script src=/js/highlight.min.js?1636298360></script>
+<script src=/js/clipboard.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340102></script>
+<script src=/js/jquery.sticky.js?1636340102></script>
+<script src=/js/featherlight.min.js?1636340102></script>
+<script src=/js/highlight.min.js?1636340102></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298360></script>
-<script src=/js/learn.js?1636298360></script>
-<script src=/js/hugo-learn.js?1636298360></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340102></script>
+<script src=/js/learn.js?1636340102></script>
+<script src=/js/hugo-learn.js?1636340102></script>
 </body>
 </html>

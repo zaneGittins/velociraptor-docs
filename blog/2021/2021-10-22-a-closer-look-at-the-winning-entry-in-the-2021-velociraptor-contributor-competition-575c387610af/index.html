@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>A Closer Look at the Winning Entry in the 2021 Velociraptor Contributor Competition :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340102 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340102 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340102 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340102 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340102 rel=stylesheet>
+<link href=/css/theme.css?1636340102 rel=stylesheet>
+<link href=/css/tabs.css?1636340102 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340102 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340102 rel=stylesheet>
+<link href=/css/dark.css?1636340102 rel=stylesheet><link href=/css/syntax.css?1636340102 rel=stylesheet><link href=/css/light.css?1636340102 rel=stylesheet><link href=/css/hljs.css?1636340102 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340102 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340102></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -467,7 +467,7 @@ Justin Welgemoed
 <p>
 <img src=16AEbbSzNdpNFVHh0VnSEoA.jpeg alt>
 </p>
-<p>On Friday October 9 the Velociraptor team crowned the grand prize winner in our 2021 Contributor Competition — unanimously won by Justin Welgemoed. His entry, “File Type Detection and Client-Server-Client Workflows” absolutely WOW’ed the judges. Want to learn more about Justin’s submission and how it takes Velociraptor to the next level? Read below for a deep dive into his work.</p>
+<p>On Friday October 9 the Velociraptor team crowned the grand prize winner in our 2021 Contributor Competition — unanimously won by Justin Welgemoed. His entry, “File Type Detection and Client-Server-Client Workflows” absolutely WOWed the judges. Want to learn more about Justin’s submission and how it takes Velociraptor to the next level? Read below for a deep dive into his work.</p>
 <h3 id=2021-velociraptor-contributor-competition-entry>2021 Velociraptor Contributor Competition Entry:</h3>
 <h2 id=file-type-detection-and-client-server-client-workflows>File Type Detection and Client-Server-Client Workflows</h2>
 <p>Currently most Velociraptor artifacts are written in such a way that they are self-contained and are therefore mostly useful in a standalone manner. In other words the common approach to artifact-writing tends to produce monolithic artifacts which typically have to:</p>
@@ -497,7 +497,7 @@ Justin Welgemoed
 <h2 id=goals>Goals</h2>
 <ol>
 <li>
-<p>The first goal of this demonstration is to show that Velociraptor artifacts can implement client-server-client workflow automation, with decision logic being driven by the server-side in order to achieve a more dynamic/flexible and modular system of DFIR data collection. This also shows that Velociraptor can support reasonably complex workflows implemented <em>using only VQL</em>, rather than having to implement decision logic in an external application that interfaces via the Velociraptor API. In a nutshell: client artifacts and server artifacts can dance together. Client artifacts don’t have to do all the heavy lifting on their own. Server Monitoring artifacts are essentially server-based services that are an underutilised yet powerful component of Velociraptor.</p>
+<p>The first goal of this demonstration is to show that Velociraptor artifacts can implement client-server-client workflow automation, with decision logic being driven by the server-side in order to achieve a more dynamic/flexible and modular system of DFIR data collection. This also shows that Velociraptor can support reasonably complex workflows implemented <em>using only VQL</em>, rather than having to implement decision logic in an external application that interfaces via the Velociraptor API. In a nutshell: client artifacts and server artifacts can dance together. Client artifacts don’t have to do all the heavy lifting on their own. Server Monitoring artifacts are essentially server-based services that are an underutilized yet powerful component of Velociraptor.</p>
 </li>
 <li>
 <p>The 2nd goal here is to demonstrate an approach that uses more concise and reusable Velociraptor artifacts. This is accomplished in 3 ways:</p>
@@ -581,7 +581,7 @@ Justin Welgemoed
 <li>First step is to add the demo setup artifact — Temp.Setup.Demo - to your server&rsquo;s artifact repository.
 To do that run this VQL in a Velociraptor notebook:</li>
 </ol>
-<pre><code class=language-vql>SELECT artifact_set(prefix=&quot;Temp.&quot;, definition=Content) AS LoadReponse FROM http_client(url=&quot;https://raw.githubusercontent.com/predictiple/VelociraptorCompetition/main/artifacts/Temp.Setup.Demo.yaml&quot;)
+<pre><code class=language-vql>SELECT artifact_set(prefix=&quot;Temp.&quot;, definition=Content) AS LoadResponse FROM http_client(url=&quot;https://raw.githubusercontent.com/predictiple/VelociraptorCompetition/main/artifacts/Temp.Setup.Demo.yaml&quot;)
 </code></pre>
 <p>The result should looks something like this:</p>
 <p>
@@ -629,9 +629,9 @@ To do that run this VQL in a Velociraptor notebook:</li>
 <p>
 <img src=0T3ni2VWXKla2p4mN.png alt>
 </p>
-<p>Our first adventure is locating files of interest without explicity telling Velociraptor their locations or file names.</p>
-<p>Sure we know that evtx files are supposed to all be in <code>C:\Windows\System32\winevt\logs</code>, but imagine a scenario that a server admin may have diligently saved some evtx files to his desktop while troubleshooting some unrelated issue 2 weeks ago, long before anyone even suspected that the server was compromised. Upon investigating you find that the server’s logs retain only about 2 days worth of events, making those saved logs on the admin’s desktop <em>extreeemely valuable!</em> Of course <em>you wouldn’t know</em> that the admin fortuitously did that and <em>he may not know</em> that there’s a security incident going on or that you even exist! So finding evidence in unexpected places can be pretty important. In this hypothetical scenario we could find these unexpected files using the fact that Windows evtx files have a known file magic: ElfFile. Such file magics (signatures) can easily be identified using Velociraptor&rsquo;s built-in Yara plugin and we&rsquo;ll use that fact in this demonstration.</p>
-<p>For other files where the file magic is insufficient to identify the exact type of data — for example text logs which are all text and don’t have any file magic (although there are indirect ways to solve that problem) — we can do a deeper dive into the file content using additional Yara scans as another layer in the identification process, and thus resolve ambiguous file types into specific data types. In this way we can resolve more than just basic file magics: we can extend the concept to a more precise level of resolution which we can call “data types”. For example, we can disamgiguate text logs into the specific data types of “Apache access log” vs. “Apache error log” vs. “Windows Defender log” using deeper levels of inspection. And we can do this without needing to know their file paths or file names! Awesome!</p>
+<p>Our first adventure is locating files of interest without explicitly telling Velociraptor their locations or file names.</p>
+<p>Sure we know that evtx files are supposed to all be in <code>C:\Windows\System32\winevt\logs</code>, but imagine a scenario that a server admin may have diligently saved some evtx files to his desktop while troubleshooting some unrelated issue 2 weeks ago, long before anyone even suspected that the server was compromised. Upon investigating you find that the server’s logs retain only about 2 days worth of events, making those saved logs on the admin’s desktop <em>extremely valuable!</em> Of course <em>you wouldn’t know</em> that the admin fortuitously did that and <em>he may not know</em> that there’s a security incident going on or that you even exist! So finding evidence in unexpected places can be pretty important. In this hypothetical scenario we could find these unexpected files using the fact that Windows evtx files have a known file magic: ElfFile. Such file magics (signatures) can easily be identified using Velociraptor&rsquo;s built-in Yara plugin and we&rsquo;ll use that fact in this demonstration.</p>
+<p>For other files where the file magic is insufficient to identify the exact type of data — for example text logs which are all text and don’t have any file magic (although there are indirect ways to solve that problem) — we can do a deeper dive into the file content using additional Yara scans as another layer in the identification process, and thus resolve ambiguous file types into specific data types. In this way we can resolve more than just basic file magics: we can extend the concept to a more precise level of resolution which we can call “data types”. For example, we can disambiguate text logs into the specific data types of “Apache access log” vs. “Apache error log” vs. “Windows Defender log” using deeper levels of inspection. And we can do this without needing to know their file paths or file names! Awesome!</p>
 <p>But for the purpose of keeping this demonstration as concise as possible we will only be dealing with evtx and exe files which are reliably and unambiguously identifiable using just file magics. Extending the identification to data types is an exercise left to the reader 😃 (and yes, this could also be done quite well with Velociraptor’s amazing <a href=https://docs.velociraptor.app/vql_reference/parsers/#parse_binary>parse_binary</a> function)</p>
 <p>In addition to freeing us up from the annoying dependency on path specifications, this approach also allows us to target files that have had their file extension changed or removed. As mentioned previously, having our targeting done independent of file paths and/or file names allows us to deal with the “offline data” use case more easily. And as a bonus it also makes things relatively platform-independent.</p>
 <div class="mynotices note">
@@ -680,7 +680,7 @@ To do that run this VQL in a Velociraptor notebook:</li>
 <p>The key things to notice about these artifacts are:</p>
 <ol>
 <li>
-<p>They are multi-platform. So they can be run on the 3 main operating systems without OS-specific targetting. They can also work on “offline” data, where files from 1 operating system are being processed on a different operating system.</p>
+<p>They are multi-platform. So they can be run on the 3 main operating systems without OS-specific targeting. They can also work on “offline” data, where files from 1 operating system are being processed on a different operating system.</p>
 </li>
 <li>
 <p>The tool definitions (“tools” section of the artifact) are as simple as possible because we’ve already defined and initialised (incl. downloading) the tools during the setup process. The tool definitions here are just to ensure that these tools are available to this artifact.</p>
@@ -692,7 +692,7 @@ To do that run this VQL in a Velociraptor notebook:</li>
 <p>We set the artifact parameters to “hidden” because we don’t intend these artifacts to be used standalone.</p>
 </li>
 <li>
-<p>We give them a generous timeout because we could be targetting a large set of files that were previously collected and are now being analysed “offline”. Also Capa is written in Python and slow as molasses.</p>
+<p>We give them a generous timeout because we could be targeting a large set of files that were previously collected and are now being analysed “offline”. Also Capa is written in Python and slow as molasses.</p>
 </li>
 </ol>
 <div class="mynotices note">
@@ -756,7 +756,7 @@ To do that run this VQL in a Velociraptor notebook:</li>
 </p>
 <p>(p.s. sorry my gif recording software caught some jitter)</p>
 <h2 id=conclusion>Conclusion</h2>
-<p>So what we have here is a set of artifacts that work together to implement a simple workflow. We run a single artifact and all we give it is a filesystem path where it should start looking for stuff. With the VFS browser hack we can even simplify that a bit more and reduce it to just browing around and clicking a button. We can even browse around the Volume Shadow Copies and target these and other sneaky hidden files. Velociraptor then finds relevant stuff and decides what to do with that stuff.</p>
+<p>So what we have here is a set of artifacts that work together to implement a simple workflow. We run a single artifact and all we give it is a filesystem path where it should start looking for stuff. With the VFS browser hack we can even simplify that a bit more and reduce it to just browsing around and clicking a button. We can even browse around the Volume Shadow Copies and target these and other sneaky hidden files. Velociraptor then finds relevant stuff and decides what to do with that stuff.</p>
 <p>Although this is a simplified example the concepts can be applied to much more creative artifacts in order to produce quite complex workflows. We hope you’ll find this useful and apply your own creativity in creating cleverer workflows that do super-awesome things!</p>
 <p>Have fun guys!!!</p>
 <p>What do you think of Justin’s submission? Drop your comments, thoughts and questions into the Discord server or by tweeting @velocidex and keep the conversation going!</p>
@@ -770,15 +770,15 @@ To do that run this VQL in a Velociraptor notebook:</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340102></script>
+<script src=/js/jquery.sticky.js?1636340102></script>
+<script src=/js/featherlight.min.js?1636340102></script>
+<script src=/js/highlight.min.js?1636340102></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340102></script>
+<script src=/js/learn.js?1636340102></script>
+<script src=/js/hugo-learn.js?1636340102></script>
 </body>
 </html>

@@ -6,17 +6,17 @@
 <meta name=description content="Velociraptor to Elasticsearch">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor to Elasticsearch :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340102 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340102 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340102 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340102 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340102 rel=stylesheet>
+<link href=/css/theme.css?1636340102 rel=stylesheet>
+<link href=/css/tabs.css?1636340102 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340102 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340102 rel=stylesheet>
+<link href=/css/dark.css?1636340102 rel=stylesheet><link href=/css/syntax.css?1636340102 rel=stylesheet><link href=/css/light.css?1636340102 rel=stylesheet><link href=/css/hljs.css?1636340102 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340102 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340102></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -472,13 +472,13 @@ Velociraptor to Elasticsearch
 </p>
 <p>And that’s how easy it is to get your data into Elastic!</p>
 <div class="mynotices note">
-<div heading=note><p>If you have an Elasticsearch cluster that uses authentication, non-standard ports or other customisations, you can create a custom artifact by copying the <strong>Elastic.Flows.Upload</strong> artifact and adding <a href=https://github.com/Velocidex/velociraptor/blob/4d19d37191500b5f01f064586f8940a4b1a5dccf/vql/server/elastic.go#L56>additional parameters</a> to it in order to make it suit your non-standard environment.</p>
+<div heading=note><p>If you have an Elasticsearch cluster that uses authentication, non-standard ports or other customizations, you can create a custom artifact by copying the <strong>Elastic.Flows.Upload</strong> artifact and adding <a href=https://github.com/Velocidex/velociraptor/blob/4d19d37191500b5f01f064586f8940a4b1a5dccf/vql/server/elastic.go#L56>additional parameters</a> to it in order to make it suit your non-standard environment.</p>
 </div>
 </div>
 <h2 id=sending-client-events-to-elastic>Sending Client Events to Elastic</h2>
 <p>This is slightly less easy than the previous step but only because it requires that you first configure one or more artifacts to collect <a href=https://www.velocidex.com/docs/user-interface/artifacts/client_events/>client events</a>.</p>
 <p>Once the client events are being collected and received by the VR server, the <em>Elastic.Events.Clients</em> artifact will take care of forwarding these events to Elastic <em>.</em></p>
-<p>The artifact supports forwarding events from 4 built-in client event artifacts by default. These client event types can be selected/deselected and with a bit of customisation even more types can be added to suit your needs:</p>
+<p>The artifact supports forwarding events from 4 built-in client event artifacts by default. These client event types can be selected/deselected and with a bit of customization even more types can be added to suit your needs:</p>
 <ul>
 <li>Windows.Detection.PsexecService</li>
 <li>Windows.Events.DNSQueries</li>
@@ -505,7 +505,7 @@ Velociraptor to Elasticsearch
 <em>Are you tired of winning yet?</em></p>
 <p>Easier than you expected, right? Well in the next section we take it to the next level by bringing Logstash into the loop. Let’s put the L into the E<strong>L</strong>K Stack…</p>
 <h2 id=slice--dice-with-logstash>Slice & Dice with Logstash</h2>
-<p>Want to reshape, filter or enrich the data? Well you could do that by writing custom Velociraptor artifacts, however you might already have an existing data pipeline that includes Logstash. This is a common architecture in information security environments where Logstash provides centralised flow control, data enrichment and standardisation functions prior to the data being fed into Elasticsearch.</p>
+<p>Want to reshape, filter or enrich the data? Well you could do that by writing custom Velociraptor artifacts, however you might already have an existing data pipeline that includes Logstash. This is a common architecture in information security environments where Logstash provides centralised flow control, data enrichment and standardization functions prior to the data being fed into Elasticsearch.</p>
 <p>While Velociraptor doesn’t directly support Logstash, integration can be achieved by making Logstash emulate the Elasticsearch Bulk API. To make this work you’ll need to install the Logstash <a href=https://www.elastic.co/guide/en/logstash/current/plugins-codecs-es_bulk.html>ES_bulk codec plugin</a>, since this is not one of the pre-installed plugins.</p>
 <p>A very simple Logstash Input configuration which uses that additional plugin, in conjunction with the Logstash HTTP Input plugin, will set up the desired Elastic emulation:</p>
 <script src=https://gist.github.com/predictiple/a78dad17a459294d40a6d953df14f2a0.js></script>
@@ -523,15 +523,15 @@ Velociraptor to Elasticsearch
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340102></script>
+<script src=/js/jquery.sticky.js?1636340102></script>
+<script src=/js/featherlight.min.js?1636340102></script>
+<script src=/js/highlight.min.js?1636340102></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340102></script>
+<script src=/js/learn.js?1636340102></script>
+<script src=/js/hugo-learn.js?1636340102></script>
 </body>
 </html>

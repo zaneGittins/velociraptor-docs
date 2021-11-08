@@ -10,17 +10,17 @@ encrypted and authenticated channel.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Interactive Shell :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298360 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298360 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298360 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298360 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298360 rel=stylesheet>
-<link href=/css/theme.css?1636298360 rel=stylesheet>
-<link href=/css/tabs.css?1636298360 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298360 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298360 rel=stylesheet>
-<link href=/css/dark.css?1636298360 rel=stylesheet><link href=/css/syntax.css?1636298360 rel=stylesheet><link href=/css/light.css?1636298360 rel=stylesheet><link href=/css/hljs.css?1636298360 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298360 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298360></script>
+<link href=/css/nucleus.css?1636340102 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340102 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340102 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340102 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340102 rel=stylesheet>
+<link href=/css/theme.css?1636340102 rel=stylesheet>
+<link href=/css/tabs.css?1636340102 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340102 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340102 rel=stylesheet>
+<link href=/css/dark.css?1636340102 rel=stylesheet><link href=/css/syntax.css?1636340102 rel=stylesheet><link href=/css/light.css?1636340102 rel=stylesheet><link href=/css/hljs.css?1636340102 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340102 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340102></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -425,7 +425,7 @@ extract certain information is to run a command and parse its output.
 For example, consider the windows ipconfig command. It is possible to
 extract this information using win32 apis but this requires additional
 code to be written in the client. The ipconfig command is guaranteed to
-be available. Soemtimes running a command and parsing its output is the
+be available. Sometimes running a command and parsing its output is the
 easiest option.</p>
 <p>The GRR client has a client action which can run a command. However that
 client action is restricted to run a whitelist of commands, since GRR
@@ -457,7 +457,7 @@ GUI. One must use the velociraptor binary on the server itself to
 run the interactive shell.</li>
 </ol>
 <h1 id=interactive-shell>Interactive Shell</h1>
-<p>The interactive shell feature is accessed by issueing the shell command
+<p>The interactive shell feature is accessed by issuing the shell command
 to the velociraptor binary:</p>
 <pre><code class=language-{.sourceCode>$ velociraptor --config ~/server.config.yaml shell C.7403676ab8664b2b
 C.7403676ab8664b2b (trek) &gt;ls /
@@ -532,7 +532,7 @@ responses from the client.</li>
 the interactive shell, the feature is implemented completely within the
 interactive shell process itself. This design lowers the load on the
 frontends since their job is very simple, but enables complex post
-processing and interaction to tbe implemented by other processes.</p>
+processing and interaction to be implemented by other processes.</p>
 <h1 id=auditing>Auditing</h1>
 <p>We mentioned previously that running shell commands on endpoints is a
 powerful feature and we need to audit its use closely. Since shell
@@ -554,7 +554,7 @@ Shell artifact event queue:</p>
 </code></pre>
 <p>We can easily write an artifact that escalates any use of the
 interactive shell by sending the admin an mail (See previous blog post).
-This way we can see if someone missused the feature. Alternatively we
+This way we can see if someone misused the feature. Alternatively we
 may simply archive the event queue CSV file for long term auditing of
 any interactive shell use.</p>
 <footer class=footline>
@@ -567,15 +567,15 @@ any interactive shell use.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298360></script>
-<script src=/js/perfect-scrollbar.min.js?1636298360></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298360></script>
-<script src=/js/jquery.sticky.js?1636298360></script>
-<script src=/js/featherlight.min.js?1636298360></script>
-<script src=/js/highlight.min.js?1636298360></script>
+<script src=/js/clipboard.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.min.js?1636340102></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340102></script>
+<script src=/js/jquery.sticky.js?1636340102></script>
+<script src=/js/featherlight.min.js?1636340102></script>
+<script src=/js/highlight.min.js?1636340102></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298360></script>
-<script src=/js/learn.js?1636298360></script>
-<script src=/js/hugo-learn.js?1636298360></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340102></script>
+<script src=/js/learn.js?1636340102></script>
+<script src=/js/hugo-learn.js?1636340102></script>
 </body>
 </html>

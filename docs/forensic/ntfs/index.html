@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>NTFS Analysis :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340103 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340103 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340103 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340103 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340103 rel=stylesheet>
+<link href=/css/theme.css?1636340103 rel=stylesheet>
+<link href=/css/tabs.css?1636340103 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340103 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340103 rel=stylesheet>
+<link href=/css/dark.css?1636340103 rel=stylesheet><link href=/css/syntax.css?1636340103 rel=stylesheet><link href=/css/light.css?1636340103 rel=stylesheet><link href=/css/hljs.css?1636340103 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340103 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340103></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -612,7 +612,7 @@ representing a stream of data</p>
 <p>A single MFT entry can have up to 16 timestamps, based on different
 attributes:</p>
 <ul>
-<li>The $STANDARD_INFORMATION attribute contains 4 timestamps (Modified, Accessed, indoe Changed, Born)</li>
+<li>The $STANDARD_INFORMATION attribute contains 4 timestamps (Modified, Accessed, Inode Changed, Born)</li>
 <li>There are often 2 $FILENAME attributes for a short name and a long name, each will have 4 further timestamps.</li>
 <li>The $I30 stream of the parent directory also contains 4 timestamps for the file.</li>
 </ul>
@@ -711,7 +711,7 @@ of slack space to potentially hold residual data.</p>
 </code></pre>
 <h2 id=the-usn-journal>The USN journal</h2>
 <p>Update Sequence Number Journal or Change journal is maintained by NTFS
-to record filesystem changes. Prmiarily designed to support backup
+to record filesystem changes. Primarily designed to support backup
 programs, the USN journal records metadata about filesystem changes.</p>
 <p>The journal resides in the path <code>$Extend\$UsnJrnl:$J</code> and is normally
 a hidden NTFS internal file (so it can only be accessed via the <code>ntfs</code>
@@ -775,15 +775,15 @@ artifact.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340103></script>
+<script src=/js/jquery.sticky.js?1636340103></script>
+<script src=/js/featherlight.min.js?1636340103></script>
+<script src=/js/highlight.min.js?1636340103></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340103></script>
+<script src=/js/learn.js?1636340103></script>
+<script src=/js/hugo-learn.js?1636340103></script>
 </body>
 </html>

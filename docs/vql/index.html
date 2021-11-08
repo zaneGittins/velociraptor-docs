@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>VQL Fundamentals :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636298361 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636298361 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636298361 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636298361 rel=stylesheet>
-<link href=/css/auto-complete.css?1636298361 rel=stylesheet>
-<link href=/css/theme.css?1636298361 rel=stylesheet>
-<link href=/css/tabs.css?1636298361 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636298361 rel=stylesheet>
-<link href=/css/theme-mine.css?1636298361 rel=stylesheet>
-<link href=/css/dark.css?1636298361 rel=stylesheet><link href=/css/syntax.css?1636298361 rel=stylesheet><link href=/css/light.css?1636298361 rel=stylesheet><link href=/css/hljs.css?1636298361 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636298361 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636298361></script>
+<link href=/css/nucleus.css?1636340103 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636340103 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636340103 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636340103 rel=stylesheet>
+<link href=/css/auto-complete.css?1636340103 rel=stylesheet>
+<link href=/css/theme.css?1636340103 rel=stylesheet>
+<link href=/css/tabs.css?1636340103 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636340103 rel=stylesheet>
+<link href=/css/theme-mine.css?1636340103 rel=stylesheet>
+<link href=/css/dark.css?1636340103 rel=stylesheet><link href=/css/syntax.css?1636340103 rel=stylesheet><link href=/css/light.css?1636340103 rel=stylesheet><link href=/css/hljs.css?1636340103 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636340103 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636340103></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -610,7 +610,7 @@ resolved.</p>
 </figure>
 </p>
 <p>VQL evaluates the <code>info()</code> plugin, which emits a single row. Then VQL
-creates a child scope, with the row at the bottom level. Whe VQL tries
+creates a child scope, with the row at the bottom level. When VQL tries
 to resolve the symbol <code>OS</code> from the column expression, it examines the
 scope stack in reverse, checking if the symbol <code>OS</code> exists in the
 lower layer. If not, VQL checks the next layer, and so on.</p>
@@ -637,7 +637,7 @@ words, the parent&rsquo;s name.</p>
 <code>\\</code>. For example, <code>"\\n"</code> means a new line. This is useful but it
 also means that backslashes need to be escaped. This is sometimes
 inconvenient, especially when dealing with Windows paths (that
-contains alot of backslashes).</p>
+contains a lot of backslashes).</p>
 <p>Therefore, Velociraptor also offers a Multiline raw string which is
 denoted by <code>'''</code> (three single quotes). Within this type of string no
 escaping is possible, and the all characters are treated literally -
@@ -735,7 +735,7 @@ row={
 <h2 id=let-expressions>LET expressions</h2>
 <p>We know that subqueries can be used in various parts of
 the query, such as in a column specifier or as an argument to a
-plugin. While subqueries are convenient, they can become unweildy when
+plugin. While subqueries are convenient, they can become unwieldy when
 nested too deeply. VQL offers an alternative to subqueries called
 <code>Stored Queries</code>.</p>
 <p>A stored query is a lazy evaluator of a query that we can store in
@@ -927,7 +927,7 @@ bin). Each row will contain a single value for the <code>X</code> value and one
 of the <code>Y</code> values.</p>
 <div class="mynotices warning">
 <div heading=" Selecting columns with GROUP BY "><p>As the above diagram illustrates, it only makes sense in general to
-select the same column as is being groupped. This is because other
+select the same column as is being grouped. This is because other
 columns may contain any number of values, but only a single one of
 these values will be returned.</p>
 <p>In the above example, selecting the <code>Y</code> column is not deterministic
@@ -976,15 +976,15 @@ invocation and its previous one.</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.min.js?1636298361></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636298361></script>
-<script src=/js/jquery.sticky.js?1636298361></script>
-<script src=/js/featherlight.min.js?1636298361></script>
-<script src=/js/highlight.min.js?1636298361></script>
+<script src=/js/clipboard.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.min.js?1636340103></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636340103></script>
+<script src=/js/jquery.sticky.js?1636340103></script>
+<script src=/js/featherlight.min.js?1636340103></script>
+<script src=/js/highlight.min.js?1636340103></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636298361></script>
-<script src=/js/learn.js?1636298361></script>
-<script src=/js/hugo-learn.js?1636298361></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636340103></script>
+<script src=/js/learn.js?1636340103></script>
+<script src=/js/hugo-learn.js?1636340103></script>
 </body>
 </html>
