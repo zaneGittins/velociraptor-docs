@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.89.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>OSQuery :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636422486 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636422486 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636422486 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636422486 rel=stylesheet>
-<link href=/css/auto-complete.css?1636422486 rel=stylesheet>
-<link href=/css/theme.css?1636422486 rel=stylesheet>
-<link href=/css/tabs.css?1636422486 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636422486 rel=stylesheet>
-<link href=/css/theme-mine.css?1636422486 rel=stylesheet>
-<link href=/css/dark.css?1636422486 rel=stylesheet><link href=/css/syntax.css?1636422486 rel=stylesheet><link href=/css/light.css?1636422486 rel=stylesheet><link href=/css/hljs.css?1636422486 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636422486 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636422486></script>
+<title>Windows.Applications.DIEC :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1636422484 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636422484 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636422484 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636422484 rel=stylesheet>
+<link href=/css/auto-complete.css?1636422484 rel=stylesheet>
+<link href=/css/theme.css?1636422484 rel=stylesheet>
+<link href=/css/tabs.css?1636422484 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636422484 rel=stylesheet>
+<link href=/css/theme-mine.css?1636422484 rel=stylesheet>
+<link href=/css/dark.css?1636422484 rel=stylesheet><link href=/css/syntax.css?1636422484 rel=stylesheet><link href=/css/light.css?1636422484 rel=stylesheet><link href=/css/hljs.css?1636422484 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636422484 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636422484></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/osquery/>
+<body data-url=/exchange/artifacts/pages/diec/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -375,6 +375,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/DIEC.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -383,11 +389,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-OSQuery
+Windows.Applications.DIEC
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -396,16 +403,95 @@ OSQuery
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-OSQuery
+Windows.Applications.DIEC
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<ul>
-<li><a href=/blog/2021/2021-02-03-migrating-from-osquery-to-velociraptor-d4143799953f/>Migrating from OSQuery to Velociraptor</a></li>
-<li><a href=/blog/2020/2020-12-13-velociraptor-and-osquery-2a4306dd23c/>Velociraptor and OSQuery</a></li>
-</ul>
+<p>Execute DetectItEasy (console version) on specified paths and return rows of results
+to hunt/filter on binaries based types of files (E.g.: Packed binaries and its packers)</p>
+<pre><code class=language-yaml>name: Windows.Applications.DIEC
+description: |
+    Execute DetectItEasy (console version) on specified paths and return rows of results
+    to hunt/filter on binaries based types of files (E.g.: Packed binaries and its packers)
+
+author: Eduardo Mattos - @eduardfir
+
+reference:
+  - https://github.com/horsicq/Detect-It-Easy
+
+type: CLIENT
+
+tools:
+  - name: DIEC
+    url: https://github.com/horsicq/DIE-engine/releases/download/3.03b/die_win64_portable_3.03.zip
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: TargetGlob
+    default: C:\Users\**\*.{exe,dll}
+ 
+  - name: EntropyScan
+    type: bool
+
+sources:
+  - query: |
+        -- preparation
+        LET Toolzip &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;DIEC&quot;, IsExecutable=FALSE)
+        LET TmpDir &lt;= tempdir(remove_last=TRUE)
+        LET UnzipIt &lt;= SELECT * FROM unzip(filename=Toolzip.FullPath, output_directory=TmpDir)
+        
+        LET Targets &lt;= SELECT FullPath FROM glob(globs=TargetGlob)
+        
+        -- execute DIEC
+        LET ExecDIEC &lt;= SELECT * FROM if(condition=EntropyScan,
+                        then={ -- execute EntropyScan
+                            SELECT * FROM foreach(row=Targets,
+                                query={ 
+                                    SELECT parse_json(data=Stdout) as DiecOutput, FullPath 
+                                    FROM execve(argv=[
+                                        TmpDir + &quot;/die_win64_portable/diec.exe&quot;, 
+                                        &quot;-e&quot;,
+                                        &quot;-j&quot;,
+                                        FullPath])
+                                })
+                        },
+                        else={ -- execute DeepScan
+                            SELECT * FROM foreach(row=Targets,
+                                query={ 
+                                    SELECT parse_json(data=Stdout) as DiecOutput, FullPath 
+                                    FROM execve(argv=[
+                                        TmpDir + &quot;/die_win64_portable/diec.exe&quot;, 
+                                        &quot;-d&quot;,
+                                        &quot;-j&quot;,
+                                        FullPath])
+                                })
+                        })
+                        
+        -- format the output according to selected scan type
+        SELECT * FROM if(condition=EntropyScan,
+            then={
+                SELECT 
+                    DiecOutput.records as Records, 
+                    DiecOutput.status as Status,
+                    DiecOutput.total as Entropy,
+                    FullPath
+                FROM ExecDIEC
+            },
+            else={
+                SELECT 
+                    dict(Arch=DiecOutput.arch, 
+                    Endianess=DiecOutput.endianess,
+                    FileType=DiecOutput.filetype,
+                    Mode=DiecOutput.mode,
+                    Type=DiecOutput.type) as PEInfo,
+                    DiecOutput.detects as Detects,
+                    FullPath
+                FROM ExecDIEC
+            })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -416,15 +502,15 @@ OSQuery
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636422486></script>
-<script src=/js/perfect-scrollbar.min.js?1636422486></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636422486></script>
-<script src=/js/jquery.sticky.js?1636422486></script>
-<script src=/js/featherlight.min.js?1636422486></script>
-<script src=/js/highlight.min.js?1636422486></script>
+<script src=/js/clipboard.min.js?1636422484></script>
+<script src=/js/perfect-scrollbar.min.js?1636422484></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636422484></script>
+<script src=/js/jquery.sticky.js?1636422484></script>
+<script src=/js/featherlight.min.js?1636422484></script>
+<script src=/js/highlight.min.js?1636422484></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636422486></script>
-<script src=/js/learn.js?1636422486></script>
-<script src=/js/hugo-learn.js?1636422486></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636422484></script>
+<script src=/js/learn.js?1636422484></script>
+<script src=/js/hugo-learn.js?1636422484></script>
 </body>
 </html>
