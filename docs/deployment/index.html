@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Deployment :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636422485 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636422485 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636422485 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636422485 rel=stylesheet>
-<link href=/css/auto-complete.css?1636422485 rel=stylesheet>
-<link href=/css/theme.css?1636422485 rel=stylesheet>
-<link href=/css/tabs.css?1636422485 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636422485 rel=stylesheet>
-<link href=/css/theme-mine.css?1636422485 rel=stylesheet>
-<link href=/css/dark.css?1636422485 rel=stylesheet><link href=/css/syntax.css?1636422485 rel=stylesheet><link href=/css/light.css?1636422485 rel=stylesheet><link href=/css/hljs.css?1636422485 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636422485 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636422485></script>
+<link href=/css/nucleus.css?1636452365 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636452365 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636452365 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636452365 rel=stylesheet>
+<link href=/css/auto-complete.css?1636452365 rel=stylesheet>
+<link href=/css/theme.css?1636452365 rel=stylesheet>
+<link href=/css/tabs.css?1636452365 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636452365 rel=stylesheet>
+<link href=/css/theme-mine.css?1636452365 rel=stylesheet>
+<link href=/css/dark.css?1636452365 rel=stylesheet><link href=/css/syntax.css?1636452365 rel=stylesheet><link href=/css/light.css?1636452365 rel=stylesheet><link href=/css/hljs.css?1636452365 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636452365 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636452365></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -400,7 +400,11 @@ Deployment
 <ul>
 <li><a href=#deployment-milestones>Deployment Milestones</a></li>
 <li><a href=#typical-deployment>Typical Deployment</a></li>
-<li><a href=#instant-velociraptor>Instant Velociraptor</a></li>
+<li><a href=#instant-velociraptor>Instant Velociraptor</a>
+<ul>
+<li><a href=#verifying-your-download>Verifying your download</a></li>
+</ul>
+</li>
 </ul>
 </nav>
 </div>
@@ -489,6 +493,25 @@ specify a different data store directory using the <code>--datastore</code> flag
 to work with a persistently stored data store.</p>
 </div>
 </div>
+<h3 id=verifying-your-download>Verifying your download</h3>
+<p>The Velociraptor releases are signed using gpg with key ID <code>0572F28B4EF19A043F4CBBE0B22A7FB19CB6CFA1</code>.
+You can verify the signature using <code>gpg</code>:</p>
+<pre><code>$ gpg --verify velociraptor-v0.6.2-linux-amd64.sig
+gpg: assuming signed data in 'velociraptor-v0.6.2-linux-amd64'
+gpg: Signature made Wed Nov  3 02:44:15 2021 AEST
+gpg:                using RSA key 0572F28B4EF19A043F4CBBE0B22A7FB19CB6CFA1
+gpg: Good signature from &quot;Velociraptor Team (Velociraptor - Dig deeper!  https://docs.velociraptor.app/) &lt;support@velocidex.com&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 0572 F28B 4EF1 9A04 3F4C  BBE0 B22A 7FB1 9CB6 CFA1
+</code></pre>
+<p>You can import the key from your favorite key server:</p>
+<pre><code>$ gpg --search-keys 0572F28B4EF19A043F4CBBE0B22A7FB19CB6CFA1
+gpg: data source: https://keys.openpgp.org:443
+(1)     Velociraptor Team (Velociraptor - Dig deeper!  https
+          3072 bit RSA key B22A7FB19CB6CFA1, created: 2021-10-29
+Keys 1-1 of 1 for &quot;0572F28B4EF19A043F4CBBE0B22A7FB19CB6CFA1&quot;.  Enter number(s), N)ext, or Q)uit &gt;
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -499,15 +522,15 @@ to work with a persistently stored data store.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636422485></script>
-<script src=/js/perfect-scrollbar.min.js?1636422485></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636422485></script>
-<script src=/js/jquery.sticky.js?1636422485></script>
-<script src=/js/featherlight.min.js?1636422485></script>
-<script src=/js/highlight.min.js?1636422485></script>
+<script src=/js/clipboard.min.js?1636452365></script>
+<script src=/js/perfect-scrollbar.min.js?1636452365></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636452365></script>
+<script src=/js/jquery.sticky.js?1636452365></script>
+<script src=/js/featherlight.min.js?1636452365></script>
+<script src=/js/highlight.min.js?1636452365></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636422485></script>
-<script src=/js/learn.js?1636422485></script>
-<script src=/js/hugo-learn.js?1636422485></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636452365></script>
+<script src=/js/learn.js?1636452365></script>
+<script src=/js/hugo-learn.js?1636452365></script>
 </body>
 </html>
