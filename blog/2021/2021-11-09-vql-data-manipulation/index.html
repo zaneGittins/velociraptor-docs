@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cobalt Strike payload discovery and data manipulation in VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636555290 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636555290 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636555290 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636555290 rel=stylesheet>
-<link href=/css/auto-complete.css?1636555290 rel=stylesheet>
-<link href=/css/theme.css?1636555290 rel=stylesheet>
-<link href=/css/tabs.css?1636555290 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636555290 rel=stylesheet>
-<link href=/css/theme-mine.css?1636555290 rel=stylesheet>
-<link href=/css/dark.css?1636555290 rel=stylesheet><link href=/css/syntax.css?1636555290 rel=stylesheet><link href=/css/light.css?1636555290 rel=stylesheet><link href=/css/hljs.css?1636555290 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636555290 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636555290></script>
+<link href=/css/nucleus.css?1636586004 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636586004 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636586004 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636586004 rel=stylesheet>
+<link href=/css/auto-complete.css?1636586004 rel=stylesheet>
+<link href=/css/theme.css?1636586004 rel=stylesheet>
+<link href=/css/tabs.css?1636586004 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636586004 rel=stylesheet>
+<link href=/css/theme-mine.css?1636586004 rel=stylesheet>
+<link href=/css/dark.css?1636586004 rel=stylesheet><link href=/css/syntax.css?1636586004 rel=stylesheet><link href=/css/light.css?1636586004 rel=stylesheet><link href=/css/hljs.css?1636586004 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636586004 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636586004></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -473,7 +473,7 @@ spring to mind readily. In this instance I am selecting Yara.NTFS. I have
 leveraged this artifact in the field for hunting malware, searching logs or
 any other capability where both metadata and content based discovery is desired.</p>
 <div class="mynotices tip">
-<div heading=" `Windows.Detection.Yara.NTFS` "><ul>
+<div heading=" Windows.Detection.Yara.NTFS "><ul>
 <li>This artifact searches the MFT, returns a list of target files then runs Yara over the target list.</li>
 <li>The artifact leverages <code>Windows.NTFS.MFT</code> so similar regex filters can be applied including Path, Size and date.</li>
 <li>The artifact also has an option to search across all attached drives and upload any files with Yara hits.</li>
@@ -489,8 +489,8 @@ any other capability where both metadata and content based discovery is desired.
 </div>
 <p>
 <figure>
-<img src=02_find_artifact.png alt="Select artifact : <code>Windows.Detection.Yara.NTFS</code>" class=captioned>
-<figcaption>Select artifact : &lt;code>Windows.Detection.Yara.NTFS&lt;/code></figcaption>
+<img src=02_find_artifact.png alt="Select artifact : Windows.Detection.Yara.NTFS" class=captioned>
+<figcaption>Select artifact : Windows.Detection.Yara.NTFS</figcaption>
 </figure>
 </p>
 <p>The file filter: <code>Windows/Temp/[^/]*\.TMP$</code> will suffice in this case to target
@@ -764,15 +764,15 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636555290></script>
-<script src=/js/perfect-scrollbar.min.js?1636555290></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636555290></script>
-<script src=/js/jquery.sticky.js?1636555290></script>
-<script src=/js/featherlight.min.js?1636555290></script>
-<script src=/js/highlight.min.js?1636555290></script>
+<script src=/js/clipboard.min.js?1636586004></script>
+<script src=/js/perfect-scrollbar.min.js?1636586004></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636586004></script>
+<script src=/js/jquery.sticky.js?1636586004></script>
+<script src=/js/featherlight.min.js?1636586004></script>
+<script src=/js/highlight.min.js?1636586004></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636555290></script>
-<script src=/js/learn.js?1636555290></script>
-<script src=/js/hugo-learn.js?1636555290></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636586004></script>
+<script src=/js/learn.js?1636586004></script>
+<script src=/js/hugo-learn.js?1636586004></script>
 </body>
 </html>
