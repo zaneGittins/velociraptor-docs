@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cobalt Strike payload discovery and data manipulation in VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636541429 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636541429 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636541429 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636541429 rel=stylesheet>
-<link href=/css/auto-complete.css?1636541429 rel=stylesheet>
-<link href=/css/theme.css?1636541429 rel=stylesheet>
-<link href=/css/tabs.css?1636541429 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636541429 rel=stylesheet>
-<link href=/css/theme-mine.css?1636541429 rel=stylesheet>
-<link href=/css/dark.css?1636541429 rel=stylesheet><link href=/css/syntax.css?1636541429 rel=stylesheet><link href=/css/light.css?1636541429 rel=stylesheet><link href=/css/hljs.css?1636541429 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636541429 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636541429></script>
+<link href=/css/nucleus.css?1636555290 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636555290 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636555290 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636555290 rel=stylesheet>
+<link href=/css/auto-complete.css?1636555290 rel=stylesheet>
+<link href=/css/theme.css?1636555290 rel=stylesheet>
+<link href=/css/tabs.css?1636555290 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636555290 rel=stylesheet>
+<link href=/css/theme-mine.css?1636555290 rel=stylesheet>
+<link href=/css/dark.css?1636555290 rel=stylesheet><link href=/css/syntax.css?1636555290 rel=stylesheet><link href=/css/light.css?1636555290 rel=stylesheet><link href=/css/hljs.css?1636555290 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636555290 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636555290></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -406,6 +406,7 @@ Cobalt Strike payload discovery and data manipulation in VQL
 <li><a href=#extract-normalisation>Extract normalisation</a></li>
 <li><a href=#extract-to-bytes>Extract to bytes</a></li>
 <li><a href=#xor-decode>Xor decode</a></li>
+<li><a href=#additional-analysis>Additional analysis</a></li>
 </ul>
 </li>
 <li><a href=#conclusions>Conclusions</a></li>
@@ -472,9 +473,9 @@ spring to mind readily. In this instance I am selecting Yara.NTFS. I have
 leveraged this artifact in the field for hunting malware, searching logs or
 any other capability where both metadata and content based discovery is desired.</p>
 <div class="mynotices tip">
-<div heading=" Windows.Detection.Yara.NTFS "><ul>
+<div heading=" `Windows.Detection.Yara.NTFS` "><ul>
 <li>This artifact searches the MFT, returns a list of target files then runs Yara over the target list.</li>
-<li>The artifact leverages Windows.NTFS.MFT so similar regex filters can be applied including Path, Size and date.</li>
+<li>The artifact leverages <code>Windows.NTFS.MFT</code> so similar regex filters can be applied including Path, Size and date.</li>
 <li>The artifact also has an option to search across all attached drives and upload any files with Yara hits.</li>
 </ul>
 <p>Some examples of path regex may include:</p>
@@ -488,8 +489,8 @@ any other capability where both metadata and content based discovery is desired.
 </div>
 <p>
 <figure>
-<img src=02_find_artifact.png alt="Select artifact : Windows.Detection.Yara.NTFS" class=captioned>
-<figcaption>Select artifact : Windows.Detection.Yara.NTFS</figcaption>
+<img src=02_find_artifact.png alt="Select artifact : <code>Windows.Detection.Yara.NTFS</code>" class=captioned>
+<figcaption>Select artifact : &lt;code>Windows.Detection.Yara.NTFS&lt;/code></figcaption>
 </figure>
 </p>
 <p>The file filter: <code>Windows/Temp/[^/]*\.TMP$</code> will suffice in this case to target
@@ -499,7 +500,7 @@ file size or time stamp bounds for use at scale and optimal performance.
 The yara rule deployed in this case was simply quick and dirty hex conversion of
 text directly from the project file referencing the unique variable setup that
 was common across acquired samples.</p>
-<pre><code>rule MSBuild_buff {
+<pre><code class=language-yara>rule MSBuild_buff {
    meta:
       description = &quot;Detect unique variable setup MSBuild inline task project file&quot;
       author = &quot;Matt Green - @mgreen27&quot;
@@ -550,7 +551,7 @@ to post process results opposed to downloading the files and processing offline.
 <p>Our first step of decode is to examine all the files we collected in the hunt.
 The first query enumerates all the individual collections in the hunt, while the
 second query retrieves the files collected for each job.</p>
-<pre><code>-- find flow ids for each client
+<pre><code class=language-vql>-- find flow ids for each client
 LET hunt_flows = SELECT *, Flow.client_id as ClientId, Flow.session_id as FlowId 
 FROM hunt_flows(hunt_id='H.C6508PLOOPD2U')
 
@@ -579,7 +580,7 @@ default size in order to capture the typically very large payloads in these buil
 files. We have also included a 200 character limitation on the data field initially
 as this will improve performance when working on VQL. We have also specified buffer
 size to be larger than default and just larger than the biggest payload in scope.</p>
-<pre><code>-- regex to extract Data and Key fields
+<pre><code class=language-vql>-- regex to extract Data and Key fields
 LET target_regex = 'buff = new byte\\[\\]\\s*{(?P&lt;Data&gt;[^\\n]*)};\\s+byte\\[\\]\\s+key_code = new byte\\[\\]\\s*{(?P&lt;Key&gt;[^\\n]*)};\\n'
 
 SELECT * FROM foreach(row=targets,
@@ -595,9 +596,9 @@ SELECT * FROM foreach(row=targets,
     })
 </code></pre>
 <div class="mynotices tip">
-<div heading=" Parse records with regex "><p>parse_records_with_regex() is a VQL plugin that parses a file with a set of regexp and yields matches as records. The file is read into a large buffer. Then each regular expression is applied to the buffer, and all matches are emitted as rows.</p>
+<div heading=" Parse records with regex "><p><code>parse_records_with_regex()</code> is a VQL plugin that parses a file with a set of regexp and yields matches as records. The file is read into a large buffer. Then each regular expression is applied to the buffer, and all matches are emitted as rows.</p>
 <p>The regular expressions are specified in the Go syntax. They are expected to contain capture variables to name the matches extracted.</p>
-<p>The aim of this plugin is to split the file into records which can be further parsed. For example, if the file consists of multiple records, this plugin can be used to extract each record, while parse_string_with_regex() can be used to further split each record into elements. This works better than trying to write a more complex regex which tries to capture a lot of details in one pass.</p>
+<p>The aim of this plugin is to split the file into records which can be further parsed. For example, if the file consists of multiple records, this plugin can be used to extract each record, while <code>parse_string_with_regex()</code> can be used to further split each record into elements. This works better than trying to write a more complex regex which tries to capture a lot of details in one pass.</p>
 </div>
 </div>
 <p>
@@ -610,9 +611,9 @@ SELECT * FROM foreach(row=targets,
 <p>The third step adds a custom function for hex normalisation and converts the inline
 C Sharp style encoding to a standard hex encoded string which VQL can easily parse.
 In this case, the local normalise function will ensure we have valid 2 character hex.
-The regex replace will strip the leading &lsquo;0x&rsquo; from the hex strings and prepare for
+The <code>regex_replace()</code> will strip the leading &lsquo;0x&rsquo; from the hex strings and prepare for
 xor processing.</p>
-<pre><code>-- regex to extract Data and Key fields
+<pre><code class=language-vql>-- regex to extract Data and Key fields
 LET target_regex = 'buff = new byte\\[\\]\\s*{(?P&lt;Data&gt;[^\\n]*)};\\s+byte\\[\\]\\s+key_code = new byte\\[\\]\\s*{(?P&lt;Key&gt;[^\\n]*)};\\n'
 
 -- normalise function to fix bad hex strings
@@ -638,8 +639,8 @@ SELECT * FROM foreach(row=targets,
 </p>
 <h3 id=extract-to-bytes>Extract to bytes</h3>
 <p>The fourth step converts hex to bytes and validates that the next stage is working. In the example VQL below
-we pass the hex text to the unhex() function to produce raw bytes for our variables.</p>
-<pre><code>SELECT * FROM foreach(row=targets,
+we pass the hex text to the <code>unhex()</code> function to produce raw bytes for our variables.</p>
+<pre><code class=language-vql>SELECT * FROM foreach(row=targets,
     query={
         SELECT 
             basename(path=SamplePath) as Sample,
@@ -661,10 +662,9 @@ we pass the hex text to the unhex() function to produce raw bytes for our variab
 </p>
 <h3 id=xor-decode>Xor decode</h3>
 <p>VQL&rsquo;s flexibility comes with its ability to reuse existing artifacts in different ways.
-The fifth step is running Velociraptor’s xor function and piping the output into our
-the existing Cobalt Strike configuration decoder (originally designed to extract
-configuration from memory).</p>
-<pre><code>-- extract bytes
+The fifth step is running Velociraptor’s <code>xor()</code> function and piping the output into our
+the existing <code>Windows.Carving.CobaltStrike()</code> configuration decoder.</p>
+<pre><code class=language-vql>-- extract bytes
 LET bytes &lt;= SELECT * FROM foreach(row=targets,
     query={
         SELECT 
@@ -682,7 +682,7 @@ LET bytes &lt;= SELECT * FROM foreach(row=targets,
 SELECT *, FROM foreach(row=bytes,query={
     SELECT *,
         basename(path=SamplePath) as Sample,SampleSize
-    FROM Artifact.Custom.Windows.Carving.CobaltStrike(TargetBytes=xor(key=KeyBytes,string=DataBytes))
+    FROM Artifact.Windows.Carving.CobaltStrike(TargetBytes=xor(key=KeyBytes,string=DataBytes))
 })
 </code></pre>
 <p>
@@ -706,11 +706,31 @@ added to the Velociraptor Cobalt Strike parser.</p>
 <figcaption>Cobalt strike shellcode example</figcaption>
 </figure>
 </p>
+<h3 id=additional-analysis>Additional analysis</h3>
 <p>Finally, we may have a desire to extract specific key indicators and compare across
-samples.</p>
+samples. A simple data stack on key indicators of interest.</p>
+<pre><code class=language-vql>-- pass bytes to cobalt strike parser and format key indicators im interested in
+LET cobalt = SELECT *, FROM foreach(row=bytes,query={
+    SELECT 
+        basename(path=SamplePath) as Sample,SampleSize,
+        Hash as DecodeHash,
+        Rule,Offset,Xor,DecodedConfig 
+    FROM Artifact.Custom.Windows.Carving.CobaltStrike(TargetBytes=xor(key=KeyBytes,string=DataBytes))
+})
+
+-- quick data stack on a few things to show sample analysis
+SELECT count() as Total,
+    if(condition= Xor=~'^0x(2e|69)$', then=DecodedConfig.BeaconType, else= 'Shellcode stager') as Type,
+    if(condition= Xor=~'^0x(2e|69)$', then=DecodedConfig.LicenseId, else= DecodedConfig.Licence) as License,
+    if(condition= Xor=~'^0x(2e|69)$', then=dict(SpawnTox86=DecodedConfig.SpawnTox86,SpawnTox64=DecodedConfig.SpawnTox64), else= 'N/A') as SpawnTo,
+    if(condition= Xor=~'^0x(2e|69)$', then=DecodedConfig.Port, else= 'N/A') as Port,
+    if(condition= Xor=~'^0x(2e|69)$', then=DecodedConfig.C2Server, else= DecodedConfig.Server) as Server
+FROM cobalt
+GROUP BY Type, Licence,SpawnTo,Port,Server
+</code></pre>
 <p>
 <figure>
-<img src=13_notebook_example_results.png alt="VQL results: key indicators of interest" class=captioned>
+<img src=13_notebook_example.png alt="VQL results: key indicators of interest" class=captioned>
 <figcaption>VQL results: key indicators of interest</figcaption>
 </figure>
 </p>
@@ -726,13 +746,13 @@ always, please file issues on the bug tracker or ask questions on our mailing li
 <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>. You can also chat with us directly on discord
 at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>.</p>
 <h2 id=references>References</h2>
-<p><a href=https://attack.mitre.org/techniques/T1127/001/>MITRE ATT&CK T1127.001 - Trusted Developer Utilities Proxy Execution: MSBuild</a>
-<a href=https://github.com/3gstudent/msbuild-inline-task>MSBuild Inline Task template</a>
-<a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - &ldquo;I20xQy.TMP&rdquo;</a>
-<a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - &ldquo;CSLHP.TMP&rdquo;</a>
-<a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - &ldquo;ddppllkm.TMP&rdquo;</a>
-<a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - &ldquo;gujf2z0z.0.cs.TMP&rdquo;</a>
-<a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - &ldquo;Ofeq81u.TMP&rdquo;</a>
+<p><a href=https://attack.mitre.org/techniques/T1127/001/>MITRE ATT&CK T1127.001 - Trusted Developer Utilities Proxy Execution: MSBuild</a><br>
+<a href=https://github.com/3gstudent/msbuild-inline-task>MSBuild Inline Task template</a><br>
+<a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - &ldquo;I20xQy.TMP&rdquo;</a><br>
+<a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - &ldquo;CSLHP.TMP&rdquo;</a><br>
+<a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - &ldquo;ddppllkm.TMP&rdquo;</a><br>
+<a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - &ldquo;gujf2z0z.0.cs.TMP&rdquo;</a><br>
+<a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - &ldquo;Ofeq81u.TMP&rdquo;</a><br>
 <a href=https://www.virustotal.com/gui/file/507f988ab1f8229e84bb83dcb5a896b1747957b998aad7c7ccdd301096726999>VirusTotal sample - &ldquo;zzyhukwK.TMP&rdquo;</a></p>
 <footer class=footline>
 </footer>
@@ -744,15 +764,15 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636541429></script>
-<script src=/js/perfect-scrollbar.min.js?1636541429></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636541429></script>
-<script src=/js/jquery.sticky.js?1636541429></script>
-<script src=/js/featherlight.min.js?1636541429></script>
-<script src=/js/highlight.min.js?1636541429></script>
+<script src=/js/clipboard.min.js?1636555290></script>
+<script src=/js/perfect-scrollbar.min.js?1636555290></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636555290></script>
+<script src=/js/jquery.sticky.js?1636555290></script>
+<script src=/js/featherlight.min.js?1636555290></script>
+<script src=/js/highlight.min.js?1636555290></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636541429></script>
-<script src=/js/learn.js?1636541429></script>
-<script src=/js/hugo-learn.js?1636541429></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636555290></script>
+<script src=/js/learn.js?1636555290></script>
+<script src=/js/hugo-learn.js?1636555290></script>
 </body>
 </html>
