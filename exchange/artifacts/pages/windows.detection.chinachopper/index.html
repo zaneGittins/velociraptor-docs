@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.89.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Community :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636509369 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636509369 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636509369 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636509369 rel=stylesheet>
-<link href=/css/auto-complete.css?1636509369 rel=stylesheet>
-<link href=/css/theme.css?1636509369 rel=stylesheet>
-<link href=/css/tabs.css?1636509369 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636509369 rel=stylesheet>
-<link href=/css/theme-mine.css?1636509369 rel=stylesheet>
-<link href=/css/dark.css?1636509369 rel=stylesheet><link href=/css/syntax.css?1636509369 rel=stylesheet><link href=/css/light.css?1636509369 rel=stylesheet><link href=/css/hljs.css?1636509369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636509369 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636509369></script>
+<title>Windows.Detection.ChinaChopper :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1636509367 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636509367 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636509367 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636509367 rel=stylesheet>
+<link href=/css/auto-complete.css?1636509367 rel=stylesheet>
+<link href=/css/theme.css?1636509367 rel=stylesheet>
+<link href=/css/tabs.css?1636509367 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636509367 rel=stylesheet>
+<link href=/css/theme-mine.css?1636509367 rel=stylesheet>
+<link href=/css/dark.css?1636509367 rel=stylesheet><link href=/css/syntax.css?1636509367 rel=stylesheet><link href=/css/light.css?1636509367 rel=stylesheet><link href=/css/hljs.css?1636509367 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636509367 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636509367></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/community/>
+<body data-url=/exchange/artifacts/pages/windows.detection.chinachopper/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -375,6 +375,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.Detection.ChinaChopper.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -383,11 +389,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Community
+Windows.Detection.ChinaChopper
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -396,16 +403,53 @@ Community
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Community
+Windows.Detection.ChinaChopper
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<ul>
-<li><a href=/blog/2021/2021-10-22-a-closer-look-at-the-winning-entry-in-the-2021-velociraptor-contributor-competition-575c387610af/>A Closer Look at the Winning Entry in the 2021 Velociraptor Contributor Competition</a></li>
-<li><a href=/blog/2021/2021-10-08-contributor-contest/>The 2021 Contributor Contest</a></li>
-</ul>
+<p>This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)
+exploitation by parsing entries in the &lsquo;MSExchange Management.evtx&rsquo; log.</p>
+<p>This log file is unique to Exchange and can be useful when ECP logs are
+no longer available. Webshell detection syntax is specific to &lsquo;China Chopper&rsquo;
+via the PowerShell &lsquo;Set-OabVirtualDirectory&rsquo; cmdlet.</p>
+<pre><code class=language-yaml>name: Windows.Detection.ChinaChopper
+description: |
+  This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)
+  exploitation by parsing entries in the 'MSExchange Management.evtx' log.
+
+  This log file is unique to Exchange and can be useful when ECP logs are
+  no longer available. Webshell detection syntax is specific to 'China Chopper'
+  via the PowerShell 'Set-OabVirtualDirectory' cmdlet.
+
+author: Deepak Sharma - @rxurien
+
+type: CLIENT
+
+reference:
+  - https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: LogFile
+    default: C:/Windows/System32/Winevt/Logs/MSExchange Management.evtx
+
+sources:
+  - queries:
+      - SELECT timestamp(epoch=int(int=System.TimeCreated.SystemTime)) as CreationTime,
+            System.Channel as Channel,
+            System.EventID.Value as EventID,
+            Message,
+            EventData.Data[0] as Cmdlet,
+            EventData.Data[1] as Payload,
+            EventData
+               
+        FROM parse_evtx(filename=LogFile)
+
+        WHERE (Message =~ &quot;set-oabvirtualdirectory&quot; and Message =~ &quot;script&quot;) or (Cmdlet =~ &quot;set-oabvirtualdirectory&quot; and Payload =~ &quot;script&quot;)
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -416,15 +460,15 @@ Community
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636509369></script>
-<script src=/js/perfect-scrollbar.min.js?1636509369></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636509369></script>
-<script src=/js/jquery.sticky.js?1636509369></script>
-<script src=/js/featherlight.min.js?1636509369></script>
-<script src=/js/highlight.min.js?1636509369></script>
+<script src=/js/clipboard.min.js?1636509367></script>
+<script src=/js/perfect-scrollbar.min.js?1636509367></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636509367></script>
+<script src=/js/jquery.sticky.js?1636509367></script>
+<script src=/js/featherlight.min.js?1636509367></script>
+<script src=/js/highlight.min.js?1636509367></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636509369></script>
-<script src=/js/learn.js?1636509369></script>
-<script src=/js/hugo-learn.js?1636509369></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636509367></script>
+<script src=/js/learn.js?1636509367></script>
+<script src=/js/hugo-learn.js?1636509367></script>
 </body>
 </html>

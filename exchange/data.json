@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.ChinaChopper",
+        "author": "Seeps",
+        "description": "This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)\nexploitation by parsing entries in the 'MSExchange Management.evtx' log.\n\nThis log file is unique to Exchange and can be useful when ECP logs are\nno longer available. Webshell detection syntax is specific to 'China Chopper'\nvia the PowerShell 'Set-OabVirtualDirectory' cmdlet.\n",
+        "link": "/exchange/artifacts/pages/windows.detection.chinachopper",
+        "tags": [],
+        "author_link": "https://github.com/Seeps",
+        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
+        "date": "2021-11-10"
+    },
+    {
         "title": "Windows.Applications.DIEC",
         "author": "eduardomcm",
         "description": "Execute DetectItEasy (console version) on specified paths and return rows of results\nto hunt/filter on binaries based types of files (E.g.: Packed binaries and its packers)\n",
