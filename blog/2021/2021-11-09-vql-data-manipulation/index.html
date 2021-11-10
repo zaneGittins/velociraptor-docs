@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cobalt Strike payload discovery and data manipulation in VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636513415 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636513415 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636513415 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636513415 rel=stylesheet>
-<link href=/css/auto-complete.css?1636513415 rel=stylesheet>
-<link href=/css/theme.css?1636513415 rel=stylesheet>
-<link href=/css/tabs.css?1636513415 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636513415 rel=stylesheet>
-<link href=/css/theme-mine.css?1636513415 rel=stylesheet>
-<link href=/css/dark.css?1636513415 rel=stylesheet><link href=/css/syntax.css?1636513415 rel=stylesheet><link href=/css/light.css?1636513415 rel=stylesheet><link href=/css/hljs.css?1636513415 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636513415 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636513415></script>
+<link href=/css/nucleus.css?1636541429 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636541429 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636541429 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636541429 rel=stylesheet>
+<link href=/css/auto-complete.css?1636541429 rel=stylesheet>
+<link href=/css/theme.css?1636541429 rel=stylesheet>
+<link href=/css/tabs.css?1636541429 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636541429 rel=stylesheet>
+<link href=/css/theme-mine.css?1636541429 rel=stylesheet>
+<link href=/css/dark.css?1636541429 rel=stylesheet><link href=/css/syntax.css?1636541429 rel=stylesheet><link href=/css/light.css?1636541429 rel=stylesheet><link href=/css/hljs.css?1636541429 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636541429 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636541429></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -397,10 +397,17 @@ Cobalt Strike payload discovery and data manipulation in VQL
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#cobalt-strike-payload-discovery-and-data-manipulation>Cobalt Strike payload discovery and data manipulation</a></li>
 <li><a href=#background>Background</a></li>
 <li><a href=#collection>Collection</a></li>
-<li><a href=#payload-decode>Payload decode</a></li>
+<li><a href=#payload-decode>Payload decode</a>
+<ul>
+<li><a href=#enumerate-collected-files-and-find-location-on-server>Enumerate collected files and find location on server</a></li>
+<li><a href=#extract-encoded-payload-and-xor-key>Extract encoded payload and xor key</a></li>
+<li><a href=#extract-normalisation>Extract normalisation</a></li>
+<li><a href=#extract-to-bytes>Extract to bytes</a></li>
+<li><a href=#xor-decode>Xor decode</a></li>
+</ul>
+</li>
 <li><a href=#conclusions>Conclusions</a></li>
 <li><a href=#references>References</a></li>
 </ul>
@@ -424,14 +431,14 @@ Cobalt Strike payload discovery and data manipulation in VQL
 Matthew Green
 <span class=date>2021-11-09</span>
 </div>
-<h2 id=cobalt-strike-payload-discovery-and-data-manipulation>Cobalt Strike payload discovery and data manipulation</h2>
 <p>Velociraptor’s ability for data manipulation is a core platform capability
 that drives a lot of the great content we have available in terms of data
-parsing for artifacts and live analysis. After observing a recent
-engagement with several less common encoded Cobalt Strike beacons, then finding
-sharable files on VirusTotal, I thought it would be a good opportunity
-to walk through some workflow around data manipulation and VQL for
-analysis.</p>
+parsing for artifacts and live analysis. After a recent engagement with
+less common encoded Cobalt Strike beacons, and finding sharable files on
+VirusTotal, I thought it would be a good opportunity to walk through some
+workflow around data manipulation with VQL for analysis. In this post I
+will walk though some background, collection at scale, and finally talk
+about processing target files to extract key indicators.</p>
 <h2 id=background>Background</h2>
 <p>The Microsoft Build Engine (MSBuild.exe) is a signed Windows binary that
 can be used to load C# or Visual Basic code via an inline task project
@@ -464,26 +471,57 @@ systems with yara: <code>Windows.Detection.Yara.NTFS</code> and <code>Generic.De
 spring to mind readily. In this instance I am selecting Yara.NTFS. I have
 leveraged this artifact in the field for hunting malware, searching logs or
 any other capability where both metadata and content based discovery is desired.</p>
+<div class="mynotices tip">
+<div heading=" Windows.Detection.Yara.NTFS "><ul>
+<li>This artifact searches the MFT, returns a list of target files then runs Yara over the target list.</li>
+<li>The artifact leverages Windows.NTFS.MFT so similar regex filters can be applied including Path, Size and date.</li>
+<li>The artifact also has an option to search across all attached drives and upload any files with Yara hits.</li>
+</ul>
+<p>Some examples of path regex may include:</p>
+<ul>
+<li>Extension at a path: Windows/System32/.+\.dll$</li>
+<li>More wildcards: Windows/.+/.+\.dll$</li>
+<li>Specific file: Windows/System32/kernel32.dll$</li>
+<li>Multiple extentions: .(php|aspx|resx|asmx)$</li>
+</ul>
+</div>
+</div>
 <p>
 <figure>
-<img src=02_find_artifact.png alt="Select artifact &amp;gt; Windows.Detection.Yara.NTFS" class=captioned>
-<figcaption>Select artifact &amp;gt; Windows.Detection.Yara.NTFS</figcaption>
+<img src=02_find_artifact.png alt="Select artifact : Windows.Detection.Yara.NTFS" class=captioned>
+<figcaption>Select artifact : Windows.Detection.Yara.NTFS</figcaption>
 </figure>
 </p>
 <p>The file filter: <code>Windows/Temp/[^/]*\.TMP$</code> will suffice in this case to target
 our adversaries path for payloads before applying our yara rule. Typically when
 running discovery like this, an analyst can also apply additional options like
 file size or time stamp bounds for use at scale and optimal performance.
-The yara rule deployed in this case was simply quick and dirty text directly
-from the project file referencing the unique variable setup that was common
-across acquired samples.</p>
+The yara rule deployed in this case was simply quick and dirty hex conversion of
+text directly from the project file referencing the unique variable setup that
+was common across acquired samples.</p>
+<pre><code>rule MSBuild_buff {
+   meta:
+      description = &quot;Detect unique variable setup MSBuild inline task project file&quot;
+      author = &quot;Matt Green - @mgreen27&quot;
+      date = &quot;2021-10-22&quot;
+   strings:
+    // byte[] buff = new byte[]
+    $buff = { 62 79 74 65 5b 5d 20 62 75 66 66 20 3d 20 6e 65 77 20 62 79 74 65 5b 5d }
+    
+    // byte[] key_code = new byte[]
+    $key_code = { 62 79 74 65 5b 5d 20 6b 65 79 5f 63 6f 64 65 20 3d 20 6e 65 77 20 62 79 74 65 5b 5d }
+
+condition:
+      any of them
+}
+</code></pre>
 <p>
 <figure>
 <img src=03_configure_artifact.png alt="Windows.Detection.Yara.NTFS hunt configuration" class=captioned>
 <figcaption>Windows.Detection.Yara.NTFS hunt configuration</figcaption>
 </figure>
 </p>
-<p>After launching the hunt, results become inside the hunt entry on the
+<p>After launching the hunt, results become available inside the hunt entry on the
 Velociraptor server for download or additional analysis.</p>
 <p>
 <figure>
@@ -496,51 +534,157 @@ Velociraptor server for download or additional analysis.</p>
 as a hex formatted buffer and key in embedded C Sharp code as seen below.</p>
 <p>
 <figure>
-<img src=05_payload.png alt="MSBuild inline task project file with CobaltStrike payload" class=captioned>
+<img src=05_payload_b.png alt="MSBuild inline task project file with CobaltStrike payload" class=captioned>
 <figcaption>MSBuild inline task project file with CobaltStrike payload</figcaption>
 </figure>
 </p>
-<p>In this case, I can run analysis directly in the hunt notebook on results. Our
-first step of decode is to examine all the files we collected in the hunt. The
-first query enumerates all the individual collections in the hunt, while the
+<h3 id=enumerate-collected-files-and-find-location-on-server>Enumerate collected files and find location on server</h3>
+<p>So far we have only collected files that have suspicious content. Now we want
+to post process the result and try to extract more information from the payload.</p>
+<div class="mynotices tip">
+<div heading=" Velociraptor notebook "><p>The Velociraptor notebook is a gui component that lets the user run VQL directly
+on the server. In this case we are leveraging the notebook attached to our hunt
+to post process results opposed to downloading the files and processing offline.</p>
+</div>
+</div>
+<p>Our first step of decode is to examine all the files we collected in the hunt.
+The first query enumerates all the individual collections in the hunt, while the
 second query retrieves the files collected for each job.</p>
+<pre><code>-- find flow ids for each client
+LET hunt_flows = SELECT *, Flow.client_id as ClientId, Flow.session_id as FlowId 
+FROM hunt_flows(hunt_id='H.C6508PLOOPD2U')
+
+-- extract uploaded files and path on server
+Let targets = SELECT  * FROM foreach(row=hunt_flows, 
+    query={
+        SELECT 
+            file_store(path=vfs_path) as SamplePath, 
+            file_size as SampleSize
+        FROM uploads(client_id=ClientId,flow_id=FlowId)
+    })
+
+SELECT * FROM targets 
+</code></pre>
 <p>
 <figure>
 <img src=06_notebook_files.png alt="Find the location of all files collected" class=captioned>
 <figcaption>Find the location of all files collected</figcaption>
 </figure>
 </p>
+<h3 id=extract-encoded-payload-and-xor-key>Extract encoded payload and xor key</h3>
 <p>For the second step, to extract target bytes we leverage the <code>parse_records_with_regex()</code>
 plugin to extract the strings of interest (Data and Key) in our target files.
 Note: the buffer_size argument allows VQL to examine a larger buffer than the
 default size in order to capture the typically very large payloads in these build
 files. We have also included a 200 character limitation on the data field initially
-as this will improve performance when working on VQL.</p>
+as this will improve performance when working on VQL. We have also specified buffer
+size to be larger than default and just larger than the biggest payload in scope.</p>
+<pre><code>-- regex to extract Data and Key fields
+LET target_regex = 'buff = new byte\\[\\]\\s*{(?P&lt;Data&gt;[^\\n]*)};\\s+byte\\[\\]\\s+key_code = new byte\\[\\]\\s*{(?P&lt;Key&gt;[^\\n]*)};\\n'
+
+SELECT * FROM foreach(row=targets,
+    query={
+        SELECT 
+            basename(path=SamplePath) as Sample,
+            SampleSize,
+            Key, --obtained from regex
+            read_file(filename=Data,accessor='data',length=200) as DataExtract -- obtained by regex, only output 200 characters
+        FROM parse_records_with_regex(
+            file=SamplePath,buffer_size=15000000,
+            regex=target_regex)
+    })
+</code></pre>
+<div class="mynotices tip">
+<div heading=" Parse records with regex "><p>parse_records_with_regex() is a VQL plugin that parses a file with a set of regexp and yields matches as records. The file is read into a large buffer. Then each regular expression is applied to the buffer, and all matches are emitted as rows.</p>
+<p>The regular expressions are specified in the Go syntax. They are expected to contain capture variables to name the matches extracted.</p>
+<p>The aim of this plugin is to split the file into records which can be further parsed. For example, if the file consists of multiple records, this plugin can be used to extract each record, while parse_string_with_regex() can be used to further split each record into elements. This works better than trying to write a more complex regex which tries to capture a lot of details in one pass.</p>
+</div>
+</div>
 <p>
 <figure>
 <img src=07_notebook_regex.png alt="VQL: extract data and keys" class=captioned>
 <figcaption>VQL: extract data and keys</figcaption>
 </figure>
 </p>
+<h3 id=extract-normalisation>Extract normalisation</h3>
 <p>The third step adds a custom function for hex normalisation and converts the inline
-C Sharp style encoding to a standard hex encoded string which VQL can easily parse.</p>
+C Sharp style encoding to a standard hex encoded string which VQL can easily parse.
+In this case, the local normalise function will ensure we have valid 2 character hex.
+The regex replace will strip the leading &lsquo;0x&rsquo; from the hex strings and prepare for
+xor processing.</p>
+<pre><code>-- regex to extract Data and Key fields
+LET target_regex = 'buff = new byte\\[\\]\\s*{(?P&lt;Data&gt;[^\\n]*)};\\s+byte\\[\\]\\s+key_code = new byte\\[\\]\\s*{(?P&lt;Key&gt;[^\\n]*)};\\n'
+
+-- normalise function to fix bad hex strings
+LET normalise_hex(value) = regex_replace(source=value,re='0x(.)[,}]',replace='0x0\$1,')
+
+SELECT * FROM foreach(row=targets,
+    query={
+        SELECT 
+            basename(path=SamplePath) as Sample,
+            SampleSize,
+            regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key)) as KeyNormalised,
+            regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Data)) as DataNormalised
+        FROM parse_records_with_regex(
+            file=SamplePath,buffer_size=15000000,
+            regex=target_regex)
+    })
+</code></pre>
 <p>
 <figure>
 <img src=08_notebook_normalise.png alt="VQL: hex normalisation" class=captioned>
 <figcaption>VQL: hex normalisation</figcaption>
 </figure>
 </p>
-<p>The fourth step converts hex to bytes and validates that the next stage is working.</p>
+<h3 id=extract-to-bytes>Extract to bytes</h3>
+<p>The fourth step converts hex to bytes and validates that the next stage is working. In the example VQL below
+we pass the hex text to the unhex() function to produce raw bytes for our variables.</p>
+<pre><code>SELECT * FROM foreach(row=targets,
+    query={
+        SELECT 
+            basename(path=SamplePath) as Sample,
+            SampleSize,
+            unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key))) as KeyBytes,
+            read_file(filename=
+                unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Data))),
+                    accessor='data',length=200) as DataBytesExtracted
+        FROM parse_records_with_regex(
+            file=SamplePath,buffer_size=15000000,
+            regex=target_regex)
+    })
+</code></pre>
 <p>
 <figure>
 <img src=09_notebook_bytes.png alt="VQL: extract bytes" class=captioned>
 <figcaption>VQL: extract bytes</figcaption>
 </figure>
 </p>
+<h3 id=xor-decode>Xor decode</h3>
 <p>VQL&rsquo;s flexibility comes with its ability to reuse existing artifacts in different ways.
 The fifth step is running Velociraptor’s xor function and piping the output into our
 the existing Cobalt Strike configuration decoder (originally designed to extract
 configuration from memory).</p>
+<pre><code>-- extract bytes
+LET bytes &lt;= SELECT * FROM foreach(row=targets,
+    query={
+        SELECT 
+            SamplePath, basename(path=SamplePath) as Sample, SampleSize,
+            unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key))) as KeyBytes,
+            read_file(filename=
+                unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Data))),
+                    accessor='data') as DataBytes
+        FROM parse_records_with_regex(
+            file=SamplePath,buffer_size=15000000,
+            regex=target_regex)
+    })
+
+-- pass bytes to cobalt strike parser and format key indicators im interested in
+SELECT *, FROM foreach(row=bytes,query={
+    SELECT *,
+        basename(path=SamplePath) as Sample,SampleSize
+    FROM Artifact.Custom.Windows.Carving.CobaltStrike(TargetBytes=xor(key=KeyBytes,string=DataBytes))
+})
+</code></pre>
 <p>
 <figure>
 <img src=10_notebook_parse.png alt="VQL: parse config" class=captioned>
@@ -600,15 +744,15 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636513415></script>
-<script src=/js/perfect-scrollbar.min.js?1636513415></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636513415></script>
-<script src=/js/jquery.sticky.js?1636513415></script>
-<script src=/js/featherlight.min.js?1636513415></script>
-<script src=/js/highlight.min.js?1636513415></script>
+<script src=/js/clipboard.min.js?1636541429></script>
+<script src=/js/perfect-scrollbar.min.js?1636541429></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636541429></script>
+<script src=/js/jquery.sticky.js?1636541429></script>
+<script src=/js/featherlight.min.js?1636541429></script>
+<script src=/js/highlight.min.js?1636541429></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636513415></script>
-<script src=/js/learn.js?1636513415></script>
-<script src=/js/hugo-learn.js?1636513415></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636541429></script>
+<script src=/js/learn.js?1636541429></script>
+<script src=/js/hugo-learn.js?1636541429></script>
 </body>
 </html>
