@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.89.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Windows.Applications.OfficeServerCache :: Velociraptor - Digging deeper!</title>
+<title>Linux.Collection.CatScale :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1636596769 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1636596769 rel=stylesheet>
 <link href=/css/featherlight.min.css?1636596769 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/officeservercache/>
+<body data-url=/exchange/artifacts/pages/linux.collection.catscale/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -376,7 +376,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/OfficeServerCache.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Linux.Collection.CatScale.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -389,7 +389,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Windows.Applications.OfficeServerCache
+Linux.Collection.CatScale
 </span>
 </div>
 <div class=progress>
@@ -403,54 +403,60 @@ Windows.Applications.OfficeServerCache
 </div>
 <div id=body-inner>
 <h1>
-Windows.Applications.OfficeServerCache
+Linux.Collection.CatScale
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<p>Return Office Internet Server Cache Registry keys and values in order to identify possible C2 URLs from malicious opened Office documents.</p>
-<p>Such keys should be written by exploits such as CVE-2021-40444 (Microsoft MSHTML Remote Code Execution Vulnerability)</p>
-<pre><code class=language-yaml>name: Windows.Applications.OfficeServerCache
-
+<p>This is a simple artifact that leverages Cat-Scale to collect many different artifacts from a Linux host, then uploads the results to the Velociraptor server.</p>
+<p>From the project&rsquo;s description:</p>
+<p>&ldquo;Linux CatScale is a bash script that uses live of the land tools to collect extensive data from Linux based hosts. The data aims to help DFIR professionals triage and scope incidents. An Elk Stack instance also is configured to consume the output and assist the analysis process.&rdquo;</p>
+<p><a href=https://github.com/FSecureLABS/LinuxCatScale>https://github.com/FSecureLABS/LinuxCatScale</a></p>
+<p><a href=https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/>https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/</a></p>
+<pre><code class=language-yaml>name: Linux.Collection.CatScale
+author: Wes Lambert -- @therealwlambert
 description: |
-  Return Office Internet Server Cache Registry keys and values in order to identify possible C2 URLs from malicious opened Office documents.
-  
-  Such keys should be written by exploits such as CVE-2021-40444 (Microsoft MSHTML Remote Code Execution Vulnerability)
-  
-author: Eduardo Mattos - @eduardfir
-
-reference:
-  - https://twitter.com/RonnyTNL/status/1435918945349931008/photo/1
-  
-type: CLIENT
-
+    This is a simple artifact that leverages Cat-Scale to collect many different artifacts from a Linux host, then uploads the results to the Velociraptor server. 
+    
+    From the project's description:
+    
+    &quot;Linux CatScale is a bash script that uses live of the land tools to collect extensive data from Linux based hosts. The data aims to help DFIR professionals triage and scope incidents. An Elk Stack instance also is configured to consume the output and assist the analysis process.&quot;
+    
+    https://github.com/FSecureLABS/LinuxCatScale
+    
+    https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/
+    
+tools:
+  - name: CatScale
+    url: https://raw.githubusercontent.com/FSecureLABS/LinuxCatScale/master/Cat-Scale.sh
+    serve_locally: true
 parameters:
-  - name: OfficeServerCacheKey
-    default: SOFTWARE\Microsoft\Office\*\Common\Internet\Server Cache\**
-  - name: UserNameRegex
-    default: .
-    description: Filter by this UserName regex.
-
+  - name: Outfile
+    default: collection
+    type: string
+    description: Name of resultant collection file (will have `.tar.gz` appended)
+  - name: OutfilePrefix
+    default: catscale_
+    type: string
+    description: Prefix of collection file (Ex. catscale_ -- useful for parsing the filename later or other identification purposes)
+  - name: OutDir
+    default: catscale_out
+    type: string
+    description: Staging directory (modification likely not needed in most cases)
+precondition: SELECT OS From info() where OS = 'linux'
 sources:
-  - precondition:
-      SELECT OS From info() where OS = 'windows'
-    query: |
-        LET UserList &lt;= SELECT Name as UserName, User_sid as SID FROM users() 
-                      WHERE Name =~ UserNameRegex
-
-        SELECT * FROM foreach(
-            row={
-                SELECT * FROM UserList
-            },
-            query={
-                SELECT 
-                    Name,
-                    FullPath,
-                    Data,
-                    ModTime as Modified,
-                    UserName
-                FROM glob(globs=&quot;HKEY_USERS\\&quot; + SID + &quot;\\&quot; + OfficeServerCacheKey, accessor=&quot;registry&quot;)
-            })
+  - query: |
+        LET CS &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;CatScale&quot;, IsExecutable=TRUE)
+        LET TmpDir &lt;= tempdir(remove_last=TRUE)
+        Let RunIt = SELECT *, TmpDir + '/' + OutfilePrefix + Outfile + '.tar.gz' AS TarFile  
+                    FROM execve(argv=[  
+                        CS.FullPath[0],
+                        &quot;-d&quot;, Outdir, 
+                        &quot;-o&quot;, TmpDir, 
+                        &quot;-f&quot;, Outfile,
+                        &quot;-p&quot;, OutfilePrefix
+                     ])
+        SELECT upload(accessor=&quot;file&quot;, file=TarFile) AS Upload FROM RunIt
 
 </code></pre>
 <footer class=footline>
