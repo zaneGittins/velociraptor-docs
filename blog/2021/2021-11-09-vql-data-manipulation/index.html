@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cobalt Strike payload discovery and data manipulation in VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636596769 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636596769 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636596769 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636596769 rel=stylesheet>
-<link href=/css/auto-complete.css?1636596769 rel=stylesheet>
-<link href=/css/theme.css?1636596769 rel=stylesheet>
-<link href=/css/tabs.css?1636596769 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636596769 rel=stylesheet>
-<link href=/css/theme-mine.css?1636596769 rel=stylesheet>
-<link href=/css/dark.css?1636596769 rel=stylesheet><link href=/css/syntax.css?1636596769 rel=stylesheet><link href=/css/light.css?1636596769 rel=stylesheet><link href=/css/hljs.css?1636596769 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636596769 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636596769></script>
+<link href=/css/nucleus.css?1636630551 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636630551 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636630551 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636630551 rel=stylesheet>
+<link href=/css/auto-complete.css?1636630551 rel=stylesheet>
+<link href=/css/theme.css?1636630551 rel=stylesheet>
+<link href=/css/tabs.css?1636630551 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636630551 rel=stylesheet>
+<link href=/css/theme-mine.css?1636630551 rel=stylesheet>
+<link href=/css/dark.css?1636630551 rel=stylesheet><link href=/css/syntax.css?1636630551 rel=stylesheet><link href=/css/light.css?1636630551 rel=stylesheet><link href=/css/hljs.css?1636630551 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636630551 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636630551></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -459,7 +459,7 @@ files on disk quickly to find any additional scope using Velociraptor?</p>
 <h2 id=collection>Collection</h2>
 <p>First task is discovery and collecting our files in scope from the network.
 Typically this task may be slow to deploy or rely on cobbled together
-capabilies from other teams. The Velociraptor hunt is an easy button for
+capabilities from other teams. The Velociraptor hunt is an easy button for
 this use case.</p>
 <p>
 <figure>
@@ -508,7 +508,7 @@ was common across acquired samples.</p>
    strings:
     // byte[] buff = new byte[]
     $buff = { 62 79 74 65 5b 5d 20 62 75 66 66 20 3d 20 6e 65 77 20 62 79 74 65 5b 5d }
-    
+
     // byte[] key_code = new byte[]
     $key_code = { 62 79 74 65 5b 5d 20 6b 65 79 5f 63 6f 64 65 20 3d 20 6e 65 77 20 62 79 74 65 5b 5d }
 
@@ -552,19 +552,19 @@ to post process results opposed to downloading the files and processing offline.
 The first query enumerates all the individual collections in the hunt, while the
 second query retrieves the files collected for each job.</p>
 <pre><code class=language-vql>-- find flow ids for each client
-LET hunt_flows = SELECT *, Flow.client_id as ClientId, Flow.session_id as FlowId 
+LET hunt_flows = SELECT *, Flow.client_id as ClientId, Flow.session_id as FlowId
 FROM hunt_flows(hunt_id='H.C6508PLOOPD2U')
 
 -- extract uploaded files and path on server
-Let targets = SELECT  * FROM foreach(row=hunt_flows, 
+Let targets = SELECT  * FROM foreach(row=hunt_flows,
     query={
-        SELECT 
-            file_store(path=vfs_path) as SamplePath, 
+        SELECT
+            file_store(path=vfs_path) as SamplePath,
             file_size as SampleSize
         FROM uploads(client_id=ClientId,flow_id=FlowId)
     })
 
-SELECT * FROM targets 
+SELECT * FROM targets
 </code></pre>
 <p>
 <figure>
@@ -585,7 +585,7 @@ LET target_regex = 'buff = new byte\\[\\]\\s*{(?P&lt;Data&gt;[^\\n]*)};\\s+byte\
 
 SELECT * FROM foreach(row=targets,
     query={
-        SELECT 
+        SELECT
             basename(path=SamplePath) as Sample,
             SampleSize,
             Key, --obtained from regex
@@ -621,7 +621,7 @@ LET normalise_hex(value) = regex_replace(source=value,re='0x(.)[,}]',replace='0x
 
 SELECT * FROM foreach(row=targets,
     query={
-        SELECT 
+        SELECT
             basename(path=SamplePath) as Sample,
             SampleSize,
             regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key)) as KeyNormalised,
@@ -642,7 +642,7 @@ SELECT * FROM foreach(row=targets,
 we pass the hex text to the <code>unhex()</code> function to produce raw bytes for our variables.</p>
 <pre><code class=language-vql>SELECT * FROM foreach(row=targets,
     query={
-        SELECT 
+        SELECT
             basename(path=SamplePath) as Sample,
             SampleSize,
             unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key))) as KeyBytes,
@@ -667,7 +667,7 @@ the existing <code>Windows.Carving.CobaltStrike()</code> configuration decoder.<
 <pre><code class=language-vql>-- extract bytes
 LET bytes &lt;= SELECT * FROM foreach(row=targets,
     query={
-        SELECT 
+        SELECT
             SamplePath, basename(path=SamplePath) as Sample, SampleSize,
             unhex(string=regex_replace(re=&quot;0x|,&quot;, replace=&quot;&quot;, source=normalise_hex(value=Key))) as KeyBytes,
             read_file(filename=
@@ -711,10 +711,10 @@ added to the Velociraptor Cobalt Strike parser.</p>
 samples. A simple data stack on key indicators of interest.</p>
 <pre><code class=language-vql>-- pass bytes to cobalt strike parser and format key indicators im interested in
 LET cobalt = SELECT *, FROM foreach(row=bytes,query={
-    SELECT 
+    SELECT
         basename(path=SamplePath) as Sample,SampleSize,
         Hash as DecodeHash,
-        Rule,Offset,Xor,DecodedConfig 
+        Rule,Offset,Xor,DecodedConfig
     FROM Artifact.Custom.Windows.Carving.CobaltStrike(TargetBytes=xor(key=KeyBytes,string=DataBytes))
 })
 
@@ -746,13 +746,13 @@ always, please file issues on the bug tracker or ask questions on our mailing li
 <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>. You can also chat with us directly on discord
 at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>.</p>
 <h2 id=references>References</h2>
-<p><a href=https://attack.mitre.org/techniques/T1127/001/>MITRE ATT&CK T1127.001 - Trusted Developer Utilities Proxy Execution: MSBuild</a><br>
-<a href=https://github.com/3gstudent/msbuild-inline-task>MSBuild Inline Task template</a><br>
-<a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - &ldquo;I20xQy.TMP&rdquo;</a><br>
-<a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - &ldquo;CSLHP.TMP&rdquo;</a><br>
-<a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - &ldquo;ddppllkm.TMP&rdquo;</a><br>
-<a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - &ldquo;gujf2z0z.0.cs.TMP&rdquo;</a><br>
-<a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - &ldquo;Ofeq81u.TMP&rdquo;</a><br>
+<p><a href=https://attack.mitre.org/techniques/T1127/001/>MITRE ATT&CK T1127.001 - Trusted Developer Utilities Proxy Execution: MSBuild</a>
+<a href=https://github.com/3gstudent/msbuild-inline-task>MSBuild Inline Task template</a>
+<a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - &ldquo;I20xQy.TMP&rdquo;</a>
+<a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - &ldquo;CSLHP.TMP&rdquo;</a>
+<a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - &ldquo;ddppllkm.TMP&rdquo;</a>
+<a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - &ldquo;gujf2z0z.0.cs.TMP&rdquo;</a>
+<a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - &ldquo;Ofeq81u.TMP&rdquo;</a>
 <a href=https://www.virustotal.com/gui/file/507f988ab1f8229e84bb83dcb5a896b1747957b998aad7c7ccdd301096726999>VirusTotal sample - &ldquo;zzyhukwK.TMP&rdquo;</a></p>
 <footer class=footline>
 </footer>
@@ -764,15 +764,15 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636596769></script>
-<script src=/js/perfect-scrollbar.min.js?1636596769></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636596769></script>
-<script src=/js/jquery.sticky.js?1636596769></script>
-<script src=/js/featherlight.min.js?1636596769></script>
-<script src=/js/highlight.min.js?1636596769></script>
+<script src=/js/clipboard.min.js?1636630551></script>
+<script src=/js/perfect-scrollbar.min.js?1636630551></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636630551></script>
+<script src=/js/jquery.sticky.js?1636630551></script>
+<script src=/js/featherlight.min.js?1636630551></script>
+<script src=/js/highlight.min.js?1636630551></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636596769></script>
-<script src=/js/learn.js?1636596769></script>
-<script src=/js/hugo-learn.js?1636596769></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636630551></script>
+<script src=/js/learn.js?1636630551></script>
+<script src=/js/hugo-learn.js?1636630551></script>
 </body>
 </html>

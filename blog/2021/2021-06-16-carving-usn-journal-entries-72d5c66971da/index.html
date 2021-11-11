@@ -6,17 +6,17 @@
 <meta name=description content="The USN journal is a unique source of evidence because it can provide a timeline for when files were deleted, even if the file itself is no longer found on the system. While the USN journal is very useful, it is short lived. This post explains how to write a carver to recover deleted USN journal entries.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Carving $USN journal entries :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1636596769 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1636596769 rel=stylesheet>
-<link href=/css/featherlight.min.css?1636596769 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1636596769 rel=stylesheet>
-<link href=/css/auto-complete.css?1636596769 rel=stylesheet>
-<link href=/css/theme.css?1636596769 rel=stylesheet>
-<link href=/css/tabs.css?1636596769 rel=stylesheet>
-<link href=/css/hugo-theme.css?1636596769 rel=stylesheet>
-<link href=/css/theme-mine.css?1636596769 rel=stylesheet>
-<link href=/css/dark.css?1636596769 rel=stylesheet><link href=/css/syntax.css?1636596769 rel=stylesheet><link href=/css/light.css?1636596769 rel=stylesheet><link href=/css/hljs.css?1636596769 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636596769 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1636596769></script>
+<link href=/css/nucleus.css?1636630551 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1636630551 rel=stylesheet>
+<link href=/css/featherlight.min.css?1636630551 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1636630551 rel=stylesheet>
+<link href=/css/auto-complete.css?1636630551 rel=stylesheet>
+<link href=/css/theme.css?1636630551 rel=stylesheet>
+<link href=/css/tabs.css?1636630551 rel=stylesheet>
+<link href=/css/hugo-theme.css?1636630551 rel=stylesheet>
+<link href=/css/theme-mine.css?1636630551 rel=stylesheet>
+<link href=/css/dark.css?1636630551 rel=stylesheet><link href=/css/syntax.css?1636630551 rel=stylesheet><link href=/css/light.css?1636630551 rel=stylesheet><link href=/css/hljs.css?1636630551 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1636630551 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1636630551></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -474,7 +474,7 @@ try to gather new clues so its worth a shot anyway.</p>
 <p>The filename is also stored in the record with the length and the offset both specified. For a reasonable file the length should be less than say 255 bytes. Since the filename itself follows the end of the struct, the filename offset should be exactly 60 bytes (0x36 — the size of the struct).</p>
 </li>
 </ol>
-<p>Let’s take a look at the timestamp above. I will use <a href="https://gchq.github.io/CyberChef/#recipe=Windows_Filetime_to_UNIX_Timestamp('Seconds%20(s)','Hex%20(little%20endian)')From_UNIX_Timestamp('Seconds%20(s)')&input=MDRlY2VkZWE1ODYyZDcwMQ">CyberChef </a>to convert the hex to a readable timestamp.</p>
+<p>Let’s take a look at the timestamp above. I will use <a href="https://gchq.github.io/CyberChef/#recipe=Windows_Filetime_to_UNIX_Timestamp('Seconds%20(s)','Hex%20(little%20endian)')From_UNIX_Timestamp('Seconds%20(s)')&input=MDRlY2VkZWE1ODYyZDcwMQ">CyberChef </a> to convert the hex to a readable timestamp.</p>
 <p>
 <img src=../../img/1iCD7doMdvFls77vZdOdjKw.png alt>
 </p>
@@ -485,7 +485,7 @@ try to gather new clues so its worth a shot anyway.</p>
 <h3 id=developing-the-vql-query-for-the-carver>Developing the VQL query for the carver</h3>
 <p>A good carver is fast and accurate. Since we need to scan a huge amount of data in a reasonable time (most hard disks are larger than 100Gb), we need to quickly eliminate obviously invalid data.</p>
 <p>The usual approach is to use a fast but rough matcher for a first level sieve — this will eliminate most of the obviously wrong data but might have a high false positive rate (i.e. might match invalid data that is not really a USN record at all).</p>
-<p>We can then apply a more thorough check on the match using a more accurate parser to eliminate these false positives. If the false positive rate remains reasonably low, we wont waste too many CPU cycles eliminating them and will maintain a hight carving velocity while still having high accuracy.</p>
+<p>We can then apply a more thorough check on the match using a more accurate parser to eliminate these false positives. If the false positive rate remains reasonably low, we wont waste too many CPU cycles eliminating them and will maintain a high carving velocity while still having high accuracy.</p>
 <p>When I need a binary pattern matching engine, I immediately think of Yara — the Swiss army knife of binary searching! Let’s come up with a good Yara rule to identify USN journal entries. You can read more about Yara rule syntax <a href=https://yara.readthedocs.io/en/stable/>here</a>, but I will use a binary match rule to detect the byte pattern I am after.</p>
 <p>As usual in Velociraptor, I will create a notebook and type a query into the cell. As a first step I will stop after one hit (LIMIT 1) and view some context around the hit. Accessing the raw disk using its device notation (<strong>\\.\C:</strong>) and the NTFS driver provides access to the raw logical disk from Velociraptor versions after 0.6.0.</p>
 <p>
@@ -527,15 +527,15 @@ try to gather new clues so its worth a shot anyway.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1636596769></script>
-<script src=/js/perfect-scrollbar.min.js?1636596769></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1636596769></script>
-<script src=/js/jquery.sticky.js?1636596769></script>
-<script src=/js/featherlight.min.js?1636596769></script>
-<script src=/js/highlight.min.js?1636596769></script>
+<script src=/js/clipboard.min.js?1636630551></script>
+<script src=/js/perfect-scrollbar.min.js?1636630551></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1636630551></script>
+<script src=/js/jquery.sticky.js?1636630551></script>
+<script src=/js/featherlight.min.js?1636630551></script>
+<script src=/js/highlight.min.js?1636630551></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1636596769></script>
-<script src=/js/learn.js?1636596769></script>
-<script src=/js/hugo-learn.js?1636596769></script>
+<script src=/js/modernizr.custom-3.6.0.js?1636630551></script>
+<script src=/js/learn.js?1636630551></script>
+<script src=/js/hugo-learn.js?1636630551></script>
 </body>
 </html>
