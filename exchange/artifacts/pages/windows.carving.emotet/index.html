@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.89.4">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Forensics :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637367439 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637367439 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637367439 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637367439 rel=stylesheet>
-<link href=/css/auto-complete.css?1637367439 rel=stylesheet>
-<link href=/css/theme.css?1637367439 rel=stylesheet>
-<link href=/css/tabs.css?1637367439 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637367439 rel=stylesheet>
-<link href=/css/theme-mine.css?1637367439 rel=stylesheet>
-<link href=/css/dark.css?1637367439 rel=stylesheet><link href=/css/syntax.css?1637367439 rel=stylesheet><link href=/css/light.css?1637367439 rel=stylesheet><link href=/css/hljs.css?1637367439 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637367439 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637367439></script>
+<title>Windows.Carving.Emotet :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1637367438 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637367438 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637367438 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637367438 rel=stylesheet>
+<link href=/css/auto-complete.css?1637367438 rel=stylesheet>
+<link href=/css/theme.css?1637367438 rel=stylesheet>
+<link href=/css/tabs.css?1637367438 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637367438 rel=stylesheet>
+<link href=/css/theme-mine.css?1637367438 rel=stylesheet>
+<link href=/css/dark.css?1637367438 rel=stylesheet><link href=/css/syntax.css?1637367438 rel=stylesheet><link href=/css/light.css?1637367438 rel=stylesheet><link href=/css/hljs.css?1637367438 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637367438 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637367438></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/forensics/>
+<body data-url=/exchange/artifacts/pages/windows.carving.emotet/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -375,6 +375,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.Carving.Emotet.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -383,11 +389,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Forensics
+Windows.Carving.Emotet
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -396,19 +403,168 @@ Forensics
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Forensics
+Windows.Carving.Emotet
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<ul>
-<li><a href=/blog/2021/2021-06-16-carving-usn-journal-entries-72d5c66971da/>Carving $USN journal entries</a></li>
-<li><a href=/blog/2021/2021-04-16-digging-into-process-memory-33c60a640cdb/>Digging into process memory</a></li>
-<li><a href=/blog/2021/2021-02-13-digging-for-files-with-velociraptor-a1c0a21e242b/>Digging for files with Velociraptor</a></li>
-<li><a href=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li>
-<li><a href=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li>
-</ul>
+<p>This artifact yara-scans memory or unpacked DLL samples for the new 2021 Emotet
+detections, decrypts and returns the C2 list.</p>
+<p>You may select specific file paths or processes to be yara-scanned, or allow
+it to yara-scan all memory space.</p>
+<p>Currently this artifact parses encrypted configurations from the Emotet variants
+introducted in November 2021. It will not parse the configurations from earlier
+variants.</p>
+<p>NOTE:
+This content simply carves the configuration and does not unpack files on disk.
+That means pointing this artifact as a packed or obfuscated file will not obtain the expected results.</p>
+<pre><code class=language-yaml>name: Windows.Carving.Emotet
+author: &quot;Eduardo Mattos - @eduardfir&quot;
+description: |
+    This artifact yara-scans memory or unpacked DLL samples for the new 2021 Emotet
+    detections, decrypts and returns the C2 list.
+    
+    You may select specific file paths or processes to be yara-scanned, or allow 
+    it to yara-scan all memory space.
+    
+    Currently this artifact parses encrypted configurations from the Emotet variants
+    introducted in November 2021. It will not parse the configurations from earlier 
+    variants.
+    
+    NOTE:
+    This content simply carves the configuration and does not unpack files on disk. 
+    That means pointing this artifact as a packed or obfuscated file will not obtain the expected results.
+type: CLIENT
+
+reference:
+  - https://github.com/kevoreilly/CAPEv2/blob/master/modules/processing/parsers/mwcp/Emotet.py
+  - https://github.com/OALabs/Lab-Notes/blob/main/Emotet/Emotet.ipynb
+
+parameters:
+  - name: TargetFileGlob
+    default:
+  - name: PidRegex
+    default: .
+  - name: ProcessRegex
+    default: .
+  - name: DetectionYara
+    default: |
+        rule Emotet {
+            meta:
+                author = &quot;Eduardo Mattos&quot;
+                description = &quot;Emotet Payload&quot;
+            strings:
+                $snippetD = {8D 44 [2] 50 68 [4] FF 74 [2] FF 74 [2] 8B 54 [2] 8B 4C [2] E8 [4] 8B 54 [2] 83 C4 10 89 44 [2] 8B F8 03 44 [2] B9 [4] 89 44 [2] E9 [2] FF FF}
+                $snippetE = {68 [4] FF 74 [2] 8B 4C [2] E8 [4] 8B 54 [2] 83 C4 10 89 44 [2] 8B F8 03 44 [2] B9 [4] 89 44 [2] E9 [2] FF FF}
+            condition:
+                any of them
+        }
+sources:
+  - precondition:
+      SELECT OS From info() where OS = 'windows'
+
+    query: |
+        -- find target files
+        LET targetFiles = SELECT FullPath FROM glob(globs=TargetFileGlob) 
+                
+        -- find velociraptor process
+        LET me &lt;= SELECT Pid 
+                  FROM pslist(pid=getpid())
+        
+        -- find all processes and add filters
+        LET processes &lt;= SELECT Name AS ProcessName, CommandLine, Pid
+                        FROM pslist()
+                        WHERE Name =~ ProcessRegex 
+                            AND format(format=&quot;%d&quot;, args=Pid) =~ PidRegex
+                            AND NOT Pid in me.Pid
+        -- scan processes in scope with our DetectionYara
+        LET processDetections &lt;= SELECT * FROM foreach(row=processes,
+                                query={
+                                    SELECT * FROM if(condition=TargetFileGlob=&quot;&quot;,
+                                        then={
+                                            SELECT *, ProcessName, CommandLine, Pid, Rule AS YaraRule
+                                            FROM proc_yara(pid=Pid, rules=DetectionYara)
+                                        })
+                                })
+        -- scan files in scope with our DetectionYara
+        LET fileDetections = SELECT * FROM foreach(row=targetFiles,
+                                query={
+                                    SELECT * FROM if(condition=TargetFileGlob,
+                                        then={
+                                            SELECT * FROM switch(
+                                                a={ -- yara detection
+                                                    SELECT FullPath, Rule AS YaraRule
+                                                    FROM yara(files=FullPath, rules=DetectionYara)
+                                                },
+                                                b={ -- yara miss
+                                                    SELECT FullPath, Null AS YaraRule 
+                                                    FROM targetFiles
+                                                })
+                                        },
+                                        else={ -- no yara detection run
+                                            SELECT FullPath, 'N/A' AS YaraRule 
+                                            FROM targetFiles
+                                        })
+                             })
+        -- return the VAD region size from yara detections for later use                         
+        LET regionDetections = SELECT * 
+                                FROM foreach(row=processDetections,
+                                    query={
+                                        SELECT YaraRule, Pid, ProcessName, CommandLine, Address as EmotetBaseOffset, Size AS VADSize
+                                        FROM vad(pid=Pid)
+                                        WHERE Protection =~ &quot;xrw&quot;
+                                })
+        
+        -- get data from the whole PE
+        LET peData &lt;= SELECT * FROM if(condition=TargetFileGlob,
+                                        then={ -- query files
+                                            SELECT YaraRule, FullPath,
+                                                read_file(filename=FullPath) AS PEData
+                                            FROM fileDetections
+                                        },
+                                        else={ -- query processes
+                                            SELECT YaraRule, Pid, ProcessName, CommandLine,
+                                                read_file(filename=str(str=Pid), accessor='process', offset=EmotetBaseOffset, length=VADSize) AS PEData
+                                            FROM regionDetections
+                                        })
+                                        
+        -- return .data section info
+        LET sectionInfo &lt;= SELECT *,
+                                parse_pe(file=PEData, accessor=&quot;data&quot;).Sections[2] AS DataSections
+                           FROM peData
+                           
+        -- read the data from .data sections
+        LET sectionData &lt;= SELECT *,
+                                read_file(filename=PEData, accessor=&quot;data&quot;, offset=DataSections.RVA, length=DataSections.Size) AS EmotetDataSectionData
+                           FROM sectionInfo
+
+        -- parse the .data sections to extract the C2 config
+        LET parsedDataSection = SELECT *,
+                            parse_binary(filename=EmotetDataSectionData, accessor=&quot;data&quot;, profile='''[
+                                [&quot;EmotetC2Config&quot;, 0, [
+                                        [&quot;Key4Size&quot;, 0, &quot;String&quot;, {&quot;length&quot;: 1, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;Key&quot;, 0, &quot;String&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;SizeEncoded&quot;, 4, &quot;String&quot;, {&quot;length&quot;: 1, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;C2List&quot;, 8, &quot;String&quot;, {&quot;length&quot;:&quot;x=&gt; parse_binary(accessor='data',filename=xor(string=x.SizeEncoded, key=x.Key4Size),struct='uint8')&quot;, &quot;term&quot;:&quot;&quot;}]
+                                    ]
+                                ]
+                            ]''', struct=&quot;EmotetC2Config&quot;) AS EmotetEncodedC2Conf
+                          FROM sectionData  
+
+        -- format the decrypted configurations
+        SELECT * FROM if(condition=TargetFileGlob,
+            then= {
+                SELECT YaraRule, FullPath,
+                    { SELECT ip(netaddr4_be=int(int=&quot;0x&quot; + IPAdd)) AS IPAddress, int(int=&quot;0x&quot; + Port) AS PortNum FROM parse_records_with_regex(file=format(format=&quot;%x&quot;, args=xor(string=EmotetEncodedC2Conf.C2List, key=EmotetEncodedC2Conf.Key)), accessor=&quot;data&quot;, regex='(?P&lt;IPAdd&gt;........)(?P&lt;Port&gt;....)....')} AS C2Info
+                FROM parsedDataSection
+            },
+            else= {
+                SELECT YaraRule, Pid, ProcessName, CommandLine,
+                    { SELECT ip(netaddr4_be=int(int=&quot;0x&quot; + IPAdd)) AS IPAddress, int(int=&quot;0x&quot; + Port) AS PortNum FROM parse_records_with_regex(file=format(format=&quot;%x&quot;, args=xor(string=EmotetEncodedC2Conf.C2List, key=EmotetEncodedC2Conf.Key)), accessor=&quot;data&quot;, regex='(?P&lt;IPAdd&gt;........)(?P&lt;Port&gt;....)....')} AS C2Info
+                FROM parsedDataSection
+        })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -419,15 +575,15 @@ Forensics
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637367439></script>
-<script src=/js/perfect-scrollbar.min.js?1637367439></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637367439></script>
-<script src=/js/jquery.sticky.js?1637367439></script>
-<script src=/js/featherlight.min.js?1637367439></script>
-<script src=/js/highlight.min.js?1637367439></script>
+<script src=/js/clipboard.min.js?1637367438></script>
+<script src=/js/perfect-scrollbar.min.js?1637367438></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637367438></script>
+<script src=/js/jquery.sticky.js?1637367438></script>
+<script src=/js/featherlight.min.js?1637367438></script>
+<script src=/js/highlight.min.js?1637367438></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637367439></script>
-<script src=/js/learn.js?1637367439></script>
-<script src=/js/hugo-learn.js?1637367439></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637367438></script>
+<script src=/js/learn.js?1637367438></script>
+<script src=/js/hugo-learn.js?1637367438></script>
 </body>
 </html>

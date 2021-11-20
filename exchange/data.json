@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Carving.Emotet",
+        "author": "eduardomcm",
+        "description": "This artifact yara-scans memory or unpacked DLL samples for the new 2021 Emotet\ndetections, decrypts and returns the C2 list.\n\nYou may select specific file paths or processes to be yara-scanned, or allow \nit to yara-scan all memory space.\n\nCurrently this artifact parses encrypted configurations from the Emotet variants\nintroducted in November 2021. It will not parse the configurations from earlier \nvariants.\n\nNOTE:\nThis content simply carves the configuration and does not unpack files on disk. \nThat means pointing this artifact as a packed or obfuscated file will not obtain the expected results.\n",
+        "link": "/exchange/artifacts/pages/windows.carving.emotet",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2021-11-20"
+    },
+    {
         "title": "Linux.Collection.CatScale",
         "author": "weslambert",
         "description": "This is a simple artifact that leverages Cat-Scale to collect many different artifacts from a Linux host, then uploads the results to the Velociraptor server. \n\nFrom the project's description:\n\n\"Linux CatScale is a bash script that uses live of the land tools to collect extensive data from Linux based hosts. The data aims to help DFIR professionals triage and scope incidents. An Elk Stack instance also is configured to consume the output and assist the analysis process.\"\n\nhttps://github.com/FSecureLABS/LinuxCatScale\n\nhttps://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/\n",
