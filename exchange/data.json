@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Findflows",
+        "author": "mgreen27",
+        "description": "This artifact enables searching over client flow results with regex and returns \na link to the Flow for followup.\n",
+        "link": "/exchange/artifacts/pages/findflows",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-11-23"
+    },
+    {
         "title": "Windows.Carving.Emotet",
         "author": "eduardomcm",
         "description": "This artifact yara-scans memory or unpacked DLL samples for the new 2021 Emotet\ndetections, decrypts and returns the C2 list.\n\nYou may select specific file paths or processes to be yara-scanned, or allow \nit to yara-scan all memory space.\n\nCurrently this artifact parses encrypted configurations from the Emotet variants\nintroducted in November 2021. It will not parse the configurations from earlier \nvariants.\n\nNOTE:\nThis content simply carves the configuration and does not unpack files on disk. \nThat means pointing this artifact as a packed or obfuscated file will not obtain the expected results.\n",
