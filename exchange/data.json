@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.Zircolite",
+        "author": "weslambert",
+        "description": "Zircolite is a standalone tool that can be used to apply Sigma rules to EVTX files on endpoints in an effort to quickly parse large datasets and surface detections.\n            \nYou can read more about Zircolite below:\n    \nhttps://github.com/wagga40/Zircolite\n    \nThis artifact currently supports usage of the built-in rulesets. Support for custom ruleset usage will be added in the future. \n    \nNOTE: This artifact may take several minutes to run, depending on the size of EVTZ files being analyzed.\n",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.zircolite",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2021-11-24"
+    },
+    {
         "title": "Server.Findflows",
         "author": "mgreen27",
         "description": "This artifact enables searching over client flow results with regex and returns \na link to the Flow for followup.\n",

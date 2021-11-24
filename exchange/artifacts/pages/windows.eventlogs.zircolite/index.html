@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.89.4">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Internals :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<title>Windows.EventLogs.Zircolite :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1637721353 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637721353 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637721353 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637721353 rel=stylesheet>
+<link href=/css/auto-complete.css?1637721353 rel=stylesheet>
+<link href=/css/theme.css?1637721353 rel=stylesheet>
+<link href=/css/tabs.css?1637721353 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637721353 rel=stylesheet>
+<link href=/css/theme-mine.css?1637721353 rel=stylesheet>
+<link href=/css/dark.css?1637721353 rel=stylesheet><link href=/css/syntax.css?1637721353 rel=stylesheet><link href=/css/light.css?1637721353 rel=stylesheet><link href=/css/hljs.css?1637721353 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721353 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637721353></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/internals/>
+<body data-url=/exchange/artifacts/pages/windows.eventlogs.zircolite/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -375,6 +375,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.EventLogs.Zircolite.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -383,11 +389,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Internals
+Windows.EventLogs.Zircolite
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -396,17 +403,66 @@ Internals
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Internals
+Windows.EventLogs.Zircolite
 </h1>
 <div class="author pull-right">
 <span class=date></span>
 </div>
-<ul>
-<li><a href=/blog/2020/2020-09-28-velociraptor-network-communications-30568624043a/>Velociraptor Communications</a></li>
-<li><a href=/blog/2020/2020-08-16-profiling-the-beast-58913437fd16/>Profiling the beast</a></li>
-<li><a href=/blog/2020/2020-07-13-velociraptor-in-the-tool-age-d896dfe71b9/>Velociraptor in the tool age</a></li>
-</ul>
+<p>Zircolite is a standalone tool that can be used to apply Sigma rules to EVTX files on endpoints in an effort to quickly parse large datasets and surface detections.</p>
+<p>You can read more about Zircolite below:</p>
+<p><a href=https://github.com/wagga40/Zircolite>https://github.com/wagga40/Zircolite</a></p>
+<p>This artifact currently supports usage of the built-in rulesets. Support for custom ruleset usage will be added in the future.</p>
+<p>NOTE: This artifact may take several minutes to run, depending on the size of EVTZ files being analyzed.</p>
+<pre><code class=language-yaml>name: Windows.EventLogs.Zircolite
+description: |
+    Zircolite is a standalone tool that can be used to apply Sigma rules to EVTX files on endpoints in an effort to quickly parse large datasets and surface detections.
+                
+    You can read more about Zircolite below:
+        
+    https://github.com/wagga40/Zircolite
+        
+    This artifact currently supports usage of the built-in rulesets. Support for custom ruleset usage will be added in the future. 
+        
+    NOTE: This artifact may take several minutes to run, depending on the size of EVTZ files being analyzed.
+author: Wes Lambert -- @therealwlambert
+tools:
+  - name: Zircolite
+    url: https://github.com/wagga40/Zircolite/releases/download/2.6.0/zircolite_win10_nuitka_embedded.exe
+parameters:
+  - name: EVTXPath
+    default: 'C:\Windows\System32\winevt\Logs'
+  - name: Ruleset
+    type: choices
+    default: --generic
+    choices:
+      - '--generic'
+      - '--sysmon'
+      - '--ruleslinux'
+sources:
+  - query: |
+        LET TmpResults &lt;= tempfile(remove_last=True)
+        LET Results =  SELECT * FROM read_file(filenames=TmpResults)
+        LET Zlite &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;Zircolite&quot;, IsExecutable=FALSE)
+        LET ExecZlite &lt;= SELECT * FROM execve(argv=[
+                        Zlite.FullPath[0], 
+                        &quot;--evtx&quot;, EVTXPath, 
+                        Ruleset,
+                        &quot;--outfile&quot;, TmpResults])
+        LET Data = SELECT * FROM foreach(row=Results, query={SELECT parse_json_array(data=Data) AS Content FROM scope()})
+        SELECT * FROM foreach(row=Data, query={
+            SELECT
+                get(member=&quot;title&quot;) AS Detection,
+                get(member=&quot;description&quot;) AS Description, 
+                get(member=&quot;rule_level&quot;) AS Severity,
+                get(member=&quot;count&quot;) AS Count,
+                get(member=&quot;tags&quot;) AS Tags,
+                get(member=&quot;matches&quot;) AS Matches,
+                get(member=&quot;sigma&quot;) AS _Sigma
+            FROM Content    
+        })
+        
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -417,15 +473,15 @@ Internals
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637721353></script>
+<script src=/js/perfect-scrollbar.min.js?1637721353></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637721353></script>
+<script src=/js/jquery.sticky.js?1637721353></script>
+<script src=/js/featherlight.min.js?1637721353></script>
+<script src=/js/highlight.min.js?1637721353></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637721353></script>
+<script src=/js/learn.js?1637721353></script>
+<script src=/js/hugo-learn.js?1637721353></script>
 </body>
 </html>
