@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Event Plugins :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -402,6 +402,7 @@ Event Plugins
 <li><a href=#example>Example</a></li>
 </ul>
 </li>
+<li><a href=#combine>combine</a></li>
 <li><a href=#diff>diff</a>
 <ul>
 <li><a href=#example-1>Example</a></li>
@@ -412,6 +413,7 @@ Event Plugins
 <li><a href=#example-2>Example</a></li>
 </ul>
 </li>
+<li><a href=#send_event>send_event</a></li>
 <li><a href=#watch_auditd>watch_auditd</a></li>
 <li><a href=#watch_csv>watch_csv</a></li>
 <li><a href=#watch_etw>watch_etw</a></li>
@@ -432,9 +434,6 @@ Event Plugins
 <h1>
 Event Plugins
 </h1>
-<div class="author pull-right">
-<span class=date></span>
-</div>
 <p>VQL Event plugins are plugins which never terminate - but instead
 generate rows based on events. Event plugins are useful for creating
 client monitoring artifacts. Currently, client side monitoring
@@ -485,6 +484,10 @@ interpreted as seconds since the epoch), a string or a time value.</p>
 </tr>
 </tbody>
 </table>
+<div class=vql_item></div>
+<h2 id=combine>combine</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Combine the output of several queries into the same result set.A convenience plugin acting like chain(async=TRUE).</p>
 <div class=vql_item></div>
 <h2 id=diff>diff</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
@@ -621,6 +624,35 @@ SELECT * FROM foreach(
 <td>flush</td>
 <td>If specified we flush all rows from cache after the call.</td>
 <td>bool</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=send_event>send_event</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Sends an event to a server event monitoring queue.</p>
+<p>This is used to send an event to a waiting server event monitoring
+artifact (either as a VQL query running on the server or perhaps
+an external program waiting for this event via the API.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The artifact name to send the event to.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>row</td>
+<td>The row to send to the artifact</td>
+<td>ordereddict.Dict (required)</td>
 </tr>
 </tbody>
 </table>
@@ -891,15 +923,15 @@ plugin will produce events from all clients.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>

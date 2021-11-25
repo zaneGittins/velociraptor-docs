@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Server Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -397,10 +397,13 @@ Server Side
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
+<li><a href=#add_client_monitoring>add_client_monitoring</a></li>
+<li><a href=#add_server_monitoring>add_server_monitoring</a></li>
 <li><a href=#artifact_definitions>artifact_definitions</a></li>
 <li><a href=#artifact_delete>artifact_delete</a></li>
 <li><a href=#artifact_set>artifact_set</a></li>
 <li><a href=#cancel_flow>cancel_flow</a></li>
+<li><a href=#cidr_contains>cidr_contains</a></li>
 <li><a href=#client_delete>client_delete</a></li>
 <li><a href=#client_info>client_info</a></li>
 <li><a href=#client_metadata>client_metadata</a></li>
@@ -412,11 +415,14 @@ Server Side
 <li><a href=#create_hunt_download>create_hunt_download</a></li>
 <li><a href=#elastic_upload>elastic_upload</a></li>
 <li><a href=#enumerate_flow>enumerate_flow</a></li>
+<li><a href=#favorites_delete>favorites_delete</a></li>
 <li><a href=#favorites_save>favorites_save</a></li>
 <li><a href=#file_store>file_store</a></li>
 <li><a href=#file_store_delete>file_store_delete</a></li>
 <li><a href=#flow_results>flow_results</a></li>
 <li><a href=#flows>flows</a></li>
+<li><a href=#gcs_pubsub_publish>gcs_pubsub_publish</a></li>
+<li><a href=#geoip>geoip</a></li>
 <li><a href=#get_client_monitoring>get_client_monitoring</a></li>
 <li><a href=#get_server_monitoring>get_server_monitoring</a></li>
 <li><a href=#gui_users>gui_users</a></li>
@@ -430,6 +436,7 @@ Server Side
 <li><a href=#hunt_flows>hunt_flows</a></li>
 <li><a href=#hunt_results>hunt_results</a></li>
 <li><a href=#hunts>hunts</a></li>
+<li><a href=#import_collection>import_collection</a></li>
 <li><a href=#inventory>inventory</a></li>
 <li><a href=#inventory_add>inventory_add</a></li>
 <li><a href=#inventory_get>inventory_get</a></li>
@@ -440,6 +447,8 @@ Server Side
 <li><a href=#parallelize>parallelize</a></li>
 <li><a href=#patch>patch</a></li>
 <li><a href=#rate>rate</a></li>
+<li><a href=#rm_client_monitoring>rm_client_monitoring</a></li>
+<li><a href=#rm_server_monitoring>rm_server_monitoring</a></li>
 <li><a href=#sample>sample</a></li>
 <li><a href=#server_metadata>server_metadata</a></li>
 <li><a href=#server_set_metadata>server_set_metadata</a></li>
@@ -447,7 +456,12 @@ Server Side
 <li><a href=#set_server_monitoring>set_server_monitoring</a></li>
 <li><a href=#source>source</a></li>
 <li><a href=#splunk_upload>splunk_upload</a></li>
+<li><a href=#timeline>timeline</a></li>
+<li><a href=#timeline_add>timeline_add</a></li>
+<li><a href=#upload_directory>upload_directory</a></li>
 <li><a href=#uploads>uploads</a></li>
+<li><a href=#user_create>user_create</a></li>
+<li><a href=#user_delete>user_delete</a></li>
 </ul>
 </nav>
 </div>
@@ -460,9 +474,6 @@ Server Side
 <h1>
 Server Side
 </h1>
-<div class="author pull-right">
-<span class=date></span>
-</div>
 <p>Velociraptor provides complete control of the server within VQL
 queries. On the server, the VQL engine contains the following
 plugins and functions. You can use this functionality to manage
@@ -470,6 +481,63 @@ and automate the server by writing VQL queries.</p>
 <p>To reuse server side artifacts, simply create an artifact with
 <code>type: SERVER</code> and launch it from the &ldquo;Server Artifacts&rdquo; screen in
 the GUI.</p>
+<div class=vql_item></div>
+<h2 id=add_client_monitoring>add_client_monitoring</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Adds a new artifact to the client monitoring table.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The name of the artifact to add</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>A dict of artifact parameters</td>
+<td>LazyExpr</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Add this artifact to this label group (default all)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=add_server_monitoring>add_server_monitoring</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Adds a new artifact to the server monitoring table.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The name of the artifact to add</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>A dict of artifact parameters</td>
+<td>LazyExpr</td>
+</tr>
+</tbody>
+</table>
 <div class=vql_item></div>
 <h2 id=artifact_definitions>artifact_definitions</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
@@ -552,7 +620,7 @@ the GUI.</p>
 <h2 id=cancel_flow>cancel_flow</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Cancels the flow.</p>
-<p>This sends the client an immediate cancelation message and stops
+<p>This sends the client an immediate cancellation message and stops
 the flow. It also removes any outstanding requests for the client
 if there are any.</p>
 <div class=vqlargs></div>
@@ -574,6 +642,37 @@ if there are any.</p>
 <td>flow_id</td>
 <td></td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=cidr_contains>cidr_contains</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Calculates if an IP address falls within a range of CIDR specified
+networks.</p>
+<pre><code class=language-vql>SELECT cidr_contains(ip=&quot;192.168.0.132&quot;, ranges=[
+    &quot;192.168.0.0/24&quot;, &quot;127.0.0.1/8&quot;])
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td>An IP address</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>ranges</td>
+<td>A list of CIDR notation network ranges</td>
+<td>list of string (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1045,6 +1144,32 @@ the filestore.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=favorites_delete>favorites_delete</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Delete a favorite.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>A name for this collection template.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>The type of favorite.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=favorites_save>favorites_save</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Save a collection into the favorites.</p>
@@ -1206,6 +1331,71 @@ and metadata about the collection.</p>
 <td>flow_id</td>
 <td></td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=gcs_pubsub_publish>gcs_pubsub_publish</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Publish a message to Google PubSub.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>The topic to publish to</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>project_id</td>
+<td>The project id to publish to</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>Message to publish to Pubsub</td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>credentials</td>
+<td>The credentials to use</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=geoip>geoip</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Lookup an IP Address using the MaxMind GeoIP database. You can get
+a copy of the database from <a href=https://www.maxmind.com/>https://www.maxmind.com/</a>. The database
+must be locally accessible so this probably only makes sense on
+the server.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td>IP Address to lookup.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>db</td>
+<td>Path to the MaxMind GeoIP Database.</td>
+<td>string (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1469,6 +1659,54 @@ context.</p>
 <tr>
 <td>hunt_id</td>
 <td>A hunt id to read, if not specified we list all of them.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=import_collection>import_collection</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Imports an offline collection zip file (experimental).</p>
+<p>Offline collectors are preconfigure Velociraptor binaries that
+collect specific artifacts into a zip file.</p>
+<p>This function allows such a collection to be imported into the GUI
+as if it was collected by the server. The collection will be
+loaded into a client&rsquo;s filestore directory.</p>
+<p>Since there is no actual client id associated with the offline
+collection (there is no Velociraptor client running on the
+endpoint) we generate a random client ID for a new client.</p>
+<p>If you specify an existing client id, the collection will be
+uploaded into that client.</p>
+<p>NOTE: Combine this function with the hunt_add() function to add a
+manual offline collection to an ongoing hunt.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>The client id to import to. Use &lsquo;auto&rsquo; to generate a new client id.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>When creating a new client, set this as the hostname.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>filename</td>
+<td>Path on server to the collector zip.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1925,6 +2163,63 @@ previous row and applying the current rows values.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=rm_client_monitoring>rm_client_monitoring</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Remove an artifact from the client monitoring table.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The name of the artifact to add</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>A dict of artifact parameters</td>
+<td>LazyExpr</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Add this artifact to this label group (default all)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=rm_server_monitoring>rm_server_monitoring</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Remove an artifact from the server monitoring table.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>artifact</td>
+<td>The name of the artifact to add</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>A dict of artifact parameters</td>
+<td>LazyExpr</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=sample>sample</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Executes &lsquo;query&rsquo; and samples every n&rsquo;th row.</p>
@@ -2186,6 +2481,139 @@ multi-source artifacts).</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=timeline>timeline</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Read a timeline. You can create a timeline with the timeline_add() function</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timeline</td>
+<td>Name of the timeline to read</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>skip</td>
+<td>List of child components to skip</td>
+<td>list of string</td>
+</tr>
+<tr>
+<td>start</td>
+<td>First timestamp to fetch</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>notebook_id</td>
+<td>The notebook ID the timeline is stored in.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=timeline_add>timeline_add</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Add a new query to a timeline.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timeline</td>
+<td>Supertimeline to add to</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Name of child timeline</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query to generate the timeline.</td>
+<td>StoredQuery (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>The column representing the time.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>notebook_id</td>
+<td>The notebook ID the timeline is stored in.</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=upload_directory>upload_directory</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Upload a file to an upload directory. The final filename will be the output directory path followed by the filename path.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td>The file to upload</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Filename to be stored within the output directory</td>
+<td>string</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>The accessor to use</td>
+<td>string</td>
+</tr>
+<tr>
+<td>output</td>
+<td>An output directory to store files in.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>mtime</td>
+<td>Modified time to set the output file.</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>atime</td>
+<td>Access time to set the output file.</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>ctime</td>
+<td>Change time to set the output file.</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>btime</td>
+<td>Birth time to set the output file.</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=uploads>uploads</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Retrieve information about a flow&rsquo;s uploads.</p>
@@ -2211,6 +2639,58 @@ multi-source artifacts).</p>
 </tr>
 </tbody>
 </table>
+<div class=vql_item></div>
+<h2 id=user_create>user_create</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Creates a new user from the server, or updates their permissions or reset their password.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>roles</td>
+<td></td>
+<td>list of string (required)</td>
+</tr>
+<tr>
+<td>password</td>
+<td></td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=user_delete>user_delete</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Deletes a user from the server.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 <footer class=footline>
 </footer>
 </div>
@@ -2221,15 +2701,15 @@ multi-source artifacts).</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>

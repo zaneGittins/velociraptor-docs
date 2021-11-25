@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Parsers :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -407,6 +407,7 @@ Parsers
 </ul>
 </li>
 <li><a href=#parse_ese>parse_ese</a></li>
+<li><a href=#parse_ese_catalog>parse_ese_catalog</a></li>
 <li><a href=#parse_evtx>parse_evtx</a>
 <ul>
 <li><a href=#example-1>Example</a></li>
@@ -431,7 +432,9 @@ Parsers
 <li><a href=#parse_recyclebin>parse_recyclebin</a></li>
 <li><a href=#parse_string_with_regex>parse_string_with_regex</a></li>
 <li><a href=#parse_usn>parse_usn</a></li>
+<li><a href=#parse_x509>parse_x509</a></li>
 <li><a href=#parse_xml>parse_xml</a></li>
+<li><a href=#parse_yaml>parse_yaml</a></li>
 <li><a href=#plist>plist</a></li>
 <li><a href=#plist-1>plist</a></li>
 <li><a href=#prefetch>prefetch</a></li>
@@ -439,6 +442,9 @@ Parsers
 <li><a href=#rot13>rot13</a></li>
 <li><a href=#split_records>split_records</a></li>
 <li><a href=#sqlite>sqlite</a></li>
+<li><a href=#starl>starl</a></li>
+<li><a href=#example-3>Example</a></li>
+<li><a href=#xor>xor</a></li>
 </ul>
 </nav>
 </div>
@@ -451,9 +457,6 @@ Parsers
 <h1>
 Parsers
 </h1>
-<div class="author pull-right">
-<span class=date></span>
-</div>
 <p>Many Velociraptor artifacts rely on specialized parsing of file
 formats. This page outlines all the plugins and functions designed
 to allow the client to parse information for various files.</p>
@@ -703,6 +706,32 @@ Group By Name
 <td>table</td>
 <td>A table name to dump</td>
 <td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=parse_ese_catalog>parse_ese_catalog</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Opens an ESE file and dump the schema.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>The accessor to use.</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -1144,6 +1173,11 @@ fields.</p>
 <td>The accessor to use.</td>
 <td>string</td>
 </tr>
+<tr>
+<td>buffer_size</td>
+<td>Maximum size of line buffer (default 64kb).</td>
+<td>int</td>
+</tr>
 </tbody>
 </table>
 <div class=vql_item></div>
@@ -1225,6 +1259,27 @@ fields.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=parse_x509>parse_x509</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Parse a DER encoded x509 string into an object.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>X509 DER encoded string.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=parse_xml>parse_xml</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Parse an XML document into a dict like object.</p>
@@ -1246,6 +1301,32 @@ fields.</p>
 <tr>
 <td>accessor</td>
 <td>The accessor to use</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=parse_yaml>parse_yaml</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Parse yaml into an object.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td>Yaml Filename</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>accessor</td>
+<td>File accessor</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1462,6 +1543,82 @@ fields.</p>
 </tr>
 </tbody>
 </table>
+<div class=vql_item></div>
+<h2 id=starl>starl</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Compile a starlark code block - returns a module usable in VQL</p>
+<p>Starl allows python like code to be used with VQL. This helps when
+we need some small functions with more complex needs. We can use a
+more powerful language to create small functions to transform
+certain fields etc.</p>
+<h2 id=example-3>Example</h2>
+<p>In the following example we define a Starl code block and compile
+it into a module. VQL code can then reference any functions
+defined within it directly.</p>
+<pre><code class=language-vql>LET MyCode &lt;= starl(code='''
+load(&quot;math.star&quot;, &quot;math&quot;)
+
+def Foo(X):
+  return math.sin(X)
+
+''')
+
+SELECT MyCode.Foo(X=32)
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>The body of the starlark code.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>If set use this key to cache the Starlark code block.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>globals</td>
+<td>Dictionary of values to feed into Starlark environment</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=xor>xor</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Apply xor to the string and key.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>String to apply Xor</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>Xor key.</td>
+<td>string (required)</td>
+</tr>
+</tbody>
+</table>
 <footer class=footline>
 </footer>
 </div>
@@ -1472,15 +1629,15 @@ fields.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>

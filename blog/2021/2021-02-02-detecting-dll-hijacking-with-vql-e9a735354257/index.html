@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Detecting DLL Hijacking With VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721353 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721353 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721353 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721353 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721353 rel=stylesheet>
-<link href=/css/theme.css?1637721353 rel=stylesheet>
-<link href=/css/tabs.css?1637721353 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721353 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721353 rel=stylesheet>
-<link href=/css/dark.css?1637721353 rel=stylesheet><link href=/css/syntax.css?1637721353 rel=stylesheet><link href=/css/light.css?1637721353 rel=stylesheet><link href=/css/hljs.css?1637721353 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721353 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721353></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -421,9 +421,6 @@ Detecting DLL Hijacking With VQL
 <h1>
 Detecting DLL Hijacking With VQL
 </h1>
-<div class="author pull-right">
-<span class=date>2021-02-02</span>
-</div>
 <p>One of my favorite pastime is reading Twitter and following other security researchers. I love being able to see a new tool or technique and develop an understanding and detections for it. A while back, I was reading my feed and saw an excellent article titled <a href=https://www.mdsec.co.uk/2020/10/i-live-to-move-it-windows-lateral-movement-part-3-dll-hijacking/>I Like to Move It: Windows Lateral Movement Part 3: DLL Hijacking</a>.</p>
 <p>The article describes an interesting form of lateral movement — DLL Hijacking. DLL Hijacking is an abuse of the Windows DLL search order resolution process. Typically, when an executable is started, the executable will declare dependent DLLs in its import table. Windows will search for these DLLs in a number of paths, until a suitable DLL is found, and its exported symbols will be resolved into the new image. DLL Hijacking works by placing a malicious DLL, with the same name as a legitimate DLL, in a directory that is searched earlier, thereby tricking the loader into loading the malicious DLL instead of the legitimate one.</p>
 <p>DLL Hijacking is often used for persistence — simply place a malicious DLL earlier in the search path, and programs that are started (potentially with higher privileges) will load the malicious DLL, thereby granting execution.</p>
@@ -479,15 +476,15 @@ Detecting DLL Hijacking With VQL
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>

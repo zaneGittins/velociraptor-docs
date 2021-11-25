@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Experimental :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -399,6 +399,7 @@ Experimental
 <ul>
 <li><a href=#js>js</a></li>
 <li><a href=#js_call>js_call</a></li>
+<li><a href=#sequence>sequence</a></li>
 </ul>
 </nav>
 </div>
@@ -411,9 +412,6 @@ Experimental
 <h1>
 Experimental
 </h1>
-<div class="author pull-right">
-<span class=date></span>
-</div>
 <p>Velociraptor is evolving quickly. We sometime implement
 functionality which may not remain in Velociraptor. This page
 documents some of the experimental features. If you find them
@@ -475,6 +473,58 @@ useful, please let us know!</p>
 </tr>
 </tbody>
 </table>
+<div class=vql_item></div>
+<h2 id=sequence>sequence</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Combines the output of many queries into an in memory fifo. After
+each row is received from any subquery runs the query specified in
+the &lsquo;query&rsquo; parameter to retrieve rows from the memory SEQUENCE
+object.</p>
+<p>The <code>sequence()</code> plugin is very useful to correlate temporally close
+events from multiple queries - for example, say a process execution
+query and a network query. The <code>query</code> can then search for relevant
+network event closely followed by a process event.</p>
+<p>For example:</p>
+<pre><code class=language-vql>SELECT * FROM sequence(
+network={
+  SELECT * FROM Artifact.Windows.ETW.DNS()
+  WHERE Query =~ &quot;github&quot;
+},
+process={
+  SELECT * FROM Artifact.Windows.Detection.WMIProcessCreation()
+  WHERE Name =~ &quot;cmd.exe&quot;
+},
+query={
+  SELECT Name, CommandLine, {  -- search for a DNS lookup
+    SELECT * FROM SEQUENCE
+    WHERE Query =~ &quot;github&quot;
+  } AS DNSInfo
+  FROM SEQUENCE
+  WHERE DNSInfo AND Name
+})
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>Run this query to generate rows. The query should select from SEQUENCE which will contain the current set of rows in the sequence. The query will be run on each new row that is pushed to the sequence.</td>
+<td>StoredQuery (required)</td>
+</tr>
+<tr>
+<td>max_age</td>
+<td>Maximum number of seconds to hold rows in the sequence.</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
 <footer class=footline>
 </footer>
 </div>
@@ -485,15 +535,15 @@ useful, please let us know!</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>

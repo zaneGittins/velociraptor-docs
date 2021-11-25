@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Basic VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1637721354 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1637721354 rel=stylesheet>
-<link href=/css/featherlight.min.css?1637721354 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1637721354 rel=stylesheet>
-<link href=/css/auto-complete.css?1637721354 rel=stylesheet>
-<link href=/css/theme.css?1637721354 rel=stylesheet>
-<link href=/css/tabs.css?1637721354 rel=stylesheet>
-<link href=/css/hugo-theme.css?1637721354 rel=stylesheet>
-<link href=/css/theme-mine.css?1637721354 rel=stylesheet>
-<link href=/css/dark.css?1637721354 rel=stylesheet><link href=/css/syntax.css?1637721354 rel=stylesheet><link href=/css/light.css?1637721354 rel=stylesheet><link href=/css/hljs.css?1637721354 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637721354 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1637721354></script>
+<link href=/css/nucleus.css?1637847369 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1637847369 rel=stylesheet>
+<link href=/css/featherlight.min.css?1637847369 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1637847369 rel=stylesheet>
+<link href=/css/auto-complete.css?1637847369 rel=stylesheet>
+<link href=/css/theme.css?1637847369 rel=stylesheet>
+<link href=/css/tabs.css?1637847369 rel=stylesheet>
+<link href=/css/hugo-theme.css?1637847369 rel=stylesheet>
+<link href=/css/theme-mine.css?1637847369 rel=stylesheet>
+<link href=/css/dark.css?1637847369 rel=stylesheet><link href=/css/syntax.css?1637847369 rel=stylesheet><link href=/css/light.css?1637847369 rel=stylesheet><link href=/css/hljs.css?1637847369 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1637847369 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1637847369></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -398,11 +398,14 @@ Basic VQL
 <nav id=TableOfContents>
 <ul>
 <li><a href=#array>array</a></li>
+<li><a href=#atexit>atexit</a></li>
 <li><a href=#atoi>atoi</a></li>
 <li><a href=#base64decode>base64decode</a></li>
 <li><a href=#base64encode>base64encode</a></li>
 <li><a href=#basename>basename</a></li>
+<li><a href=#batch>batch</a></li>
 <li><a href=#cache>cache</a></li>
+<li><a href=#column_filter>column_filter</a></li>
 <li><a href=#copy>copy</a></li>
 <li><a href=#count>count</a></li>
 <li><a href=#dict>dict</a></li>
@@ -413,6 +416,7 @@ Basic VQL
 <li><a href=#expand>expand</a></li>
 <li><a href=#filter>filter</a></li>
 <li><a href=#format>format</a></li>
+<li><a href=#generate>generate</a></li>
 <li><a href=#get>get</a>
 <ul>
 <li><a href=#example>Example</a></li>
@@ -444,13 +448,20 @@ Basic VQL
 <li><a href=#path_split>path_split</a></li>
 <li><a href=#query>query</a></li>
 <li><a href=#rand>rand</a></li>
+<li><a href=#range>range</a></li>
 <li><a href=#read_file>read_file</a></li>
+<li><a href=#regex_transform>regex_transform</a></li>
+<li><a href=#relpath>relpath</a></li>
 <li><a href=#scope>scope</a></li>
 <li><a href=#serialize>serialize</a></li>
+<li><a href=#set>set</a></li>
 <li><a href=#sleep>sleep</a></li>
+<li><a href=#slice>slice</a></li>
 <li><a href=#split>split</a></li>
 <li><a href=#str>str</a></li>
 <li><a href=#strip>strip</a></li>
+<li><a href=#substr>substr</a></li>
+<li><a href=#sum>sum</a></li>
 <li><a href=#tempdir>tempdir</a></li>
 <li><a href=#timestamp>timestamp</a></li>
 <li><a href=#to_dict>to_dict</a>
@@ -459,6 +470,7 @@ Basic VQL
 <li><a href=#example-3>Example</a></li>
 </ul>
 </li>
+<li><a href=#unhex>unhex</a></li>
 <li><a href=#upcase>upcase</a></li>
 <li><a href=#upload_sftp>upload_sftp</a></li>
 <li><a href=#upload_webdav>upload_webdav</a></li>
@@ -479,9 +491,6 @@ Basic VQL
 <h1>
 Basic VQL
 </h1>
-<div class="author pull-right">
-<span class=date></span>
-</div>
 <p>VQL provides a basic set of functions and plugins allowing
 queries to manipulate data and implement logic. This page details
 those plugins which are considered foundational to the VQL
@@ -505,6 +514,43 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 <pre><code class=language-sql>SELECT array(a1={ SELECT User FROM Artifact.Windows.System.Users() }) as Users FROM scope()
 </code></pre>
 <p>Will return a single row with Users being an array of names.</p>
+<div class=vql_item></div>
+<h2 id=atexit>atexit</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Install a query to run when the query is unwound. This is used to
+clean up when the query ends.</p>
+<p>For example:</p>
+<pre><code class=language-vql>LET _ &lt;= atexit(query={
+  SELECT rm(filename=&quot;Foobar.txt&quot;) FROM scope()
+})
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>A VQL Query to parse and execute.</td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>env</td>
+<td>A dict of args to insert into the scope.</td>
+<td>ordereddict.Dict</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>How long to wait for destructors to run (default 60 seconds).</td>
+<td>uint64</td>
+</tr>
+</tbody>
+</table>
 <div class=vql_item></div>
 <h2 id=atoi>atoi</h2>
 <p><span class="vql_type pull-right">Function</span></p>
@@ -595,6 +641,45 @@ flattening the arguments. For example <code>array(a=1, b=2)</code> will return
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=batch>batch</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Batches query rows into multiple arrays.</p>
+<p>This is useful for batching multiple rows from a query into
+another query (for example sending into an API endpoint). For
+example:</p>
+<pre><code class=language-vql>SELECT * FROM batch(query={
+  SELECT _value
+  FROM range(start=0, end=10, step=1)
+}, batch_size=3)
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch_size</td>
+<td>Size of batch (defaults to 10).</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>batch_func</td>
+<td>A VQL Lambda that determines when a batch is ready. Example &lsquo;x=>len(list=x) >= 10&rsquo;.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query over the item.</td>
+<td>StoredQuery (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=cache>cache</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Creates a cache object.</p>
@@ -641,6 +726,50 @@ unique Pid by comparing the key against the internal memory store.</p>
 <td>period</td>
 <td>The latest age of the cache.</td>
 <td>int64</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=column_filter>column_filter</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Select columns from another query using regex.</p>
+<p>Sometimes a query produces a large number of columns or
+unpredictable column names (eg. the <code>read_reg_key()</code> plugin
+produces a column per value name).</p>
+<p>You can use the column_filter() plugin to select a subset of the
+columns to include or exclude from an underlying query. For example:</p>
+<pre><code class=language-vql>SELECT * FROM column_filter(
+query={
+   SELECT 1 AS A, 2 AS B, 3 AS AB, 4 AS AA
+   FROM scope()
+}, include=&quot;A&quot;, exclude=&quot;B&quot;)
+</code></pre>
+<p>will include columns with the letter A in their name and remove
+columns with the letter B (so it will have A and AA above).</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>This query will be run to produce the columns.</td>
+<td>StoredQuery (required)</td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>One of more regular expressions that will exclude columns.</td>
+<td>list of string</td>
+</tr>
+<tr>
+<td>include</td>
+<td>One of more regular expressions that will include columns.</td>
+<td>list of string</td>
 </tr>
 </tbody>
 </table>
@@ -939,6 +1068,62 @@ fmt.Sprintf() function and uses the same format specifiers.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=generate>generate</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Create a named generator that receives rows from the query.</p>
+<p>This plugin allow multiple queries to efficiently filter rows from
+the same query. For example:</p>
+<pre><code class=language-vql>LET SystemLog = generate(query={
+   SELECT * FROM parse_evtx(filename='''C:\Windows\system32\winevt\logs\System.evtx''')
+})
+
+SELECT timestamp(epoch=System.TimeCreated.SystemTime) AS Timestamp,
+   Type, EventData
+FROM combine(
+a={
+  SELECT *, &quot;Kernel Driver Install&quot; AS Type
+  FROM SystemLog
+  WHERE System.EventID.Value = 7045 AND EventData.ServiceType =~ &quot;kernel&quot;
+}, b={
+  SELECT *, &quot;Log File Cleared&quot; AS Type,
+            UserData.LogFileCleared AS EventData
+  FROM SystemLog
+  WHERE System.EventID.Value = 104
+})
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Name to call the generator</td>
+<td>string</td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query to generator rows.</td>
+<td>StoredQuery</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>Wait before starting the query</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>with_file_buffer</td>
+<td>Enable file buffering</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=get>get</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Gets the member field from item.</p>
@@ -1118,7 +1303,7 @@ given, then perform hash or upload to the server.</p>
 </tr>
 <tr>
 <td>sep</td>
-<td>The separator</td>
+<td>The separator. Defaults to an empty string if not explicitly set</td>
 <td>string</td>
 </tr>
 </tbody>
@@ -1229,7 +1414,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>item</td>
 <td></td>
-<td>int64 (required)</td>
+<td>LazyExpr (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1287,7 +1472,7 @@ bash pid of all bash processes.</p>
 <tr>
 <td>item</td>
 <td></td>
-<td>int64 (required)</td>
+<td>LazyExpr (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1402,6 +1587,37 @@ bash pid of all bash processes.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=range>range</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Iterate over range.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>Start index (0 based)</td>
+<td>int64 (required)</td>
+</tr>
+<tr>
+<td>end</td>
+<td>End index (0 based)</td>
+<td>int64 (required)</td>
+</tr>
+<tr>
+<td>step</td>
+<td>End index (0 based)</td>
+<td>int64 (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=read_file>read_file</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Read a file into a string.</p>
@@ -1438,6 +1654,74 @@ bash pid of all bash processes.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=regex_transform>regex_transform</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Search and replace a string with multiple regex. Note you can use $1
+to replace the capture string.</p>
+<pre><code class=language-vql>SELECT regex_transform(source=&quot;Hello world&quot;, map=dict(
+   `^Hello`=&quot;Goodbye&quot;,
+   `world`=&quot;Space&quot;), key=&quot;A&quot;)
+FROM scope()
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>The source string to replace.</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>map</td>
+<td>A dict with keys reg, values substitutions.</td>
+<td>ordereddict.Dict (required)</td>
+</tr>
+<tr>
+<td>key</td>
+<td>A key for caching</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=relpath>relpath</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Return the relative path of .</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>Extract directory name of path</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>base</td>
+<td>The base of the path</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>sep</td>
+<td>Separator to use (default native)</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=scope>scope</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>return the scope.</p>
@@ -1468,6 +1752,37 @@ bash pid of all bash processes.</p>
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=set>set</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Sets the member field of the item. If item is omitted sets the scope.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td></td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>field</td>
+<td></td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>value</td>
+<td></td>
+<td>Any (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=sleep>sleep</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Sleep for the specified number of seconds. Always returns true.</p>
@@ -1490,6 +1805,37 @@ bash pid of all bash processes.</p>
 <td>ms</td>
 <td>The number of ms to sleep</td>
 <td>int64</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=slice>slice</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Slice an array.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list</td>
+<td>A list of items to slice</td>
+<td>Any (required)</td>
+</tr>
+<tr>
+<td>start</td>
+<td>Start index (0 based)</td>
+<td>uint64 (required)</td>
+</tr>
+<tr>
+<td>end</td>
+<td>End index (0 based)</td>
+<td>uint64 (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1563,6 +1909,58 @@ bash pid of all bash processes.</p>
 <td>prefix</td>
 <td>The prefix to strip</td>
 <td>string</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=substr>substr</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Create a substring from a string</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td>The string to shorten</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>start</td>
+<td>Beginning index of substring</td>
+<td>int</td>
+</tr>
+<tr>
+<td>end</td>
+<td>End index of substring</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=sum>sum</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Sums the items.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>item</td>
+<td></td>
+<td>int64 (required)</td>
 </tr>
 </tbody>
 </table>
@@ -1728,6 +2126,34 @@ FROM pslist()
 <td>item</td>
 <td></td>
 <td>Any</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=unhex>unhex</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>Apply hex decoding to the string.</p>
+<p>A hex encoded string consists of two hex digits per byte -
+therefore valid hex encoded strings have an even length.</p>
+<p>For example: &ldquo;01230F0a&rdquo;</p>
+<p>Note: If you need to encode a string as hex encoded string you can
+use the format function:</p>
+<pre><code class=language-vql>format(format=&quot;%02x&quot;, args=&quot;Hello&quot;) -&gt; &quot;48656c6c6f&quot;
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>Hex string to decode</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -2011,15 +2437,15 @@ modern query based on the plugin version:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.min.js?1637721354></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1637721354></script>
-<script src=/js/jquery.sticky.js?1637721354></script>
-<script src=/js/featherlight.min.js?1637721354></script>
-<script src=/js/highlight.min.js?1637721354></script>
+<script src=/js/clipboard.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.min.js?1637847369></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1637847369></script>
+<script src=/js/jquery.sticky.js?1637847369></script>
+<script src=/js/featherlight.min.js?1637847369></script>
+<script src=/js/highlight.min.js?1637847369></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1637721354></script>
-<script src=/js/learn.js?1637721354></script>
-<script src=/js/hugo-learn.js?1637721354></script>
+<script src=/js/modernizr.custom-3.6.0.js?1637847369></script>
+<script src=/js/learn.js?1637847369></script>
+<script src=/js/hugo-learn.js?1637847369></script>
 </body>
 </html>
