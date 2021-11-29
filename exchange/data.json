@@ -10,6 +10,16 @@
         "date": "2021-11-29"
     },
     {
+        "title": "Windows.Detection.USBYara",
+        "author": "mgreen27",
+        "description": "Run yara over usb when USB is plugged into machine.\nReturn context and hit details.\n\nThis artifact requires:  \n  Exchange.Windows.Monitor.USBPlugIn (imported from Exchange)  \n  Generic.Detection.Yara.Glob  \n\nYara rule deployed and target path can be modified.\n",
+        "link": "/exchange/artifacts/pages/usbyara",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-11-29"
+    },
+    {
         "title": "Windows.EventLogs.Zircolite",
         "author": "weslambert",
         "description": "Zircolite is a standalone tool that can be used to apply Sigma rules to EVTX files on endpoints in an effort to quickly parse large datasets and surface detections.\n            \nYou can read more about Zircolite below:\n    \nhttps://github.com/wagga40/Zircolite\n    \nThis artifact currently supports usage of the built-in rulesets. Support for custom ruleset usage will be added in the future. \n    \nNOTE: This artifact may take several minutes to run, depending on the size of EVTZ files being analyzed.\n",
