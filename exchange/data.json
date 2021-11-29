@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Monitor.USBPlugIn",
+        "author": "mgreen27",
+        "description": "Monitor for plug in of USB volume. \nOutput drive letter for additional enrichment artifacts\n",
+        "link": "/exchange/artifacts/pages/usbplugin",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-11-29"
+    },
+    {
         "title": "Windows.EventLogs.Zircolite",
         "author": "weslambert",
         "description": "Zircolite is a standalone tool that can be used to apply Sigma rules to EVTX files on endpoints in an effort to quickly parse large datasets and surface detections.\n            \nYou can read more about Zircolite below:\n    \nhttps://github.com/wagga40/Zircolite\n    \nThis artifact currently supports usage of the built-in rulesets. Support for custom ruleset usage will be added in the future. \n    \nNOTE: This artifact may take several minutes to run, depending on the size of EVTZ files being analyzed.\n",
