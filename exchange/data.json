@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.Carving.Hancitor",
+        "author": "eduardomcm",
+        "description": "This artifact yara-scans memory or unpacked DLL samples for Hancitor trojan\ndetections, decrypting and returning the Build ID and C2 list.\n\nYou may select specific file paths or processes to be yara-scanned, \nor simply allow it to yara-scan all running processes (default)\n\nNOTE:\nThis content simply carves the configuration and does not unpack files on disk. \nThat means pointing this artifact as a packed or obfuscated file will not obtain the expected results.\n",
+        "link": "/exchange/artifacts/pages/windows.carving.hancitor",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2021-12-05"
+    },
+    {
         "title": "Windows.Monitor.USBPlugIn",
         "author": "mgreen27",
         "description": "Monitor for plug in of USB volume. \nOutput drive letter for additional enrichment artifacts\n",
