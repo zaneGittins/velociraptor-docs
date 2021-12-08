@@ -1,5 +1,15 @@
 [
     {
+        "title": "Splunk.Events.Clients",
+        "author": "jurelou",
+        "description": "This server monitoring artifact will watch a selection of client\nmonitoring artifacts for new events and push those to a splunk\nindex.\nNOTE: You must ensure you are collecting these artifacts from the\nclients by adding them to the \"Client Events\" GUI.\n",
+        "link": "/exchange/artifacts/pages/splunk.events.clients",
+        "tags": [],
+        "author_link": "https://github.com/jurelou",
+        "author_avatar": "https://avatars.githubusercontent.com/u/30180021?v=4",
+        "date": "2021-12-08"
+    },
+    {
         "title": "Custom.Windows.Carving.Hancitor",
         "author": "eduardomcm",
         "description": "This artifact yara-scans memory or unpacked DLL samples for Hancitor trojan\ndetections, decrypting and returning the Build ID and C2 list.\n\nYou may select specific file paths or processes to be yara-scanned, \nor simply allow it to yara-scan all running processes (default)\n\nNOTE:\nThis content simply carves the configuration and does not unpack files on disk. \nThat means pointing this artifact as a packed or obfuscated file will not obtain the expected results.\n",
