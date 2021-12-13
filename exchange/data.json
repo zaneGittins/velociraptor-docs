@@ -2,7 +2,7 @@
     {
         "title": "Generic.Detection.Log4jRCEHash",
         "author": "mgreen27",
-        "description": "This artifact enables MD5 hash search for log4j versions vulnerable to \nCVE-2021-44228.\n\nThe artifact:  \n\n* firstly searches for jar files\n* then searches for filename\n* then searches for md5 hash \n\nTo Add additional files, please add to the Ioc list below.\n\n\nSome examples of path glob may include:\n\n* Specific binary: `/usr/bin/ls`\n* Wildcards: `/var/www/*.jar`\n* More wildcards: `/var/www/**/*.jar`\n* Windows: `C:/**/*.jar`\n\nNOTE: this artifact runs the glob plugin with the nosymlink switch turned on. \nThis will NOT follow any symlinks and may cause unexpected results if \nunknowingly targeting a folder with symlinks.\n",
+        "description": "This artifact enables MD5 hash search for log4j versions vulnerable to \nCVE-2021-44228.\n\nThe artifact:  \n\n* firstly searches for jar files\n* then searches for filename\n* reports hit details.\n\nTo Add additional files, please add to the Ioc list below.\n\n\nSome examples of path glob may include:\n\n* Specific binary: `/path/here/log4j-core-2.0-alpha2.jar`\n* Wildcards: `/var/www/*.jar`\n* More wildcards: `/var/www/**/*.jar`\n* Windows: `C:/**/*.jar`\n\nNOTE: this artifact runs the glob plugin with the nosymlink switch turned on. \nThis will NOT follow any symlinks and may cause unexpected results if \nunknowingly targeting a folder with symlinks.\n",
         "link": "/exchange/artifacts/pages/log4jrcehash",
         "tags": [],
         "author_link": "https://github.com/mgreen27",
