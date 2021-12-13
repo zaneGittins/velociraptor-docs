@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Generic.Detection.log4jRCE :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639346405 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639346405 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639346405 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639346405 rel=stylesheet>
-<link href=/css/auto-complete.css?1639346405 rel=stylesheet>
-<link href=/css/theme.css?1639346405 rel=stylesheet>
-<link href=/css/tabs.css?1639346405 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639346405 rel=stylesheet>
-<link href=/css/theme-mine.css?1639346405 rel=stylesheet>
-<link href=/css/dark.css?1639346405 rel=stylesheet><link href=/css/syntax.css?1639346405 rel=stylesheet><link href=/css/light.css?1639346405 rel=stylesheet><link href=/css/hljs.css?1639346405 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639346405 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639346405></script>
+<link href=/css/nucleus.css?1639382747 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639382747 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639382747 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639382747 rel=stylesheet>
+<link href=/css/auto-complete.css?1639382747 rel=stylesheet>
+<link href=/css/theme.css?1639382747 rel=stylesheet>
+<link href=/css/tabs.css?1639382747 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639382747 rel=stylesheet>
+<link href=/css/theme-mine.css?1639382747 rel=stylesheet>
+<link href=/css/dark.css?1639382747 rel=stylesheet><link href=/css/syntax.css?1639382747 rel=stylesheet><link href=/css/light.css?1639382747 rel=stylesheet><link href=/css/hljs.css?1639382747 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639382747 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639382747></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -470,18 +470,105 @@ parameters:
   - name: YaraRule
     description: Final Yara option and the default if no other options provided.
     default: |
+        rule EXPL_Log4j_CallBackDomain_IOCs_Dec21_1 {
+           meta:
+              description = &quot;Detects IOCs found in Log4Shell incidents that indicate exploitation attempts of CVE-2021-44228&quot;
+              author = &quot;Florian Roth&quot;
+              reference = &quot;https://gist.github.com/superducktoes/9b742f7b44c71b4a0d19790228ce85d8&quot;
+              date = &quot;2021-12-12&quot;
+              score = 60
+           strings:
+              $xr1  = /\b(ldap|rmi):\/\/([a-z0-9\.]{1,16}\.bingsearchlib\.com|[a-z0-9\.]{1,40}\.interact\.sh|[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}):[0-9]{2,5}\/([aZ]|ua|Exploit|callback|[0-9]{10}|http443useragent|http80useragent)\b/
+           condition:
+              1 of them
+        }
+
+        rule EXPL_JNDI_Exploit_Patterns_Dec21_1 {
+           meta:
+              description = &quot;Detects JNDI Exploit Kit patterns in files&quot;
+              author = &quot;Florian Roth&quot;
+              reference = &quot;https://github.com/pimps/JNDI-Exploit-Kit&quot;
+              date = &quot;2021-12-12&quot;
+              score = 60
+           strings:
+              $ = &quot;/Basic/Command/Base64/&quot;
+              $ = &quot;/Basic/ReverseShell/&quot;
+              $ = &quot;/Basic/TomcatMemshell&quot;
+              $ = &quot;/Basic/JettyMemshell&quot;
+              $ = &quot;/Basic/WeblogicMemshell&quot;
+              $ = &quot;/Basic/JBossMemshell&quot;
+              $ = &quot;/Basic/WebsphereMemshell&quot;
+              $ = &quot;/Basic/SpringMemshell&quot;
+              $ = &quot;/Deserialization/URLDNS/&quot;
+              $ = &quot;/Deserialization/CommonsCollections1/Dnslog/&quot;
+              $ = &quot;/Deserialization/CommonsCollections2/Command/Base64/&quot;
+              $ = &quot;/Deserialization/CommonsBeanutils1/ReverseShell/&quot;
+              $ = &quot;/Deserialization/Jre8u20/TomcatMemshell&quot;
+              $ = &quot;/TomcatBypass/Dnslog/&quot;
+              $ = &quot;/TomcatBypass/Command/&quot;
+              $ = &quot;/TomcatBypass/ReverseShell/&quot;
+              $ = &quot;/TomcatBypass/TomcatMemshell&quot;
+              $ = &quot;/TomcatBypass/SpringMemshell&quot;
+              $ = &quot;/GroovyBypass/Command/&quot;
+              $ = &quot;/WebsphereBypass/Upload/&quot;
+           condition:
+              1 of them
+        }
+
+        rule EXPL_Log4j_CVE_2021_44228_JAVA_Exception_Dec21_1 {
+           meta:
+              description = &quot;Detects exceptions found in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
+              author = &quot;Florian Roth&quot;
+              reference = &quot;https://gist.github.com/Neo23x0/e4c8b03ff8cdf1fa63b7d15db6e3860b&quot;
+              date = &quot;2021-12-12&quot;
+              score = 60
+           strings:
+              $xa1 = &quot;header with value of BadAttributeValueException: &quot;
+
+              $sa1 = &quot;.log4j.core.net.JndiManager.lookup(JndiManager&quot;
+              $sa2 = &quot;Error looking up JNDI resource&quot;
+           condition:
+              $xa1 or all of ($sa*)
+        }
+
         rule EXPL_Log4j_CVE_2021_44228_Dec21_Soft {
            meta:
               description = &quot;Detects indicators in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
               author = &quot;Florian Roth&quot;
               reference = &quot;https://twitter.com/h113sdx/status/1469010902183661568?s=20&quot;
               date = &quot;2021-12-10&quot;
-              score = 70
+              modified = &quot;2021-12-12&quot;
+              score = 60
            strings:
-              $x1 = &quot;${jndi:ldap:/&quot;
-              $x2 = &quot;${jndi:rmi:/&quot;
-              $x3 = &quot;${jndi:ldaps:/&quot;
-              $x4 = &quot;${jndi:dns:/&quot;
+              $ = &quot;${jndi:ldap:/&quot;
+              $ = &quot;${jndi:rmi:/&quot;
+              $ = &quot;${jndi:ldaps:/&quot;
+              $ = &quot;${jndi:dns:/&quot;
+              $ = &quot;${jndi:iiop:/&quot;
+              $ = &quot;${jndi:http:/&quot;
+              $ = &quot;${jndi:nis:/&quot;
+              $ = &quot;${jndi:nds:/&quot;
+              $ = &quot;${jndi:corba:/&quot;
+           condition:
+              1 of them
+        }
+
+        rule EXPL_Log4j_CVE_2021_44228_Dec21_OBFUSC {
+           meta:
+              description = &quot;Detects obfuscated indicators in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
+              author = &quot;Florian Roth&quot;
+              reference = &quot;https://twitter.com/h113sdx/status/1469010902183661568?s=20&quot;
+              date = &quot;2021-12-12&quot;
+              score = 60
+           strings:
+              $x1 = &quot;$%7Bjndi:&quot;
+              $x2 = &quot;%2524%257Bjndi&quot;
+              $x3 = &quot;%2F%252524%25257Bjndi%3A&quot;
+              $x4 = &quot;${jndi:${lower:&quot;
+              $x5 = &quot;${::-j}${&quot;
+              $x6 = &quot;${${env:BARFOO:-j}&quot;
+              $x7 = &quot;${::-l}${::-d}${::-a}${::-p}&quot;
+              $x8 = &quot;${base64:JHtqbmRp&quot;
            condition:
               1 of them
         }
@@ -492,9 +579,10 @@ parameters:
               author = &quot;Florian Roth&quot;
               reference = &quot;https://twitter.com/h113sdx/status/1469010902183661568?s=20&quot;
               date = &quot;2021-12-10&quot;
+              modified = &quot;2021-12-12&quot;
               score = 80
            strings:
-              $x1 = /\$\{jndi:(ldap|ldaps|rmi|dns):\/[\/]?[a-z-\.0-9]{3,120}:[0-9]{2,5}\/[a-zA-Z\.]{1,32}\}/
+              $x1 = /\$\{jndi:(ldap|ldaps|rmi|dns|iiop|http|nis|nds|corba):\/[\/]?[a-z-\.0-9]{3,120}:[0-9]{2,5}\/[a-zA-Z\.]{1,32}\}/
               $fp1r = /(ldap|rmi|ldaps|dns):\/[\/]?(127\.0\.0\.1|192\.168\.|172\.[1-3][0-9]\.|10\.)/
            condition:
               $x1 and not 1 of ($fp*)
@@ -526,9 +614,10 @@ parameters:
               author = &quot;Florian Roth&quot;
               reference = &quot;https://github.com/flypig5211/JNDIExploit&quot;
               date = &quot;2021-12-10&quot;
+              modified = &quot;2021-12-12&quot;
               score = 70
            strings:
-              $xr1 = /ldap:\/\/[a-zA-Z0-9\.]{7,80}:[0-9]{2,5}\/(Basic\/Command\/Base64|Basic\/ReverseShell|Basic\/TomcatMemshell|Basic\/JBossMemshell|Basic\/WebsphereMemshell|Basic\/SpringMemshell|Basic\/Command|Deserialization\/CommonsCollectionsK|Deserialization\/CommonsBeanutils|Deserialization\/Jre8u20\/TomcatMemshell|Deserialization\/CVE_2020_2555\/WeblogicMemshell|TomcatBypass|GroovyBypass|WebsphereBypass)\//
+              $xr1 = /(ldap|ldaps|rmi|dns|iiop|http|nis|nds|corba):\/\/[a-zA-Z0-9\.]{7,80}:[0-9]{2,5}\/(Basic\/Command\/Base64|Basic\/ReverseShell|Basic\/TomcatMemshell|Basic\/JBossMemshell|Basic\/WebsphereMemshell|Basic\/SpringMemshell|Basic\/Command|Deserialization\/CommonsCollectionsK|Deserialization\/CommonsBeanutils|Deserialization\/Jre8u20\/TomcatMemshell|Deserialization\/CVE_2020_2555\/WeblogicMemshell|TomcatBypass|GroovyBypass|WebsphereBypass)\//
            condition:
               filesize &lt; 100MB and $xr1
         }
@@ -549,7 +638,9 @@ parameters:
               $ = &quot;$%7blower:&quot;
               $ = &quot;$%7bupper:&quot;
               $ = &quot;%24%7bjndi:&quot;
-              $ = &quot;/$%7bjndi:&quot;
+              $ = &quot;$%7Blower:&quot;
+              $ = &quot;$%7Bupper:&quot;
+              $ = &quot;%24%7Bjndi:&quot;
            condition:
               1 of them
         }
@@ -628,15 +719,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639346405></script>
-<script src=/js/perfect-scrollbar.min.js?1639346405></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639346405></script>
-<script src=/js/jquery.sticky.js?1639346405></script>
-<script src=/js/featherlight.min.js?1639346405></script>
-<script src=/js/highlight.min.js?1639346405></script>
+<script src=/js/clipboard.min.js?1639382747></script>
+<script src=/js/perfect-scrollbar.min.js?1639382747></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639382747></script>
+<script src=/js/jquery.sticky.js?1639382747></script>
+<script src=/js/featherlight.min.js?1639382747></script>
+<script src=/js/highlight.min.js?1639382747></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639346405></script>
-<script src=/js/learn.js?1639346405></script>
-<script src=/js/hugo-learn.js?1639346405></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639382747></script>
+<script src=/js/learn.js?1639382747></script>
+<script src=/js/hugo-learn.js?1639382747></script>
 </body>
 </html>
