@@ -3,9 +3,9 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=generator content="Hugo 0.90.1">
-<meta name=description content="Blog posts from 2019">
+<meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>2019 :: Velociraptor - Digging deeper!</title>
+<title>Generic.Detection.Log4jRCE_JndiLookup :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1639445991 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1639445991 rel=stylesheet>
 <link href=/css/featherlight.min.css?1639445991 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/blog/2019/>
+<body data-url=/exchange/artifacts/pages/log4jrce_jndilookup/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -314,7 +314,7 @@
 <a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
 </div>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
+<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -376,7 +376,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2019/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Log4jRCE_JndiLookup.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -389,7 +389,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-2019
+Generic.Detection.Log4jRCE_JndiLookup
 </span>
 </div>
 <div class=progress>
@@ -403,37 +403,76 @@
 </div>
 <div id=body-inner>
 <h1>
-2019
+Generic.Detection.Log4jRCE_JndiLookup
 </h1>
-<ul class="children children-div">
-<div>
-<a href=/blog/2019/2019-12-31_digging-into-the-system-resource-usage-monitor-srum-afbadb1a375/>Digging into the System Resource Usage Monitor (SRUM)</a>
-</div>
-<div>
-<a href=/blog/2019/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568/>Velociraptor to Elasticsearch</a>
-</div>
-<div>
-<a href=/blog/2019/2019-11-15_recovering-deleted-ntfs-files-with-velociraptor-1fcf09855311/>Recovering deleted NTFS Files with Velociraptor</a>
-</div>
-<div>
-<a href=/blog/2019/2019-11-12_windows-event-logs-d8d8e615c9ca/>Windows Event Logs</a>
-</div>
-<div>
-<a href=/blog/2019/2019-10-08_triage-with-velociraptor-pt-3-d6f63215f579/>Triage with Velociraptor — Pt 3</a>
-</div>
-<div>
-<a href=/blog/2019/2019-10-04_triage-with-velociraptor-pt-2-d0f79066ca0e/>Triage with Velociraptor — Pt 2</a>
-</div>
-<div>
-<a href=/blog/2019/2019-10-02_triage-with-velociraptor-pt-1-253f57ce96c0/>Triage with Velociraptor — Pt 1</a>
-</div>
-<div>
-<a href=/blog/2019/2019-09-11_velociraptor-s-client-side-buffer-3ce03697a4e6/>Velociraptor’s client side buffer</a>
-</div>
-<div>
-<a href=/blog/2019/2019-03-02/>Agentless hunting with Velociraptor</a>
-</div>
+<p>This artifact uses yara to hunt for Log4j RCE (CVE-2021-44228) vulnerable
+JndiLookup.class.</p>
+<p>The artifact:</p>
+<ul>
+<li>firstly searches for jar files using glob</li>
+<li>then appplies yara for the strings: wide nocase ascii:JndiLookup.class</li>
 </ul>
+<p>NOTE: this artifact runs the glob plugin with the nosymlink switch turned on.
+This will NOT follow any symlinks and may cause unexpected results if
+unknowingly targeting a folder with symlinks.</p>
+<pre><code class=language-yaml>name: Generic.Detection.Log4jRCE_JndiLookup
+author: Matt Green - @mgreen27
+description: |
+  This artifact uses yara to hunt for Log4j RCE (CVE-2021-44228) vulnerable 
+  JndiLookup.class.
+    
+    The artifact:  
+    
+    * firstly searches for jar files using glob  
+    * then appplies yara for the strings: wide nocase ascii:JndiLookup.class  
+    
+  NOTE: this artifact runs the glob plugin with the nosymlink switch turned on. 
+  This will NOT follow any symlinks and may cause unexpected results if 
+  unknowingly targeting a folder with symlinks.
+  
+
+parameters:
+  - name: PathGlob
+    description: Only file names that match this glob will be scanned.
+    default: &quot;**/*.jar&quot;
+  - name: UploadHits
+    type: bool
+  - name: ShortHandYara
+    description: Second option Yara choice is a Velociraptor shorthand Yara rule
+    default: wide nocase ascii:JndiLookup.class
+
+
+sources:
+  - query: |
+      -- first find all matching glob
+      LET files = SELECT FullPath, Name, Size, Mtime, Atime, Ctime, Btime
+        FROM glob(globs=PathGlob,nosymlink='True')
+        WHERE NOT IsDir AND NOT IsLink
+          
+      -- scan files and only report a single hit.
+      LET hits = SELECT * FROM foreach(row=files,
+            query={
+                SELECT
+                    FileName as FullPath,
+                    File.Size AS Size,
+                    str(str=String.Data) AS HitContext,
+                    String.Offset AS HitOffset,
+                    Mtime, Atime, Ctime, Btime
+                FROM yara(rules=ShortHandYara,files=FullPath)
+                LIMIT 1
+            })
+
+      -- upload files that have hit
+      LET upload_hits=SELECT *,
+            upload(file=FullPath) AS Upload
+        FROM hits
+
+      -- return rows
+      SELECT * FROM if(condition=UploadHits,
+        then=upload_hits,
+        else=hits)
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
