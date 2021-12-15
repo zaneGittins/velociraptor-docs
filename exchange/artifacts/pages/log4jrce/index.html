@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Generic.Detection.log4jRCE :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639445991 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639445991 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639445991 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639445991 rel=stylesheet>
-<link href=/css/auto-complete.css?1639445991 rel=stylesheet>
-<link href=/css/theme.css?1639445991 rel=stylesheet>
-<link href=/css/tabs.css?1639445991 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639445991 rel=stylesheet>
-<link href=/css/theme-mine.css?1639445991 rel=stylesheet>
-<link href=/css/dark.css?1639445991 rel=stylesheet><link href=/css/syntax.css?1639445991 rel=stylesheet><link href=/css/light.css?1639445991 rel=stylesheet><link href=/css/hljs.css?1639445991 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639445991 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639445991></script>
+<link href=/css/nucleus.css?1639559192 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639559192 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639559192 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639559192 rel=stylesheet>
+<link href=/css/auto-complete.css?1639559192 rel=stylesheet>
+<link href=/css/theme.css?1639559192 rel=stylesheet>
+<link href=/css/tabs.css?1639559192 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639559192 rel=stylesheet>
+<link href=/css/theme-mine.css?1639559192 rel=stylesheet>
+<link href=/css/dark.css?1639559192 rel=stylesheet><link href=/css/syntax.css?1639559192 rel=stylesheet><link href=/css/light.css?1639559192 rel=stylesheet><link href=/css/hljs.css?1639559192 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639559192 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639559192></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -482,7 +482,7 @@ parameters:
            condition:
               1 of them
         }
-        
+
         rule EXPL_JNDI_Exploit_Patterns_Dec21_1 {
            meta:
               description = &quot;Detects JNDI Exploit Kit patterns in files&quot;
@@ -511,12 +511,12 @@ parameters:
               $x18 = &quot;/TomcatBypass/SpringMemshell&quot;
               $x19 = &quot;/GroovyBypass/Command/&quot;
               $x20 = &quot;/WebsphereBypass/Upload/&quot;
-        
+
               $fp1 = &quot;&lt;html&quot;
            condition:
               1 of ($x*) and not 1 of ($fp*)
         }
-        
+
         rule EXPL_Log4j_CVE_2021_44228_JAVA_Exception_Dec21_1 {
            meta:
               description = &quot;Detects exceptions found in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
@@ -526,13 +526,13 @@ parameters:
               score = 60
            strings:
               $xa1 = &quot;header with value of BadAttributeValueException: &quot;
-              
+
               $sa1 = &quot;.log4j.core.net.JndiManager.lookup(JndiManager&quot;
               $sa2 = &quot;Error looking up JNDI resource&quot;
            condition:
               $xa1 or all of ($sa*)
         }
-        
+
         rule EXPL_Log4j_CVE_2021_44228_Dec21_Soft {
            meta:
               description = &quot;Detects indicators in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
@@ -551,12 +551,12 @@ parameters:
               $x07 = &quot;${jndi:nis:/&quot;
               $x08 = &quot;${jndi:nds:/&quot;
               $x09 = &quot;${jndi:corba:/&quot;
-        
+
               $fp1 = &quot;&lt;html&quot;
            condition:
               1 of ($x*) and not 1 of ($fp*)
         }
-        
+
         rule EXPL_Log4j_CVE_2021_44228_Dec21_OBFUSC {
            meta:
               description = &quot;Detects obfuscated indicators in server logs that indicate an exploitation attempt of CVE-2021-44228&quot;
@@ -574,12 +574,12 @@ parameters:
               $x6 = &quot;${${env:BARFOO:-j}&quot;
               $x7 = &quot;${::-l}${::-d}${::-a}${::-p}&quot;
               $x8 = &quot;${base64:JHtqbmRp&quot;
-        
+
               $fp1 = &quot;&lt;html&quot;
            condition:
               1 of ($x*) and not 1 of ($fp*)
         }
-        
+
         rule EXPL_Log4j_CVE_2021_44228_Dec21_Hard {
            meta:
               description = &quot;Detects indicators in server logs that indicate the exploitation of CVE-2021-44228&quot;
@@ -595,7 +595,7 @@ parameters:
            condition:
               1 of ($x*) and not 1 of ($fp*)
         }
-        
+
         rule SUSP_Base64_Encoded_Exploit_Indicators_Dec21 {
            meta:
               description = &quot;Detects base64 encoded strings found in payloads of exploits against log4j CVE-2021-44228&quot;
@@ -613,13 +613,13 @@ parameters:
               $sb1 = &quot;fHdnZXQgLXEgLU8tI&quot;
               $sb2 = &quot;x3Z2V0IC1xIC1PLS&quot;
               $sb3 = &quot;8d2dldCAtcSAtTy0g&quot;
-        
+
               $fp1 = &quot;&lt;html&quot;
            condition:
               1 of ($sa*) and 1 of ($sb*)
               and not 1 of ($fp*)
         }
-        
+
         rule SUSP_JDNIExploit_Indicators_Dec21 {
            meta:
               description = &quot;Detects indicators of JDNI usage in log files and other payloads&quot;
@@ -633,7 +633,7 @@ parameters:
            condition:
               filesize &lt; 100MB and $xr1
         }
-        
+
         rule SUSP_EXPL_OBFUSC_Dec21_1{
            meta:
               description = &quot;Detects obfuscation methods used to evade detection in log4j exploitation attempt of CVE-2021-44228&quot;
@@ -653,12 +653,12 @@ parameters:
               $x6 = &quot;$%7Blower:&quot;
               $x7 = &quot;$%7Bupper:&quot;
               $x8 = &quot;%24%7Bjndi:&quot;
-        
+
               $fp1 = &quot;&lt;html&quot;
            condition:
               1 of ($x*) and not 1 of ($fp*)
         }
-        
+
         rule SUSP_JDNIExploit_Error_Indicators_Dec21_1 {
            meta:
               description = &quot;Detects error messages related to JDNI usage in log files that can indicate a Log4Shell / Log4j exploitation&quot;
@@ -746,15 +746,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639445991></script>
-<script src=/js/perfect-scrollbar.min.js?1639445991></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639445991></script>
-<script src=/js/jquery.sticky.js?1639445991></script>
-<script src=/js/featherlight.min.js?1639445991></script>
-<script src=/js/highlight.min.js?1639445991></script>
+<script src=/js/clipboard.min.js?1639559192></script>
+<script src=/js/perfect-scrollbar.min.js?1639559192></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639559192></script>
+<script src=/js/jquery.sticky.js?1639559192></script>
+<script src=/js/featherlight.min.js?1639559192></script>
+<script src=/js/highlight.min.js?1639559192></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639445991></script>
-<script src=/js/learn.js?1639445991></script>
-<script src=/js/hugo-learn.js?1639445991></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639559192></script>
+<script src=/js/learn.js?1639559192></script>
+<script src=/js/hugo-learn.js?1639559192></script>
 </body>
 </html>
