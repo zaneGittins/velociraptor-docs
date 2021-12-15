@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.90.1">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Performance :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639585524 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639585524 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639585524 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639585524 rel=stylesheet>
-<link href=/css/auto-complete.css?1639585524 rel=stylesheet>
-<link href=/css/theme.css?1639585524 rel=stylesheet>
-<link href=/css/tabs.css?1639585524 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639585524 rel=stylesheet>
-<link href=/css/theme-mine.css?1639585524 rel=stylesheet>
-<link href=/css/dark.css?1639585524 rel=stylesheet><link href=/css/syntax.css?1639585524 rel=stylesheet><link href=/css/light.css?1639585524 rel=stylesheet><link href=/css/hljs.css?1639585524 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639585524 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639585524></script>
+<title>Custom.Generic.Detection.LunasecLog4shell :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1639585522 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639585522 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639585522 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639585522 rel=stylesheet>
+<link href=/css/auto-complete.css?1639585522 rel=stylesheet>
+<link href=/css/theme.css?1639585522 rel=stylesheet>
+<link href=/css/tabs.css?1639585522 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639585522 rel=stylesheet>
+<link href=/css/theme-mine.css?1639585522 rel=stylesheet>
+<link href=/css/dark.css?1639585522 rel=stylesheet><link href=/css/syntax.css?1639585522 rel=stylesheet><link href=/css/light.css?1639585522 rel=stylesheet><link href=/css/hljs.css?1639585522 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639585522 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639585522></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/performance/>
+<body data-url=/exchange/artifacts/pages/custom.generic.detection.lunaseclog4shell/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -333,7 +333,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -375,6 +375,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Generic.Detection.LunasecLog4shell.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -383,11 +389,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Performance
+Custom.Generic.Detection.LunasecLog4shell
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -396,12 +403,58 @@ Performance
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Performance
+Custom.Generic.Detection.LunasecLog4shell
 </h1>
-<ul>
-<li><a href=/blog/2021/2021-01-22-concurrent-vql-6d381fdb0b1f/>Concurrent VQL</a></li>
-</ul>
+<p>Uses the Log4Shell scanner of Lunasec to scan the file systems of all drives of the host for any sign of vulnerabilities related to Log4shell</p>
+<pre><code class=language-yaml>name: Custom.Generic.Detection.LunasecLog4shell
+author: &quot;Marinus Boekelo &amp; Noël Keijzer - Northwave CERT&quot;
+description: |
+  Uses the Log4Shell scanner of Lunasec to scan the file systems of all drives of the host for any sign of vulnerabilities related to Log4shell
+
+tools:
+  - name: log4shell_linux_amd64
+    url: https://github.com/lunasec-io/lunasec/releases/download/v1.1.2-log4shell/log4shell_1.1.2-log4shell_Linux_x86_64
+    serve_locally: true
+
+  - name: log4shell_linux_x86
+    url: https://github.com/lunasec-io/lunasec/releases/download/v1.1.2-log4shell/log4shell_1.1.2-log4shell_Linux_i386
+    serve_locally: true
+
+  - name: log4shell_windows_amd64
+    url: https://github.com/lunasec-io/lunasec/releases/download/v1.1.2-log4shell/log4shell_1.1.2-log4shell_Windows_x86_64.exe
+    serve_locally: true
+
+  - name: log4shell_windows_x86
+    url: https://github.com/lunasec-io/lunasec/releases/download/v1.1.2-log4shell/log4shell_1.1.2-log4shell_Windows_i386.exe
+    serve_locally: true
+
+reference:
+  - https://github.com/lunasec-io/lunasec/releases/
+
+precondition: SELECT OS From info() where OS = &quot;windows&quot; or OS = &quot;linux&quot;
+
+required_permissions:
+  - EXECVE
+
+parameters:
+  - name: ToolInfo
+    description: Override Tool information.
+
+sources:
+  - query: |
+      LET os_info &lt;= SELECT Architecture, OS FROM info()
+      // Get the path to the binary.
+      LET bin &lt;= SELECT * FROM Artifact.Generic.Utils.FetchBinary(
+              ToolName= &quot;log4shell_&quot; + os_info[0].OS + &quot;_&quot; + os_info[0].Architecture,
+              ToolInfo=ToolInfo)
+      
+      // Select the Disks to scan
+      LET disks = if(condition=(os_info[0].OS=&quot;windows&quot;), then= { SELECT Mountpoint + &quot;\\\\&quot; as Mountpoint FROM filesystems()}, else={ SELECT &quot;/&quot; as Mountpoint FROM scope() })
+      // Scan every disk
+      LET results = SELECT * FROM foreach(row=disks, query={ SELECT parse_json(data=Stdout) AS record FROM execve(argv=[bin[0].FullPath,&quot;scan&quot;,&quot;--json&quot;,Mountpoint], sep=&quot;\n&quot;) })
+      SELECT * FROM foreach(row= results, query={ SELECT * FROM record })
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -412,15 +465,15 @@ Performance
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639585524></script>
-<script src=/js/perfect-scrollbar.min.js?1639585524></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639585524></script>
-<script src=/js/jquery.sticky.js?1639585524></script>
-<script src=/js/featherlight.min.js?1639585524></script>
-<script src=/js/highlight.min.js?1639585524></script>
+<script src=/js/clipboard.min.js?1639585522></script>
+<script src=/js/perfect-scrollbar.min.js?1639585522></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639585522></script>
+<script src=/js/jquery.sticky.js?1639585522></script>
+<script src=/js/featherlight.min.js?1639585522></script>
+<script src=/js/highlight.min.js?1639585522></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639585524></script>
-<script src=/js/learn.js?1639585524></script>
-<script src=/js/hugo-learn.js?1639585524></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639585522></script>
+<script src=/js/learn.js?1639585522></script>
+<script src=/js/hugo-learn.js?1639585522></script>
 </body>
 </html>

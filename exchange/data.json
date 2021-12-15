@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Generic.Detection.LunasecLog4shell",
+        "author": "NorthwaveCERT",
+        "description": "Uses the Log4Shell scanner of Lunasec to scan the file systems of all drives of the host for any sign of vulnerabilities related to Log4shell\n",
+        "link": "/exchange/artifacts/pages/custom.generic.detection.lunaseclog4shell",
+        "tags": [],
+        "author_link": "https://github.com/NorthwaveCERT",
+        "author_avatar": "https://avatars.githubusercontent.com/u/96190431?v=4",
+        "date": "2021-12-15"
+    },
+    {
         "title": "Generic.Detection.Log4jRCE_JndiLookup",
         "author": "mgreen27",
         "description": "This artifact uses yara to hunt for Log4j RCE (CVE-2021-44228) vulnerable \nJndiLookup.class.\n  \n  The artifact:  \n  \n  * firstly searches for jar files using glob  \n  * then appplies yara for the strings: wide nocase ascii:JndiLookup.class  \n  \nNOTE: this artifact runs the glob plugin with the nosymlink switch turned on. \nThis will NOT follow any symlinks and may cause unexpected results if \nunknowingly targeting a folder with symlinks.\n",
