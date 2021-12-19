@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.90.1">
+<meta name=generator content="Hugo 0.91.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Client Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639650760 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639650760 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639650760 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639650760 rel=stylesheet>
-<link href=/css/auto-complete.css?1639650760 rel=stylesheet>
-<link href=/css/theme.css?1639650760 rel=stylesheet>
-<link href=/css/tabs.css?1639650760 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639650760 rel=stylesheet>
-<link href=/css/theme-mine.css?1639650760 rel=stylesheet>
-<link href=/css/dark.css?1639650760 rel=stylesheet><link href=/css/syntax.css?1639650760 rel=stylesheet><link href=/css/light.css?1639650760 rel=stylesheet><link href=/css/hljs.css?1639650760 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639650760 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639650760></script>
+<link href=/css/nucleus.css?1639935365 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639935365 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639935365 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639935365 rel=stylesheet>
+<link href=/css/auto-complete.css?1639935365 rel=stylesheet>
+<link href=/css/theme.css?1639935365 rel=stylesheet>
+<link href=/css/tabs.css?1639935365 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639935365 rel=stylesheet>
+<link href=/css/theme-mine.css?1639935365 rel=stylesheet>
+<link href=/css/dark.css?1639935365 rel=stylesheet><link href=/css/syntax.css?1639935365 rel=stylesheet><link href=/css/light.css?1639935365 rel=stylesheet><link href=/css/hljs.css?1639935365 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639935365 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639935365></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -68,6 +68,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a>
 </div>
 </li>
 </ul>
@@ -265,6 +271,12 @@
 <a href=/vql_reference/basic/>Basic VQL</a>
 </div>
 </li>
+<li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a>
+</div>
+</li>
 <li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -429,6 +441,7 @@ Client Side
 <li><a href=#ip>ip</a></li>
 <li><a href=#js_get>js_get</a></li>
 <li><a href=#js_set>js_set</a></li>
+<li><a href=#profile>profile</a></li>
 <li><a href=#pslist>pslist</a></li>
 <li><a href=#read_file>read_file</a></li>
 <li><a href=#scope>scope</a>
@@ -1173,6 +1186,82 @@ encoded as an array of 8 bytes which makes it easy to format using the
 </tbody>
 </table>
 <div class=vql_item></div>
+<h2 id=profile>profile</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Returns a profile dump from the running process.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allocs</td>
+<td>A sampling of all past memory allocations</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>block</td>
+<td>Stack traces that led to blocking on synchronization primitives</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>goroutine</td>
+<td>Stack traces of all current goroutines</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>heap</td>
+<td>A sampling of memory allocations of live objects.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td>Stack traces of holders of contended mutexes</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>profile</td>
+<td>CPU profile.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>trace</td>
+<td>CPU trace.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>Debug level</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>logs</td>
+<td>Recent logs</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>queries</td>
+<td>Recent Queries run</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>Collect metrics</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>Duration of samples (default 30 sec)</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
 <h2 id=pslist>pslist</h2>
 <p><span class="vql_type pull-right">Plugin</span></p>
 <p>Enumerate running processes.</p>
@@ -1667,15 +1756,15 @@ scanning stops after one hit is found.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639650760></script>
-<script src=/js/jquery.sticky.js?1639650760></script>
-<script src=/js/featherlight.min.js?1639650760></script>
-<script src=/js/highlight.min.js?1639650760></script>
+<script src=/js/clipboard.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639935365></script>
+<script src=/js/jquery.sticky.js?1639935365></script>
+<script src=/js/featherlight.min.js?1639935365></script>
+<script src=/js/highlight.min.js?1639935365></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639650760></script>
-<script src=/js/learn.js?1639650760></script>
-<script src=/js/hugo-learn.js?1639650760></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639935365></script>
+<script src=/js/learn.js?1639935365></script>
+<script src=/js/hugo-learn.js?1639935365></script>
 </body>
 </html>

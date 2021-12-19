@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.90.1">
+<meta name=generator content="Hugo 0.91.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>VQL Fundamentals :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639650760 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639650760 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639650760 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639650760 rel=stylesheet>
-<link href=/css/auto-complete.css?1639650760 rel=stylesheet>
-<link href=/css/theme.css?1639650760 rel=stylesheet>
-<link href=/css/tabs.css?1639650760 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639650760 rel=stylesheet>
-<link href=/css/theme-mine.css?1639650760 rel=stylesheet>
-<link href=/css/dark.css?1639650760 rel=stylesheet><link href=/css/syntax.css?1639650760 rel=stylesheet><link href=/css/light.css?1639650760 rel=stylesheet><link href=/css/hljs.css?1639650760 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639650760 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639650760></script>
+<link href=/css/nucleus.css?1639935365 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639935365 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639935365 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639935365 rel=stylesheet>
+<link href=/css/auto-complete.css?1639935365 rel=stylesheet>
+<link href=/css/theme.css?1639935365 rel=stylesheet>
+<link href=/css/tabs.css?1639935365 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639935365 rel=stylesheet>
+<link href=/css/theme-mine.css?1639935365 rel=stylesheet>
+<link href=/css/dark.css?1639935365 rel=stylesheet><link href=/css/syntax.css?1639935365 rel=stylesheet><link href=/css/light.css?1639935365 rel=stylesheet><link href=/css/hljs.css?1639935365 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639935365 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639935365></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -69,6 +69,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a>
 </div>
 </li>
 </ul>
@@ -266,6 +272,12 @@
 <a href=/vql_reference/basic/>Basic VQL</a>
 </div>
 </li>
+<li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a>
+</div>
+</li>
 <li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -402,11 +414,13 @@ VQL Fundamentals
 <li><a href=#running-vql-queries---notebooks>Running VQL queries - Notebooks</a></li>
 <li><a href=#basic-syntax>Basic Syntax</a>
 <ul>
+<li><a href=#whitespace>Whitespace</a></li>
 <li><a href=#plugins>Plugins</a></li>
 <li><a href=#life-of-a-query>Life of a query</a></li>
 <li><a href=#lazy-evaluation>Lazy Evaluation</a></li>
 <li><a href=#what-is-a-scope>What is a Scope?</a></li>
 <li><a href=#string-constants>String constants</a></li>
+<li><a href=#identifiers-with-spaces>Identifiers with spaces</a></li>
 <li><a href=#subqueries>Subqueries</a></li>
 <li><a href=#arrays>Arrays</a></li>
 <li><a href=#the-scope-plugin>The scope() plugin</a></li>
@@ -415,6 +429,7 @@ VQL Fundamentals
 <li><a href=#the-foreach-plugin>The Foreach plugin</a>
 <ul>
 <li><a href=#foreach-on-steroids>Foreach on steroids</a></li>
+<li><a href=#foreach-and-deconstructing-a-dict>Foreach and deconstructing a dict</a></li>
 </ul>
 </li>
 <li><a href=#let-expressions>LET expressions</a>
@@ -424,6 +439,12 @@ VQL Fundamentals
 </ul>
 </li>
 <li><a href=#local-functions>Local functions</a></li>
+<li><a href=#vql-operators>VQL Operators</a>
+<ul>
+<li><a href=#protocols>Protocols</a></li>
+<li><a href=#example---regex-operator>Example - Regex operator</a></li>
+</ul>
+</li>
 <li><a href=#vql-control-structures>VQL control structures</a>
 <ul>
 <li><a href=#looping-over-rows>Looping over rows</a></li>
@@ -471,9 +492,25 @@ test each query.</p>
 <p>You can read more about notebooks <a href=notebooks>here</a>. For the purposes of this documentation, we will assume you created a notebook and are typing VQL
 into the cell.</p>
 <h2 id=basic-syntax>Basic Syntax</h2>
-<p>VQL&rsquo;s syntax is heavily inspired by SQL. It uses the same basic <code>SELECT .. FROM .. WHERE</code> sentence structure, but does not include the more complex SQL syntax, such as <code>JOIN</code> or <code>HAVING</code>. In VQL, similar functionality is provided through
-plugins, which keeps the syntax simple and
-concise.</p>
+<p>VQL&rsquo;s syntax is heavily inspired by SQL. It uses the same basic
+<code>SELECT .. FROM .. WHERE</code> sentence structure, but does not include the
+more complex SQL syntax, such as <code>JOIN</code> or <code>HAVING</code>. In VQL, similar
+functionality is provided through plugins, which keeps the syntax
+simple and concise.</p>
+<h3 id=whitespace>Whitespace</h3>
+<p>VQL does not place any restrictions on the use of whitespace in the
+query body. We generally prefer queries that are well indented because
+they are more readable and look better but this is not a
+requirement. Unlike SQL, VQL does not require or allow a semicolon <code>;</code>
+at the end of statements.</p>
+<p>The following two queries are equivalent</p>
+<pre><code class=language-vql>-- This query is all on the same line - not very readable but valid.
+LET X = SELECT * FROM info() SELECT * FROM X
+
+-- We prefer well indented queries but VQL does not mind.
+LET X= SELECT * FROM info()
+SELECT * FROM X
+</code></pre>
 <p>Let&rsquo;s consider the basic syntax of a VQL query.</p>
 <p>
 <figure>
@@ -495,7 +532,7 @@ their operations. VQL Syntax requires all arguments to be provided by
 name (these are called keyword arguments). Depending on the specific
 plugins, some arguments are required while some are optional.</p>
 <div class="mynotices tip">
-<div heading=" Using the GUI suggestions "><p>Yuo can type <code>?</code> in the Notebook interface to view a
+<div heading=" Using the GUI suggestions "><p>You can type <code>?</code> in the Notebook interface to view a
 list of possible completions for a keyword. Completions are context sensitive. For example, since plugins must follow the <code>FROM</code> keyword, any suggestions
 after the <code>FROM</code> keyword will be for VQL plugins. Typing <code>?</code> inside
 a plugin arguments list shows the possible arguments, their
@@ -631,18 +668,45 @@ words, the parent&rsquo;s name.</p>
 </div>
 <h3 id=string-constants>String constants</h3>
 <p>Strings denoted by <code>"</code> or <code>'</code> can escape special characters using the
-<code>\\</code>. For example, <code>"\\n"</code> means a new line. This is useful but it
+<code>\</code>. For example, <code>"\n"</code> means a new line. This is useful but it
 also means that backslashes need to be escaped. This is sometimes
 inconvenient, especially when dealing with Windows paths (that
 contains a lot of backslashes).</p>
-<p>Therefore, Velociraptor also offers a Multiline raw string which is
+<p>Therefore, Velociraptor also offers a multi-line raw string which is
 denoted by <code>'''</code> (three single quotes). Within this type of string no
 escaping is possible, and the all characters are treated literally -
 including new lines. You can use <code>'''</code> to denote multi line strings.</p>
+<h3 id=identifiers-with-spaces>Identifiers with spaces</h3>
+<p>In VQL an <code>Identifier</code> is the name of a column, member of a dict or a
+keyword name. Sometimes identifiers contain special characters such as
+space or <code>.</code> which make it difficult to specify them without having
+VQL get confused by these extra characters.</p>
+<p>In this case it is possible to enclose the identifier name with back
+ticks (<code>`</code>).</p>
+<p>In the following example, the query specifies keywords with spaces to
+the <code>dict()</code> plugin in order to create a dict with keys containing spaces.</p>
+<p>The query then continues to extract the value from this key by
+enclosing the name of the key using backticks.</p>
+<pre><code class=language-vql>LET X = SELECT dict(`A key with spaces`=&quot;String value&quot;) AS Dict
+FROM scope()
+
+SELECT Dict, Dict.`A key with spaces` FROM X
+</code></pre>
 <h3 id=subqueries>Subqueries</h3>
 <p>VQL Subqueries can be specified as a column expression or as an
 arguments. Subqueries are delimited by <code>{</code> and <code>}</code>. Subqueries are
 also lazily evaluated, and will only be evaluated when necessary.</p>
+<p>The following example demonstrates subqueries inside plugin args. The
+<code>if()</code> plugin will evaluate the <code>then</code> or the <code>else</code> query depending
+on the <code>condition</code> value (in this example when X has the value 1).</p>
+<pre><code class=language-vql>SELECT * FROM if(condition=X=1,
+then={
+  SELECT * FROM ...
+},
+else={
+  SELECT * FROM ...
+})
+</code></pre>
 <h3 id=arrays>Arrays</h3>
 <p>An array may be defined either by <code>(</code> and <code>)</code> or <code>[</code> and <code>]</code>. Since it
 can be confusing to tell regular parenthesis from an array with a
@@ -729,6 +793,27 @@ row={
 }, worker=10)
 
 </code></pre>
+<h3 id=foreach-and-deconstructing-a-dict>Foreach and deconstructing a dict</h3>
+<p>Deconstructing a dict means to take that dict and create a column for
+each field of that dict. Consider the following query:</p>
+<pre><code class=language-sql>LET Lines = '''Foo Bar
+Hello World
+Hi There
+'''
+
+LET all_lines = SELECT grok(grok=&quot;%{NOTSPACE:First} %{NOTSPACE:Second}&quot;, data=Line) AS Parsed
+FROM parse_lines(accessor=&quot;data&quot;, filename=Lines)
+
+SELECT * FROM foreach(row=all_lines, column=&quot;Parsed&quot;)
+</code></pre>
+<p>This query reads some lines (for example log lines) and applies a grok
+expression to parse each line. The grok function will produce a dict
+after parsing the line with fields determined by the grok expression.</p>
+<p>The <code>all_lines</code> query will have one column called &ldquo;Parsed&rdquo; containing
+a dict with two fields (First and Second). Using the <code>column</code>
+parameter to the foreach() plugin, foreach will use the value in that
+column as a row, deconstructing the dict into a table containing the
+<code>First</code> and <code>Second</code> column.</p>
 <h2 id=let-expressions>LET expressions</h2>
 <p>We know that subqueries can be used in various parts of
 the query, such as in a column specifier or as an argument to a
@@ -853,6 +938,68 @@ between the FROM and WHERE clauses. A function simply takes several
 values and transforms them into a single value.</p>
 </div>
 </div>
+<h2 id=vql-operators>VQL Operators</h2>
+<p>In VQL an operator represents an operation to be taken on
+operands. Unlike SQL, VQL keeps the number of operators down,
+preferring to use VQL functions over introducing new operators.</p>
+<p>The following operators are available. Most operators apply to two
+operands, one on the left and one on the right (so in the expression
+<code>1 + 2</code> we say that <code>1</code> is the Left Hand Side (<code>LHS</code>), <code>2</code> is the Right
+Hand Side (<code>RHS</code>) and <code>+</code> is the operator.</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+ - * /</code></td>
+<td>These are the usual arithmetic operators</td>
+</tr>
+<tr>
+<td><code>=~</code></td>
+<td>This is the regex operator, reads like &ldquo;matches&rdquo;. For example <code>X =~ "Windows"</code> will return <code>TRUE</code> if X matches the regex &ldquo;Windows&rdquo;</td>
+</tr>
+<tr>
+<td><code>!= = &lt; &lt;= > >=</code></td>
+<td>The usual comparison operators.</td>
+</tr>
+<tr>
+<td><code>in</code></td>
+<td>The membership operator. Returns TRUE if the LHS is present in the RHS. Note that <code>in</code> is an exact case sensitive match</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>The <code>.</code> operator is called the Associative operator. It dereferences a field from the LHS named by the RHS. For example <code>X.Y</code> extracts the field <code>Y</code> from the dict <code>X</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id=protocols>Protocols</h3>
+<p>When VQL encounters an operator it needs to decide how to actually
+evaluate the operator. This depends on what types the LHS and RHS
+operands actually are. The way in which operators interact with the
+types of operands is called a <code>protocol</code>.</p>
+<p>Generally VQL does the expected thing but it is valuable to understand
+which protocol will be chosen in specific cases.</p>
+<h3 id=example---regex-operator>Example - Regex operator</h3>
+<p>For example consider the following query</p>
+<pre><code class=language-vql>LET MyArray = (&quot;X&quot;, &quot;XY&quot;, &quot;Y&quot;)
+LET MyValue = &quot;X&quot;
+LET MyInteger = 5
+
+SELECT MyArray =~ &quot;X&quot;, MyValue =~ &quot;X&quot;, MyInteger =~ &quot;5&quot;
+FROM scope()
+</code></pre>
+<p>In the first case the regex operator is applied to an array so the
+expression is true if <strong>any</strong> member of the array matches the regular
+expression.</p>
+<p>The second case applied the regex to a string, so it is true if the
+string matches.</p>
+<p>Finally in the last case, the regex is applies to an integer. It makes
+no sense to apply a regular expression to an integer and so VQL
+returns FALSE.</p>
 <h2 id=vql-control-structures>VQL control structures</h2>
 <p>Let&rsquo;s summarizes some of the more frequent VQL control structures.</p>
 <p>We already met with the <code>foreach()</code> plugin before. The <code>row</code> parameter
@@ -973,15 +1120,15 @@ invocation and its previous one.</li>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639650760></script>
-<script src=/js/jquery.sticky.js?1639650760></script>
-<script src=/js/featherlight.min.js?1639650760></script>
-<script src=/js/highlight.min.js?1639650760></script>
+<script src=/js/clipboard.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639935365></script>
+<script src=/js/jquery.sticky.js?1639935365></script>
+<script src=/js/featherlight.min.js?1639935365></script>
+<script src=/js/highlight.min.js?1639935365></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639650760></script>
-<script src=/js/learn.js?1639650760></script>
-<script src=/js/hugo-learn.js?1639650760></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639935365></script>
+<script src=/js/learn.js?1639935365></script>
+<script src=/js/hugo-learn.js?1639935365></script>
 </body>
 </html>

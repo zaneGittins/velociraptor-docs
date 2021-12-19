@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.90.1">
+<meta name=generator content="Hugo 0.91.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Misc :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639650760 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639650760 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639650760 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639650760 rel=stylesheet>
-<link href=/css/auto-complete.css?1639650760 rel=stylesheet>
-<link href=/css/theme.css?1639650760 rel=stylesheet>
-<link href=/css/tabs.css?1639650760 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639650760 rel=stylesheet>
-<link href=/css/theme-mine.css?1639650760 rel=stylesheet>
-<link href=/css/dark.css?1639650760 rel=stylesheet><link href=/css/syntax.css?1639650760 rel=stylesheet><link href=/css/light.css?1639650760 rel=stylesheet><link href=/css/hljs.css?1639650760 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639650760 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639650760></script>
+<link href=/css/nucleus.css?1639935365 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639935365 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639935365 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639935365 rel=stylesheet>
+<link href=/css/auto-complete.css?1639935365 rel=stylesheet>
+<link href=/css/theme.css?1639935365 rel=stylesheet>
+<link href=/css/tabs.css?1639935365 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639935365 rel=stylesheet>
+<link href=/css/theme-mine.css?1639935365 rel=stylesheet>
+<link href=/css/dark.css?1639935365 rel=stylesheet><link href=/css/syntax.css?1639935365 rel=stylesheet><link href=/css/light.css?1639935365 rel=stylesheet><link href=/css/hljs.css?1639935365 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639935365 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639935365></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -68,6 +68,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a>
 </div>
 </li>
 </ul>
@@ -265,6 +271,12 @@
 <a href=/vql_reference/basic/>Basic VQL</a>
 </div>
 </li>
+<li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a>
+</div>
+</li>
 <li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -397,7 +409,13 @@ Misc
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
+<li><a href=#netcat>netcat</a></li>
 <li><a href=#parse_pkcs7>parse_pkcs7</a></li>
+<li><a href=#pipe>pipe</a>
+<ul>
+<li><a href=#example>Example</a></li>
+</ul>
+</li>
 <li><a href=#query>query</a></li>
 </ul>
 </nav>
@@ -412,6 +430,52 @@ Misc
 Misc
 </h1>
 <p>Miscellaneous plugins not yet categorized.</p>
+<div class=vql_item></div>
+<h2 id=netcat>netcat</h2>
+<p><span class="vql_type pull-right">Plugin</span></p>
+<p>Make a tcp connection and read data from a socket.</p>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>address</td>
+<td>The address to connect to (can be a file in case of a unix domain socket)</td>
+<td>string (required)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>Can be tcp or unix (default TCP)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>send</td>
+<td>Data to send before reading</td>
+<td>string</td>
+</tr>
+<tr>
+<td>sep</td>
+<td>The separator that will be used to split (default - line feed)</td>
+<td>string</td>
+</tr>
+<tr>
+<td>chunk_size</td>
+<td>Read input with this chunk size (default 64kb)</td>
+<td>int</td>
+</tr>
+<tr>
+<td>retry</td>
+<td>Seconds to wait before retry - default 0 - do not retry</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
 <div class=vql_item></div>
 <h2 id=parse_pkcs7>parse_pkcs7</h2>
 <p><span class="vql_type pull-right">Function</span></p>
@@ -430,6 +494,57 @@ Misc
 <td>data</td>
 <td>PKCS7 DER encoded string.</td>
 <td>string (required)</td>
+</tr>
+</tbody>
+</table>
+<div class=vql_item></div>
+<h2 id=pipe>pipe</h2>
+<p><span class="vql_type pull-right">Function</span></p>
+<p>A pipe allows plugins that use files to read data from a vql
+query. This is needed to be able to use the &ldquo;pipe&rdquo; accessor.</p>
+<h3 id=example>Example</h3>
+<p>In the following example we create a pipe from a query which
+reads a log file line by line. Each line is being transformed by
+a regex and potentially filtered (perhaps to fix up buggy CSV
+implementations that generated a bad CSV).</p>
+<p>The pipe is then fed into the parse_csv() plugin to parse each
+line as a csv file.</p>
+<pre><code class=language-vql>LET MyPipe = pipe(query={
+    SELECT regex_replace(
+      re='''^(\d{4}-\d{2}-\d{2}) (\d{2}:)''',
+      replace='''${1}T${2}''', source=Line) AS Line
+    FROM parse_lines(filename=IISPath)
+    WHERE NOT Line =~ &quot;^#&quot;
+  }, sep=&quot;\n&quot;)
+
+SELECT * FROM parse_csv(
+   columns=Columns, separator=&quot; &quot;,
+   filename=&quot;MyPipe&quot;, accessor=&quot;pipe&quot;)
+</code></pre>
+<div class=vqlargs></div>
+<table>
+<thead>
+<tr>
+<th>Arg</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Name to call the pipe</td>
+<td>string</td>
+</tr>
+<tr>
+<td>query</td>
+<td>Run this query to generator data - the first column will be appended to pipe data.</td>
+<td>StoredQuery</td>
+</tr>
+<tr>
+<td>sep</td>
+<td>The separator that will be used to split each read (default: no separator will be used)</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -469,15 +584,15 @@ Misc
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639650760></script>
-<script src=/js/jquery.sticky.js?1639650760></script>
-<script src=/js/featherlight.min.js?1639650760></script>
-<script src=/js/highlight.min.js?1639650760></script>
+<script src=/js/clipboard.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.min.js?1639935365></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639935365></script>
+<script src=/js/jquery.sticky.js?1639935365></script>
+<script src=/js/featherlight.min.js?1639935365></script>
+<script src=/js/highlight.min.js?1639935365></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639650760></script>
-<script src=/js/learn.js?1639650760></script>
-<script src=/js/hugo-learn.js?1639650760></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639935365></script>
+<script src=/js/learn.js?1639935365></script>
+<script src=/js/hugo-learn.js?1639935365></script>
 </body>
 </html>

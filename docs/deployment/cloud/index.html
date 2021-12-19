@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.90.1">
+<meta name=generator content="Hugo 0.91.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cloud Deployment :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1639650760 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1639650760 rel=stylesheet>
-<link href=/css/featherlight.min.css?1639650760 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1639650760 rel=stylesheet>
-<link href=/css/auto-complete.css?1639650760 rel=stylesheet>
-<link href=/css/theme.css?1639650760 rel=stylesheet>
-<link href=/css/tabs.css?1639650760 rel=stylesheet>
-<link href=/css/hugo-theme.css?1639650760 rel=stylesheet>
-<link href=/css/theme-mine.css?1639650760 rel=stylesheet>
-<link href=/css/dark.css?1639650760 rel=stylesheet><link href=/css/syntax.css?1639650760 rel=stylesheet><link href=/css/light.css?1639650760 rel=stylesheet><link href=/css/hljs.css?1639650760 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639650760 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1639650760></script>
+<link href=/css/nucleus.css?1639935364 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1639935364 rel=stylesheet>
+<link href=/css/featherlight.min.css?1639935364 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1639935364 rel=stylesheet>
+<link href=/css/auto-complete.css?1639935364 rel=stylesheet>
+<link href=/css/theme.css?1639935364 rel=stylesheet>
+<link href=/css/tabs.css?1639935364 rel=stylesheet>
+<link href=/css/hugo-theme.css?1639935364 rel=stylesheet>
+<link href=/css/theme-mine.css?1639935364 rel=stylesheet>
+<link href=/css/dark.css?1639935364 rel=stylesheet><link href=/css/syntax.css?1639935364 rel=stylesheet><link href=/css/light.css?1639935364 rel=stylesheet><link href=/css/hljs.css?1639935364 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1639935364 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1639935364></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -69,6 +69,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a>
 </div>
 </li>
 </ul>
@@ -266,6 +272,12 @@
 <a href=/vql_reference/basic/>Basic VQL</a>
 </div>
 </li>
+<li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a>
+</div>
+</li>
 <li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class=dd-item>
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -416,6 +428,11 @@ Cloud Deployment
 <li><a href=#grant-access-to-velociraptor>Grant Access to Velociraptor</a>
 <ul>
 <li><a href=#deploying-to-the-server>Deploying to the server</a></li>
+</ul>
+</li>
+<li><a href=#server-upgrades>Server upgrades</a>
+<ul>
+<li><a href=#reverting-versions>Reverting versions</a></li>
 </ul>
 </li>
 </ul>
@@ -692,6 +709,48 @@ the <code>debian server</code> command with a path to the linux binary. You can
 obtain a copy of the linux binary from the Github releases page.</p>
 </div>
 </div>
+<h2 id=server-upgrades>Server upgrades</h2>
+<p>To upgrade the Velociraptor server to a new version, simply download
+the latest release binary from the <a href=https://github.com/Velocidex/velociraptor/releases>GitHub Release
+Page</a> and
+regenerate a new debian package as described above, but using the
+existing configuration file.</p>
+<div class="mynotices note">
+<div heading=" Backing up your configuration file "><p>The configuration file contains cryptographic keys that allow clients
+and server to communicate. Each time the configuration is regenerated
+(e.g. using <code>velociraptor config generate</code>), new keys are created.</p>
+<p>It is imperative to backup the configuration file somewhere safe
+(perhaps offline) and re-use the same file when upgrading to a new
+version of Velociraptor in order to preserve the key material and
+maintain client communication.</p>
+</div>
+</div>
+<p>From time to time, the schema of the configuration file may evolve
+with newer versions. When a newer versions of Velociraptor encounters
+an older configuration file, it attempts to upgrade the configuration
+file to the latest version. This happens automatically and it is
+usually a seamless process.</p>
+<p>During the debian package preparation the upgraded file is embedded
+into the server package so you will receive an upgraded configuration
+file installed to the <code>/etc/</code> directory. You can see the version that
+wrote the configuration file in the <code>version</code> part of the
+configuration file.</p>
+<div class="mynotices tip">
+<div heading=" Upgrading servers "><p>If you wanted to completely change the way the server is configured by
+regenerating the config file (e.g. if you need to switch from self
+signed to autocert server) you may need to stand up a completely new
+server (with a different DNS name, certificates, keys etc).</p>
+<p>You can still use the old server in order to push the new MSI to
+existing clients, but as the new MSI is installed, the new client
+config file overwrites the old one and the new velociraptor client
+will connect to the new server.</p>
+<p>This method allows the orderly migration of Velociraptor clients from
+an old server to a new server by simply user remote upgrade.</p>
+</div>
+</div>
+<h3 id=reverting-versions>Reverting versions</h3>
+<p>It is generally ok to revert from later versions to earlier versions
+since the migration process is generally non destructive.</p>
 <footer class=footline>
 </footer>
 </div>
@@ -702,15 +761,15 @@ obtain a copy of the linux binary from the Github releases page.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.min.js?1639650760></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1639650760></script>
-<script src=/js/jquery.sticky.js?1639650760></script>
-<script src=/js/featherlight.min.js?1639650760></script>
-<script src=/js/highlight.min.js?1639650760></script>
+<script src=/js/clipboard.min.js?1639935364></script>
+<script src=/js/perfect-scrollbar.min.js?1639935364></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1639935364></script>
+<script src=/js/jquery.sticky.js?1639935364></script>
+<script src=/js/featherlight.min.js?1639935364></script>
+<script src=/js/highlight.min.js?1639935364></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1639650760></script>
-<script src=/js/learn.js?1639650760></script>
-<script src=/js/hugo-learn.js?1639650760></script>
+<script src=/js/modernizr.custom-3.6.0.js?1639935364></script>
+<script src=/js/learn.js?1639935364></script>
+<script src=/js/hugo-learn.js?1639935364></script>
 </body>
 </html>
