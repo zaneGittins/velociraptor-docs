@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Generic.Detection.Log4jVulnHunter :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1640063966 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1640063966 rel=stylesheet>
-<link href=/css/featherlight.min.css?1640063966 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1640063966 rel=stylesheet>
-<link href=/css/auto-complete.css?1640063966 rel=stylesheet>
-<link href=/css/theme.css?1640063966 rel=stylesheet>
-<link href=/css/tabs.css?1640063966 rel=stylesheet>
-<link href=/css/hugo-theme.css?1640063966 rel=stylesheet>
-<link href=/css/theme-mine.css?1640063966 rel=stylesheet>
-<link href=/css/dark.css?1640063966 rel=stylesheet><link href=/css/syntax.css?1640063966 rel=stylesheet><link href=/css/light.css?1640063966 rel=stylesheet><link href=/css/hljs.css?1640063966 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1640063966 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1640063966></script>
+<link href=/css/nucleus.css?1640094567 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1640094567 rel=stylesheet>
+<link href=/css/featherlight.min.css?1640094567 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1640094567 rel=stylesheet>
+<link href=/css/auto-complete.css?1640094567 rel=stylesheet>
+<link href=/css/theme.css?1640094567 rel=stylesheet>
+<link href=/css/tabs.css?1640094567 rel=stylesheet>
+<link href=/css/hugo-theme.css?1640094567 rel=stylesheet>
+<link href=/css/theme-mine.css?1640094567 rel=stylesheet>
+<link href=/css/dark.css?1640094567 rel=stylesheet><link href=/css/syntax.css?1640094567 rel=stylesheet><link href=/css/light.css?1640094567 rel=stylesheet><link href=/css/hljs.css?1640094567 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1640094567 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1640094567></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -475,7 +475,12 @@ reference:
 parameters:
   - name: TargetGlob
     default: &quot;**/*.{jar,war,ear}&quot;
+  - name: MaxRecursions
+    description: Number of recursions to allow checking inside archives. Default is 10 layers.
+    default: 10
+    type: int
   - name: UploadHits
+    description: Select to upload hits to server.
     type: bool
   - name: IocLookupTable
     type: csv
@@ -576,10 +581,9 @@ sources:
       LET target_files = SELECT * FROM glob(globs=TargetGlob,nosymlink=True)
       
       -- recursive search function
-      LET Recurse(File, OriginalFile, Container) = SELECT * FROM foreach(
+      LET Recurse(File, OriginalFile, Container, RecursionRounds) = SELECT * FROM foreach(
                 row={
                     SELECT * 
-                        --,hash(path=FullPath,accessor='zip').SHA256 as SHA256 
                     FROM glob(accessor=&quot;zip&quot;, root=url(path=File, scheme=&quot;file&quot;), globs=&quot;/**&quot;)
                     WHERE NOT IsDir AND Size &gt; 0
                 }, 
@@ -591,7 +595,8 @@ sources:
                                     OriginalFile=OriginalFile + &quot;/&quot; + url(parse=FullPath).Fragment,
                                     File=copy(dest=tempfile(extension=&quot;.zip&quot;, remove_last=TRUE), 
                                         accessor=&quot;zip&quot;, filename=FullPath),
-                                    Container=Container)
+                                    Container=Container, RecursionRounds = RecursionRounds + 1)
+                                WHERE RecursionRounds &lt; MaxRecursions
                                 
                             },
                             else={
@@ -600,7 +605,7 @@ sources:
                                     SELECT Container,
                                         'Path detection' as Description,
                                         Name, url(parse=FullPath).Fragment AS ZipPath, OriginalFile,
-                                        hash(path=FullPath,accessor='zip').SHA256 as SHA256h 
+                                        hash(path=FullPath,accessor='zip').SHA256 as SHA256h
                                     FROM scope() 
                                     WHERE ZipPath in IocLookupTable.FilePath 
                                         OR basename(path=ZipPath) in IocLookupTable.JarName 
@@ -610,7 +615,7 @@ sources:
                                     SELECT Container,
                                         'Hash detection' as Description,
                                         Name, url(parse=FullPath).Fragment AS ZipPath, OriginalFile, Size,
-                                        hash(path=FullPath,accessor='zip').SHA256 as SHA256h  
+                                        hash(path=FullPath,accessor='zip').SHA256 as SHA256h
                                     FROM scope() 
                                     WHERE SHA256h in IocLookupTable.SHA256 
                                 })
@@ -654,7 +659,7 @@ sources:
             query={
                 SELECT *,
                     find_cve(hash=SHA256h,originalfile=OriginalFile) as CVEDetails
-                FROM Recurse(File=FullPath, OriginalFile=FullPath,Container=FullPath)
+                FROM Recurse(File=FullPath, OriginalFile=FullPath,Container=FullPath,RecursionRounds=0)
                 WHERE CVEDetails
                 LIMIT 1
             })
@@ -680,15 +685,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1640063966></script>
-<script src=/js/perfect-scrollbar.min.js?1640063966></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1640063966></script>
-<script src=/js/jquery.sticky.js?1640063966></script>
-<script src=/js/featherlight.min.js?1640063966></script>
-<script src=/js/highlight.min.js?1640063966></script>
+<script src=/js/clipboard.min.js?1640094567></script>
+<script src=/js/perfect-scrollbar.min.js?1640094567></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1640094567></script>
+<script src=/js/jquery.sticky.js?1640094567></script>
+<script src=/js/featherlight.min.js?1640094567></script>
+<script src=/js/highlight.min.js?1640094567></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1640063966></script>
-<script src=/js/learn.js?1640063966></script>
-<script src=/js/hugo-learn.js?1640063966></script>
+<script src=/js/modernizr.custom-3.6.0.js?1640094567></script>
+<script src=/js/learn.js?1640094567></script>
+<script src=/js/hugo-learn.js?1640094567></script>
 </body>
 </html>
