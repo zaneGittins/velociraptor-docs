@@ -2,22 +2,22 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.91.0">
+<meta name=generator content="Hugo 0.91.2">
 <meta name=description content="Velociraptor can use sftp to securely transfer data to an AWS S3 bucket. However configuring this service securely is not trivial. This post walks the reader through the steps of setting up a secure sftp upload only bucket that can be used with Velociraptor.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>SFTP in AWS :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1640222967 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1640222967 rel=stylesheet>
-<link href=/css/featherlight.min.css?1640222967 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1640222967 rel=stylesheet>
-<link href=/css/auto-complete.css?1640222967 rel=stylesheet>
-<link href=/css/theme.css?1640222967 rel=stylesheet>
-<link href=/css/tabs.css?1640222967 rel=stylesheet>
-<link href=/css/hugo-theme.css?1640222967 rel=stylesheet>
-<link href=/css/theme-mine.css?1640222967 rel=stylesheet>
-<link href=/css/dark.css?1640222967 rel=stylesheet><link href=/css/syntax.css?1640222967 rel=stylesheet><link href=/css/light.css?1640222967 rel=stylesheet><link href=/css/hljs.css?1640222967 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1640222967 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1640222967></script>
+<link href=/css/nucleus.css?1640931064 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1640931064 rel=stylesheet>
+<link href=/css/featherlight.min.css?1640931064 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1640931064 rel=stylesheet>
+<link href=/css/auto-complete.css?1640931064 rel=stylesheet>
+<link href=/css/theme.css?1640931064 rel=stylesheet>
+<link href=/css/tabs.css?1640931064 rel=stylesheet>
+<link href=/css/hugo-theme.css?1640931064 rel=stylesheet>
+<link href=/css/theme-mine.css?1640931064 rel=stylesheet>
+<link href=/css/dark.css?1640931064 rel=stylesheet><link href=/css/syntax.css?1640931064 rel=stylesheet><link href=/css/light.css?1640931064 rel=stylesheet><link href=/css/hljs.css?1640931064 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1640931064 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1640931064></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -664,7 +664,7 @@ configuration by simply pasting the public key I generated earlier.</p>
 <div class="mynotices tip">
 <div heading=" Creating users with different access "><p>In our example I created a user with an upload only policy that could
 not read any of the files in the bucket. However, you can also create
-a user with full access to the bucket by remove the scope down policy
+a user with full access to the bucket by removing the scope down policy
 or apply a different policy per user.</p>
 <p>This is convenient to allow the investigator the ability to download
 the collected files by creating a separate sftp user for them without
@@ -702,7 +702,7 @@ artifact and just collect the <code>$MFT</code> file.</p>
 </figure>
 </p>
 <p>Now I will configure the collector to use the SFTP upload method,
-giving the username I created earlier and pasting the private key IX
+giving the username I created earlier and pasting the private key I
 generated.</p>
 <p>
 <figure>
@@ -728,7 +728,7 @@ by a colon and the port number (usually port 22).</li>
 <p>As can be seen the upload is mostly fine except there are some
 features that are not possible due to the restricted
 permissions. Although, the log file shows a failure the file did
-successfully upload.</p>
+successfully upload as can be confirmed in the bucket view.</p>
 <p>
 <figure>
 <img src=success.png alt="Verifying files uploaded in the S3 bucket" class=captioned>
@@ -755,15 +755,15 @@ or collections to the SFTP bucket.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1640222967></script>
-<script src=/js/perfect-scrollbar.min.js?1640222967></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1640222967></script>
-<script src=/js/jquery.sticky.js?1640222967></script>
-<script src=/js/featherlight.min.js?1640222967></script>
-<script src=/js/highlight.min.js?1640222967></script>
+<script src=/js/clipboard.min.js?1640931064></script>
+<script src=/js/perfect-scrollbar.min.js?1640931064></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1640931064></script>
+<script src=/js/jquery.sticky.js?1640931064></script>
+<script src=/js/featherlight.min.js?1640931064></script>
+<script src=/js/highlight.min.js?1640931064></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1640222967></script>
-<script src=/js/learn.js?1640222967></script>
-<script src=/js/hugo-learn.js?1640222967></script>
+<script src=/js/modernizr.custom-3.6.0.js?1640931064></script>
+<script src=/js/learn.js?1640931064></script>
+<script src=/js/hugo-learn.js?1640931064></script>
 </body>
 </html>
