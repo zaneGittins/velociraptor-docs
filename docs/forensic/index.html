@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Forensic Analysis :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641264175 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641264175 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641264175 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641264175 rel=stylesheet>
-<link href=/css/auto-complete.css?1641264175 rel=stylesheet>
-<link href=/css/theme.css?1641264175 rel=stylesheet>
-<link href=/css/tabs.css?1641264175 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641264175 rel=stylesheet>
-<link href=/css/theme-mine.css?1641264175 rel=stylesheet>
-<link href=/css/dark.css?1641264175 rel=stylesheet><link href=/css/syntax.css?1641264175 rel=stylesheet><link href=/css/light.css?1641264175 rel=stylesheet><link href=/css/hljs.css?1641264175 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641264175 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641264175></script>
+<link href=/css/nucleus.css?1641569227 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641569227 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641569227 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641569227 rel=stylesheet>
+<link href=/css/auto-complete.css?1641569227 rel=stylesheet>
+<link href=/css/theme.css?1641569227 rel=stylesheet>
+<link href=/css/tabs.css?1641569227 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641569227 rel=stylesheet>
+<link href=/css/theme-mine.css?1641569227 rel=stylesheet>
+<link href=/css/dark.css?1641569227 rel=stylesheet><link href=/css/syntax.css?1641569227 rel=stylesheet><link href=/css/light.css?1641569227 rel=stylesheet><link href=/css/hljs.css?1641569227 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641569227 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641569227></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -207,6 +207,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/forensic/ntfs/>NTFS Analysis</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a>
 </div>
 </li>
 <li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
@@ -451,6 +457,12 @@ based on user provided rules.
 <p>NTFS is the standard Windows filesystem. Velociraptor contains powerful NTFS analysis capabilities.
 </p>
 <h3>
+<a href=/docs/forensic/binary/>Binary parsing</a>
+</h3>
+<p>Parsing binary is very a important capability for forensic analysis and DFIR - we encounter binary data in many contexts, such as file formats, network traffic and more.
+Velociraptor uses VQL to provide the flexibility for users to be able to craft a VQL query in order to retrieve valuable machine state data. Sometimes we need to parse binary data to answer these questions.
+While binary parsers written in Golang are typically the best options for speed and memory efficiency, the need to compile a parser into an executable and push it to the endpoint makes it difficult to implement ad hoc parsers.</p>
+<h3>
 <a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a>
 </h3>
 <p>Sometimes we need to find out when (or if) a particular binary was run on the endpoint. This question can come up in a number of contexts, such as running malware by a user, lateral movement from a threat actor etc.
@@ -478,15 +490,15 @@ Traditionally volatile evidence was acquired using a full memory dump of the run
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641264175></script>
-<script src=/js/perfect-scrollbar.min.js?1641264175></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641264175></script>
-<script src=/js/jquery.sticky.js?1641264175></script>
-<script src=/js/featherlight.min.js?1641264175></script>
-<script src=/js/highlight.min.js?1641264175></script>
+<script src=/js/clipboard.min.js?1641569227></script>
+<script src=/js/perfect-scrollbar.min.js?1641569227></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641569227></script>
+<script src=/js/jquery.sticky.js?1641569227></script>
+<script src=/js/featherlight.min.js?1641569227></script>
+<script src=/js/highlight.min.js?1641569227></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641264175></script>
-<script src=/js/learn.js?1641264175></script>
-<script src=/js/hugo-learn.js?1641264175></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641569227></script>
+<script src=/js/learn.js?1641569227></script>
+<script src=/js/hugo-learn.js?1641569227></script>
 </body>
 </html>

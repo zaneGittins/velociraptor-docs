@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Client Side :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641264175 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641264175 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641264175 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641264175 rel=stylesheet>
-<link href=/css/auto-complete.css?1641264175 rel=stylesheet>
-<link href=/css/theme.css?1641264175 rel=stylesheet>
-<link href=/css/tabs.css?1641264175 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641264175 rel=stylesheet>
-<link href=/css/theme-mine.css?1641264175 rel=stylesheet>
-<link href=/css/dark.css?1641264175 rel=stylesheet><link href=/css/syntax.css?1641264175 rel=stylesheet><link href=/css/light.css?1641264175 rel=stylesheet><link href=/css/hljs.css?1641264175 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641264175 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641264175></script>
+<link href=/css/nucleus.css?1641569228 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641569228 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641569228 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641569228 rel=stylesheet>
+<link href=/css/auto-complete.css?1641569228 rel=stylesheet>
+<link href=/css/theme.css?1641569228 rel=stylesheet>
+<link href=/css/tabs.css?1641569228 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641569228 rel=stylesheet>
+<link href=/css/theme-mine.css?1641569228 rel=stylesheet>
+<link href=/css/dark.css?1641569228 rel=stylesheet><link href=/css/syntax.css?1641569228 rel=stylesheet><link href=/css/light.css?1641569228 rel=stylesheet><link href=/css/hljs.css?1641569228 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641569228 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641569228></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -205,6 +205,12 @@
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/forensic/ntfs/>NTFS Analysis</a>
+</div>
+</li>
+<li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item>
+<div>
+<i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a>
 </div>
 </li>
 <li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
@@ -437,6 +443,8 @@ Client Side
 <li><a href=#the-root-parameter>The root parameter</a></li>
 </ul>
 </li>
+<li><a href=#following-symlinks>Following symlinks</a></li>
+<li><a href=#setting-a-recursion-callback>Setting a recursion callback</a></li>
 <li><a href=#grep>grep</a></li>
 <li><a href=#hash>hash</a></li>
 <li><a href=#http_client>http_client</a>
@@ -902,6 +910,31 @@ accessor=&quot;ntfs&quot;)
 directory - i.e. the glob pattern is appended to the root
 parameter. The <code>root</code> parameter is useful if the directory name
 itself may contain glob characters.</p>
+<h2 id=following-symlinks>Following symlinks</h2>
+<p>On Unix like operating systems symlinks are used
+extensively. Symlinks complicate the job of the glob() plugin
+because they break the assumption that filesystems are
+trees. Instead a symlink may form a cycle or create very deep
+directories within the filesystem.</p>
+<p>By default glob() follows symlinks but also checks for cycles by
+checking that a target of a symlink has not been seen before. You
+can disable this behavior with <code>nosymlink=TRUE</code></p>
+<h2 id=setting-a-recursion-callback>Setting a recursion callback</h2>
+<p>Sometimes it is useful to prevent glob() from recursing into a
+directory. For example, if we know a directory can not possibly
+contain a hit we can avoid descending into it at all. This more
+efficient than simply eliminating the matching rows in the WHERE
+clause.</p>
+<p>You can provide a recursion callback (in the form of a VQL lambda
+function) to let glob() know if it should be recursing a
+directory. The glob() plugin will call the lambda with current
+directory entry and if the lambda returns a <code>true</code> value will
+recurse into it.</p>
+<p>For example consider the following query which searches for pem
+files in all directories other than /proc, /sys or /snap</p>
+<pre><code class=language-vql>SELECT * FROM glob(globs='/**/*.pem',
+    recursion_callback=&quot;x=&gt;NOT x.Name =~ '^/(proc|sys|snap)'&quot;)
+</code></pre>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -930,6 +963,16 @@ itself may contain glob characters.</p>
 <tr>
 <td>nosymlink</td>
 <td>If set we do not follow symlinks.</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>recursion_callback</td>
+<td>A VQL function that determines if a directory should be recursed (e.g. &ldquo;x=>NOT x.Name =~ &lsquo;proc&rsquo;").</td>
+<td>string</td>
+</tr>
+<tr>
+<td>one_filesystem</td>
+<td>If set we do not follow links to other filesystems.</td>
 <td>bool</td>
 </tr>
 </tbody>
@@ -1121,6 +1164,11 @@ using the backtick quoting.</p>
 <td>remove_last</td>
 <td>If set we delay removal as much as possible.</td>
 <td>bool</td>
+</tr>
+<tr>
+<td>root_ca</td>
+<td>As a better alternative to disable_ssl_security, allows root ca certs to be added here.</td>
+<td>string</td>
 </tr>
 </tbody>
 </table>
@@ -1417,7 +1465,7 @@ endpoint.</p>
 <tr>
 <td>Path</td>
 <td>A path to open.</td>
-<td>LazyExpr</td>
+<td>Any</td>
 </tr>
 <tr>
 <td>parse</td>
@@ -2197,15 +2245,15 @@ scanning stops after one hit is found.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641264175></script>
-<script src=/js/perfect-scrollbar.min.js?1641264175></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641264175></script>
-<script src=/js/jquery.sticky.js?1641264175></script>
-<script src=/js/featherlight.min.js?1641264175></script>
-<script src=/js/highlight.min.js?1641264175></script>
+<script src=/js/clipboard.min.js?1641569228></script>
+<script src=/js/perfect-scrollbar.min.js?1641569228></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641569228></script>
+<script src=/js/jquery.sticky.js?1641569228></script>
+<script src=/js/featherlight.min.js?1641569228></script>
+<script src=/js/highlight.min.js?1641569228></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641264175></script>
-<script src=/js/learn.js?1641264175></script>
-<script src=/js/hugo-learn.js?1641264175></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641569228></script>
+<script src=/js/learn.js?1641569228></script>
+<script src=/js/hugo-learn.js?1641569228></script>
 </body>
 </html>
