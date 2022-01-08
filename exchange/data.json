@@ -1,5 +1,18 @@
 [
     {
+        "title": "Windows.Registry.CapabilityAccessManager",
+        "author": "scudette",
+        "description": "The ConsentStore in CapabilityAccessManager can provide insight to what resources binaries have had access to, such as the microphone and webcam. This artefact returns non-Microsoft executables (ie: entries listed in the `NonPackaged` path).\n\nAdditional Resources:\n\n* https://svch0st.medium.com/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072\n* https://thinkdfir.com/2022/01/04/i-can-see-and-hear-you-seeing-and-hearing-me/\n\nTags:  \n",
+        "link": "/exchange/artifacts/pages/windows.registry.capabilityaccessmanager",
+        "tags": [
+            "windows",
+            "registry"
+        ],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-01-08"
+    },
+    {
         "title": "Generic.Detection.Log4jVulnHunter",
         "author": "mgreen27",
         "description": "This artifact searches for Vulnerable log4j libraries.\n\nThe artifact:  \n\n* firstly searches for jar, war and ear files\n* then recursively checks content by name then hash for vulnerable versions.\n* reports hit details.\n\nThe artifact is optimised to recursively search through embedded jar,war and \near files by extracting any discovered jar containers to a tempfile on disk.   \nSelect UploadHits to upload Discovered file for further analysis.  \nIt is recommended to increase default artifact timeout for large servers or \ntarget glob.\n\nSome examples of path glob may include:\n\n* Specific container: `/path/here/log4j-core-2.0-alpha2.jar`\n* Wildcards: `/var/www/*.{jar,war,ear}`\n* More wildcards: `/var/www/**/*.jar`\n* Windows: `C:/**/*.jar`\n\nNOTE: this artifact runs the glob plugin with the nosymlink switch turned on. \nThis will NOT follow any symlinks and may cause unexpected results if \nunknowingly targeting a folder with symlinks.\n",
