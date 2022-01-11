@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.91.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Windows.Detection.ChinaChopper :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641629160 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641629160 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641629160 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641629160 rel=stylesheet>
-<link href=/css/auto-complete.css?1641629160 rel=stylesheet>
-<link href=/css/theme.css?1641629160 rel=stylesheet>
-<link href=/css/tabs.css?1641629160 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641629160 rel=stylesheet>
-<link href=/css/theme-mine.css?1641629160 rel=stylesheet>
-<link href=/css/dark.css?1641629160 rel=stylesheet><link href=/css/syntax.css?1641629160 rel=stylesheet><link href=/css/light.css?1641629160 rel=stylesheet><link href=/css/hljs.css?1641629160 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641629160 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641629160></script>
+<title>Windows.Detection.ProxyLogon.ProxyShell :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1641868205 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641868205 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641868205 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641868205 rel=stylesheet>
+<link href=/css/auto-complete.css?1641868205 rel=stylesheet>
+<link href=/css/theme.css?1641868205 rel=stylesheet>
+<link href=/css/tabs.css?1641868205 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641868205 rel=stylesheet>
+<link href=/css/theme-mine.css?1641868205 rel=stylesheet>
+<link href=/css/dark.css?1641868205 rel=stylesheet><link href=/css/syntax.css?1641868205 rel=stylesheet><link href=/css/light.css?1641868205 rel=stylesheet><link href=/css/hljs.css?1641868205 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641868205 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641868205></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/windows.detection.chinachopper/>
+<body data-url=/exchange/artifacts/pages/windows.detection.proxylogon.proxyshell/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -401,7 +401,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.Detection.ChinaChopper.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.Detection.ProxyLogon.ProxyShell.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -414,7 +414,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Windows.Detection.ChinaChopper
+Windows.Detection.ProxyLogon.ProxyShell
 </span>
 </div>
 <div class=progress>
@@ -428,21 +428,31 @@ Windows.Detection.ChinaChopper
 </div>
 <div id=body-inner>
 <h1>
-Windows.Detection.ChinaChopper
+Windows.Detection.ProxyLogon.ProxyShell
 </h1>
 <p>This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)
-exploitation by parsing entries in the &lsquo;MSExchange Management.evtx&rsquo; log.</p>
+and CVE-2021-31207 (Microsoft Exchange ProxyShell RCE) exploitation by parsing
+entries in the &lsquo;MSExchange Management.evtx&rsquo; log.</p>
 <p>This log file is unique to Exchange and can be useful when ECP logs are
-no longer available. Webshell detection syntax is specific to &lsquo;China Chopper&rsquo;
-via the PowerShell &lsquo;Set-OabVirtualDirectory&rsquo; cmdlet.</p>
-<pre><code class=language-yaml>name: Windows.Detection.ChinaChopper
+no longer available.</p>
+<p>ProxyLogon webshell detection syntax is specific to
+&lsquo;China Chopper&rsquo; via the PowerShell &lsquo;Set-OabVirtualDirectory&rsquo; cmdlet.</p>
+<p>ProxyShell webshell detection syntax is specific to PowerShell
+&lsquo;New-MailboxExportRequest&rsquo; and &lsquo;New-ExchangeCertificate&rsquo; cmdlets.</p>
+<pre><code class=language-yaml>name: Windows.Detection.ProxyLogon.ProxyShell
 description: |
   This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)
-  exploitation by parsing entries in the 'MSExchange Management.evtx' log.
+  and CVE-2021-31207 (Microsoft Exchange ProxyShell RCE) exploitation by parsing 
+  entries in the 'MSExchange Management.evtx' log.
 
   This log file is unique to Exchange and can be useful when ECP logs are
-  no longer available. Webshell detection syntax is specific to 'China Chopper'
-  via the PowerShell 'Set-OabVirtualDirectory' cmdlet.
+  no longer available. 
+  
+  ProxyLogon webshell detection syntax is specific to 
+  'China Chopper' via the PowerShell 'Set-OabVirtualDirectory' cmdlet.
+  
+  ProxyShell webshell detection syntax is specific to PowerShell 
+  'New-MailboxExportRequest' and 'New-ExchangeCertificate' cmdlets.
 
 author: Deepak Sharma - @rxurien
 
@@ -450,12 +460,14 @@ type: CLIENT
 
 reference:
   - https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/
+  - https://www.mandiant.com/resources/change-tactics-proxyshell-vulnerabilities
 
 precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
   - name: LogFile
     default: C:/Windows/System32/Winevt/Logs/MSExchange Management.evtx
+    description: Default EVTX Path
 
 sources:
   - queries:
@@ -469,7 +481,9 @@ sources:
                
         FROM parse_evtx(filename=LogFile)
 
-        WHERE (Message =~ &quot;set-oabvirtualdirectory&quot; and Message =~ &quot;script&quot;) or (Cmdlet =~ &quot;set-oabvirtualdirectory&quot; and Payload =~ &quot;script&quot;)
+        WHERE (((Message =~ &quot;new-mailboxexportrequest&quot;or Message =~ &quot;new-exchangecertificate&quot;) and Message =~ &quot;aspx&quot;) or 
+              ((Cmdlet =~ &quot;new-mailboxexportrequest&quot; or Cmdlet =~ &quot;new-exchangecertificate&quot;) and Payload =~ &quot;aspx&quot;) or 
+              (Message =~ &quot;set-oabvirtualdirectory&quot; and Message =~ &quot;script&quot;) or (Cmdlet =~ &quot;set-oabvirtualdirectory&quot; and Payload =~ &quot;script&quot;))
 
 </code></pre>
 <footer class=footline>
@@ -482,15 +496,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641629160></script>
-<script src=/js/perfect-scrollbar.min.js?1641629160></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641629160></script>
-<script src=/js/jquery.sticky.js?1641629160></script>
-<script src=/js/featherlight.min.js?1641629160></script>
-<script src=/js/highlight.min.js?1641629160></script>
+<script src=/js/clipboard.min.js?1641868205></script>
+<script src=/js/perfect-scrollbar.min.js?1641868205></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641868205></script>
+<script src=/js/jquery.sticky.js?1641868205></script>
+<script src=/js/featherlight.min.js?1641868205></script>
+<script src=/js/highlight.min.js?1641868205></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641629160></script>
-<script src=/js/learn.js?1641629160></script>
-<script src=/js/hugo-learn.js?1641629160></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641868205></script>
+<script src=/js/learn.js?1641868205></script>
+<script src=/js/hugo-learn.js?1641868205></script>
 </body>
 </html>

@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.ProxyLogon.ProxyShell",
+        "author": "Seeps",
+        "description": "This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)\nand CVE-2021-31207 (Microsoft Exchange ProxyShell RCE) exploitation by parsing \nentries in the 'MSExchange Management.evtx' log.\n\nThis log file is unique to Exchange and can be useful when ECP logs are\nno longer available. \n\nProxyLogon webshell detection syntax is specific to \n'China Chopper' via the PowerShell 'Set-OabVirtualDirectory' cmdlet.\n\nProxyShell webshell detection syntax is specific to PowerShell \n'New-MailboxExportRequest' and 'New-ExchangeCertificate' cmdlets.\n",
+        "link": "/exchange/artifacts/pages/windows.detection.proxylogon.proxyshell",
+        "tags": [],
+        "author_link": "https://github.com/Seeps",
+        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
+        "date": "2022-01-11"
+    },
+    {
         "title": "Windows.Registry.CapabilityAccessManager",
         "author": "scudette",
         "description": "The ConsentStore in CapabilityAccessManager can provide insight to what resources binaries have had access to, such as the microphone and webcam. This artefact returns non-Microsoft executables (ie: entries listed in the `NonPackaged` path).\n\nAdditional Resources:\n\n* https://svch0st.medium.com/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072\n* https://thinkdfir.com/2022/01/04/i-can-see-and-hear-you-seeing-and-hearing-me/\n\nTags:  \n",
@@ -141,16 +151,6 @@
         "author_link": "https://github.com/weslambert",
         "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
         "date": "2021-11-11"
-    },
-    {
-        "title": "Windows.Detection.ChinaChopper",
-        "author": "Seeps",
-        "description": "This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)\nexploitation by parsing entries in the 'MSExchange Management.evtx' log.\n\nThis log file is unique to Exchange and can be useful when ECP logs are\nno longer available. Webshell detection syntax is specific to 'China Chopper'\nvia the PowerShell 'Set-OabVirtualDirectory' cmdlet.\n",
-        "link": "/exchange/artifacts/pages/windows.detection.chinachopper",
-        "tags": [],
-        "author_link": "https://github.com/Seeps",
-        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
-        "date": "2021-11-10"
     },
     {
         "title": "Windows.Applications.DIEC",
