@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.91.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Server.Slack.Clients.Enrolled :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954884 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954884 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954884 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954884 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954884 rel=stylesheet>
-<link href=/css/theme.css?1641954884 rel=stylesheet>
-<link href=/css/tabs.css?1641954884 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954884 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954884 rel=stylesheet>
-<link href=/css/dark.css?1641954884 rel=stylesheet><link href=/css/syntax.css?1641954884 rel=stylesheet><link href=/css/light.css?1641954884 rel=stylesheet><link href=/css/hljs.css?1641954884 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954884 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954884></script>
+<title>Server.Slack.Clients.Enrolled :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/custom.server.slack.clients.enrolled/>
+<body data-url=/exchange/artifacts/pages/server.slack.clients.enrolled/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -401,7 +401,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Server.Slack.Clients.Enrolled.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Server.Slack.Clients.Enrolled.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -414,7 +414,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Server.Slack.Clients.Enrolled
+Server.Slack.Clients.Enrolled
 </span>
 </div>
 <div class=progress>
@@ -428,17 +428,17 @@ Custom.Server.Slack.Clients.Enrolled
 </div>
 <div id=body-inner>
 <h1>
-Custom.Server.Slack.Clients.Enrolled
+Server.Slack.Clients.Enrolled
 </h1>
 <p>Send a message to slack when clients become enrolled.</p>
-<p>This artifact triggers when a client is interrogated
-within 60 seconds of it being seen for the first time.</p>
-<pre><code class=language-yaml>name: Custom.Server.Slack.Clients.Enrolled
+<p>This artifact triggers when a client is interrogated within 60
+seconds of it being seen for the first time.</p>
+<pre><code class=language-yaml>name: Server.Slack.Clients.Enrolled
 description: |
    Send a message to slack when clients become enrolled.
 
-   This artifact triggers when a client is interrogated 
-   within 60 seconds of it being seen for the first time.
+   This artifact triggers when a client is interrogated within 60
+   seconds of it being seen for the first time.
 
 type: SERVER_EVENT
 
@@ -459,16 +459,16 @@ sources:
                    condition=SlackToken,
                    then=SlackToken,
                    else=server_metadata().SlackToken)
-        
+
         -- Returns an event for each interrogation that occurs within 60 seconds
         -- of first seen timestamp.
-        LET completions = SELECT *, 
+        LET completions = SELECT *,
                 client_info(client_id=ClientId) AS ClientInfo ,
                 now() AS Now
           FROM watch_monitoring(artifact=&quot;System.Flow.Completion&quot;)
           WHERE Flow.artifacts_with_results =~ &quot;Generic.Client.Info/BasicInformation&quot;
             AND Now - ClientInfo.first_seen_at &lt; FirstSeenDelay
-        
+
         -- Sends the message to a slack channel.
         LET SendToSlack(Message) = SELECT *
             FROM http_client(
@@ -476,15 +476,15 @@ sources:
               headers=dict(`Content-Type`=&quot;application/json&quot;),
               data=serialize(format=&quot;json&quot;, item=dict(text=Message)),
               url=token_url)
-        
+
         SELECT * FROM foreach(row=completions, query={
           SELECT * FROM foreach(row={
             SELECT * FROM source(
-               artifact=&quot;Generic.Client.Info/BasicInformation&quot;, 
+               artifact=&quot;Generic.Client.Info/BasicInformation&quot;,
                client_id=ClientId, flow_id=FlowId)
-          }, query={  
+          }, query={
             SELECT * FROM SendToSlack(
-               Message=format(format=&quot;Enrollment FROM %v with ClientID %v!&quot;, 
+               Message=format(format=&quot;Enrollment FROM %v with ClientID %v!&quot;,
                   args=[Fqdn, ClientId]))
           })
         })
@@ -500,15 +500,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954884></script>
-<script src=/js/perfect-scrollbar.min.js?1641954884></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954884></script>
-<script src=/js/jquery.sticky.js?1641954884></script>
-<script src=/js/featherlight.min.js?1641954884></script>
-<script src=/js/highlight.min.js?1641954884></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954884></script>
-<script src=/js/learn.js?1641954884></script>
-<script src=/js/hugo-learn.js?1641954884></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

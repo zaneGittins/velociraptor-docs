@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.91.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Windows.EventLogs.RecordIDCheck :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<title>Windows.EventLogs.RecordIDCheck :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -414,7 +414,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Windows.EventLogs.RecordIDCheck
+Windows.EventLogs.RecordIDCheck
 </span>
 </div>
 <div class=progress>
@@ -428,11 +428,11 @@ Custom.Windows.EventLogs.RecordIDCheck
 </div>
 <div id=body-inner>
 <h1>
-Custom.Windows.EventLogs.RecordIDCheck
+Windows.EventLogs.RecordIDCheck
 </h1>
-<p>This artifact will compare EventLog records and report on abnormalities
-in RecordID sequence and optional time gap. The artifact can be used for both
-hunting, remote or local analysis.</p>
+<p>This artifact will compare EventLog records and report on
+abnormalities in RecordID sequence and optional time gap. The
+artifact can be used for both hunting, remote or local analysis.</p>
 <p>There are several parameter&rsquo;s available.</p>
 <ul>
 <li>EvtxGlob glob of EventLogs to target. Default to all but can be targeted.</li>
@@ -442,34 +442,32 @@ hunting, remote or local analysis.</p>
 <li>MaxTimeDifference enables flaging temporal gaps between Events. Note also potential false positives on machines turned off.</li>
 <li>SearchVSS enables searching over VSS</li>
 </ul>
-<p>Note:<br>
-Please use with caution this artifact can potentially be heavy on the endpoint.
-Temporal analysis is turned off by default due to potential for false positives
-during machine shutdown. Sequential false positives may also occur very
-occasionally.</p>
+<p>Note: Please use with caution this artifact can potentially be heavy
+on the endpoint. Temporal analysis is turned off by default due to
+potential for false positives during machine shutdown. Sequential
+false positives may also occur very occasionally.</p>
 <p>version: 0.6.1</p>
-<pre><code class=language-yaml>name: Custom.Windows.EventLogs.RecordIDCheck
+<pre><code class=language-yaml>name: Windows.EventLogs.RecordIDCheck
 author: Matt Green - @mgreen27
 description: |
-  This artifact will compare EventLog records and report on abnormalities 
-  in RecordID sequence and optional time gap. The artifact can be used for both 
-  hunting, remote or local analysis.
-  
-  There are several parameter's available.  
-    - EvtxGlob glob of EventLogs to target. Default to all but can be targeted.  
-    - PathRegex enables filtering on evtx path for specific log targetting.  
-    - DateAfter enables search for events after this date.  
-    - DateBefore enables search for events before this date.  
-    - MaxTimeDifference enables flaging temporal gaps between Events. Note also potential false positives on machines turned off.  
+  This artifact will compare EventLog records and report on
+  abnormalities in RecordID sequence and optional time gap. The
+  artifact can be used for both hunting, remote or local analysis.
+
+  There are several parameter's available.
+    - EvtxGlob glob of EventLogs to target. Default to all but can be targeted.
+    - PathRegex enables filtering on evtx path for specific log targetting.
+    - DateAfter enables search for events after this date.
+    - DateBefore enables search for events before this date.
+    - MaxTimeDifference enables flaging temporal gaps between Events. Note also potential false positives on machines turned off.
     - SearchVSS enables searching over VSS
 
-    Note:  
-    Please use with caution this artifact can potentially be heavy on the endpoint.
-    Temporal analysis is turned off by default due to potential for false positives 
-    during machine shutdown. Sequential false positives may also occur very 
-    occasionally.
-    
-    version: 0.6.1 
+  Note: Please use with caution this artifact can potentially be heavy
+  on the endpoint.  Temporal analysis is turned off by default due to
+  potential for false positives during machine shutdown. Sequential
+  false positives may also occur very occasionally.
+
+  version: 0.6.1
 
 parameters:
   - name: EvtxGlob
@@ -504,7 +502,7 @@ sources:
                 then= stamp &gt; DateAfter,
                 else= True
             )))
-            
+
       -- create dict for previous results.
       LET EvtxPath&lt;=dict(FullPath='',RecordID='',EventTime='')
 
@@ -539,12 +537,12 @@ sources:
                     System.EventRecordID - EvtxPath.OLDRecordID as _RecordIDSequence,
                     EvtxPath.OLDFullPath as _OLDFullPath
                 FROM parse_evtx(filename=FullPath)
-                WHERE 
+                WHERE
                     time_test(stamp=SecondEventTime)
             }
           )
 
-      -- include VSS 
+      -- include VSS
       LET include_vss = SELECT * FROM foreach(row=fspaths,
             query={
                 SELECT *
@@ -558,7 +556,7 @@ sources:
       LET exclude_vss = SELECT *
         FROM evtxsearch(PathList={SELECT FullPath FROM fspaths})
       -- return rows
-      SELECT *, 
+      SELECT *,
         SecondEventTime.Unix - FirstEventTime.Unix as SecondsGap,
         if(condition= NOT _RecordIDSequence=1,
                 then= &quot;EventRecordID not sequential&quot;,
@@ -568,10 +566,10 @@ sources:
         else=exclude_vss)
       WHERE _RecordIDSequence
         AND FullPath = _OLDFullPath
-        AND 
+        AND
             ( if(condition=MaxTimeDifference,
                 then= SecondsGap &gt; int(int=MaxTimeDifference),
-                else= False) 
+                else= False)
             OR NOT _RecordIDSequence=1 )
 
 </code></pre>
@@ -585,15 +583,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

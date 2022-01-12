@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Linux.Collection.CatScale :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,24 +430,36 @@ Linux.Collection.CatScale
 <h1>
 Linux.Collection.CatScale
 </h1>
-<p>This is a simple artifact that leverages Cat-Scale to collect many different artifacts from a Linux host, then uploads the results to the Velociraptor server.</p>
+<p>This is a simple artifact that leverages Cat-Scale to collect many
+different artifacts from a Linux host, then uploads the results to
+the Velociraptor server.</p>
 <p>From the project&rsquo;s description:</p>
-<p>&ldquo;Linux CatScale is a bash script that uses live of the land tools to collect extensive data from Linux based hosts. The data aims to help DFIR professionals triage and scope incidents. An Elk Stack instance also is configured to consume the output and assist the analysis process.&rdquo;</p>
+<p>&ldquo;Linux CatScale is a bash script that uses live of the land tools
+to collect extensive data from Linux based hosts. The data aims to
+help DFIR professionals triage and scope incidents. An Elk Stack
+instance also is configured to consume the output and assist the
+analysis process.&rdquo;</p>
 <p><a href=https://github.com/FSecureLABS/LinuxCatScale>https://github.com/FSecureLABS/LinuxCatScale</a></p>
 <p><a href=https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/>https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/</a></p>
 <pre><code class=language-yaml>name: Linux.Collection.CatScale
 author: Wes Lambert -- @therealwlambert
 description: |
-    This is a simple artifact that leverages Cat-Scale to collect many different artifacts from a Linux host, then uploads the results to the Velociraptor server. 
-    
+    This is a simple artifact that leverages Cat-Scale to collect many
+    different artifacts from a Linux host, then uploads the results to
+    the Velociraptor server.
+
     From the project's description:
-    
-    &quot;Linux CatScale is a bash script that uses live of the land tools to collect extensive data from Linux based hosts. The data aims to help DFIR professionals triage and scope incidents. An Elk Stack instance also is configured to consume the output and assist the analysis process.&quot;
-    
+
+    &quot;Linux CatScale is a bash script that uses live of the land tools
+    to collect extensive data from Linux based hosts. The data aims to
+    help DFIR professionals triage and scope incidents. An Elk Stack
+    instance also is configured to consume the output and assist the
+    analysis process.&quot;
+
     https://github.com/FSecureLABS/LinuxCatScale
-    
+
     https://labs.f-secure.com/tools/cat-scale-linux-incident-response-collection/
-    
+
 tools:
   - name: CatScale
     url: https://raw.githubusercontent.com/FSecureLABS/LinuxCatScale/master/Cat-Scale.sh
@@ -470,11 +482,11 @@ sources:
   - query: |
         LET CS &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;CatScale&quot;, IsExecutable=TRUE)
         LET TmpDir &lt;= tempdir(remove_last=TRUE)
-        Let RunIt = SELECT *, TmpDir + '/' + OutfilePrefix + Outfile + '.tar.gz' AS TarFile  
-                    FROM execve(argv=[  
+        Let RunIt = SELECT *, TmpDir + '/' + OutfilePrefix + Outfile + '.tar.gz' AS TarFile
+                    FROM execve(argv=[
                         CS.FullPath[0],
-                        &quot;-d&quot;, Outdir, 
-                        &quot;-o&quot;, TmpDir, 
+                        &quot;-d&quot;, Outdir,
+                        &quot;-o&quot;, TmpDir,
                         &quot;-f&quot;, Outfile,
                         &quot;-p&quot;, OutfilePrefix
                      ])
@@ -491,15 +503,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

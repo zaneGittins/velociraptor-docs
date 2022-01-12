@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.EventLogs.Telerik :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,39 +430,41 @@ Windows.EventLogs.Telerik
 <h1>
 Windows.EventLogs.Telerik
 </h1>
-<p>This Artifact will hunt for evidence of Telerik exploitation in the Application
-Event Log.</p>
-<p>Telerik is a commonly exploited component of IIS web pages that has been
-actively targeted by actors via several CVEs. Several tools and attack
-capabilities exist making exploitation of vulnerable services trivial. Due to
-the nature of the software and typical deployments the patches may require
-manual application.</p>
-<p>IocRegex enables searching for regex in the whole EventData field.<br>
-Output of this artifact is targeted fields from EventID 1309 to provide
-context for the hit.</p>
-<p>This Artifact will hunt for evidence of Telerik exploitation in the Application Event Log.</p>
+<p>This Artifact will hunt for evidence of Telerik exploitation in the
+Application Event Log.</p>
+<p>Telerik is a commonly exploited component of IIS web pages that has
+been actively targeted by actors via several CVEs. Several tools and
+attack capabilities exist making exploitation of vulnerable services
+trivial. Due to the nature of the software and typical deployments
+the patches may require manual application.</p>
+<p>IocRegex enables searching for regex in the whole EventData field.
+Output of this artifact is targeted fields from EventID 1309 to
+provide context for the hit.</p>
+<p>This Artifact will hunt for evidence of Telerik exploitation in the
+Application Event Log.</p>
 <pre><code class=language-yaml>name: Windows.EventLogs.Telerik
 author: Matt Green - @mgreen27
 description: |
-  This Artifact will hunt for evidence of Telerik exploitation in the Application 
-  Event Log.  
- 
-  Telerik is a commonly exploited component of IIS web pages that has been 
-  actively targeted by actors via several CVEs. Several tools and attack 
-  capabilities exist making exploitation of vulnerable services trivial. Due to 
-  the nature of the software and typical deployments the patches may require 
-  manual application.  
-  
-  IocRegex enables searching for regex in the whole EventData field.  
-  Output of this artifact is targeted fields from EventID 1309 to provide 
-  context for the hit.
-  
-  This Artifact will hunt for evidence of Telerik exploitation in the Application Event Log.
+  This Artifact will hunt for evidence of Telerik exploitation in the
+  Application Event Log.
+
+  Telerik is a commonly exploited component of IIS web pages that has
+  been actively targeted by actors via several CVEs. Several tools and
+  attack capabilities exist making exploitation of vulnerable services
+  trivial. Due to the nature of the software and typical deployments
+  the patches may require manual application.
+
+  IocRegex enables searching for regex in the whole EventData field.
+  Output of this artifact is targeted fields from EventID 1309 to
+  provide context for the hit.
+
+  This Artifact will hunt for evidence of Telerik exploitation in the
+  Application Event Log.
 
 reference:
   - https://www.cyber.gov.au/acsc/view-all-content/advisories/advisory-2020-004-remote-code-execution-vulnerability-being-actively-exploited-vulnerable-versions-telerik-ui-sophisticated-actors
   - https://attack.mitre.org/techniques/T1190/
-  
+
 parameters:
   - name: EvtxGlob
     default: '%SystemRoot%\System32\Winevt\Logs\Application.evtx'
@@ -483,29 +485,29 @@ parameters:
 
 sources:
   - precondition: SELECT OS From info() where OS = 'windows'
-    
+
     query: |
       -- firstly set timebounds for performance
-      LET DateAfterTime &lt;= if(condition=DateAfter, 
+      LET DateAfterTime &lt;= if(condition=DateAfter,
         then = DateAfter, else = &quot;1600-01-01&quot; )
-      LET DateBeforeTime &lt;= if(condition=DateBefore, 
+      LET DateBeforeTime &lt;= if(condition=DateBefore,
         then = DateBefore, else = &quot;2200-01-01&quot; )
 
       -- expand provided glob into a list of paths on the file system (fs)
-      LET fspaths &lt;= SELECT FullPath 
+      LET fspaths &lt;= SELECT FullPath
         FROM glob(globs=expand(path=EvtxGlob))
-      
+
       -- function returning list of VSS paths corresponding to path
-      LET vsspaths(path) = SELECT FullPath 
+      LET vsspaths(path) = SELECT FullPath
         FROM Artifact.Windows.Search.VSS(SearchFilesGlob=path)
-          
+
       -- function returning IOC hits
       LET evtxsearch(PathList) = SELECT * FROM foreach(
             row=PathList,
             query={
-                SELECT 
+                SELECT
                     timestamp(epoch=int(int=System.TimeCreated.SystemTime)) AS EventTime,
-                    System.Computer as Computer, 
+                    System.Computer as Computer,
                     System.Channel as Channel,
                     System.EventID.Value as EventID,
                     System.EventRecordID as EventRecordID,
@@ -527,7 +529,7 @@ sources:
           )
 
       -- include VSS in calculation and deduplicate with GROUP BY by file
-      LET include_vss = SELECT * FROM foreach(row=fspaths, 
+      LET include_vss = SELECT * FROM foreach(row=fspaths,
             query={
                 SELECT *
                 FROM evtxsearch(PathList={
@@ -537,11 +539,11 @@ sources:
               })
 
       -- exclude VSS in EvtxHunt`
-      LET exclude_vss = SELECT * 
+      LET exclude_vss = SELECT *
         FROM evtxsearch(PathList={SELECT FullPath FROM fspaths})
-      
+
       -- return rows
-      SELECT * FROM if(condition=SearchVSS, 
+      SELECT * FROM if(condition=SearchVSS,
         then=include_vss,
         else=exclude_vss)
 
@@ -556,15 +558,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

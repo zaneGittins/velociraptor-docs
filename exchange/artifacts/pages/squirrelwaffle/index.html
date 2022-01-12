@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Carving.SquirrelWaffle :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -419,7 +419,15 @@ Windows.Carving.SquirrelWaffle
 </div>
 <div class=progress>
 <div class=wrapper>
-<nav id=TableOfContents></nav>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#note>NOTE</a></li>
+</ul>
+</li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -430,42 +438,44 @@ Windows.Carving.SquirrelWaffle
 <h1>
 Windows.Carving.SquirrelWaffle
 </h1>
-<p>This artifact yara-scans memory or process dumps for
-unpacked SquirrelWaffle Dlls, decodes the configuration and
-returns the C2s and the payload.</p>
+<p>This artifact yara-scans memory or process dumps for unpacked
+SquirrelWaffle Dlls, decodes the configuration and returns the C2s
+and the payload.</p>
 <p>Depending on the initial infection vector (the macro within .doc or
 .xls maldoc), SquirrelWaffle packed droper will be loaded by either rundll32
 or regsvr32 and unpack itself in memory.</p>
-<p>The decoded configurations found so far contain (1) a list of C2 URLS,
-(2*) <em>may</em> contain a list of C2 IPs, and lastly, (3) contains the command
-&ldquo;regsvr32.exe -s&rdquo;. The command is used to launch its second-stage payload
-downloaded from its C2 addresses, as a &ldquo;.txt&rdquo; file that is in fact a
-disguised PE, to be loaded in memory.</p>
-<p>NOTE:<br>
-This content simply carves the configuration and does not unpack files on
-disk. That means pointing this artifact as a packed or obfuscated file will not
-obtain the expected results.</p>
+<p>The decoded configurations found so far contain (1) a list of C2
+URLS, (2*) <em>may</em> contain a list of C2 IPs, and lastly, (3)
+contains the command &ldquo;regsvr32.exe -s&rdquo;. The command is used to
+launch its second-stage payload downloaded from its C2 addresses,
+as a &ldquo;.txt&rdquo; file that is in fact a disguised PE, to be loaded in
+memory.</p>
+<h3 id=note>NOTE</h3>
+<p>This content simply carves the configuration and does not unpack
+files on disk. That means pointing this artifact as a packed or
+obfuscated file will not obtain the expected results.</p>
 <pre><code class=language-yaml>name: Windows.Carving.SquirrelWaffle
 author: &quot;Eduardo Mattos - @eduardfir &amp; Kostya Iliouk - @kostyailiouk&quot;
 description: |
-    This artifact yara-scans memory or process dumps for 
-    unpacked SquirrelWaffle Dlls, decodes the configuration and
-    returns the C2s and the payload.
-    
-    Depending on the initial infection vector (the macro within .doc or
-    .xls maldoc), SquirrelWaffle packed droper will be loaded by either rundll32 
-    or regsvr32 and unpack itself in memory.
-    
-    The decoded configurations found so far contain (1) a list of C2 URLS, 
-    (2*) *may* contain a list of C2 IPs, and lastly, (3) contains the command 
-    &quot;regsvr32.exe -s&quot;. The command is used to launch its second-stage payload 
-    downloaded from its C2 addresses, as a &quot;.txt&quot; file that is in fact a 
-    disguised PE, to be loaded in memory.
+    This artifact yara-scans memory or process dumps for unpacked
+    SquirrelWaffle Dlls, decodes the configuration and returns the C2s
+    and the payload.
 
-    NOTE:  
-    This content simply carves the configuration and does not unpack files on
-    disk. That means pointing this artifact as a packed or obfuscated file will not 
-    obtain the expected results.
+    Depending on the initial infection vector (the macro within .doc or
+    .xls maldoc), SquirrelWaffle packed droper will be loaded by either rundll32
+    or regsvr32 and unpack itself in memory.
+
+    The decoded configurations found so far contain (1) a list of C2
+    URLS, (2*) *may* contain a list of C2 IPs, and lastly, (3)
+    contains the command &quot;regsvr32.exe -s&quot;. The command is used to
+    launch its second-stage payload downloaded from its C2 addresses,
+    as a &quot;.txt&quot; file that is in fact a disguised PE, to be loaded in
+    memory.
+
+    ### NOTE
+    This content simply carves the configuration and does not unpack
+    files on disk. That means pointing this artifact as a packed or
+    obfuscated file will not obtain the expected results.
 
 type: CLIENT
 
@@ -490,7 +500,7 @@ parameters:
               date = &quot;2021-09-29&quot;
               hash = &quot;ea4e9be41fa3f6895423e791596011f88ba45cde&quot;
            strings:
-              $s1 = { 20 48 54 54 50 2F 31 2E 31 0D 0A 48 6F 73 74 3A 20 } // HTTP/1.1 Host: 
+              $s1 = { 20 48 54 54 50 2F 31 2E 31 0D 0A 48 6F 73 74 3A 20 } // HTTP/1.1 Host:
               $s2 = { 41 50 50 44 41 54 41 00 54 45 4D 50 } // APPDATA TEMP
               $s3 = { 34 30 34 00 32 30 30 00 2E 74 78 74 } // 404 200 .txt
               $s4 = { 20 03 2C 35 3E 18 58 59 48 0F 37 26 } // xored regsvr32.exe
@@ -504,42 +514,42 @@ sources:
         def Main(arr):
             res=[]
             for i in range(0,len(arr),2):
-                
+
                 res.append({&quot;Length&quot;:arr[i],&quot;DataBlock&quot;:arr[i+1],&quot;Count&quot;:i/2})
-                
+
             return Pair(sorted(res, key=GetLength, reverse=True))
-        
+
         def GetLength(dic):
            return dic[&quot;Length&quot;]
-        
+
         def Pair(arr):
             res=[]
             for dic in arr:
-                found = False 
+                found = False
                 for tdic in arr:
                     if (tdic[&quot;Count&quot;] == dic[&quot;Count&quot;] + 1):
                         res.append({&quot;DataBlock&quot;:dic,&quot;Key&quot;:tdic})
                         found = True
                         break
                 if (found == False):
-                
+
                     res.append(({&quot;DataBlock&quot;:dic,&quot;Key&quot;:0}))
             return res
         ''')
         -- find target files
-        LET TargetFiles = SELECT FullPath FROM glob(globs=TargetFileGlob) 
-             
+        LET TargetFiles = SELECT FullPath FROM glob(globs=TargetFileGlob)
+
         -- find velociraptor process
-        LET me &lt;= SELECT Pid 
+        LET me &lt;= SELECT Pid
                   FROM pslist(pid=getpid())
 
         -- find all processes and add filters
         LET processes &lt;= SELECT Name AS ProcessName, CommandLine, Exe, Pid
                         FROM pslist()
-                        WHERE Name =~ ProcessRegex 
+                        WHERE Name =~ ProcessRegex
                             AND format(format=&quot;%d&quot;, args=Pid) =~ PidRegex
                             AND NOT Pid in me.Pid
-                
+
         -- scan processes in scope with our Detection
         LET processDetections &lt;= SELECT * FROM foreach(row=processes,
                                 query={
@@ -550,16 +560,16 @@ sources:
                                             GROUP BY Pid
                                         })
                                 })
-                                            
-        -- return the VAD region size from yara detections for later use                         
-        LET regionDetections = SELECT * 
+
+        -- return the VAD region size from yara detections for later use
+        LET regionDetections = SELECT *
                                 FROM foreach(row=processDetections,
                                     query={
                                         SELECT YaraRule, Pid, ProcessName, CommandLine, Exe, BaseOffset, Size AS VADSize
                                         FROM vad(pid=Pid)
                                         WHERE Address = BaseOffset
                                 })
-                                
+
         -- scan files in scope with our rule
         LET fileDetections = SELECT * FROM foreach(row=TargetFiles,
                                 query={
@@ -571,20 +581,20 @@ sources:
                                                     FROM yara(files=FullPath, rules=DetectionYara)
                                                 },
                                                 b={ -- yara miss
-                                                    SELECT FullPath, Null AS YaraRule 
+                                                    SELECT FullPath, Null AS YaraRule
                                                     FROM TargetFiles
                                                 })
                                         },
                                         else={ -- no yara detection run
-                                            SELECT FullPath, 'N/A' AS YaraRule 
+                                            SELECT FullPath, 'N/A' AS YaraRule
                                             FROM TargetFiles
                                         })
                              })
-        
+
         -- scan files in scope with our rule
         LET fileConfiguration = SELECT * FROM foreach(row=fileDetections,
                                     query={
-                                        SELECT FullPath, YaraRule, 
+                                        SELECT FullPath, YaraRule,
                                             read_file(filename=FullPath, offset=IdealOffset, length=10000) AS PEData
                                         FROM scope()
                                     })
@@ -593,8 +603,8 @@ sources:
         LET processConfiguration &lt;= SELECT YaraRule, Pid, ProcessName, CommandLine, Exe, BaseOffset,
                                         read_file(filename=str(str=Pid), accessor='process', offset=BaseOffset, length=VADSize) AS PEData
                                     FROM regionDetections
-        
-        -- store the SquirrelWaffle configuration in blocks split by null bytes.                     
+
+        -- store the SquirrelWaffle configuration in blocks split by null bytes.
         LET parsedRdata = SELECT *,
                             split(string=format(format=&quot;% X&quot;, args=parse_binary(filename=PEData, accessor=&quot;data&quot;, profile='''[
                                 [&quot;SquirrelRdata&quot;, 0, [
@@ -606,25 +616,25 @@ sources:
                           FROM if(condition=TargetFileGlob,
                                 then= fileConfiguration,
                                 else= processConfiguration)
-                                
-        -- generate a list of sorted blocks and then pair encoded blocks with their keys using Starlark                      
-        LET blocks &lt;= SELECT *, CountBlock.Main(arr=array(a=enumerate(items=NewDict))) AS EnumDict 
+
+        -- generate a list of sorted blocks and then pair encoded blocks with their keys using Starlark
+        LET blocks &lt;= SELECT *, CountBlock.Main(arr=array(a=enumerate(items=NewDict))) AS EnumDict
                       FROM foreach(row=parsedRdata,
-                        query= { 
-                            SELECT *, FullPath, YaraRule, Pid, ProcessName, CommandLine, Exe 
+                        query= {
+                            SELECT *, FullPath, YaraRule, Pid, ProcessName, CommandLine, Exe
                             FROM foreach(row=SplitBlocks,
-                                query= { 
-                                        SELECT dict(Length=len(list=_value), DataBlock=_value) AS NewDict 
-                                        FROM scope() 
+                                query= {
+                                        SELECT dict(Length=len(list=_value), DataBlock=_value) AS NewDict
+                                        FROM scope()
                                         WHERE NewDict.Length &gt; 45
                                 })
                         })
                       GROUP BY if(condition=TargetFileGlob,
                                 then= FullPath,
                                 else= CommandLine)
-                                
+
         -- store encoded blocks and their keys in separate columns, filtering out FPs based on key size
-        LET finalPairs &lt;= SELECT *, unhex(string=regex_replace(source=DataBlock.DataBlock, re=&quot; &quot;, replace=&quot;&quot;)) AS DataBlock, 
+        LET finalPairs &lt;= SELECT *, unhex(string=regex_replace(source=DataBlock.DataBlock, re=&quot; &quot;, replace=&quot;&quot;)) AS DataBlock,
                             unhex(string=regex_replace(source=Key.DataBlock, re=&quot; &quot;, replace=&quot;&quot;)) AS Key
                           FROM foreach(row=blocks,
                                 query= {
@@ -634,17 +644,17 @@ sources:
                                     })
                             })
                           WHERE len(list=Key) &gt; 32 AND len(list=Key) &lt; 256
-        
+
         -- return our results
         SELECT * FROM if(condition=TargetFileGlob,
             then= {
                 SELECT YaraRule, FullPath, regex_replace(source=xor(key=Key,string=DataBlock), re=&quot;(\r)|(\\|)&quot;, replace=&quot;,\n&quot;) AS DecodedConfigs
-                FROM finalPairs   
+                FROM finalPairs
             },
             else= {
                 SELECT YaraRule, Pid, ProcessName, CommandLine, Exe, regex_replace(source=xor(key=Key,string=DataBlock), re=&quot;(\r)|(\\|)&quot;, replace=&quot;,\n&quot;) AS DecodedConfigs
                 FROM finalPairs
-        })    
+        })
 
 </code></pre>
 <footer class=footline>
@@ -657,15 +667,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

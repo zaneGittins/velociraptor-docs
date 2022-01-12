@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.91.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Custom.Label.User :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954884 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954884 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954884 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954884 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954884 rel=stylesheet>
-<link href=/css/theme.css?1641954884 rel=stylesheet>
-<link href=/css/tabs.css?1641954884 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954884 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954884 rel=stylesheet>
-<link href=/css/dark.css?1641954884 rel=stylesheet><link href=/css/syntax.css?1641954884 rel=stylesheet><link href=/css/light.css?1641954884 rel=stylesheet><link href=/css/hljs.css?1641954884 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954884 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954884></script>
+<title>Exchange.Label.User :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/custom.label.user/>
+<body data-url=/exchange/artifacts/pages/exchange.label.user/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -401,7 +401,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Custom.Label.User.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Exchange.Label.User.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -414,7 +414,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Custom.Label.User
+Exchange.Label.User
 </span>
 </div>
 <div class=progress>
@@ -428,25 +428,25 @@ Custom.Label.User
 </div>
 <div id=body-inner>
 <h1>
-Custom.Label.User
+Exchange.Label.User
 </h1>
-<p>This artifact watches for new client enrolments and automatically label
-the client with the required label if the user exists.</p>
-<p>This artifact can be the starting point for automatically labeling a machine
-based on any other property - just change the artifact to watch and the result
-filter.</p>
+<p>This artifact watches for new client enrolments and automatically
+label the client with the required label if the user exists.</p>
+<p>This artifact can be the starting point for automatically labeling
+a machine based on any other property - just change the artifact to
+watch and the result filter.</p>
 <p>#server #event #labels</p>
-<pre><code class=language-yaml>name: Custom.Label.User
+<pre><code class=language-yaml>name: Exchange.Label.User
 description: |
-   This artifact watches for new client enrolments and automatically label 
-   the client with the required label if the user exists.
-   
-   This artifact can be the starting point for automatically labeling a machine 
-   based on any other property - just change the artifact to watch and the result 
-   filter.
-   
+   This artifact watches for new client enrolments and automatically
+   label the client with the required label if the user exists.
+
+   This artifact can be the starting point for automatically labeling
+   a machine based on any other property - just change the artifact to
+   watch and the result filter.
+
    #server #event #labels
-   
+
 type: SERVER_EVENT
 
 parameters:
@@ -460,16 +460,16 @@ sources:
       SELECT OS From info() where OS = 'windows'
 
     query: |
-        LET user_flows = SELECT * 
+        LET user_flows = SELECT *
         FROM watch_monitoring(artifact=&quot;System.Flow.Completion&quot;)
         WHERE Flow.artifacts_with_results =~ &quot;Generic.Client.Info/Users&quot;
 
-        LET results = SELECT *, 
+        LET results = SELECT *,
            label(client_id=ClientId, labels=Label, op=&quot;set&quot;)
            FROM source(artifact=&quot;Generic.Client.Info/Users&quot; ,
                        client_id=ClientId, flow_id=FlowId)
            WHERE Name =~ NameRegex
-        
+
         SELECT * FROM foreach(row=user_flows, query=results)
 
 </code></pre>
@@ -483,15 +483,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954884></script>
-<script src=/js/perfect-scrollbar.min.js?1641954884></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954884></script>
-<script src=/js/jquery.sticky.js?1641954884></script>
-<script src=/js/featherlight.min.js?1641954884></script>
-<script src=/js/highlight.min.js?1641954884></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954884></script>
-<script src=/js/learn.js?1641954884></script>
-<script src=/js/hugo-learn.js?1641954884></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

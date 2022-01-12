@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.NTFS.MFT.HiveNightmare :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,29 +430,37 @@ Windows.NTFS.MFT.HiveNightmare
 <h1>
 Windows.NTFS.MFT.HiveNightmare
 </h1>
-<p>This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to find several files created as part of the POC tooling for HiveNightmare (CVE-2021-36934):</p>
+<p>This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to
+find several files created as part of the POC tooling for
+HiveNightmare (CVE-2021-36934):</p>
 <ul>
 <li>\hive_sam_ - <a href=https://github.com/FireFart/hivenightmare>https://github.com/FireFart/hivenightmare</a></li>
 <li>\SAM-20 - <a href=https://github.com/GossiTheDog/HiveNightmare>https://github.com/GossiTheDog/HiveNightmare</a></li>
 <li>\SAM-haxx - <a href=https://github.com/GossiTheDog/HiveNightmare>https://github.com/GossiTheDog/HiveNightmare</a></li>
 <li>\Sam.save - PowerShell version</li>
 <li>\Sam.hive - <a href=https://github.com/WiredPulse/Invoke-HiveNightmare>https://github.com/WiredPulse/Invoke-HiveNightmare</a></li>
-<li>C:\windows\temp\sam - <a href=https://github.com/cube0x0/CVE-2021-36934>https://github.com/cube0x0/CVE-2021-36934</a>
-See Florian Roth&rsquo;s rule here:</li>
+<li>C:\windows\temp\sam - <a href=https://github.com/cube0x0/CVE-2021-36934>https://github.com/cube0x0/CVE-2021-36934</a></li>
+</ul>
+<p>See Florian Roth&rsquo;s rule here:</p>
+<ul>
 <li><a href=https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml>https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml</a></li>
 </ul>
 <pre><code class=language-yaml>name: Windows.NTFS.MFT.HiveNightmare
 description: |
-  This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to find several files created as part of the POC tooling for HiveNightmare (CVE-2021-36934):
-  
+  This artifact uses Windows.NTFS.MFT (By Matt Green - @mgreen27) to
+  find several files created as part of the POC tooling for
+  HiveNightmare (CVE-2021-36934):
+
     - \hive_sam_ - https://github.com/FireFart/hivenightmare
     - \SAM-20 - https://github.com/GossiTheDog/HiveNightmare
     - \SAM-haxx - https://github.com/GossiTheDog/HiveNightmare
     - \Sam.save - PowerShell version
     - \Sam.hive - https://github.com/WiredPulse/Invoke-HiveNightmare
     - C:\windows\temp\sam - https://github.com/cube0x0/CVE-2021-36934
+
   See Florian Roth's rule here:
   - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/win_hivenightmare_file_exports.yml
+
 author: &quot;Zach Stanford - @svch0st&quot;
 
 parameters:
@@ -547,15 +555,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

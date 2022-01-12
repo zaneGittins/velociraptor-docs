@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,23 +430,33 @@ Windows.EventLogs.Chainsaw
 <h1>
 Windows.EventLogs.Chainsaw
 </h1>
-<p>This artifact leverages Chainsaw to enable usage of Sigma rules (in addition to built-in rules) to faciliate detection within Windows Event Logs.</p>
+<p>This artifact leverages Chainsaw to enable usage of Sigma rules
+(in addition to built-in rules) to faciliate detection within
+Windows Event Logs.</p>
 <p>From the project&rsquo;s description:</p>
-<p>&ldquo;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs.
-It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&rdquo;</p>
+<p>&ldquo;Chainsaw provides a powerful ‘first-response’ capability to
+quickly identify threats within Windows event logs. It offers a
+generic and fast method of searching through event logs for
+keywords, and by identifying threats using built-in detection
+logic and via support for Sigma detection rules.&rdquo;</p>
 <p><a href=https://github.com/countercept/chainsaw>https://github.com/countercept/chainsaw</a></p>
 <pre><code class=language-yaml>name: Windows.EventLogs.Chainsaw
 description: |
-    
-    This artifact leverages Chainsaw to enable usage of Sigma rules (in addition to built-in rules) to faciliate detection within Windows Event Logs.
-    
+
+    This artifact leverages Chainsaw to enable usage of Sigma rules
+    (in addition to built-in rules) to faciliate detection within
+    Windows Event Logs.
+
     From the project's description:
-    
-    &quot;Chainsaw provides a powerful ‘first-response’ capability to quickly identify threats within Windows event logs. 
-    It offers a generic and fast method of searching through event logs for keywords, and by identifying threats using built-in detection logic and via support for Sigma detection rules.&quot;
-    
+
+    &quot;Chainsaw provides a powerful ‘first-response’ capability to
+    quickly identify threats within Windows event logs.  It offers a
+    generic and fast method of searching through event logs for
+    keywords, and by identifying threats using built-in detection
+    logic and via support for Sigma detection rules.&quot;
+
     https://github.com/countercept/chainsaw
-    
+
 author: Wes Lambert - @therealwlambert
 tools:
   - name: Chainsaw
@@ -458,7 +468,7 @@ parameters:
     description: Size (in bytes) of output that will be returned for a single row.  This value may need to be adjusted depending on the size of your event logs.
     type: int
     default: &quot;10000000&quot;
-    
+
 sources:
   - query: |
         LET Toolzip &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;Chainsaw&quot;, IsExecutable=FALSE)
@@ -466,27 +476,27 @@ sources:
         LET TmpResults &lt;= tempfile()
         LET Results = SELECT * FROM read_file(filenames=TmpResults)
         LET UnzipIt &lt;= SELECT * FROM  unzip(filename=Toolzip.FullPath, output_directory=TmpDir)
-        Let SigmaRules &lt;= TmpDir + '/chainsaw/sigma_rules' 
+        Let SigmaRules &lt;= TmpDir + '/chainsaw/sigma_rules'
         Let SigmaMapping &lt;= TmpDir + '/chainsaw/mapping_files/sigma-mapping.yml'
         Let ExecCS &lt;= SELECT * FROM execve(argv=[
-                        TmpDir + '/chainsaw/chainsaw.exe', 
-                        'hunt', EVTXPath, 
+                        TmpDir + '/chainsaw/chainsaw.exe',
+                        'hunt', EVTXPath,
                         &quot;--json&quot;, TmpResults,
                         &quot;--rules&quot;, SigmaRules,
                         &quot;--mapping&quot;, SigmaMapping], length=Length)
         LET Data = SELECT * FROM foreach(row=Results, query={SELECT parse_json_array(data=Data) AS Content FROM scope()})
-        
+
         SELECT * FROM foreach(row=Data, query={
             SELECT
                 get(member=&quot;event.Event.System.TimeCreated.#attributes.SystemTime&quot;) AS EventTime,
-                get(member=&quot;detection&quot;) AS Detection, 
-                get(member=&quot;event.Event.System.Computer&quot;) AS Computer, 
+                get(member=&quot;detection&quot;) AS Detection,
+                get(member=&quot;event.Event.System.Computer&quot;) AS Computer,
                 get(member=&quot;event.Event.System.Channel&quot;) AS Channel,
-                get(member=&quot;event.Event.System.EventID&quot;) AS EventID, 
+                get(member=&quot;event.Event.System.EventID&quot;) AS EventID,
                 get(member=&quot;event.Event.EventData.User&quot;) AS _User,
                 get(member=&quot;event.Event.System&quot;) AS SystemData,
                 get(member=&quot;event.Event.EventData&quot;) AS EventData
-            FROM Content    
+            FROM Content
         })
 
 </code></pre>
@@ -500,15 +510,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

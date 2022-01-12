@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Linux.Network.Netstat :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,12 +430,12 @@ Linux.Network.Netstat
 <h1>
 Linux.Network.Netstat
 </h1>
-<p>This artifact will parse /proc and reveal information
-about current network connections.</p>
+<p>This artifact will parse /proc and reveal information about current
+network connections.</p>
 <pre><code class=language-yaml>name: Linux.Network.Netstat
 description: |
-   This artifact will parse /proc and reveal information 
-   about current network connections.
+   This artifact will parse /proc and reveal information about current
+   network connections.
 
 type: CLIENT
 
@@ -452,34 +452,34 @@ sources:
         -- Break down the address of the form 0100007F:22B9
         LET _X(x) = parse_string_with_regex(string=addr,
           regex=&quot;(..)(..)(..)(..):(....)&quot;)
-        
+
         -- Unroll hex encoded IPv4 address into more usual form.
         LET ParseAddress(addr) = dict(
             IP=format(format=&quot;%d.%d.%d.%d&quot;, args=[
                int(int=&quot;0x&quot; + _X(x=addr).g4),
                int(int=&quot;0x&quot; + _X(x=addr).g3),
                int(int=&quot;0x&quot; + _X(x=addr).g2),
-               int(int=&quot;0x&quot; + _X(x=addr).g1)]), 
+               int(int=&quot;0x&quot; + _X(x=addr).g1)]),
             Port=int(int=&quot;0x&quot; + _X(x=addr).g5)
         )
-        
+
         -- https://elixir.bootlin.com/linux/latest/source/include/net/tcp_states.h#L14
         LET StateLookup = dict(
            `01`=&quot;Established&quot;,
            `02`=&quot;Syn Sent&quot;,
-           `06`=&quot;Time Wait&quot;, -- No owner process 
+           `06`=&quot;Time Wait&quot;, -- No owner process
            `0A`=&quot;Listening&quot;
         )
-        
-        -- Enumerate all the sockets and cache them in memory for 
+
+        -- Enumerate all the sockets and cache them in memory for
         -- reverse lookup. The following is basically lsof.
-        LET X = SELECT split(string=FullPath, sep=&quot;/&quot;)[2] AS Pid, 
+        LET X = SELECT split(string=FullPath, sep=&quot;/&quot;)[2] AS Pid,
                Data.Link AS Filename,
                parse_string_with_regex(
-                  string=Data.Link, 
+                  string=Data.Link,
                   regex=&quot;(?P&lt;Type&gt;socket|pipe):\\[(?P&lt;inode&gt;[0-9]+)\\]&quot;) AS Details
         FROM glob(globs=&quot;/proc/*/fd/*&quot;)
-        
+
         LET AllSockets &lt;= SELECT atoi(string=Pid) AS Pid,
                read_file(filename=&quot;/proc/&quot; + Pid + &quot;/comm&quot;) AS Command,
                read_file(filename=&quot;/proc/&quot; + Pid + &quot;/cmdline&quot;) AS CommandLine,
@@ -488,7 +488,7 @@ sources:
                Details.inode AS Inode
         FROM X
         WHERE Type =~ &quot;socket&quot;
-        
+
         -- Parse the TCP table and refer back to the socket
         -- so we can print process info.
         SELECT inode, get(item=StateLookup, field=st) AS State, uid, {
@@ -499,7 +499,7 @@ sources:
                ParseAddress(addr=local_address) AS LocalAddr,
                ParseAddress(addr=rem_address) AS RemoteAddr
         FROM split_records(
-             columns=[&quot;_&quot;, &quot;sl&quot;,&quot;local_address&quot;, &quot;rem_address&quot;, &quot;st&quot;, &quot;queues&quot;, &quot;tr_tm_when&quot;, 
+             columns=[&quot;_&quot;, &quot;sl&quot;,&quot;local_address&quot;, &quot;rem_address&quot;, &quot;st&quot;, &quot;queues&quot;, &quot;tr_tm_when&quot;,
                       &quot;retransmit&quot;, &quot;uid&quot;, &quot;timeout&quot;, &quot;inode&quot;],
              filenames=&quot;/proc/net/tcp&quot;,
              regex=&quot; +&quot;)
@@ -517,15 +517,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>

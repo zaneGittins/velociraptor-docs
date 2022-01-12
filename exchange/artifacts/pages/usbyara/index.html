@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Detection.USBYara :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954885 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954885 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954885 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954885 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954885 rel=stylesheet>
-<link href=/css/theme.css?1641954885 rel=stylesheet>
-<link href=/css/tabs.css?1641954885 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954885 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954885 rel=stylesheet>
-<link href=/css/dark.css?1641954885 rel=stylesheet><link href=/css/syntax.css?1641954885 rel=stylesheet><link href=/css/light.css?1641954885 rel=stylesheet><link href=/css/hljs.css?1641954885 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954885 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954885></script>
+<link href=/css/nucleus.css?1641958049 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641958049 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641958049 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641958049 rel=stylesheet>
+<link href=/css/auto-complete.css?1641958049 rel=stylesheet>
+<link href=/css/theme.css?1641958049 rel=stylesheet>
+<link href=/css/tabs.css?1641958049 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641958049 rel=stylesheet>
+<link href=/css/theme-mine.css?1641958049 rel=stylesheet>
+<link href=/css/dark.css?1641958049 rel=stylesheet><link href=/css/syntax.css?1641958049 rel=stylesheet><link href=/css/light.css?1641958049 rel=stylesheet><link href=/css/hljs.css?1641958049 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641958049 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641958049></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -430,24 +430,27 @@ Windows.Detection.USBYara
 <h1>
 Windows.Detection.USBYara
 </h1>
-<p>Run yara over usb when USB is plugged into machine.
-Return context and hit details.</p>
-<p>This artifact requires:<br>
-Exchange.Windows.Monitor.USBPlugIn (imported from Exchange)<br>
-Generic.Detection.Yara.Glob</p>
+<p>Run yara over usb when USB is plugged into machine. Return context
+and hit details.</p>
+<p>This artifact requires:</p>
+<ul>
+<li>Exchange.Windows.Monitor.USBPlugIn (imported from Exchange)</li>
+<li>Generic.Detection.Yara.Glob</li>
+</ul>
 <p>Yara rule deployed and target path can be modified.</p>
 <pre><code class=language-yaml>name: Windows.Detection.USBYara
 author: Matt Green - @mgreen27
 description: |
-  Run yara over usb when USB is plugged into machine.
-  Return context and hit details.
+  Run yara over usb when USB is plugged into machine.  Return context
+  and hit details.
 
-  This artifact requires:  
-    Exchange.Windows.Monitor.USBPlugIn (imported from Exchange)  
-    Generic.Detection.Yara.Glob  
+  This artifact requires:
+
+    * Exchange.Windows.Monitor.USBPlugIn (imported from Exchange)
+    * Generic.Detection.Yara.Glob
 
   Yara rule deployed and target path can be modified.
-  
+
 type: CLIENT_EVENT
 
 parameters:
@@ -460,20 +463,20 @@ parameters:
                     description = &quot;AvastSvcpCP lnkfile&quot;
                     author = &quot;@mgreen27&quot;
                     date = &quot;2021-11-18&quot;
-            
+
                 strings:
                     $s1 = &quot;AvastSvcpCP&quot; wide nocase
                     $s2 = &quot;cefhelper.exe&quot; wide nocase
                     $s3 = &quot;RECYCLER.BIN&quot; wide nocase
                     $s4 = &quot;wsc.zip&quot; wide nocase
-                    $s6 = &quot;/q /c&quot; wide nocase 
-                    $s8 = &quot;S-1-5-21-1063499884-3365855816-3691837489-1000&quot; wide nocase 
-                    $s9 = &quot;Xayemarlwin-pc&quot; wide nocase 
-            
+                    $s6 = &quot;/q /c&quot; wide nocase
+                    $s8 = &quot;S-1-5-21-1063499884-3365855816-3691837489-1000&quot; wide nocase
+                    $s9 = &quot;Xayemarlwin-pc&quot; wide nocase
+
                condition:
                     int16(0) == 0x004c and any of them
             }
-            
+
 sources:
   - query: |
       SELECT * FROM foreach(
@@ -486,8 +489,8 @@ sources:
                     dict(Mtime=Mtime,Atime=Atime,Ctime=Ctime,Btime=Btime) as SITimestamps,
                     Rule,Meta,
                     HitContext,HitOffset,
-                    { 
-                        SELECT Name, FileSystem,Description,FreeSpace,Size,VolumeSerialNumber,VolumeName 
+                    {
+                        SELECT Name, FileSystem,Description,FreeSpace,Size,VolumeSerialNumber,VolumeName
                         FROM wmi(query='SELECT * FROM Win32_logicaldisk WHERE DeviceID = &quot;' + DriveName + '&quot;',namespace='ROOT/CIMV2')
                     } as DiskInfo
                 FROM Artifact.Generic.Detection.Yara.Glob(PathGlob=DriveName + TargetGlob,YaraRule=PayloadYara)
@@ -504,15 +507,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.min.js?1641954885></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954885></script>
-<script src=/js/jquery.sticky.js?1641954885></script>
-<script src=/js/featherlight.min.js?1641954885></script>
-<script src=/js/highlight.min.js?1641954885></script>
+<script src=/js/clipboard.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.min.js?1641958049></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641958049></script>
+<script src=/js/jquery.sticky.js?1641958049></script>
+<script src=/js/featherlight.min.js?1641958049></script>
+<script src=/js/highlight.min.js?1641958049></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954885></script>
-<script src=/js/learn.js?1641954885></script>
-<script src=/js/hugo-learn.js?1641954885></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641958049></script>
+<script src=/js/learn.js?1641958049></script>
+<script src=/js/hugo-learn.js?1641958049></script>
 </body>
 </html>
