@@ -5,18 +5,18 @@
 <meta name=generator content="Hugo 0.91.2">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Forensics :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1641954886 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1641954886 rel=stylesheet>
-<link href=/css/featherlight.min.css?1641954886 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1641954886 rel=stylesheet>
-<link href=/css/auto-complete.css?1641954886 rel=stylesheet>
-<link href=/css/theme.css?1641954886 rel=stylesheet>
-<link href=/css/tabs.css?1641954886 rel=stylesheet>
-<link href=/css/hugo-theme.css?1641954886 rel=stylesheet>
-<link href=/css/theme-mine.css?1641954886 rel=stylesheet>
-<link href=/css/dark.css?1641954886 rel=stylesheet><link href=/css/syntax.css?1641954886 rel=stylesheet><link href=/css/light.css?1641954886 rel=stylesheet><link href=/css/hljs.css?1641954886 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954886 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1641954886></script>
+<title>Windows.Registry.AteraNetworks :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1641954884 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1641954884 rel=stylesheet>
+<link href=/css/featherlight.min.css?1641954884 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1641954884 rel=stylesheet>
+<link href=/css/auto-complete.css?1641954884 rel=stylesheet>
+<link href=/css/theme.css?1641954884 rel=stylesheet>
+<link href=/css/tabs.css?1641954884 rel=stylesheet>
+<link href=/css/hugo-theme.css?1641954884 rel=stylesheet>
+<link href=/css/theme-mine.css?1641954884 rel=stylesheet>
+<link href=/css/dark.css?1641954884 rel=stylesheet><link href=/css/syntax.css?1641954884 rel=stylesheet><link href=/css/light.css?1641954884 rel=stylesheet><link href=/css/hljs.css?1641954884 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1641954884 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1641954884></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/tags/forensics/>
+<body data-url=/exchange/artifacts/pages/ateranetworks/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -358,7 +358,7 @@
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -400,6 +400,12 @@
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/AteraNetworks.yaml target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -408,11 +414,12 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Forensics
+Windows.Registry.AteraNetworks
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents></nav>
 </div>
 </div>
 </div>
@@ -421,16 +428,45 @@ Forensics
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Forensics
+Windows.Registry.AteraNetworks
 </h1>
-<ul>
-<li><a href=/blog/2021/2021-06-16-carving-usn-journal-entries-72d5c66971da/>Carving $USN journal entries</a></li>
-<li><a href=/blog/2021/2021-04-16-digging-into-process-memory-33c60a640cdb/>Digging into process memory</a></li>
-<li><a href=/blog/2021/2021-02-13-digging-for-files-with-velociraptor-a1c0a21e242b/>Digging for files with Velociraptor</a></li>
-<li><a href=/blog/2020/2020-11-13-the-windows-usn-journal-f0c55c9010e/>The Windows USN Journal</a></li>
-<li><a href=/blog/2020/2020-07-14-triage-with-velociraptor-pt-4-cf0e60810d1e/>Triage with Velociraptor — Pt 4</a></li>
-</ul>
+<p>Find AteraNetworks configuration details in the registry.
+This artifact is best combined with Windows.Forensics.FilenameSearch
+searching for the string &ldquo;atera&rdquo;.</p>
+<pre><code class=language-yaml>name: Windows.Registry.AteraNetworks
+description: |
+    Find AteraNetworks configuration details in the registry.
+    This artifact is best combined with Windows.Forensics.FilenameSearch 
+    searching for the string &quot;atera&quot;.
+
+author: original author Eduardo Mattos - @eduardfir
+
+reference:
+  - https://www.advanced-intel.com/post/secret-backdoor-behind-conti-ransomware-operation-introducing-atera-agent
+  
+precondition:
+  SELECT * FROM info() where OS = 'windows'
+
+parameters:
+  - name: SearchRegistryGlob
+    default: \HKEY_LOCAL_MACHINE\SOFTWARE\ATERA Networks\AlphaAgent\**
+    description: Use a glob to define the registry hives that will be searched.
+
+sources:
+  - query: |
+        SELECT  ModTime as LastModified,
+                FullPath,
+                Name as KeyName,
+                Data.value as KeyValue,
+                Data.type as KeyType
+        FROM glob(globs=SearchRegistryGlob, accessor='registry')
+        WHERE NOT Data.type = 'key'
+
+column_types:
+  - name: Modified
+    type: timestamp
+
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -441,15 +477,15 @@ Forensics
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1641954887></script>
-<script src=/js/perfect-scrollbar.min.js?1641954887></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1641954887></script>
-<script src=/js/jquery.sticky.js?1641954887></script>
-<script src=/js/featherlight.min.js?1641954887></script>
-<script src=/js/highlight.min.js?1641954887></script>
+<script src=/js/clipboard.min.js?1641954884></script>
+<script src=/js/perfect-scrollbar.min.js?1641954884></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1641954884></script>
+<script src=/js/jquery.sticky.js?1641954884></script>
+<script src=/js/featherlight.min.js?1641954884></script>
+<script src=/js/highlight.min.js?1641954884></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1641954887></script>
-<script src=/js/learn.js?1641954887></script>
-<script src=/js/hugo-learn.js?1641954887></script>
+<script src=/js/modernizr.custom-3.6.0.js?1641954884></script>
+<script src=/js/learn.js?1641954884></script>
+<script src=/js/hugo-learn.js?1641954884></script>
 </body>
 </html>

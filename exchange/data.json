@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.AteraNetworks",
+        "author": "mgreen27",
+        "description": "Find AteraNetworks configuration details in the registry.\nThis artifact is best combined with Windows.Forensics.FilenameSearch \nsearching for the string \"atera\".\n",
+        "link": "/exchange/artifacts/pages/ateranetworks",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-01-12"
+    },
+    {
         "title": "Windows.Detection.ProxyLogon.ProxyShell",
         "author": "Seeps",
         "description": "This artifact hunts for CVE-2021-27065 (Microsoft Exchange ProxyLogon RCE)\nand CVE-2021-31207 (Microsoft Exchange ProxyShell RCE) exploitation by parsing \nentries in the 'MSExchange Management.evtx' log.\n\nThis log file is unique to Exchange and can be useful when ECP logs are\nno longer available. \n\nProxyLogon webshell detection syntax is specific to \n'China Chopper' via the PowerShell 'Set-OabVirtualDirectory' cmdlet.\n\nProxyShell webshell detection syntax is specific to PowerShell \n'New-MailboxExportRequest' and 'New-ExchangeCertificate' cmdlets.\n",
