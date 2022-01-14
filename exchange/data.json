@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Carving.SSHLogs",
+        "author": "scudette",
+        "description": "Linux systems typically store audit events in syslog. In particular successful \nssh logins are especially important for some investigations.\n\nUnfortunately they are sometimes deleted by attackers or rotated out. If you \nare desperate it might be worth trying to carve for ssh login events.\n\n### NOTES\n\n1. Syslog does not typically store the year in the date - since carving can \n   recover very old records it might be difficult to pinpoint the time.\n2. This artifact will take a long time! You probably will have to increase \n   the timeout. \n",
+        "link": "/exchange/artifacts/pages/linux.carving.sshlogs",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-01-14"
+    },
+    {
         "title": "Linux.Sysinternals.SysmonEvent",
         "author": "scudette",
         "description": "Parses syslog for Sysmon events on Linux using a unix domain socket.\n\nNOTE: This is an experimental patch for sysmon that gets it to write events \nto a unix domain socket. \n\nUntil it merges upstream you can get it from here:\n\n**Reference**: https://github.com/Velocidex/SysmonForLinux\n",

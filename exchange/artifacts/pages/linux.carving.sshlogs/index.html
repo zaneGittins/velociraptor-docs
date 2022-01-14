@@ -3,25 +3,20 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=generator content="Hugo 0.92.0">
-<meta name=description content="Browsing the client's filesystem is probably the first thing
-responders do. Both GRR and Velociraptor have a nice VFS abstraction
-that allows users to browse files interactively. However, in order to
-make Velociraptor much faster we made some tradeoffs and improved the
-way that the VFS is stored in the datastore.
-">
+<meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Browsing around the filesystem. :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642175732 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642175732 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642175732 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642175732 rel=stylesheet>
-<link href=/css/auto-complete.css?1642175732 rel=stylesheet>
-<link href=/css/theme.css?1642175732 rel=stylesheet>
-<link href=/css/tabs.css?1642175732 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642175732 rel=stylesheet>
-<link href=/css/theme-mine.css?1642175732 rel=stylesheet>
-<link href=/css/dark.css?1642175732 rel=stylesheet><link href=/css/syntax.css?1642175732 rel=stylesheet><link href=/css/light.css?1642175732 rel=stylesheet><link href=/css/hljs.css?1642175732 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642175732 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642175732></script>
+<title>Linux.Carving.SSHLogs :: Velociraptor - Digging deeper!</title>
+<link href=/css/nucleus.css?1642175731 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642175731 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642175731 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642175731 rel=stylesheet>
+<link href=/css/auto-complete.css?1642175731 rel=stylesheet>
+<link href=/css/theme.css?1642175731 rel=stylesheet>
+<link href=/css/tabs.css?1642175731 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642175731 rel=stylesheet>
+<link href=/css/theme-mine.css?1642175731 rel=stylesheet>
+<link href=/css/dark.css?1642175731 rel=stylesheet><link href=/css/syntax.css?1642175731 rel=stylesheet><link href=/css/light.css?1642175731 rel=stylesheet><link href=/css/hljs.css?1642175731 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642175731 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642175731></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -29,7 +24,7 @@ way that the VFS is stored in the datastore.
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/blog/html/2018/08/10/browsing_around_the_filesystem/>
+<body data-url=/exchange/artifacts/pages/linux.carving.sshlogs/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -344,7 +339,7 @@ way that the VFS is stored in the datastore.
 <a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
 </div>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
+<li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
@@ -363,7 +358,7 @@ way that the VFS is stored in the datastore.
 </li>
 </ul>
 </li>
-<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
+<li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item parent haschildren">
 <div>
 <i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
@@ -406,7 +401,7 @@ way that the VFS is stored in the datastore.
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/html/2018/08/10/browsing_around_the_filesystem/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Linux.Carving.SSHLogs.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -419,12 +414,20 @@ way that the VFS is stored in the datastore.
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Browsing around the filesystem.
+Linux.Carving.SSHLogs
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
-<nav id=TableOfContents></nav>
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li><a href=#notes>NOTES</a></li>
+</ul>
+</li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -433,109 +436,72 @@ Browsing around the filesystem.
 </div>
 <div id=body-inner>
 <h1>
-Browsing around the filesystem.
+Linux.Carving.SSHLogs
 </h1>
-<h1 id=the-virtual-file-system>The Virtual File System</h1>
-<p>Like GRR, Velociraptor also maintains a virtual file system view (VFS)
-of the client's filesystem. GRR's VFS view is generated by adding a
-row for each file into the database. In order to refresh the view of a
-certain directory, GRR issues a ListDirectory request and updates the
-database by storing each newly discovered file in its own row.</p>
-<p>Velociraptor models the client's VFS as a per-directory VQL query. In
-order to refresh the view of a certain directory, a new VQL query is
-issued to the client, essentially collecting the glob information for
-that directory in a single VQL response table. The VQL result is then
-stored in a single database row. Therefore Velociraptor stores a single
-row per directory (as compared to GRR's single row per file approach).
-This leads to a huge reduction in database rows.</p>
-<p>The tradeoff however, is that the Velociraptor VFS view can only show
-the state of the entire directory listing at a single point in time.
-GRR's VFS viewer can show old files (which have been removed) mixed in
-with current files because it can merge the output of different
-ListDirectory operations that occurred in different times. We decided
-this feature was not often useful and sometimes actually led to
-confusion since files that are removed from a directory are shown
-together with files currently present. Velociraptor therefore shows the
-VFS directory at the latest timestamp the entire directory was fetched.</p>
-<h1 id=recursive-vfs-refresh>Recursive VFS refresh</h1>
-<p>Users who are more familiar with traditional forensic tools (or GUI file
-managers like Windows Explorer) usually attempt to browse the client's
-VFS view interactively, searching for files and directories relevant to
-the case. However, since the VFS view is only a cached database view of
-the real client's file system, we need to go to the client to refresh
-the cache whenever we try to view a directory in the VFS which had not
-yet been fetched from the client.</p>
-<p>Since clients are not always online, some users attempt to just
-recursively refresh the entire VFS view (i.e. recursively list all
-client directories from the root). This is however, an expensive
-operation (This is at least as expensive as running a recursive "find /
--ls" command on the commandline). Due to GRR's extensive data model
-and complex multi-round trip flow model, performing a recursive VFS
-refresh with GRR is unlikely to work in any reasonable time (typically
-the flow will run for a while then hang due to race conditions in the
-frontend).</p>
-<p>On the other hand, Velociraptor issues a single VQL request as a
-recursive directory glob and stores the entire directory content in a
-single VQL response taken at an instance in time. The response is
-streamed back to the server. The server simply splits the response table
-into directory specific tables, and then stores a single VQL response
-table for each directory in the database.</p>
-<div class="mynotices note">
-<div heading=note><p>The VQL glob() plugin is guaranteed to generate results in breadth first
-order. This means that it emits information about all files in the same
-directory first, before recursing into sub directories. This feature
-makes it simple to split the result table into directory specific
-sub-tables by simply watching the FullPath column and noting when its
-directory changes.</p>
-<p>
-<img src=image9.png alt>
-</p>
-</div>
-</div>
-<h1 id=very-large-vql-queries>Very large VQL queries</h1>
-<p>While we claimed above that Velociraptor simply issues a single VQL
-query and stores its result in a single database row, this was an
-oversimplification. If the VQL query generates too many rows, the
-Velociraptor client splits the response into parts (by default 10000
-rows per part). This allows data to be uploaded immediately to the
-server and processed while the query is still executing on the client.</p>
-<p>Consider the VFSListDirectoryflow was issued with a glob of /**10
-(i.e. refresh the entire VFS view from the root directory, recursively
-into a depth of 10 directories). The VQL query executed was:</p>
-<pre><code class=language-{.sourceCode>SELECT FullPath AS _FullPath,
-    Name, Size, Mode,
-    timestamp(epoch=Sys.Mtim.Sec) AS mtime,
-    timestamp(epoch=Sys.Atim.Sec) AS atime,
-    timestamp(epoch=Sys.Ctim.Sec) AS ctime
-FROM glob(globs='/**10')
+<p>Linux systems typically store audit events in syslog. In particular successful
+ssh logins are especially important for some investigations.</p>
+<p>Unfortunately they are sometimes deleted by attackers or rotated out. If you
+are desperate it might be worth trying to carve for ssh login events.</p>
+<h3 id=notes>NOTES</h3>
+<ol>
+<li>Syslog does not typically store the year in the date - since carving can
+recover very old records it might be difficult to pinpoint the time.</li>
+<li>This artifact will take a long time! You probably will have to increase
+the timeout.</li>
+</ol>
+<pre><code class=language-yaml>name: Linux.Carving.SSHLogs
+description: |
+  Linux systems typically store audit events in syslog. In particular successful 
+  ssh logins are especially important for some investigations.
+  
+  Unfortunately they are sometimes deleted by attackers or rotated out. If you 
+  are desperate it might be worth trying to carve for ssh login events.
+  
+  ### NOTES
+  
+  1. Syslog does not typically store the year in the date - since carving can 
+     recover very old records it might be difficult to pinpoint the time.
+  2. This artifact will take a long time! You probably will have to increase 
+     the timeout. 
+  
+parameters:
+   - name: Device
+     default: /dev/root
+
+sources:
+  - query: |
+        LET GrokRule = '''%{SYSLOGTIMESTAMP:Timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{DATA:event} %{DATA:method} for (invalid user )?%{DATA:user} from %{IPORHOST:ip} port %{NUMBER:port} ssh2(: %{GREEDYDATA:system.auth.ssh.signature})?'''
+        LET YaraRule = '''
+        rule X {
+            strings:
+              $a = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{1,2} [0-9]{2}:[0-9]{2}[^\n]+/s
+            condition:
+              any of them
+        }
+        '''
+        
+        LET Hits = SELECT str(str=String.Data) AS Hit, String.Offset AS Offset
+          FROM yara(
+             files=Device, accessor=&quot;raw_file&quot;, end=1024*1024*1024*56,
+             rules=YaraRule, number=100000000000)
+          WHERE Hit =~ &quot;Accept|Failed&quot;
+        
+        SELECT * FROM foreach(row={
+            SELECT grok(data=Hit, grok=GrokRule) AS Event, Offset
+            FROM Hits
+            WHERE Event
+        }, query={
+          SELECT Offset, timestamp(string=Event.Timestamp) AS Time,
+                 Event.ip AS IP,
+                 Event.logsource AS logsource,
+                 Event.event AS Result,
+                 Event.method AS Method,
+                 Event.user AS AttemptedUser
+          FROM scope()
+        })
+
+
 </code></pre>
-<p>The query was issued to a Velociraptor client running on a Chromebook.
-This particular system has approximately 500k files in its root
-filesystem, and so the response consists of 500k rows. However, as the
-query executes, the response is split into multiple parts, each being
-10k rows, and uploaded (each part is about 3mb in total).</p>
-<p>
-<figure>
-<img src=image3.png alt=image class=captioned>
-<figcaption>image</figcaption>
-</figure>
-</p>
-<p>Total execution time for this query is about 4 minutes and consists of
-about 50 parts (around 2.5mb each). It is still an expensive query, but
-depending on the urgency of the case, it may well be warranted.</p>
-<p>It is very convenient to just take a snapshot of the entire filesystem,
-especially when the client is offline. We can issue the flow and then
-when the client comes back online we can review all the files.</p>
-<h1 id=file-uploads>File uploads</h1>
-<p>The VFS view is just a local cache in the data store of what is really
-going on the client. While we can see the file in each directory we cant
-transfer all the file content. Velociraptor represents downloaded files
-differently from just listed files. Files with the floppy disk next to
-them represent files that we have a local cache for. We can view the
-Hexview or just download them.</p>
-<p>You can always initiate a download of a VFS file by selecting the
-Download tab. Unlike GRR, Velociraptor does not keep previous versions
-of files - a re-download will overwrite the previous file.</p>
 <footer class=footline>
 </footer>
 </div>
@@ -546,15 +512,15 @@ of files - a re-download will overwrite the previous file.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642175732></script>
-<script src=/js/perfect-scrollbar.min.js?1642175732></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642175732></script>
-<script src=/js/jquery.sticky.js?1642175732></script>
-<script src=/js/featherlight.min.js?1642175732></script>
-<script src=/js/highlight.min.js?1642175732></script>
+<script src=/js/clipboard.min.js?1642175731></script>
+<script src=/js/perfect-scrollbar.min.js?1642175731></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642175731></script>
+<script src=/js/jquery.sticky.js?1642175731></script>
+<script src=/js/featherlight.min.js?1642175731></script>
+<script src=/js/highlight.min.js?1642175731></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642175732></script>
-<script src=/js/learn.js?1642175732></script>
-<script src=/js/hugo-learn.js?1642175732></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642175731></script>
+<script src=/js/learn.js?1642175731></script>
+<script src=/js/hugo-learn.js?1642175731></script>
 </body>
 </html>
