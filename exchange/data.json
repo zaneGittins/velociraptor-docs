@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Sysinternals.SysmonEvent",
+        "author": "scudette",
+        "description": "Parses syslog for Sysmon events on Linux using a unix domain socket.\n\nNOTE: This is an experimental patch for sysmon that gets it to write events \nto a unix domain socket. \n\nUntil it merges upstream you can get it from here:\n\n**Reference**: https://github.com/Velocidex/SysmonForLinux\n",
+        "link": "/exchange/artifacts/pages/linux.sysinternals.sysmonevent",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-01-14"
+    },
+    {
         "title": "Windows.Registry.AteraNetworks",
         "author": "mgreen27",
         "description": "Find AteraNetworks configuration details in the registry.\nThis artifact is best combined with Windows.Forensics.FilenameSearch \nsearching for the string \"atera\".\n",
