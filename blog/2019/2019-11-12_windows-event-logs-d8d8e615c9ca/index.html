@@ -6,17 +6,17 @@
 <meta name=description content="What do they mean?">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows Event Logs :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -471,7 +471,7 @@ Windows Event Logs
 <p>In this post we explore the windows event log system from the point of view of the investigator. We then see how tools such as Velociraptor can be used to work around its limitations.</p>
 <h4 id=responding-to-anincident>Responding to an incident</h4>
 <p>Consider an incident occurred on one of your systems. You would like to investigate it and so collect all the event log files from <strong>C:\Windows\System32\WinEVT\Logs\*.evtx</strong>.</p>
-<p>The logs are stored in binary format so you will need to post process the files. Luckily there are a number of tools out there that will do that for you. Here is a typical output from the <a href=https://github.com/Velocidex/evtx>dumpevtx</a> tool for a particular event from the Security.evtx log file:</p>
+<p>The logs are stored in binary format so you will need to post process the files. Luckily there are a number of tools out there that will do that for you. Here is a typical output from the <a href=https://github.com/Velocidex/evtx><code>dumpevtx</code></a> tool for a particular event from the Security.evtx log file:</p>
 <script src=https://gist.github.com/scudette/0b88f27e258021eecf7de9b8c0861184.js></script>
 <p>This event looks interesting but it is not quite clear what it is really talking about. We see some potentially useful items like <strong>SubjectUserSid</strong> and <strong>PrivilegeList</strong> but we are missing some critical context around this message.</p>
 <p>Lets look at the same event with the windows Event Viewer GUI:</p>
@@ -492,7 +492,10 @@ Windows Event Logs
 How the Windows Event Viewer displays event log messages</p>
 <p>When a user selects an event in the Event Viewer, the application reads the <strong>Provider</strong>, <strong>EventID</strong> and <strong>EventData</strong> fields from the event itself — in the above example, the Provider was <strong>Microsoft-Windows-Security-Auditing</strong>, EventID was <strong>4672</strong> and the EventData has items such as <strong>SubjectUserSid</strong> etc.</p>
 <p>Next the event viewer consults the registry at the key <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Security\Microsoft-Windows-Security-Auditing</strong> and reads the value <strong>EventMessageFile</strong>.</p>
-<p>That value is the location of a dll which contains the messages for this provider. On my system, the DLL is located at <strong>%SystemRoot%\system32\adtschema.dll</strong> (Note that many DLLs use localizations and so the dll could be located in MUI files).</p>
+<p>That value is the location of a dll which contains the messages for
+this provider. On my system, the DLL is located at
+<code>%SystemRoot%\\system32\\adtschema.dll</code> (Note that many DLLs use
+localizations and so the dll could be located in MUI files).</p>
 <p>
 <img src=../../img/1__SLH4iiByHYIz8HyJyOxAEw.png alt>
 </p>
@@ -532,21 +535,27 @@ Velociraptor can interpolate and attach the event message to every log message i
 <p>
 <img src=../../img/1__ABF6klKd0xQ82TvhOEq__hw.png alt>
 </p>
-<p>The <strong>extract</strong> command walks all providers in the registry, gathers their message DLLs and parses the message table resource for each. Then, all the messages are stored in a sqlite database. Sqlite being the de-facto standard for portable databases can be easily consumed by other tools written in many languages. The total size of the database is modest (I have extracted all event log messages on Windows 2019 server to about 23MB sqlite file).</p>
+<p>The <strong>extract</strong> command walks all providers in the registry, gathers their message DLLs and parses the message table resource for each. Then, all the messages are stored in a sqlite database. Sqlite being the de facto standard for portable databases can be easily consumed by other tools written in many languages. The total size of the database is modest (I have extracted all event log messages on Windows 2019 server to about 23MB SQLite file).</p>
 <p>Now we can easily use the database to resolve our provider and event id to a message:</p>
 <p>
 <img src=../../img/1__SRuWlPV0wk754__jlxI2tMw.png alt>
 </p>
-<p>Alternatively we can simply use sqlite directly to query the database</p>
-<p>$ sqlite3 mydb.sqlite
+<p>Alternatively we can simply use SQLite directly to query the database</p>
+<pre><code>$ sqlite3 mydb.sqlite
 SQLite version 3.24.0 2018-06-04 19:24:41
-Enter &ldquo;.help&rdquo; for usage hints.
-sqlite> <strong>SELECT message FROM providers join messages on providers.id = messages.provider_id where providers.name = &lsquo;Microsoft-Windows-Security-Auditing&rsquo; and messages.event_id = 4672;</strong>
-<em>Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5</em></p>
+Enter &quot;.help&quot; for usage hints.
+sqlite&gt; **SELECT message FROM providers join messages on providers.id = messages.provider\_id where providers.name = 'Microsoft-Windows-Security-Auditing' and messages.event\_id = 4672;**
+_Special privileges assigned to new logon.%n%nSubject:%n%tSecurity ID:%t%t%1%n%tAccount Name:%t%t%2%n%tAccount Domain:%t%t%3%n%tLogon ID:%t%t%4%n%nPrivileges:%t%t%5_
+</code></pre>
 <h4 id=enriching-old-event-logfiles>Enriching old event log files</h4>
-<p>We have shown how dumpevtx can use our sqlite database to retrieve the messages for each event id individually but this leaves us to interpolate the full data by hand — no fun indeed!</p>
-<p>You can also use dumpevtx to export the events into JSON, and automatically resolve event IDs with the sqlite database too by providing the database with the <code>--messagedb</code> flag.</p>
-<p>F:\>dumpevtx.exe parse &ndash;messagedb mydb.sqlite c:\Windows\System32\winevt\Logs\Security.evtx</p>
+<p>We have shown how <code>dumpevtx</code> can use our sqlite database to retrieve
+the messages for each event id individually but this leaves us to
+interpolate the full data by hand — no fun indeed!</p>
+<p>You can also use <code>dumpevtx</code> to export the events into JSON, and
+automatically resolve event IDs with the sqlite database too by
+providing the database with the <code>--messagedb</code> flag.</p>
+<pre><code>F:\\&gt;dumpevtx.exe parse --messagedb mydb.sqlite c:\\Windows\\System32\\winevt\\Logs\\Security.evtx
+</code></pre>
 <p>
 <figure>
 <img src=../../img/1__Uk794PvLspR__m5WX8ENDZw.png alt="Parsing the EVTX file with the assistance of the event id database. The message interpolates the Event Data into it." class=captioned>
@@ -555,7 +564,13 @@ sqlite> <strong>SELECT message FROM providers join messages on providers.id = me
 Parsing the EVTX file with the assistance of the event id database. The message interpolates the Event Data into it.</p>
 <h4 id=conclusions>Conclusions</h4>
 <p>The Windows Event Log system is fairly complex — it is not enough to just copy out the *.evtx files because the information content of the log is spread throughout the filesystem in DLLs and registry keys. For many event types there is enough context in the EventData or UserData fields of the event log but in many cases, without the actual message corresponding to the event ID we lose critical meaning.</p>
-<p>It is essential therefore to include the original message for each event log. We have shown how Velociraptor is able to include this critical information automatically. We also present the dumpevtx project which allows collecting messages in a database so events can be matched up quickly and easily with their correct messages without requiring the original program that generated the message to be installed on the analyst system.</p>
+<p>It is essential therefore to include the original message for each
+event log. We have shown how Velociraptor is able to include this
+critical information automatically. We also present the <code>dumpevtx</code>
+project which allows collecting messages in a database so events can
+be matched up quickly and easily with their correct messages without
+requiring the original program that generated the message to be
+installed on the analyst system.</p>
 <footer class=footline>
 </footer>
 </div>
@@ -566,15 +581,15 @@ Parsing the EVTX file with the assistance of the event id database. The message 
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

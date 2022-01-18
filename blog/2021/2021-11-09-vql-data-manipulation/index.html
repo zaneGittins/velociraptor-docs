@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Cobalt Strike payload discovery and data manipulation in VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -529,10 +529,10 @@ any other capability where both metadata and content based discovery is desired.
 </ul>
 <p>Some examples of path regex may include:</p>
 <ul>
-<li>Extension at a path: Windows/System32/.+\.dll$</li>
-<li>More wildcards: Windows/.+/.+\.dll$</li>
-<li>Specific file: Windows/System32/kernel32.dll$</li>
-<li>Multiple extentions: .(php|aspx|resx|asmx)$</li>
+<li>Extension at a path: <code>Windows/System32/.+\\.dll$</code></li>
+<li>More wildcards: <code>Windows/.+/.+\\.dll$</code></li>
+<li>Specific file: <code>Windows/System32/kernel32\.dll$</code></li>
+<li>Multiple extensions: <code>\.(php|aspx|resx|asmx)$</code></li>
 </ul>
 </div>
 </div>
@@ -798,12 +798,12 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <ol>
 <li><a href=https://attack.mitre.org/techniques/T1127/001/>MITRE ATT&CK T1127.001 - Trusted Developer Utilities Proxy Execution: MSBuild</a></li>
 <li><a href=https://github.com/3gstudent/msbuild-inline-task>MSBuild Inline Task template</a></li>
-<li><a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - &ldquo;I20xQy.TMP&rdquo;</a></li>
-<li><a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - &ldquo;CSLHP.TMP&rdquo;</a></li>
-<li><a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - &ldquo;ddppllkm.TMP&rdquo;</a></li>
-<li><a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - &ldquo;gujf2z0z.0.cs.TMP&rdquo;</a></li>
-<li><a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - &ldquo;Ofeq81u.TMP&rdquo;</a></li>
-<li><a href=https://www.virustotal.com/gui/file/507f988ab1f8229e84bb83dcb5a896b1747957b998aad7c7ccdd301096726999>VirusTotal sample - &ldquo;zzyhukwK.TMP&rdquo;</a></li>
+<li><a href=https://www.virustotal.com/gui/file/cf54b9078d63eaeb0300e70d0ef6cf4d3a4d83842fe08cb951f841549663e1e2>VirusTotal sample - <code>I20xQy.TMP</code></a></li>
+<li><a href=https://www.virustotal.com/gui/file/52ade62a412fed9425b75610620c85d9c143593cd50c2269066b120ac05dc8c3>VirusTotal sample - <code>CSLHP.TMP</code></a></li>
+<li><a href=https://www.virustotal.com/gui/file/b4ede02ea3c198f5e7d3fbab3cadc1266538d23a43a2825ece7d4c75b7208fa9>VirusTotal sample - <code>ddppllkm.TMP</code></a></li>
+<li><a href=https://www.virustotal.com/gui/file/152722a89fd87ecdf73fd18558622f22f980bddd6928cad31859453d41f7b8dd>VirusTotal sample - <code>gujf2z0z.0.cs.TMP</code></a></li>
+<li><a href=https://www.virustotal.com/gui/file/78d2078c4e740aff4a2a289387ba8cfc1de6c02ed48c4c65b53582303192dab2>VirusTotal sample - <code>Ofeq81u.TMP</code></a></li>
+<li><a href=https://www.virustotal.com/gui/file/507f988ab1f8229e84bb83dcb5a896b1747957b998aad7c7ccdd301096726999>VirusTotal sample - <code>zzyhukwK.TMP</code></a></li>
 </ol>
 <footer class=footline>
 </footer>
@@ -815,15 +815,15 @@ at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

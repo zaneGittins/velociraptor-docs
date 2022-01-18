@@ -3,23 +3,23 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=generator content="Hugo 0.92.0">
-<meta name=description content="I was watching the SANS DFIR Summit 2018 videos on youtube and came
+<meta name=description content="I was watching the SANS DFIR Summit 2018 videos on YouTube and came
 across Mari DeGrazia's talk titled &#34;Finding and Decoding Malicious
 Powershell Scripts&#34;
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Detecting powershell persistence with Velociraptor and Yara :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -448,7 +448,7 @@ Detecting powershell persistence with Velociraptor and Yara
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#how-does-hkey_users-hive-work>How does HKEY_USERS hive work?</a></li>
+<li><a href=#how-does-hkey_users-hive-work>How does <code>HKEY_USERS</code> hive work?</a></li>
 <li><a href=#how-to-fix-this>How to fix this?</a></li>
 <li><a href=#conclusions>Conclusions</a></li>
 </ul>
@@ -468,7 +468,7 @@ Detecting powershell persistence with Velociraptor and Yara
 retained for historical purposes.</p>
 </div>
 </div>
-<p>I was watching the SANS DFIR Summit 2018 videos on youtube and came
+<p>I was watching the SANS DFIR Summit 2018 videos on YouTube and came
 across Mari DeGrazia's talk titled <a href="https://www.youtube.com/watch?v=JWC7fzhvAY8">"Finding and Decoding Malicious
 Powershell Scripts"</a>. This
 is an excellent talk and it really contains a wealth of information. It
@@ -702,19 +702,19 @@ no results!</p>
 </figure>
 </p>
 <p>Why is that? Experienced incident responders would recognize that any
-artifact that works from the HKEY_USERS registry hive is inherently
-unreliable. This is because the HKEY_USERS hive is not a real hive -it
+artifact that works from the <code>HKEY_USERS</code> registry hive is inherently
+unreliable. This is because the <code>HKEY_USERS</code> hive is not a real hive -it
 is a place where Windows mounts the user's hive when the user logs in.</p>
-<h2 id=how-does-hkey_users-hive-work>How does HKEY_USERS hive work?</h2>
+<h2 id=how-does-hkey_users-hive-work>How does <code>HKEY_USERS</code> hive work?</h2>
 <p>Windows implements the concept of user profiles. Each user has a
 personal registry hive that stores user specific settings. It is
 actually a file stored on their home directory called ntuser.dat. When a
 user logs into the workstation, the file may be synced from the domain
-controller and then it is mounted under the HKEY_USERS\&lt;sid>
+controller and then it is mounted under the <code>HKEY_USERS\&lt;sid></code>
 registry hive.</p>
 <p>This means that when the user logs out, their user registry hive is
-unmounted and does not appear in HKEY_USERS any longer. Any artifacts
-based around the HKEY_USERS hive will work only if the collection is
+unmounted and does not appear in <code>HKEY_USERS</code> any longer. Any artifacts
+based around the <code>HKEY_USERS</code> hive will work only if the collection is
 run when a user is logged in.</p>
 <p>This is obviously not what we want when we hunt for persistence! We want
 to make sure that none of the users on the system have this persistence
@@ -728,7 +728,7 @@ having to fully understand the structure of the data we are searching
 for. Of course this has its limitations, but yara can raise a red flag
 if the signature matches the file, and we can analyse this file more
 carefully later.</p>
-<p>In this case, we can not rely on globbing the HKEY_USER registry hive,
+<p>In this case, we can not rely on globbing the <code>HKEY_USER</code> registry hive,
 so maybe we can just search the files that back these hives? We know
 that each user on the system has an NTUSER.DAT file in their home
 directory (usually C:\\Users\\&lt;username>), so let's write an
@@ -825,7 +825,7 @@ powershell persistence mechanisms. YARA is a powerful tool and using
 Velociraptor's artifacts we can apply it to files, registry values, and
 raw NTFS files such as locked registry hives and the pagefile.</p>
 <p>We also saw some of the inherent problems with relying on the
-HKEY_USERS registry hive for detection - the hive is only present when
+<code>HKEY_USERS</code> registry hive for detection - the hive is only present when
 a user is logged in so when we hunt, we might miss those users who are
 currently logged out. We saw how YARA can be used to detect suspicious
 patterns in raw registry hive files and how artifacts may retrieve those
@@ -840,15 +840,15 @@ files for further analysis.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

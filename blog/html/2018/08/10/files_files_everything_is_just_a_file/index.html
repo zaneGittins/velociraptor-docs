@@ -5,21 +5,21 @@
 <meta name=generator content="Hugo 0.92.0">
 <meta name=description content="Velociraptor introduced a major redesign of the underlying data
 store architecture. The default data store
-is now the FileBasedDataStore which stores all data in flat files.
+is now the FileBaseDataStore which stores all data in flat files.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Files, files everything is just a file! :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484068 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484068 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484068 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484068 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484068 rel=stylesheet>
-<link href=/css/theme.css?1642484068 rel=stylesheet>
-<link href=/css/tabs.css?1642484068 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484068 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484068 rel=stylesheet>
-<link href=/css/dark.css?1642484068 rel=stylesheet><link href=/css/syntax.css?1642484068 rel=stylesheet><link href=/css/light.css?1642484068 rel=stylesheet><link href=/css/hljs.css?1642484068 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484068 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484068></script>
+<link href=/css/nucleus.css?1642491997 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491997 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491997 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491997 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491997 rel=stylesheet>
+<link href=/css/theme.css?1642491997 rel=stylesheet>
+<link href=/css/tabs.css?1642491997 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491997 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491997 rel=stylesheet>
+<link href=/css/dark.css?1642491997 rel=stylesheet><link href=/css/syntax.css?1642491997 rel=stylesheet><link href=/css/light.css?1642491997 rel=stylesheet><link href=/css/hljs.css?1642491997 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491997 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491997></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -474,7 +474,7 @@ implementation became very complex.</p>
 architecture, we are now able to relax our demands of the datastore and
 use a true key/value model (since we have no requirements for locking
 and synchronization). The default data store is now the
-FileBasedDataStore which stores all data in flat files.</p>
+FileBaseDataStore which stores all data in flat files.</p>
 <p>Using flat files over a database has many advantages, including ease of
 deployment, and simplification of the data model. Having flat files
 allows one to use standard tools to visualize Velociraptor's data
@@ -503,7 +503,7 @@ view the file's content.</p>
 <p>Searching for clients is implemented by simply creating empty files in
 directories based on the search term. For example in order to retrieve
 all clients which have the user "mic", we simply list the directory
-"client_index/user%3Amic":</p>
+<code>client\_index/user%3Amic</code>:</p>
 <pre><code class=language-{.sourceCode>$ find ./client_index/
 </code></pre>
 <pre><code class=language-text> ./client\_index/c.84216c7aab97557d
@@ -610,15 +610,15 @@ particular VFS entry was produced from a recursive directory listing of
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484068></script>
-<script src=/js/perfect-scrollbar.min.js?1642484068></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484068></script>
-<script src=/js/jquery.sticky.js?1642484068></script>
-<script src=/js/featherlight.min.js?1642484068></script>
-<script src=/js/highlight.min.js?1642484068></script>
+<script src=/js/clipboard.min.js?1642491997></script>
+<script src=/js/perfect-scrollbar.min.js?1642491997></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491997></script>
+<script src=/js/jquery.sticky.js?1642491997></script>
+<script src=/js/featherlight.min.js?1642491997></script>
+<script src=/js/highlight.min.js?1642491997></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484068></script>
-<script src=/js/learn.js?1642484068></script>
-<script src=/js/hugo-learn.js?1642484068></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491997></script>
+<script src=/js/learn.js?1642491997></script>
+<script src=/js/hugo-learn.js?1642491997></script>
 </body>
 </html>

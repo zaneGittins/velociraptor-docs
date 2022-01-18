@@ -6,17 +6,17 @@
 <meta name=description content="Listen to the beast">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Communications :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -510,7 +510,7 @@ Velociraptor Communications
 </div>
 </div>
 <h3 id=messages>Messages</h3>
-<p>Clients and servers communicate by sending each other messages (which are simply protocol buffers), for example, a message may contain VQL queries or result sets. Messages are collected into a list and sent in a single POST operation in a <strong>MessageList</strong> protobuf. This protobuf is encrypted using a session key with a symmetric cipher (aes_128_cbc). The session key is chosen by the sending party and is written into an encrypted <strong>Cipher</strong> protobuf and sent along with each message.</p>
+<p>Clients and servers communicate by sending each other messages (which are simply protocol buffers), for example, a message may contain VQL queries or result sets. Messages are collected into a list and sent in a single POST operation in a <strong>MessageList</strong> protobuf. This protobuf is encrypted using a session key with a symmetric cipher (<code>aes_128_cbc</code>). The session key is chosen by the sending party and is written into an encrypted <strong>Cipher</strong> protobuf and sent along with each message.</p>
 <p>
 <img src=../../img/1ntQkR2sRm8mIg5vkYjngEg.png alt>
 </p>
@@ -518,7 +518,7 @@ Velociraptor Communications
 <h3 id=key-caching>Key caching</h3>
 <p>The encrypted cipher is sent with each message and contains an encrypted version of the same session key. This means that it is always possible to derive the session key from each post message by performing RSA decrypt/verify operations, but having decoded the symmetric key once — it is possible to cache it for the remainder of the session. This avoids expensive RSA operations — as long as the server communicated with the client recently, the symmetric key will be cached and can be reused.</p>
 <p>On a loaded server you might notice CPU utilization spikes for a few seconds after the system starts up, as the server unlocks the session keys from incoming clients, but after that the server should not need to perform many RSA operations and CPU load should be low since most session keys are cached in memory.</p>
-<p>The <strong>Frontend.expected_clients</strong> setting controls the size of the memory cache of session keys. If this is too small, keys will be evicted from cache and cpu load will rapidly rise as the server is forced to do more RSA operations to decrypt client messages. You should increase this value to reflect how many clients you expect to be active at the same time.</p>
+<p>The <strong>Frontend.expected_clients</strong> setting controls the size of the memory cache of session keys. If this is too small, keys will be evicted from cache and CPU load will rapidly rise as the server is forced to do more RSA operations to decrypt client messages. You should increase this value to reflect how many clients you expect to be active at the same time.</p>
 <h2 id=http-protocol>HTTP protocol</h2>
 <p>In the last section we saw that Velociraptor messages are both signed and encrypted by the internal deployment CA. But how are these messages exchanged over the internet?</p>
 <p>Velociraptor uses HTTPS POST messages to deliver message sets to the server. The server in turn sends messages to the client in the body of the POST request. The client connects to one of the server URLs provided in the <strong>Client.server_urls</strong> setting in its config file.</p>
@@ -608,15 +608,15 @@ Velociraptor Communications
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

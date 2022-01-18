@@ -6,17 +6,17 @@
 <meta name=description content="We are often asked how many resources does a Velociraptor deployment use? How should one spec a machine for a Velociraptor deployment?">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Velociraptor Performance :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -466,12 +466,12 @@ use? How should one spec a machine for a Velociraptor deployment?</p>
 <p>We have previously said that one of the reasons we developed
 Velociraptor was to improve on the performance of GRR which was not
 scalable for our use case.</p>
-<p>We've been working with the team at Klein & Co. on several intrusions
-over the past several months, which are providing valuable opportunities
-to deploy and test Velociraptor in a range of real world investigation
-scenarios. Through this process, we&rsquo;ve been able to extend
-Velociraptor&rsquo;s functionality and prove its performance on real client
-networks.</p>
+<p>We have been working with the team at Klein & Co. on several
+intrusions over the past several months, which are providing valuable
+opportunities to deploy and test Velociraptor in a range of real world
+investigation scenarios. Through this process, we have been able to
+extend Velociraptor&rsquo;s functionality and prove its performance on real
+client networks.</p>
 <p>I thought I would write a short blog post to show how Velociraptor
 performed on such a recent engagement. In this engagement we deployed
 Velociraptor on AWS and selectively pushed the client to around 600
@@ -581,7 +581,7 @@ while collecting this artifact.</p>
 <p>A common technique is to examine the Master File Table (MFT) of an NTFS
 volume. By forensically analyzing the MFT it is possible to detect
 deleted files, time stomping and build a timeline of the system using
-tools like <a href=https://github.com/dkovar/analyzeMFT>analyseMFT.py</a> or
+tools like <a href=https://github.com/dkovar/analyzeMFT><code>analyseMFT.py</code></a> or
 <a href=https://dmitrybrant.com/ntfswalker>ntfswalker</a> .</p>
 <p>In this case we decided to collect the $MFT from all the Windows hosts
 and post-process them offline. Typically the MFT is around 300-400mb and
@@ -718,15 +718,15 @@ assistance in Velociraptor development.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

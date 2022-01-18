@@ -12,17 +12,17 @@ effectiveness.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>EQL to VQL - Leverage EQL based detection rules in Velociraptor :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -455,7 +455,7 @@ EQL to VQL - Leverage EQL based detection rules in Velociraptor
 <li><a href=#how-do-eql-detections-work>How do EQL detections work?</a></li>
 <li><a href=#how-can-we-use-eql-detection-queries>How can we use EQL detection queries?</a>
 <ul>
-<li><a href=#the-eql2vql-project>The eql2vql project</a></li>
+<li><a href=#the-eql2vql-project>The <code>eql2vql</code> project</a></li>
 <li><a href=#adding-more-rules>Adding more rules</a></li>
 </ul>
 </li>
@@ -626,7 +626,7 @@ directly on the raw source event logs as produced by Sysmon - in other
 words we need to reverse the above transformation from the ECS fields
 mentioned in the EQL query back to the original event log fields found
 on the endpoint.</p>
-<h3 id=the-eql2vql-project>The eql2vql project</h3>
+<h3 id=the-eql2vql-project>The <code>eql2vql</code> project</h3>
 <p>Let me introduce a new project to automatically convert EQL detection
 rules to VQL artifacts: <a href=https://github.com/Velocidex/eql2vql>https://github.com/Velocidex/eql2vql</a></p>
 <p>The aim of this project is to automatically produce a VQL artifact
@@ -747,7 +747,7 @@ constantly on the endpoint receiving rows from events.</p>
 time monitoring and in particular how VQL can leverage <a href=/blog/2021/2021-08-18-velociraptor-and-etw/>Event Tracing
 for Windows</a> (ETW).</p>
 <h3 id=using-eql-detections-with-real-time-monitoring>Using EQL detections with real time monitoring</h3>
-<p>The eql2vql project contains a second provider that reads Sysmon
+<p>The <code>eql2vql</code> project contains a second provider that reads Sysmon
 events directly from ETW sources. This bypasses the windows event log
 system completely, and applies the VQL directly on real time ETW
 events.</p>
@@ -843,15 +843,15 @@ directly on discord at <a href=https://www.velocidex.com/discord>https://www.vel
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

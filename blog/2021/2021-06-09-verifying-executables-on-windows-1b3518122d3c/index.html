@@ -6,17 +6,17 @@
 <meta name=description content="How do we know if a windows executable is a legitimate program written by the purported developer and not malware?  This post covers the basics of Authenticode signatures in windows and how to verify and query them using Velociraptor.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Verifying executables on Windows :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -471,9 +471,18 @@ Verifying executables on Windows
 <h1>
 Verifying executables on Windows
 </h1>
-<p>How do we know if a windows executable is a legitimate program written by the purported developer and not malware? Users may run malicious binaries with increasingly devastating consequences, including compromise or ransomware.</p>
-<p>To address this concern, Microsoft has introduced a standard called Authenticode, designed to sign trusted binaries, so they can be identified by the operating system. Additionally, recent versions of Windows will refuse load unsigned device drivers, therefore maintaining kernel integrity.</p>
-<p>While the Authenticode standard itself is well documented, as DFIR practitioners we need to understand how Authenticode works, and how we can determine if an executable is trusted during our analysis.</p>
+<p>How do we know if a windows executable is a legitimate program written
+by the purported developer and not malware? Users may run malicious
+binaries with increasingly devastating consequences, including
+compromise or ransomware.</p>
+<p>To address this concern, Microsoft has introduced a standard called
+Authenticode, designed to sign trusted binaries, so they can be
+identified by the operating system. Additionally, recent versions of
+Windows will refuse load unsigned device drivers, therefore
+maintaining kernel integrity.</p>
+<p>While the Authenticode standard itself is well documented, as DFIR
+practitioners we need to understand how Authenticode works, and how we
+can determine if an executable is trusted during our analysis.</p>
 <p>This post explains the basics of Authenticode, and how Velociraptor can be used to extract Authenticode related information from remote systems. Since release 0.6.0, Velociraptor features an Authenticode parser allowing much deeper inspection of signed executables.</p>
 <h3 id=is-a-binary-signed>Is a binary signed?</h3>
 <p>Windows users can easily determine if a binary is signed by simply looking at the Explorer GUI: Right click on the binary and select “Properties” and the “Digital Signatures” tab. This offers a “Details” options where users can view if the signature is ok, who the developer was that signed the executable and other details.</p>
@@ -486,9 +495,17 @@ Verifying executables on Windows
 <p>
 <img src=../../img/0aJlEkIX3M0d8aKnI.png alt>
 </p>
-<p>The above diagram shows that signing information is embedded in the PE file itself, and consists of a PKCS#7 structure, itself an ASN.1 encoded binary blob. The information contains a hash of the PE file, and a list of certificates of verifying authorities.</p>
-<p>Velociraptor can parse the authenticode information from the PE file using the parse_pe() VQL function. This allows a VQL query to extract signing information from any executable binary (Since this is just a file parser and does not use native APIs, you can use this function on all supported OSs).</p>
-<p>Let’s parse Velociraptor’s own PE file in a Velociraptor notebook using the following simple query:</p>
+<p>The above diagram shows that signing information is embedded in the PE
+file itself, and consists of a PKCS#7 structure, itself an <code>ASN.1</code>
+encoded binary blob. The information contains a hash of the PE file,
+and a list of certificates of verifying authorities.</p>
+<p>Velociraptor can parse the authenticode information from the PE file
+using the parse_pe() VQL function. This allows a VQL query to extract
+signing information from any executable binary (Since this is just a
+file parser and does not use native APIs, you can use this function on
+all supported OSs).</p>
+<p>Let’s parse Velociraptor’s own PE file in a Velociraptor notebook
+using the following simple query:</p>
 <pre><code class=language-vql>SELECT parse_pe(file=’’’C:\Program Files\velociraptor\velociraptor.exe’’’)
 FROM scope()
 </code></pre>
@@ -521,7 +538,12 @@ FROM scope()
 <img src=../../img/1nVs1beihcqM5MefgsK3d9g.png alt>
 </p>
 <p>Could Microsoft simply have forgotten to sign such an integral part of the OS as notepad.exe?</p>
-<p>The answer turns out to be more interesting. When distributing a large number of binaries, a developer has the option of signing a “catalog file” instead of each individual binary. The catalog file is essentially a list of authenticode hashes that are all trusted. Catalog files are stored in C:\Windows\system32\CatRoot{F750E6C3–38EE-11D1–85E5–00C04FC295EE}</p>
+<p>The answer turns out to be more interesting. When distributing a large
+number of binaries, a developer has the option of signing a “catalog
+file” instead of each individual binary. The catalog file is
+essentially a list of authenticode hashes that are all
+trusted. Catalog files are stored in
+<code>C:\Windows\system32\CatRoot\{F750E6C3–38EE-11D1–85E5–00C04FC295EE}</code></p>
 <p>While .cat files are simply encoded in PKCS#7 format, they do contain a few Microsoft specific objects. Velociraptor can parse the PKCS#7 files directly and supports the extra extensions using the parse_pkcs7() VQL function.</p>
 <p>
 <img src=../../img/1WZ7Zezy8CRueD28qxklK7g.png alt>
@@ -587,15 +609,15 @@ FROM scope()
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

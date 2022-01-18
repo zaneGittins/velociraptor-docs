@@ -6,17 +6,17 @@
 <meta name=description content="Velociraptor usually is only a part of a wider solution which might include a SIEM and SOC integration. In order to facilitate interoperability with other tools, Velociraptor now offers an external API.">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>The Velociraptor Python API :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -613,7 +613,7 @@ initiate an active response like escalation or disruption when something
 is detected.</p>
 <p>In a recent engagement we needed to collect a large number of $MFT
 files from many endpoints. We wanted to analyze these using external
-tools like analyseMFT.py.</p>
+tools like <code>analyseMFT.py</code>.</p>
 <p>We wrote a simple artifact to collect the MFT:</p>
 <pre><code class=language-{.sourceCode>name: Windows.Upload.MFT
 description: |
@@ -631,7 +631,7 @@ sources:
     - select upload(file=path, accessor=&quot;ntfs&quot;) as Upload from scope()
 </code></pre>
 <p>We then created a hunt to collect this artifact from the machines of
-interest. Once each $MFT file is uploaded we need to run analyseMFT.py
+interest. Once each $MFT file is uploaded we need to run <code>analyseMFT.py</code>
 to parse it:</p>
 <pre><code class=language-{.sourceCode>QUERY=&quot;&quot;&quot;
   SELECT Flow,
@@ -670,15 +670,15 @@ file_store() VQL function reveals the server's filesystem path where
 the files actually reside. The server simply stores the uploaded files
 on its filesystem since Velociraptor does not use a database (everything
 is a file!).</p>
-<p>The python code then proceeds to launch the analyseMFT.py script to
+<p>The python code then proceeds to launch the <code>analyseMFT.py</code> script to
 parse the $MFT.</p>
 <div class="mynotices note">
-<div heading=note><p>The nice thing with this scheme is that the analyseMFT.py is running in
+<div heading=note><p>The nice thing with this scheme is that the <code>analyseMFT.py</code> is running in
 its own process and can be managed separately to the main Velociraptor
 server (e.g. we can set its execution priority or even run it on a
 separate machine). The Velociraptor server does not actually need to
 wait for post processing nor will the post processing affect its
-performance in any way. If the analyseMFT.py script takes a long time,
+performance in any way. If the <code>analyseMFT.py</code> script takes a long time,
 it will just fall behind but it eventually will catch up. In the
 meantime, the Velociraptor server will continue receiving the uploads
 regardless.</p>
@@ -710,15 +710,15 @@ being a valuable use case.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>

@@ -7,17 +7,17 @@
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Searching for files :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642484069 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642484069 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642484069 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642484069 rel=stylesheet>
-<link href=/css/auto-complete.css?1642484069 rel=stylesheet>
-<link href=/css/theme.css?1642484069 rel=stylesheet>
-<link href=/css/tabs.css?1642484069 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642484069 rel=stylesheet>
-<link href=/css/theme-mine.css?1642484069 rel=stylesheet>
-<link href=/css/dark.css?1642484069 rel=stylesheet><link href=/css/syntax.css?1642484069 rel=stylesheet><link href=/css/light.css?1642484069 rel=stylesheet><link href=/css/hljs.css?1642484069 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642484069 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642484069></script>
+<link href=/css/nucleus.css?1642491998 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642491998 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642491998 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642491998 rel=stylesheet>
+<link href=/css/auto-complete.css?1642491998 rel=stylesheet>
+<link href=/css/theme.css?1642491998 rel=stylesheet>
+<link href=/css/tabs.css?1642491998 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642491998 rel=stylesheet>
+<link href=/css/theme-mine.css?1642491998 rel=stylesheet>
+<link href=/css/dark.css?1642491998 rel=stylesheet><link href=/css/syntax.css?1642491998 rel=stylesheet><link href=/css/light.css?1642491998 rel=stylesheet><link href=/css/hljs.css?1642491998 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642491998 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642491998></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -488,7 +488,7 @@ further filter and process the results.</p>
 the <code>find</code> native Linux command allows searching the filesystem, and
 most programming languages have similar features. For example in
 Python the
-<a href=https://docs.python.org/3/library/os.html#os.walk>os.walk</a> method,
+<a href=https://docs.python.org/3/library/os.html#os.walk><code>os.walk</code></a> method,
 or in Golang the
 <a href=https://pkg.go.dev/path/filepath#Walk>filepath.Walk</a> method. The
 following discussion applies equally to all methods and is also
@@ -499,10 +499,10 @@ the high severity and ease of exploitation many blue teamers scrambled
 to identify the presence of vulnerable software on servers. A myriad
 of scripts and single use tools were published that could search the
 filesystem for vulnerable jar files (e.g. <code>find</code> based scripts
-<a href=https://github.com/yahoo/check-log4j>yahoo/check-log4j</a>,
-<a href=https://github.com/rubo77/log4j_checker_beta>rubo77/log4j_checker_beta</a>,
+<a href=https://github.com/yahoo/check-log4j><code>yahoo/check-log4j</code></a>,
+<a href=https://github.com/rubo77/log4j_checker_beta><code>rubo77/log4j_checker_beta</code></a>,
 Go based
-<a href=https://github.com/palantir/log4j-sniffer>palantir/log4j-sniffer</a> ).</p>
+<a href=https://github.com/palantir/log4j-sniffer><code>palantir/log4j-sniffer</code></a> ).</p>
 <p>I wanted to share some of the potential pitfalls that one may
 encounter searching the filesystem in the real world. In particular
 some of these issues may present performance problems so should be
@@ -615,7 +615,7 @@ system:</p>
 <p>This test system has a large remote filesystem mounted on <code>/shared/</code>
 so any recursion into that directory will be very slow.</p>
 <h2 id=excluding-recursion-into-certain-directories>Excluding recursion into certain directories</h2>
-<p>Supposed that in this case we dont really care about remote
+<p>Supposed that in this case we don&rsquo;t really care about remote
 filesystems, we just want to search for pem files in the local
 system. We know that certain directories should be excluded so we
 might be tempted to write a query like:</p>
@@ -749,15 +749,15 @@ for files balancing coverage with the risk following symlinks.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.min.js?1642484069></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642484069></script>
-<script src=/js/jquery.sticky.js?1642484069></script>
-<script src=/js/featherlight.min.js?1642484069></script>
-<script src=/js/highlight.min.js?1642484069></script>
+<script src=/js/clipboard.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.min.js?1642491998></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642491998></script>
+<script src=/js/jquery.sticky.js?1642491998></script>
+<script src=/js/featherlight.min.js?1642491998></script>
+<script src=/js/highlight.min.js?1642491998></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642484069></script>
-<script src=/js/learn.js?1642484069></script>
-<script src=/js/hugo-learn.js?1642484069></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642491998></script>
+<script src=/js/learn.js?1642491998></script>
+<script src=/js/hugo-learn.js?1642491998></script>
 </body>
 </html>
