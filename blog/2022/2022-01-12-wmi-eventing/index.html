@@ -10,17 +10,17 @@ custom namespaces.
 ">
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>WMI Event Consumers: what are you missing? :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642476107 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642476107 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642476107 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642476107 rel=stylesheet>
-<link href=/css/auto-complete.css?1642476107 rel=stylesheet>
-<link href=/css/theme.css?1642476107 rel=stylesheet>
-<link href=/css/tabs.css?1642476107 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642476107 rel=stylesheet>
-<link href=/css/theme-mine.css?1642476107 rel=stylesheet>
-<link href=/css/dark.css?1642476107 rel=stylesheet><link href=/css/syntax.css?1642476107 rel=stylesheet><link href=/css/light.css?1642476107 rel=stylesheet><link href=/css/hljs.css?1642476107 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642476107 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642476107></script>
+<link href=/css/nucleus.css?1642480195 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642480195 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642480195 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642480195 rel=stylesheet>
+<link href=/css/auto-complete.css?1642480195 rel=stylesheet>
+<link href=/css/theme.css?1642480195 rel=stylesheet>
+<link href=/css/tabs.css?1642480195 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642480195 rel=stylesheet>
+<link href=/css/theme-mine.css?1642480195 rel=stylesheet>
+<link href=/css/dark.css?1642480195 rel=stylesheet><link href=/css/syntax.css?1642480195 rel=stylesheet><link href=/css/light.css?1642480195 rel=stylesheet><link href=/css/hljs.css?1642480195 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642480195 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642480195></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -475,6 +475,7 @@ WMI Event Consumers: what are you missing?
 <a class=tag-link href=/tags/vql>VQL</a>
 <a class=tag-link href=/tags/asep>ASEP</a>
 <a class=tag-link href=/tags/etw>ETW</a>
+<a class=tag-link href=/tags/t1546.003>T1546.003</a>
 </div>
 </div>
 <div id=body-inner>
@@ -520,8 +521,8 @@ a filter to a consumer.</li>
 and, in some tools root/default WMI namespaces.</p>
 <p>
 <figure>
-<img src=02Autoruns.png alt="Autoruns 14.07: detects root/detault and root/subscription namespace WMI event consumers" class=captioned>
-<figcaption>Autoruns 14.07: detects root/detault and root/subscription namespace WMI event consumers</figcaption>
+<img src=02Autoruns.png alt="Autoruns 14.07: detects root/default and root/subscription namespace WMI event consumers" class=captioned>
+<figcaption>Autoruns 14.07: detects root/default and root/subscription namespace WMI event consumers</figcaption>
 </figure>
 </p>
 <h4 id=custom-namespaces>Custom Namespaces</h4>
@@ -532,7 +533,7 @@ potential collection gaps in telemetry tools around WMI eventing. In this
 case, the focus was on Sysmon behaviour of collection only in
 root/subscription, interestingly, it also highlighted the possibility to
 implement __EventConsumer classes in arbitrary namespaces.</p>
-<p>It is detection of WMI Event Consumers in arbitrary namespaces that im going
+<p>It is detection of WMI Event Consumers in arbitrary namespaces that I&rsquo;m going
 to focus. For anyone interested in testing I have written
 <a href=https://github.com/mgreen27/mgreen27.github.io/blob/master/static/other/WMIEventingNoisemaker/WmiEventingNoisemaker.ps1>a script to generate WMI event consumers</a>.
 This script wraps several powershell functions released during the Black
@@ -551,7 +552,7 @@ ActiveScript event consumer.</p>
 Consumers:</p>
 <ul>
 <li><code>Windows.Sysinternals.Autoruns</code> - leverages a thirdparty deployment of
-Sysinternals Autoruns and typically my goto ASEP collection artifact but
+Sysinternals Autoruns and typically my go to ASEP collection artifact but
 limited by visibility in root/default and root/subscription only.</li>
 <li><code>Windows.Persistence.PermanentWMIEvents</code> - recently upgraded to query
 all ROOT namespaces.</li>
@@ -606,7 +607,7 @@ WHERE EventId = 11
 </code></pre>
 <p>I have included a completed artifact in the artifact exchange:
 <a href=https://docs.velociraptor.app/exchange/artifacts/pages/wmieventing/>Windows.ETW.WMIEventing</a>.
-That artifact includes process enrichment, targetting both creation and deletion of EventConsumers.</p>
+That artifact includes process enrichment, targeting both creation and deletion of EventConsumers.</p>
 <p>
 <figure>
 <img src=06ETW.png alt="Custom namespace provider registration and process enrichment" class=captioned>
@@ -642,7 +643,7 @@ that are worth considering. We can collect these data-points over an entire
 network in minutes using Velociraptor&rsquo;s &ldquo;hunt&rdquo; capability. Similarly
 Velociraptor notebook workflow assists excluding known good entries quickly as part of analysis.</p>
 <p>The Velociraptor platform aims to provide visibility and access
-to endpoint data. If you would like to try Velociraptor it is available on Github under an open source licence.
+to endpoint data. If you would like to try Velociraptor it is available on Github under an open source license.
 As always, please file issues on the bug tracker or ask questions on our
 mailing list <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>. You can also chat with
 us directly on discord at <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a></p>
@@ -663,15 +664,15 @@ us directly on discord at <a href=https://www.velocidex.com/discord>https://www.
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642476107></script>
-<script src=/js/perfect-scrollbar.min.js?1642476107></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642476107></script>
-<script src=/js/jquery.sticky.js?1642476107></script>
-<script src=/js/featherlight.min.js?1642476107></script>
-<script src=/js/highlight.min.js?1642476107></script>
+<script src=/js/clipboard.min.js?1642480195></script>
+<script src=/js/perfect-scrollbar.min.js?1642480195></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642480195></script>
+<script src=/js/jquery.sticky.js?1642480195></script>
+<script src=/js/featherlight.min.js?1642480195></script>
+<script src=/js/highlight.min.js?1642480195></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642476107></script>
-<script src=/js/learn.js?1642476107></script>
-<script src=/js/hugo-learn.js?1642476107></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642480195></script>
+<script src=/js/learn.js?1642480195></script>
+<script src=/js/hugo-learn.js?1642480195></script>
 </body>
 </html>
