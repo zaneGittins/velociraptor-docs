@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Binary parsing :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642499812 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642499812 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642499812 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642499812 rel=stylesheet>
-<link href=/css/auto-complete.css?1642499812 rel=stylesheet>
-<link href=/css/theme.css?1642499812 rel=stylesheet>
-<link href=/css/tabs.css?1642499812 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642499812 rel=stylesheet>
-<link href=/css/theme-mine.css?1642499812 rel=stylesheet>
-<link href=/css/dark.css?1642499812 rel=stylesheet><link href=/css/syntax.css?1642499812 rel=stylesheet><link href=/css/light.css?1642499812 rel=stylesheet><link href=/css/hljs.css?1642499812 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642499812 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642499812></script>
+<link href=/css/nucleus.css?1642645984 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642645984 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642645984 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642645984 rel=stylesheet>
+<link href=/css/auto-complete.css?1642645984 rel=stylesheet>
+<link href=/css/theme.css?1642645984 rel=stylesheet>
+<link href=/css/tabs.css?1642645984 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642645984 rel=stylesheet>
+<link href=/css/theme-mine.css?1642645984 rel=stylesheet>
+<link href=/css/dark.css?1642645984 rel=stylesheet><link href=/css/syntax.css?1642645984 rel=stylesheet><link href=/css/light.css?1642645984 rel=stylesheet><link href=/css/hljs.css?1642645984 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642645984 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642645984></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -470,6 +470,7 @@ Binary parsing
 <li><a href=#flags>Flags</a></li>
 <li><a href=#winfiletime-fattimestamp-and-timestamp>WinFileTime, FatTimestamp and Timestamp</a></li>
 <li><a href=#union>Union</a></li>
+<li><a href=#profile>Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -529,16 +530,16 @@ from binary data. The parser encodes semantic information about what
 each bytes in the binary sequence means. It really emulates the
 software that usually reads the data by constructing something similar
 to the original (often closed code) meaning. Sometimes not all the
-information if known or can be interpreted - so parsers can be
+information is known or can be interpreted - so parsers can be
 incomplete.</p>
 <p>Parsers typically fall into two general types: <code>Procedural</code> and
-<code>declerative</code>.</p>
+<code>Declerative</code>.</p>
 <p>A procedural parser is written as a sequence of actions (i.e. code)
 that pulls information from the binary data and reports some semantic
 information about that data. On the other hand, a declarative parser
 seeks to explain the meaning behind each field and decode it based on
 the type of the field.</p>
-<p>An example might illustrate the different between the two
+<p>An example might illustrate the difference between the two
 approaches. Suppose a program encodes a sequence of flags in an 8 bit
 integer - one flag per bit. A procedural parser might be coded as:</p>
 <pre><code>value = parse_uint8(data, offset=0)
@@ -827,6 +828,39 @@ array in bytes, the start and end offset of the array.</li>
   SELECT _value FROM scope()
 })
 </code></pre>
+<p>An example of a use of Array can be found in the Linux <code>wtmp</code> parser:</p>
+<pre><code class=language-json>[&quot;Header&quot;, 0, [
+  [&quot;records&quot;, 0, &quot;Array&quot;, {
+      &quot;type&quot;: &quot;utmp&quot;,
+      &quot;count&quot;: &quot;x=&gt;MaxCount&quot;,
+      &quot;max_count&quot;: &quot;x=&gt;MaxCount&quot;
+  }]
+]],
+</code></pre>
+<div class="mynotices tip">
+<div heading=" Specifying the size of array members "><p>Normally the size of a struct can be specified as 0, however when
+using the struct in an Array, the size must be valid and non
+zero. This is because Array uses the size of the target type to
+determine how far apart each array member lies in the data.</p>
+<p>You can also use a lambda to specify the size of the item - this
+allows you to use Array to specify non uniform arrays (where each
+member has a different size).</p>
+<p>For example the following specifies a header containing a count of
+entries stored back to back, while each entry has a size specified in
+its first member.</p>
+<pre><code class=language-json>[&quot;Header&quot;, 0, [
+  [&quot;count&quot;, 0, &quot;uint32&quot;],
+  [&quot;records&quot;, 4, &quot;Array&quot;, {
+      &quot;type&quot;: &quot;Entry&quot;,
+      &quot;count&quot;: &quot;x=&gt;x.count&quot;,
+  }]
+]],
+[&quot;Entry&quot;, &quot;x=&gt;x.Length&quot;, [
+  [&quot;Length&quot;, 0, &quot;uint32&quot;],
+]],
+</code></pre>
+</div>
+</div>
 <h3 id=string>String</h3>
 <p>Strings are very common items to parse. The string parser can be
 configured using the following options.</p>
@@ -1102,6 +1136,46 @@ of type Struct2.</p>
   ]],
 ]
 </code></pre>
+<h3 id=profile>Profile</h3>
+<p>Sometimes a struct represents a pointer to another offset in a more
+complex way. The <code>Profile</code> field type allows us to take full control
+over how the field is to be instantiated.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>The type of the underlying object (usually an integer)</td>
+</tr>
+<tr>
+<td>type_options</td>
+<td>A dict of options to pass to the type parser if needed</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>a lambda function to specify the offset</td>
+</tr>
+</tbody>
+</table>
+<p>For example the following definition specifies that when the <code>Value</code>
+field is accessed it will be created from an <code>ASFinderInfo</code> struct
+positioned at a calculated offset of <code>x.Offset + 48</code> (from the start
+of the file).</p>
+<pre><code class=language-json>[&quot;Entry&quot;, 12, [
+  [&quot;ID&quot;, 0, &quot;uint32b&quot;],
+  [&quot;Offset&quot;, 4, &quot;uint32b&quot;],
+  [&quot;Length&quot;, 8, &quot;uint32b&quot;],
+  [&quot;Value&quot;, 0, &quot;Profile&quot;, {
+       type: &quot;ASFinderInfo&quot;,
+       offset: &quot;x=&gt;x.Offset + 48&quot;,
+  }]
+]],
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -1112,15 +1186,15 @@ of type Struct2.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642499812></script>
-<script src=/js/perfect-scrollbar.min.js?1642499812></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642499812></script>
-<script src=/js/jquery.sticky.js?1642499812></script>
-<script src=/js/featherlight.min.js?1642499812></script>
-<script src=/js/highlight.min.js?1642499812></script>
+<script src=/js/clipboard.min.js?1642645984></script>
+<script src=/js/perfect-scrollbar.min.js?1642645984></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642645984></script>
+<script src=/js/jquery.sticky.js?1642645984></script>
+<script src=/js/featherlight.min.js?1642645984></script>
+<script src=/js/highlight.min.js?1642645984></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642499812></script>
-<script src=/js/learn.js?1642499812></script>
-<script src=/js/hugo-learn.js?1642499812></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642645984></script>
+<script src=/js/learn.js?1642645984></script>
+<script src=/js/hugo-learn.js?1642645984></script>
 </body>
 </html>
