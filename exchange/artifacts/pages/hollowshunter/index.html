@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Memory.HollowsHunter :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1642722056 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642722056 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642722056 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642722056 rel=stylesheet>
-<link href=/css/auto-complete.css?1642722056 rel=stylesheet>
-<link href=/css/theme.css?1642722056 rel=stylesheet>
-<link href=/css/tabs.css?1642722056 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642722056 rel=stylesheet>
-<link href=/css/theme-mine.css?1642722056 rel=stylesheet>
-<link href=/css/dark.css?1642722056 rel=stylesheet><link href=/css/syntax.css?1642722056 rel=stylesheet><link href=/css/light.css?1642722056 rel=stylesheet><link href=/css/hljs.css?1642722056 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642722056 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642722056></script>
+<link href=/css/nucleus.css?1642864105 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642864105 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642864105 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642864105 rel=stylesheet>
+<link href=/css/auto-complete.css?1642864105 rel=stylesheet>
+<link href=/css/theme.css?1642864105 rel=stylesheet>
+<link href=/css/tabs.css?1642864105 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642864105 rel=stylesheet>
+<link href=/css/theme-mine.css?1642864105 rel=stylesheet>
+<link href=/css/dark.css?1642864105 rel=stylesheet><link href=/css/syntax.css?1642864105 rel=stylesheet><link href=/css/light.css?1642864105 rel=stylesheet><link href=/css/hljs.css?1642864105 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1642864105 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642864105></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -468,25 +468,34 @@ tools:
    github_asset_regex: hollows_hunter64.exe
    serve_locally: true
 
+precondition:
+   SELECT OS From info() where OS = 'windows'
+   
 sources:
-  - precondition:
-      SELECT OS From info() where OS = 'windows'
-
+  - name: Output
     query: |
-      -- Get the path to the hollows_hunter tool and a fresh temp directory.
-      LET binaries &lt;= SELECT FullPath, tempdir() AS TempDir
-      FROM Artifact.Generic.Utils.FetchBinary(
-         ToolName=&quot;hollows_hunter&quot;)
+      -- Get the path to the hollows_hunter tool and a fresh temp directory.\
+      LET TempDir &lt;= tempdir(remove_last=TRUE)
+      LET binaries &lt;= SELECT FullPath
+      FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;hollows_hunter&quot;)
 
       -- Run the tool and relay back the output, as well as upload all the files from the tempdir.
-      SELECT * FROM chain(
-      a={SELECT Stdout, NULL AS Upload
-         FROM execve(argv=[binaries[0].FullPath,&quot;/hooks&quot;,
-           &quot;/json&quot;, &quot;/dir&quot;, binaries[0].TempDir], length=100000)},
-      b={
-        SELECT upload(file=FullPath) AS Upload
-        FROM glob(globs=&quot;*&quot;, root=binaries[0].TempDir)
-      })
+      SELECT *
+      FROM execve(argv=[binaries[0].FullPath,&quot;/hooks&quot;,
+           &quot;/json&quot;, &quot;/dir&quot;, TempDir], sep=&quot;\n&quot;)
+           
+  - name: Summary
+    query: |
+      LET LookupPid(pid) = SELECT Name, CommandLine, Exe FROM pslist(pid=pid)
+
+      SELECT *, LookupPid(pid=pid)[0] AS ProcessInfo
+      FROM foreach(row=parse_json(
+            data=read_file(filename=TempDir + &quot;/summary.json&quot;)).suspicious)  
+            
+  - name: Uploads
+    query: |
+      SELECT upload(file=FullPath) AS Upload
+      FROM glob(globs=&quot;*&quot;, root=TempDir)
 
 </code></pre>
 <footer class=footline>
@@ -499,15 +508,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642722056></script>
-<script src=/js/perfect-scrollbar.min.js?1642722056></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642722056></script>
-<script src=/js/jquery.sticky.js?1642722056></script>
-<script src=/js/featherlight.min.js?1642722056></script>
-<script src=/js/highlight.min.js?1642722056></script>
+<script src=/js/clipboard.min.js?1642864105></script>
+<script src=/js/perfect-scrollbar.min.js?1642864105></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642864105></script>
+<script src=/js/jquery.sticky.js?1642864105></script>
+<script src=/js/featherlight.min.js?1642864105></script>
+<script src=/js/highlight.min.js?1642864105></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642722056></script>
-<script src=/js/learn.js?1642722056></script>
-<script src=/js/hugo-learn.js?1642722056></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642864105></script>
+<script src=/js/learn.js?1642864105></script>
+<script src=/js/hugo-learn.js?1642864105></script>
 </body>
 </html>
