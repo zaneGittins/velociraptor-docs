@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Applications.DefenderDHParser",
+        "author": "eduardomcm",
+        "description": "This artifact leverages Windows Defender DetectionHistory tool to parse and return\nthe parameters of Windows Defender detections contained in Detection History files.\n",
+        "link": "/exchange/artifacts/pages/defenderdhparser",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2022-01-24"
+    },
+    {
         "title": "Windows.ETW.WMIEventing",
         "author": "mgreen27",
         "description": "This artifact collects events associated with creation and deletion of WMI \nEvent Consumers. All Event Consumers created under any namespace will \ngenerate events which are filtered on event consumer classes.  \n\nIt uses the ETW provider:\nMicrosoft-Windows-WMI-Activity {1418ef04-b0b4-4623-bf7e-d74ab47bbdaa}  \nNote: This provider events have support on Windows 10+\n",
