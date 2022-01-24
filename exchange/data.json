@@ -10,6 +10,16 @@
         "date": "2022-01-24"
     },
     {
+        "title": "Windows.System.WMIProviders",
+        "author": "scudette",
+        "description": "List the WMI providers in the system.\n\nIt is possible to laterally move by installing a fake provider in the system, and then calling\nit remotely. This artifact enumerates all WMI providers and recovers the binary that runs when \nloaded.\n\nTest using https://github.com/Cybereason/Invoke-WMILM (Will run as SYSTEM)\n```\nInvoke-WMILM -Target localhost -Type Provider -Name notepad -Username test -Password test -Command notepad.exe\n```\n",
+        "link": "/exchange/artifacts/pages/windows.system.wmiproviders",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-01-24"
+    },
+    {
         "title": "Windows.ETW.WMIEventing",
         "author": "mgreen27",
         "description": "This artifact collects events associated with creation and deletion of WMI \nEvent Consumers. All Event Consumers created under any namespace will \ngenerate events which are filtered on event consumer classes.  \n\nIt uses the ETW provider:\nMicrosoft-Windows-WMI-Activity {1418ef04-b0b4-4623-bf7e-d74ab47bbdaa}  \nNote: This provider events have support on Windows 10+\n",

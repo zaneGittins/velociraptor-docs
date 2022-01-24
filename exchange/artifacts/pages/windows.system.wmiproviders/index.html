@@ -5,7 +5,7 @@
 <meta name=generator content="Hugo 0.92.0">
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
-<title>Windows.Memory.HollowsHunter :: Velociraptor - Digging deeper!</title>
+<title>Windows.System.WMIProviders :: Velociraptor - Digging deeper!</title>
 <link href=/css/nucleus.css?1643006459 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1643006459 rel=stylesheet>
 <link href=/css/featherlight.min.css?1643006459 rel=stylesheet>
@@ -24,7 +24,7 @@
 <script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script>
 </head>
-<body data-url=/exchange/artifacts/pages/hollowshunter/>
+<body data-url=/exchange/artifacts/pages/windows.system.wmiproviders/>
 <nav id=sidebar><div id=header-wrapper>
 <div id=header>
 <script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp('theme=darkmode');regex.test(document.cookie)?darkmode():lightmode()</script>
@@ -425,7 +425,7 @@
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/HollowsHunter.yaml target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/Windows.System.WMIProviders.yaml target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -438,7 +438,7 @@
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-Windows.Memory.HollowsHunter
+Windows.System.WMIProviders
 </span>
 </div>
 <div class=progress>
@@ -452,50 +452,62 @@ Windows.Memory.HollowsHunter
 </div>
 <div id=body-inner>
 <h1>
-Windows.Memory.HollowsHunter
+Windows.System.WMIProviders
 </h1>
-<p>Use hollows_hunter to detect suspicious process injections.</p>
-<p>Upload any findings to the server, including process dumps.</p>
-<pre><code class=language-yaml>name: Windows.Memory.HollowsHunter
+<p>List the WMI providers in the system.</p>
+<p>It is possible to laterally move by installing a fake provider in the system, and then calling
+it remotely. This artifact enumerates all WMI providers and recovers the binary that runs when
+loaded.</p>
+<p>Test using <a href=https://github.com/Cybereason/Invoke-WMILM>https://github.com/Cybereason/Invoke-WMILM</a> (Will run as SYSTEM)</p>
+<pre><code>Invoke-WMILM -Target localhost -Type Provider -Name notepad -Username test -Password test -Command notepad.exe
+</code></pre>
+<pre><code class=language-yaml>name: Windows.System.WMIProviders
 description: |
-   Use hollows_hunter to detect suspicious process injections.
-
-   Upload any findings to the server, including process dumps.
-
-tools:
- - name: hollows_hunter
-   github_project: hasherezade/hollows_hunter
-   github_asset_regex: hollows_hunter64.exe
-   serve_locally: true
-
-precondition:
-   SELECT OS From info() where OS = 'windows'
+   List the WMI providers in the system.
    
+   It is possible to laterally move by installing a fake provider in the system, and then calling
+   it remotely. This artifact enumerates all WMI providers and recovers the binary that runs when 
+   loaded.
+   
+   Test using https://github.com/Cybereason/Invoke-WMILM (Will run as SYSTEM)
+</code></pre>
+<p>Invoke-WMILM -Target localhost -Type Provider -Name notepad -Username test -Password test -Command notepad.exe</p>
+<pre><code>
+reference:
+- https://www.cybereason.com/blog/wmi-lateral-movement-win32
+
+type: CLIENT
+
+parameters:
+- name: BinaryIncludeRegex
+  default: .
+  type: regex 
+- name: BinaryExcludeRegex
+  type: regex
+- name: ServerTypeRegex
+  type: regex 
+  description: Only show these WMI provider types (e.g. LocalServer)
+
 sources:
-  - name: Output
-    query: |
-      -- Get the path to the hollows_hunter tool and a fresh temp directory.\
-      LET TempDir &lt;= tempdir(remove_last=TRUE)
-      LET binaries &lt;= SELECT FullPath
-      FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;hollows_hunter&quot;)
+- precondition:
+   SELECT OS From info() where OS = 'windows'
 
-      -- Run the tool and relay back the output, as well as upload all the files from the tempdir.
-      SELECT *
-      FROM execve(argv=[binaries[0].FullPath,&quot;/hooks&quot;,
-           &quot;/json&quot;, &quot;/dir&quot;, TempDir], sep=&quot;\n&quot;)
-           
-  - name: Summary
-    query: |
-      LET LookupPid(pid) = SELECT Name, CommandLine, Exe FROM pslist(pid=pid)
-
-      SELECT *, LookupPid(pid=pid)[0] AS ProcessInfo
-      FROM foreach(row=parse_json(
-            data=read_file(filename=TempDir + &quot;/summary.json&quot;)).suspicious)  
-            
-  - name: Uploads
-    query: |
-      SELECT upload(file=FullPath) AS Upload
-      FROM glob(globs=&quot;*&quot;, root=TempDir)
+ query: |
+     LET Hits = SELECT CLSID, Name, {
+         SELECT Data.value AS Binary, basename(path=dirname(path=FullPath)) AS ServerType
+         FROM glob(globs=&quot;/*Server*/@&quot;, root='''HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\''' + CLSID, accessor=&quot;reg&quot;)
+         WHERE CLSID
+         limit 1
+     } AS Details
+     FROM wmi(query=&quot;Select * from __Win32Provider &quot;)
+     
+     SELECT CLSID, Name, Details.ServerType AS ServerType, Details.Binary AS BinaryPath
+     FROM Hits
+     WHERE ServerType =~ ServerTypeRegex
+       AND BinaryPath =~ BinaryIncludeRegex
+       AND if(condition=BinaryExcludeRegex,
+         then=NOT BinaryPath =~ BinaryExcludeRegex,
+         else=TRUE)
 
 </code></pre>
 <footer class=footline>
