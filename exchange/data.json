@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Detection.CVE20214034",
+        "author": "scudette",
+        "description": "This artifact lists processes running as root that were spawns by processes that are not\nrunning as root. This kind of behavior is normal for things like sudo or su but for other\nprocesses (especially /bin/bash) it could represent a process launched via CVE-2021-4034.\n\nThe artifact looks for running processes with this property as well as search the auth\nlog files for evidence of past execution of this exploit.\n",
+        "link": "/exchange/artifacts/pages/linux.detection.cve20214034",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-01-26"
+    },
+    {
         "title": "Windows.Applications.DefenderDHParser",
         "author": "eduardomcm",
         "description": "This artifact leverages Windows Defender DetectionHistory tool to parse and return\nthe parameters of Windows Defender detections contained in Detection History files.\n",
