@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.System.LocationServices",
+        "author": "weslambert",
+        "description": "This artifact looks for applications that are registered and allowed for use of location services by checking the plist file in `/var/db/locationd/clients.plist`.  \nThis can be useful to help determine if these settings have been modified by an attacker to perform location tracking.\n\nFor more information about how location services could be abused, see the following:\n\nhttps://medium.com/@slyd0g/where-in-the-world-is-carmen-sandiego-abusing-location-services-on-macos-10e9f4eefb71\n",
+        "link": "/exchange/artifacts/pages/macos.system.locationservices",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-02-01"
+    },
+    {
         "title": "Linux.Detection.CVE20214034",
         "author": "scudette",
         "description": "This artifact lists processes running as root that were spawns by processes that are not\nrunning as root. This kind of behavior is normal for things like sudo or su but for other\nprocesses (especially /bin/bash) it could represent a process launched via CVE-2021-4034.\n\nThe artifact looks for running processes with this property as well as search the auth\nlog files for evidence of past execution of this exploit.\n",
