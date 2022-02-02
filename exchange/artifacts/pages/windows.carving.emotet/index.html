@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Carving.Emotet :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1643688809 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1643688809 rel=stylesheet>
-<link href=/css/featherlight.min.css?1643688809 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1643688809 rel=stylesheet>
-<link href=/css/auto-complete.css?1643688809 rel=stylesheet>
-<link href=/css/theme.css?1643688809 rel=stylesheet>
-<link href=/css/tabs.css?1643688809 rel=stylesheet>
-<link href=/css/hugo-theme.css?1643688809 rel=stylesheet>
-<link href=/css/theme-mine.css?1643688809 rel=stylesheet>
-<link href=/css/dark.css?1643688809 rel=stylesheet><link href=/css/syntax.css?1643688809 rel=stylesheet><link href=/css/light.css?1643688809 rel=stylesheet><link href=/css/hljs.css?1643688809 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1643688809 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1643688809></script>
+<link href=/css/nucleus.css?1643839378 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1643839378 rel=stylesheet>
+<link href=/css/featherlight.min.css?1643839378 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1643839378 rel=stylesheet>
+<link href=/css/auto-complete.css?1643839378 rel=stylesheet>
+<link href=/css/theme.css?1643839378 rel=stylesheet>
+<link href=/css/tabs.css?1643839378 rel=stylesheet>
+<link href=/css/hugo-theme.css?1643839378 rel=stylesheet>
+<link href=/css/theme-mine.css?1643839378 rel=stylesheet>
+<link href=/css/dark.css?1643839378 rel=stylesheet><link href=/css/syntax.css?1643839378 rel=stylesheet><link href=/css/light.css?1643839378 rel=stylesheet><link href=/css/hljs.css?1643839378 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1643839378 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1643839378></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -499,7 +499,7 @@ parameters:
             meta:
                 author = &quot;Eduardo Mattos&quot;
                 description = &quot;Emotet Payload - Based on kevoreilly's Emotet Payload Yara rule&quot;
-                reference = &quot; ttps://github.com/kevoreilly/CAPEv2/blob/master/modules/processing/parsers/mwcp/Emotet.py&quot;
+                reference = &quot;https://github.com/kevoreilly/CAPEv2/blob/master/modules/processing/parsers/mwcp/Emotet.py&quot;
             strings:
                 $snippetD = {8D 44 [2] 50 68 [4] FF 74 [2] FF 74 [2] 8B 54 [2] 8B 4C [2] E8 [4] 8B 54 [2] 83 C4 10 89 44 [2] 8B F8 03 44 [2] B9 [4] 89 44 [2] E9 [2] FF FF}
                 $snippetE = {FF 74 [2] 8D 54 [2] FF 74 [2] 68 [4] FF 74 [2] 8B 4C [2] E8 [4] 8B 54 [2] 83 C4 10 89 44 [2] 8B F8 03 44 [2] B9 [4] 89 44 [2] E9 [2] FF FF}
@@ -507,6 +507,12 @@ parameters:
                 $snippetG = {FF 74 [2] 8B 54 [2] 8D 44 [2] 8B 4C [2] 50 E8 [4] 8B D0 83 C4 0C 8B 44 [2] 8B FA 03 C2 89 54 [2] 89 44}
                 $snippetH = {FF 74 [2] 8D 84 [5] 68 [4] 50 FF 74 [2] 8B 54 [2] 8B 4C [2] E8 [4] 8B 94 [5] 83 C4 10 89 84 [5] 8B F8 03 84}
                 $snippetI = {FF 74 [2] 8D 8C [5] FF 74 [2] 8B 54 [2] E8 [4] 8B 54 [2] 8B D8 8B 84 [5] 83 C4 0C 03 C3 89 5C [2] 8B FB 89 44 24 74}
+                $snippetJ = {FF 74 [2] 8B 4C [2] 8D 44 [2] 50 BA [4] E8 [4] 8B 54 [2] 8B F8 59 89 44 [2] 03 44 [2] 59 89 44 [2] B9 [4] E9}
+                $snippetK = {FF 74 [2] FF 74 [2] 8B 54 [2] E8 [4] 8B 54 [2] 83 C4 0C 89 44 [2] 8B F8 03 44 [2] B9 [4] 89 44 [2] E9}
+                $snippetL = {FF 74 [2] 8B 54 [2] 8D 4C [2] E8 [4] 59 89 44 [2] 8B F8 03 44 [2] 59 89 44 24 68 B9 [4] E9}
+                $snippetM = {FF 74 [2] 8D 84 [3] 00 00 B9 [4] 50 FF 74 [2] FF 74 [2] 8B 94 [3] 00 00 E8 [4] 83 C4 10 89 44 [2] 8B F8 B9 [4] 03 84 [3] 00 00 89 44 [2] E9}
+                $snippetN = {FF 74 [2] 8D 44 [2] B9 [4] FF 74 [2] 50 FF 74 [2] 8B 54 [2] E8 [4] 8B 8C [3] 00 00 83 C4 10 03 C8 89 44 [2] 89 4C [2] 8B F8 B9 45 89 77 05 E9}
+                $snippetO = {8D 44 [2] B9 [4] 50 FF 74 [2] 8B 54 [2] E8 [4] 8B D0 8B 44 [2] 59 59 03 C2 89 54 [2] 8B FA 89 44 [2] B9 [4] E9}
             condition:
                 any of them
         }
@@ -528,6 +534,7 @@ sources:
                         WHERE Name =~ ProcessRegex
                             AND format(format=&quot;%d&quot;, args=Pid) =~ PidRegex
                             AND NOT Pid in me.Pid
+                            
         -- scan processes in scope with our DetectionYara
         LET processDetections &lt;= SELECT * FROM foreach(row=processes,
                                 query={
@@ -537,6 +544,7 @@ sources:
                                             FROM proc_yara(pid=Pid, rules=DetectionYara)
                                         })
                                 })
+                                
         -- scan files in scope with our DetectionYara
         LET fileDetections = SELECT * FROM foreach(row=targetFiles,
                                 query={
@@ -557,6 +565,7 @@ sources:
                                             FROM targetFiles
                                         })
                              })
+                             
         -- return the VAD region size from yara detections for later use
         LET regionDetections = SELECT *
                                 FROM foreach(row=processDetections,
@@ -593,10 +602,9 @@ sources:
         LET parsedDataSection = SELECT *,
                             parse_binary(filename=EmotetDataSectionData, accessor=&quot;data&quot;, profile='''[
                                 [&quot;EmotetC2Config&quot;, 0, [
-                                        [&quot;Key4Size&quot;, 0, &quot;String&quot;, {&quot;length&quot;: 1, &quot;term&quot;:&quot;&quot;}],
                                         [&quot;Key&quot;, 0, &quot;String&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;SizeEncoded&quot;, 4, &quot;String&quot;, {&quot;length&quot;: 1, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;C2List&quot;, 8, &quot;String&quot;, {&quot;length&quot;:&quot;x=&gt; parse_binary(accessor='data',filename=xor(string=x.SizeEncoded, key=x.Key4Size),struct='uint8')&quot;, &quot;term&quot;:&quot;&quot;}]
+                                        [&quot;SizeEncoded&quot;, 4, &quot;String&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;C2List&quot;, 8, &quot;String&quot;, {&quot;length&quot;:&quot;x=&gt; parse_binary(accessor='data',filename=xor(string=x.SizeEncoded, key=x.Key),struct='uint32')&quot;, &quot;term&quot;:&quot;&quot;}]
                                     ]
                                 ]
                             ]''', struct=&quot;EmotetC2Config&quot;) AS EmotetEncodedC2Conf
@@ -627,15 +635,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1643688809></script>
-<script src=/js/perfect-scrollbar.min.js?1643688809></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1643688809></script>
-<script src=/js/jquery.sticky.js?1643688809></script>
-<script src=/js/featherlight.min.js?1643688809></script>
-<script src=/js/highlight.min.js?1643688809></script>
+<script src=/js/clipboard.min.js?1643839378></script>
+<script src=/js/perfect-scrollbar.min.js?1643839378></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1643839378></script>
+<script src=/js/jquery.sticky.js?1643839378></script>
+<script src=/js/featherlight.min.js?1643839378></script>
+<script src=/js/highlight.min.js?1643839378></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1643688809></script>
-<script src=/js/learn.js?1643688809></script>
-<script src=/js/hugo-learn.js?1643688809></script>
+<script src=/js/modernizr.custom-3.6.0.js?1643839378></script>
+<script src=/js/learn.js?1643839378></script>
+<script src=/js/hugo-learn.js?1643839378></script>
 </body>
 </html>
