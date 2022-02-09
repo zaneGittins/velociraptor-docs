@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.CondensedAccountUsage",
+        "author": "Qazeer",
+        "description": "This artifact will extract condensed information on logon / logoff events.\n\nSecurity channel - EventIDs in 4624, 4625, 4634, 4647, 4648, 4672, 4778,\n4779, 4800, 4801, 4802, and 4803.\n\nExclude by default events related to:  \n  - UserName egal to SYSTEM, ANONYMOUS LOGON, LOCAL SERVICE, NETWORK\n    SERVICE, or %ComputerName%$.  \n  - Domain egal to NT AUTHORITY, Font Driver Host, or Window Manager.\n \nInspired from work by Brian Maloney and @0x47617279.  \nThanks to Mike Cohen (scudette) for its help optimizing the query.  \n",
+        "link": "/exchange/artifacts/pages/condensedaccountusage",
+        "tags": [],
+        "author_link": "https://github.com/Qazeer",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5614972?v=4",
+        "date": "2022-02-09"
+    },
+    {
         "title": "MacOS.System.LocationServices",
         "author": "weslambert",
         "description": "This artifact looks for applications that are registered and allowed for use of location services by checking the plist file in `/var/db/locationd/clients.plist`.  \nThis can be useful to help determine if these settings have been modified by an attacker to perform location tracking.\n\nFor more information about how location services could be abused, see the following:\n\nhttps://medium.com/@slyd0g/where-in-the-world-is-carmen-sandiego-abusing-location-services-on-macos-10e9f4eefb71\n",
