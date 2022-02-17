@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Basic VQL :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1645057811 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1645057811 rel=stylesheet>
-<link href=/css/featherlight.min.css?1645057811 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1645057811 rel=stylesheet>
-<link href=/css/auto-complete.css?1645057811 rel=stylesheet>
-<link href=/css/theme.css?1645057811 rel=stylesheet>
-<link href=/css/tabs.css?1645057811 rel=stylesheet>
-<link href=/css/hugo-theme.css?1645057811 rel=stylesheet>
-<link href=/css/theme-mine.css?1645057811 rel=stylesheet>
-<link href=/css/dark.css?1645057811 rel=stylesheet><link href=/css/syntax.css?1645057811 rel=stylesheet><link href=/css/light.css?1645057811 rel=stylesheet><link href=/css/hljs.css?1645057811 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1645057811 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1645057811></script>
+<link href=/css/nucleus.css?1645114405 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1645114405 rel=stylesheet>
+<link href=/css/featherlight.min.css?1645114405 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1645114405 rel=stylesheet>
+<link href=/css/auto-complete.css?1645114405 rel=stylesheet>
+<link href=/css/theme.css?1645114405 rel=stylesheet>
+<link href=/css/tabs.css?1645114405 rel=stylesheet>
+<link href=/css/hugo-theme.css?1645114405 rel=stylesheet>
+<link href=/css/theme-mine.css?1645114405 rel=stylesheet>
+<link href=/css/dark.css?1645114405 rel=stylesheet><link href=/css/syntax.css?1645114405 rel=stylesheet><link href=/css/light.css?1645114405 rel=stylesheet><link href=/css/hljs.css?1645114405 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1645114405 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1645114405></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -1516,6 +1516,34 @@ bash pid of all bash processes.</p>
 <h2 id=memoize>memoize</h2>
 <p><span class="vql_type pull-right">Function</span></p>
 <p>Memoize a query into memory.</p>
+<p>Memoizing a query means to cache the results of the query so they
+can be accessed quickly.</p>
+<p>Consider the following query:</p>
+<pre><code class=language-vql>LET ProcessDetails(ProcessPid) = SELECT Name, Pid, Ppid FROM pslist()
+  WHERE Pid=ProcessPid
+</code></pre>
+<p>This query retrieves the process details for any Pid such as the
+Name, Pid and parent Pid.</p>
+<p>While this query works, imagine having to use it in a large query
+to resolve many different processes. Each time the function is
+called the pslist() plugin is run over all processes and the
+correct process is selected - this can lead to thousands of
+pslist() executions!</p>
+<p>We can solve this by memoizing the results of the query -
+i.e. storing them in memory and retrieving a single row based on a
+key.</p>
+<pre><code class=language-vql>LET m &lt;= memoize(query={
+   SELECT str(str=Pid) AS Key, Name, Pid, Ppid FROM pslist()
+}, key='Key')
+</code></pre>
+<p>The <code>memoize()</code> function looks like a <code>dict()</code> and when accessed
+will automatically run the query once and cache its rows. The Key
+column of the query is used as the key of the dict.</p>
+<p>You can access the cache using the <code>get()</code> function or the <code>.</code>
+operator. If the key matches the entire row is retrieved:</p>
+<pre><code class=language-vql>SELECT get(item=m, field=str(str=Pid)).Name AS ProcessName
+FROM source()
+</code></pre>
 <div class=vqlargs></div>
 <table>
 <thead>
@@ -2572,15 +2600,15 @@ modern query based on the plugin version:</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1645057811></script>
-<script src=/js/perfect-scrollbar.min.js?1645057811></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1645057811></script>
-<script src=/js/jquery.sticky.js?1645057811></script>
-<script src=/js/featherlight.min.js?1645057811></script>
-<script src=/js/highlight.min.js?1645057811></script>
+<script src=/js/clipboard.min.js?1645114405></script>
+<script src=/js/perfect-scrollbar.min.js?1645114405></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1645114405></script>
+<script src=/js/jquery.sticky.js?1645114405></script>
+<script src=/js/featherlight.min.js?1645114405></script>
+<script src=/js/highlight.min.js?1645114405></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1645057811></script>
-<script src=/js/learn.js?1645057811></script>
-<script src=/js/hugo-learn.js?1645057811></script>
+<script src=/js/modernizr.custom-3.6.0.js?1645114405></script>
+<script src=/js/learn.js?1645114405></script>
+<script src=/js/hugo-learn.js?1645114405></script>
 </body>
 </html>
