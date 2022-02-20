@@ -6,17 +6,17 @@
 <meta name=description content>
 <link rel=icon href=/images/favicon.png type=image/png>
 <title>Windows.Carving.Qbot :: Velociraptor - Digging deeper!</title>
-<link href=/css/nucleus.css?1645114404 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1645114404 rel=stylesheet>
-<link href=/css/featherlight.min.css?1645114404 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1645114404 rel=stylesheet>
-<link href=/css/auto-complete.css?1645114404 rel=stylesheet>
-<link href=/css/theme.css?1645114404 rel=stylesheet>
-<link href=/css/tabs.css?1645114404 rel=stylesheet>
-<link href=/css/hugo-theme.css?1645114404 rel=stylesheet>
-<link href=/css/theme-mine.css?1645114404 rel=stylesheet>
-<link href=/css/dark.css?1645114404 rel=stylesheet><link href=/css/syntax.css?1645114404 rel=stylesheet><link href=/css/light.css?1645114404 rel=stylesheet><link href=/css/hljs.css?1645114404 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1645114404 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1645114404></script>
+<link href=/css/nucleus.css?1645356557 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1645356557 rel=stylesheet>
+<link href=/css/featherlight.min.css?1645356557 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1645356557 rel=stylesheet>
+<link href=/css/auto-complete.css?1645356557 rel=stylesheet>
+<link href=/css/theme.css?1645356557 rel=stylesheet>
+<link href=/css/tabs.css?1645356557 rel=stylesheet>
+<link href=/css/hugo-theme.css?1645356557 rel=stylesheet>
+<link href=/css/theme-mine.css?1645356557 rel=stylesheet>
+<link href=/css/dark.css?1645356557 rel=stylesheet><link href=/css/syntax.css?1645356557 rel=stylesheet><link href=/css/light.css?1645356557 rel=stylesheet><link href=/css/hljs.css?1645356557 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1645356557 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1645356557></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-QYH72LMYCS',{anonymize_ip:!1})}</script>
@@ -460,8 +460,8 @@ configurations.</p>
 <p>You may select specific file paths or processes to be
 yara-scanned, or allow it to yara-scan all memory space.</p>
 <p>Currently this artifact parses encrypted configurations from the
-Qbot variant introducted in April 2021. It will not parse the
-configurations from earlier variants.</p>
+Qbot variant introducted in February 2022. It will identify, but not
+parse the configurations from earlier variants.</p>
 <p>NOTE: This content simply carves the configuration and does not
 unpack files on disk. That means pointing this artifact as a
 packed or obfuscated file will not obtain the expected results.</p>
@@ -476,8 +476,8 @@ description: |
     yara-scanned, or allow it to yara-scan all memory space.
 
     Currently this artifact parses encrypted configurations from the
-    Qbot variant introducted in April 2021. It will not parse the
-    configurations from earlier variants.
+    Qbot variant introducted in February 2022. It will identify, but not 
+    parse the configurations from earlier variants.
 
     NOTE: This content simply carves the configuration and does not
     unpack files on disk.  That means pointing this artifact as a
@@ -512,6 +512,7 @@ parameters:
                 $decrypt_config2 = {8B 45 08 8B 88 24 04 00 00 51 8B 55 10 83 EA 14 52 8B 45 0C 83 C0 14 50 6A 14 8B 4D 0C 51 E8 6C 08 00 00}
                 $decrypt_config3 = {6A 13 8B CE 8B C3 5A 8A 18 3A 19 75 05 40 41 4A 75 F5 0F B6 00 0F B6 09 2B C1 74 05 83 C8 FF EB 0E}
                 $call_decrypt = {83 7D ?? 00 56 74 0B FF 75 10 8B F3 E8 [4] 59 8B 45 0C 83 F8 28 72 19 8B 55 08 8B 37 8D 48 EC 6A 14 8D 42 14 52 E8}
+                $mw_xor_key = {33 D2 8B ?? 6A 5A 5B F7 F3 8B 5D 08 8A 04 1A 8B 55 fC 8B 5D 10 3A 04 ?? 74 07 46 3B ?? 72 E1 EB 04}
             condition:
                 any of ($*)
         }
@@ -586,7 +587,7 @@ sources:
 
         -- return .rsrc section info
         LET sectionInfo &lt;= SELECT *,
-                                parse_pe(file=PEData, accessor=&quot;data&quot;).Sections[3] AS Sectionrsrc
+                                parse_pe(file=PEData, accessor=&quot;data&quot;).Sections[4] AS Sectionrsrc
                            FROM peData
 
         -- read the data from .rsrc sections
@@ -608,14 +609,12 @@ sources:
         LET parsedRdata = SELECT *,
                             parse_binary(filename=QBOTrsrcData, accessor=&quot;data&quot;, profile='''[
                                 [&quot;QbotRCData&quot;, 0, [
-                                        [&quot;__prefix&quot;, 0, &quot;String&quot;, {&quot;length&quot;: 104, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Address3719&quot;, 104, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Size3719&quot;, 108, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;__prefix2&quot;, 112, &quot;String&quot;, {&quot;length&quot;: 8, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Address5812&quot;, 120, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Size5812&quot;, 124, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Data3719&quot;, &quot;x=&gt; x.Address3719 - QBOTrsrcOffSet&quot;, &quot;String&quot;, {&quot;length&quot;: &quot;x=&gt; x.Size3719&quot;, &quot;term&quot;:&quot;&quot;}],
-                                        [&quot;Data5812&quot;, &quot;x=&gt; x.Address5812 - QBOTrsrcOffSet&quot;, &quot;String&quot;, {&quot;length&quot;: &quot;x=&gt; x.Size5812&quot;, &quot;term&quot;:&quot;&quot;}]
+                                        [&quot;AddressFirstRsc&quot;, 104, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;SizeFirstRsc&quot;, 108, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;AddressSecondRsc&quot;, 120, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;SizeSecondRsc&quot;, 124, &quot;uint32&quot;, {&quot;length&quot;: 4, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;EncBotInfo&quot;, &quot;x=&gt; x.AddressFirstRsc - QBOTrsrcOffSet&quot;, &quot;String&quot;, {&quot;length&quot;: &quot;x=&gt; x.SizeFirstRsc&quot;, &quot;term&quot;:&quot;&quot;}],
+                                        [&quot;EncC2Info&quot;, &quot;x=&gt; x.AddressSecondRsc - QBOTrsrcOffSet&quot;, &quot;String&quot;, {&quot;length&quot;: &quot;x=&gt; x.SizeSecondRsc&quot;, &quot;term&quot;:&quot;&quot;}]
                                     ]
                                 ]
                             ]''', struct=&quot;QbotRCData&quot;) AS RCDataSections
@@ -623,8 +622,8 @@ sources:
 
         -- rc4 decrypt the configurations
         LET decryptedInfo &lt;= SELECT *,
-                                format(format=&quot;%x&quot;, args=crypto_rc4(key=unhex(string=&quot;43a5b0bdb1b829bb796e3dbad916f7185f6a6b1a&quot;), string=RCDataSections.Data5812)) AS DecryptedBotInfo,
-                                format(format=&quot;%x&quot;, args=crypto_rc4(key=unhex(string=&quot;43a5b0bdb1b829bb796e3dbad916f7185f6a6b1a&quot;), string=RCDataSections.Data3719)) AS DecryptedC2Info
+                                format(format=&quot;%x&quot;, args=crypto_rc4(key=unhex(string=&quot;2fbafdc0451de65322a9aee65f28be319ad9574e&quot;), string=RCDataSections.EncC2Info)) AS DecryptedC2Info,
+                                format(format=&quot;%x&quot;, args=crypto_rc4(key=unhex(string=&quot;2fbafdc0451de65322a9aee65f28be319ad9574e&quot;), string=RCDataSections.EncBotInfo)) AS DecryptedBotInfo
                              FROM parsedRdata
 
         -- format the decrypted configurations
@@ -653,15 +652,15 @@ sources:
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1645114404></script>
-<script src=/js/perfect-scrollbar.min.js?1645114404></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1645114404></script>
-<script src=/js/jquery.sticky.js?1645114404></script>
-<script src=/js/featherlight.min.js?1645114404></script>
-<script src=/js/highlight.min.js?1645114404></script>
+<script src=/js/clipboard.min.js?1645356557></script>
+<script src=/js/perfect-scrollbar.min.js?1645356557></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1645356557></script>
+<script src=/js/jquery.sticky.js?1645356557></script>
+<script src=/js/featherlight.min.js?1645356557></script>
+<script src=/js/highlight.min.js?1645356557></script>
 <script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1645114404></script>
-<script src=/js/learn.js?1645114404></script>
-<script src=/js/hugo-learn.js?1645114404></script>
+<script src=/js/modernizr.custom-3.6.0.js?1645356557></script>
+<script src=/js/learn.js?1645356557></script>
+<script src=/js/hugo-learn.js?1645356557></script>
 </body>
 </html>
