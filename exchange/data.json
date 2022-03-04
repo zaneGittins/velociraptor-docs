@@ -463,16 +463,6 @@
         "date": "2021-07-14"
     },
     {
-        "title": "Windows.Memory.InjectedThread",
-        "author": "mgreen27",
-        "description": "Use Get-InjetedThreads to detect process injections.\nNote: this query is complex powershell. Run it after a scriptblock hunt.\n\nhttps://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2\nhttps://gist.github.com/mgreen27/1982aaae37a7afdd047db619bf17c8a1\n",
-        "link": "/exchange/artifacts/pages/get-injectedthread",
-        "tags": [],
-        "author_link": "https://github.com/mgreen27",
-        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
-        "date": "2021-07-14"
-    },
-    {
         "title": "Windows.Monitoring.PrintNightmare",
         "description": "This artifact returns ETW PrintService events for potential PrintNightmare activity.  \nCVE-2021-1675 and CVE-2021-34527  \n\nIt monitors for DRIVER_ADDED events and enriches with binary information for payload \nDataFile. Hunt for unexpected drivers with malicious DataFiles.\n",
         "link": "/exchange/artifacts/pages/printnightmaremonitor",
