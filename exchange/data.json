@@ -10,6 +10,16 @@
         "date": "2022-03-07"
     },
     {
+        "title": "Windows.Registry.HiddenUsers",
+        "author": "eduardomcm",
+        "description": "Find hidden user accounts through registry values on the filesystem.\n\nIn Windows, adversaries may hide user accounts via settings in the Registry. \nFor example, an adversary may add a value to the Windows Registry \n(via Reg or other means) that will hide the user \"test\" from \nthe Windows login screen: \n\nreg.exe ADD 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\SpecialAccountsUserList' /v test /t REG_DWORD /d 0 /f.\n\n* ATT&CK tactic: Defense Evasion, Hide Artifacts: Hidden Users\n* ATT&CK technique: T1564.002\n",
+        "link": "/exchange/artifacts/pages/hiddenusers",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2022-03-07"
+    },
+    {
         "title": "Windows.EventLogs.CondensedAccountUsage",
         "author": "Qazeer",
         "description": "This artifact will extract condensed information on logon / logoff events.\n\nSecurity channel - EventIDs in 4624, 4625, 4634, 4647, 4648, 4672, 4778,\n4779, 4800, 4801, 4802, and 4803.\n\nExclude by default events related to:  \n  - UserName egal to SYSTEM, ANONYMOUS LOGON, LOCAL SERVICE, NETWORK\n    SERVICE, or %ComputerName%$.  \n  - Domain egal to NT AUTHORITY, Font Driver Host, or Window Manager.\n \nInspired from work by Brian Maloney and @0x47617279.  \nThanks to Mike Cohen (scudette) for its help optimizing the query.  \n",
