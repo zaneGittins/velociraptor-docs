@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.BackupRestore",
+        "author": "mgreen27",
+        "description": "This artifact will return BackupRestore configuration.\n\nApplications that request or perform backup and restore operations can use \nthese keys to communicate with each other or with features such as the \nVolume Shadow Copy Service (VSS) and Windows Backup.\n",
+        "link": "/exchange/artifacts/pages/backuprestore",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-03-10"
+    },
+    {
         "title": "Windows.Detection.BinaryHunter",
         "author": "mgreen27",
         "description": "This artifact enables hunting for binary attributes.\n\nThe artifact takes a glob targetting input, then checks each file in scope for an MZ header. \nThe artifact also queries Authenticode details and parses out PE attributes.\n\nBoth PE and Authenticode output can be queried for relevant strings using a regex filter and whitelist to hunt with. \nThis enables unique capability to hunt for specific things such as PE imports, exports or other attributes.\n\nNote: this artifacts filters are cumulative so a hash based hit will return \nno results if the file is filtered out by other filters.  \nFor most performant searches leverage path, size and and date filters. By default \nthe artifact leverages the 'auto' data accessor but can also be changed as desired.  \n",
