@@ -1,312 +1,69 @@
-<!doctype html><html lang=en class="js csstransforms3d">
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.93.3">
-<meta name=description content="A common technique in DFIR is simply searching the filesystem for files. While this seems like a simple task, there are some surprising traps. This article covers some of the issues and possible solutions.
-">
-<link rel=icon href=/images/favicon.png type=image/png>
-<title>Searching for files :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1646912058 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1646912058 rel=stylesheet>
-<link href=/css/featherlight.min.css?1646912058 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1646912058 rel=stylesheet>
-<link href=/css/auto-complete.css?1646912058 rel=stylesheet>
-<link href=/css/theme.css?1646912058 rel=stylesheet>
-<link href=/css/tabs.css?1646912058 rel=stylesheet>
-<link href=/css/hugo-theme.css?1646912058 rel=stylesheet>
-<link href=/css/theme-mine.css?1646912058 rel=stylesheet>
-<link href=/css/dark.css?1646912058 rel=stylesheet><link href=/css/syntax.css?1646912058 rel=stylesheet><link href=/css/light.css?1646912058 rel=stylesheet><link href=/css/hljs.css?1646912058 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1646912058 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1646912058></script>
-<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-<script></script>
-</head><body data-url=/blog/2022/2022-01-05-searching-for-files-on-linux/>
-<nav id=sidebar><div id=header-wrapper>
-<div id=header>
-<script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script>
-<div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()>
-<i class="fas fa-moon"></i>
-</div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()>
-<i class="fas fa-sun"></i>
-</div><a href=https://docs.velociraptor.app/>
-<img src=https://docs.velociraptor.app//images/logo.svg>
-</a>
-</div></div><div class=highlightable>
-<ul class=topics>
-<li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/overview/>Velociraptor Overview</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/overview/history/>History</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/overview/support/>Support Policy</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/deployment/>Deployment</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/self-signed/>Self-Signed SSL</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/deployment/cloud/>Cloud Deployment</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/clients/>Deploying Clients</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/rbac/>Users and Roles</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/resources/>Performance</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/troubleshooting/>Troubleshooting</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/gui/>The Admin GUI</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/clients/>Inspecting clients</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/vfs/>The VFS</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/artifacts/>Artifacts</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/gui/hunting/>Hunting</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/vql/>VQL Fundamentals</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/notebooks/>Notebooks</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/artifacts/>Artifacts</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/vql/events/>Event Queries</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/forensic/>Forensic Analysis</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/filesystem/>Searching Filenames</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/searching/>Searching Content</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/ntfs/>NTFS Analysis</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/binary/>Binary parsing</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/event_logs/>Event Logs</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/forensic/volatile/>Volatile State</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/offline_triage/>Triage and acquisition</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/client_monitoring/>Client Monitoring</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/extending_vql/>Extending VQL</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/docs/server_automation/>Server Automation</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_api/>Server API</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a>
-</div></li></ul></li></ul></li><hr>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/basic/>Basic VQL</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/linux/>Linux Specific</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/windows/>Windows Specific</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/parsers/>Parsers</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/server/>Server Side</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/plugin/>Client Side</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/event/>Event Plugins</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/experimental/>Experimental</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/vql_reference/misc/>Misc</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren">
-<div><i class="fa fa-angle-right fa-sm category-icon"></i>
-<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a>
-</div><ul>
-<li data-nav-id=https://docs.velociraptor.app/presentations/2021_auscert/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_auscert/>Auscert 2021</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_dfrws_us/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_dfrws_us/>DFRWS US 2021 Workshop</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_osdfc/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_osdfc/>OSDFC 2021</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_blueteam_village/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2021_blueteam_village/>BTV 2021</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a>
-</div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren">
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a>
-</div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item>
-<div>
-<i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/search/><i class="fas fa-search"></i>Search</a>
-</div></li></ul><hr>
-<section id=shortcuts>
-<h3></h3><ul>
-<li>
-<a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a>
-</li><li>
-<a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a>
-</li><li>
-<a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a>
-</li></ul></section><section id=footer>
-<div class=footer-copyright>Brought to you by
-<img src=/images/Rapid7_logo.svg class=rapid7>
-<br> <i class="fas fa-copyright"></i> 2021
-</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script>
-<section id=body>
-<div id=overlay></div><div class="padding highlightable">
-<div>
-<div id=top-bar>
-<div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2022/2022-01-05-searching-for-files-on-linux/_index.md target=blank>
-<i class="fas fa-code-branch"></i>
-<span id=top-github-link-text>Edit this page</span>
-</a>
-</div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
-<span id=sidebar-toggle-span>
-<a href=# id=sidebar-toggle data-sidebar-toggle>
-<i class="fas fa-bars"></i>
-</a>
-</span>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.94.2"><meta name=description content="A common technique in DFIR is simply searching the filesystem for files. While this seems like a simple task, there are some surprising traps. This article covers some of the issues and possible solutions.
+"><link rel=icon href=/images/favicon.png type=image/png><title>Searching for files :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1647178400 rel=stylesheet><link href=/css/fontawesome-all.min.css?1647178400 rel=stylesheet><link href=/css/featherlight.min.css?1647178400 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1647178400 rel=stylesheet><link href=/css/auto-complete.css?1647178400 rel=stylesheet><link href=/css/theme.css?1647178400 rel=stylesheet><link href=/css/tabs.css?1647178400 rel=stylesheet><link href=/css/hugo-theme.css?1647178400 rel=stylesheet><link href=/css/theme-mine.css?1647178400 rel=stylesheet><link href=/css/dark.css?1647178400 rel=stylesheet><link href=/css/syntax.css?1647178400 rel=stylesheet><link href=/css/light.css?1647178400 rel=stylesheet><link href=/css/hljs.css?1647178400 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1647178400 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1647178400></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
+<script></script></head><body data-url=/blog/2022/2022-01-05-searching-for-files-on-linux/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/overview/support/>Support Policy</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/>Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/self-signed/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/self-signed/>Self-Signed SSL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/>Cloud Deployment</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/deployment/cloud/multifrontend/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/cloud/multifrontend/>Multi-Frontend</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/hunting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/gui/hunting/>Hunting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/vql/>VQL Fundamentals</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/vql/notebooks/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/notebooks/>Notebooks</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/artifacts/>Artifacts</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/vql/events/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/vql/events/>Event Queries</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/forensic/>Forensic Analysis</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/forensic/filesystem/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/filesystem/>Searching Filenames</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/searching/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/searching/>Searching Content</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/ntfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/ntfs/>NTFS Analysis</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/binary/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/binary/>Binary parsing</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/evidence_of_execution/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/evidence_of_execution/>Evidence Of Execution</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/event_logs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/event_logs/>Event Logs</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/forensic/volatile/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/forensic/volatile/>Volatile State</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/offline_triage/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/offline_triage/>Triage and acquisition</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/client_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/client_monitoring/>Client Monitoring</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/extending_vql/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/extending_vql/>Extending VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/server_automation/>Server Automation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_api/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_api/>Server API</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/server_automation/server_monitoring/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/server_automation/server_monitoring/>Server Monitoring</a></div></li></ul></li></ul></li><hr><li data-nav-id=https://docs.velociraptor.app/vql_reference/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/vql_reference/><i class="fas fa-book"></i>VQL Reference</a></div><ul><li data-nav-id=https://docs.velociraptor.app/vql_reference/basic/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/basic/>Basic VQL</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/linux/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/linux/>Linux Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/windows/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/windows/>Windows Specific</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/parsers/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/parsers/>Parsers</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/server/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/server/>Server Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/plugin/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/plugin/>Client Side</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/event/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/event/>Event Plugins</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/experimental/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/experimental/>Experimental</a></div></li><li data-nav-id=https://docs.velociraptor.app/vql_reference/misc/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/vql_reference/misc/>Misc</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/training/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/training/><i class="fas fa-graduation-cap"></i>Training</a></div></li><li data-nav-id=https://docs.velociraptor.app/blog/ class="dd-item parent haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/blog/><i class="fas fa-newspaper"></i>Blog</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/presentations/><i class="fas fa-chalkboard-teacher"></i>Presentations</a></div><ul><li data-nav-id=https://docs.velociraptor.app/presentations/2021_auscert/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2021_auscert/>Auscert 2021</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_dfrws_us/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2021_dfrws_us/>DFRWS US 2021 Workshop</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_osdfc/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2021_osdfc/>OSDFC 2021</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2021_blueteam_village/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2021_blueteam_village/>BTV 2021</a></div></li><li data-nav-id=https://docs.velociraptor.app/presentations/2022_linuxconf_au/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/presentations/2022_linuxconf_au/>Linux Conf Au 2022</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/exchange/ class="dd-item haschildren"><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/exchange/><i class="fas fa-code"></i>Artifact Exchange</a></div></li><li data-nav-id=https://docs.velociraptor.app/search/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/search/><i class="fas fa-search"></i>Search</a></div></li></ul><hr><section id=shortcuts><h3></h3><ul><li><a class=padding href=https://github.com/Velocidex/velociraptor><i class="fab fa-github"></i>Github</a></li><li><a class=padding href=https://docs.velociraptor.app/discord/><i class="fab fa-discord"></i>Discord</a></li><li><a class=padding href=mailto:velociraptor-discuss@googlegroups.com><i class="fas fa-envelope"></i>Mailing List</a></li></ul></section><section id=footer><div class=footer-copyright>Brought to you by
+<img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2021</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/scudette/velociraptor-docs/edit/master/content/blog/2022/2022-01-05-searching-for-files-on-linux/_index.md target=blank><i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>
-Searching for files
-</span>
-</div><div class=progress>
-<div class=wrapper>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#the-log4j-vulnerability>The Log4j vulnerability</a></li><li><a href=#following-symlinks>Following Symlinks</a></li><li><a href=#remote-filesystems>Remote filesystems</a></li></ul><ul>
-<li><a href=#excluding-recursion-into-certain-directories>Excluding recursion into certain directories</a></li><li><a href=#more-powerful-recursion-callbacks>More powerful recursion callbacks</a></li></ul></nav></div></div></div></div><div id=head-tags>
-<div class=tags>
-<a class=tag-link href=/tags/vql>VQL</a>
+<span class=links>Searching for files</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#the-log4j-vulnerability>The Log4j vulnerability</a></li><li><a href=#following-symlinks>Following Symlinks</a></li><li><a href=#remote-filesystems>Remote filesystems</a></li></ul><ul><li><a href=#excluding-recursion-into-certain-directories>Excluding recursion into certain directories</a></li><li><a href=#more-powerful-recursion-callbacks>More powerful recursion callbacks</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/vql>VQL</a>
 <a class=tag-link href=/tags/linux>Linux</a>
-<a class=tag-link href=/tags/searching>Searching</a>
-</div></div><div id=body-inner>
-<h1>
-Searching for files
-</h1><div class="author pull-right">
-Mike Cohen
-<span class=date>2022-01-05</span>
-</div><div class="mynotices tip">
-<div heading=tip><p>This article discusses new features appearing in Velociraptor&rsquo;s 0.6.3
+<a class=tag-link href=/tags/searching>Searching</a></div></div><div id=body-inner><h1>Searching for files</h1><div class="author pull-right">Mike Cohen
+<span class=date>2022-01-05</span></div><div class="mynotices tip"><div heading=tip><p>This article discusses new features appearing in Velociraptor&rsquo;s 0.6.3
 release. Earlier releases may not have the same features.</p></div></div><p>Many DFIR tasks involve simply searching the filesystem for certain
 files. In Velociraptor this capability is available through the
 <code>glob()</code> plugin, that uses a glob expressions (containing wild cards)
@@ -372,8 +129,7 @@ remote mounted filesystems. As an added bonus <code>-xdev</code> also prevents
 recursing into the <code>/proc</code> filesystem (which can be problematic as
 described above)</p><p>Unfortunately many Unix systems have separate partitions for <code>/home</code>,
 <code>/usr</code> or <code>/boot</code> and so preventing recursion into other filesystems
-can prevent finding files in those partitions.</p><div class="mynotices note">
-<div heading=" Bind mounts "><p>In Linux it is possible to create a <code>bind</code> mount using the <code>--bind</code>
+can prevent finding files in those partitions.</p><div class="mynotices note"><div heading=" Bind mounts "><p>In Linux it is possible to create a <code>bind</code> mount using the <code>--bind</code>
 flag to mount another directory again inside a mount point
 directory. This is similar to a symlink in the sense that it may point
 further up the directory tree creating extra work for the <code>find</code>
@@ -395,15 +151,9 @@ FROM glob(globs=&quot;/**/*.pem&quot;)
 plugin by default follows symlinks and as soon as the glob plugin
 enters the <code>/proc</code> directory the plugin will likely encounter a
 symlink further up the filesystem (usually back to /) and continue
-recursing through that.</p><p>
-<figure>
-<img src=glob_proc.png alt="Recursing through the /proc filesystem" class=captioned>
-<figcaption>Recursing through the /proc filesystem</figcaption></figure></p><p>We can disable following symlinks using the nosymlink option to
+recursing through that.</p><p><figure><img src=glob_proc.png alt="Recursing through the /proc filesystem" class=captioned><figcaption>Recursing through the /proc filesystem</figcaption></figure></p><p>We can disable following symlinks using the nosymlink option to
 glob. However this query will also take a very long time on this
-system:</p><p>
-<figure>
-<img src=glob_network.png alt="Recursing into a network mount" class=captioned>
-<figcaption>Recursing into a network mount</figcaption></figure></p><p>This test system has a large remote filesystem mounted on <code>/shared/</code>
+system:</p><p><figure><img src=glob_network.png alt="Recursing into a network mount" class=captioned><figcaption>Recursing into a network mount</figcaption></figure></p><p>This test system has a large remote filesystem mounted on <code>/shared/</code>
 so any recursion into that directory will be very slow.</p><h2 id=excluding-recursion-into-certain-directories>Excluding recursion into certain directories</h2><p>Supposed that in this case we don&rsquo;t really care about remote
 filesystems, we just want to search for pem files in the local
 system. We know that certain directories should be excluded so we
@@ -421,10 +171,7 @@ the <code>glob()</code> plugin can accept a <code>recursion_callback</code> argu
 is a VQL lambda function that receives the full row and return a
 boolean to decide if the directory should be recursed into. If the
 lambda returns FALSE, the glob plugin does not bother to enter the
-directory at all, therefore saving a lot of effort.</p><p>
-<figure>
-<img src=glob_recursion_callback.png alt="Controlling recursion in the glob plugin" class=captioned>
-<figcaption>Controlling recursion in the glob plugin</figcaption></figure></p><p>In the above example, we used the VQL lambda returning true only for directories that have a path not starting with <code>shared</code> or <code>proc</code> or <code>snap</code>:</p><pre><code class=language-vql>x =&gt; NOT x.FullPath =~ '^/(shared|proc|snap)'
+directory at all, therefore saving a lot of effort.</p><p><figure><img src=glob_recursion_callback.png alt="Controlling recursion in the glob plugin" class=captioned><figcaption>Controlling recursion in the glob plugin</figcaption></figure></p><p>In the above example, we used the VQL lambda returning true only for directories that have a path not starting with <code>shared</code> or <code>proc</code> or <code>snap</code>:</p><pre><code class=language-vql>x =&gt; NOT x.FullPath =~ '^/(shared|proc|snap)'
 </code></pre><h2 id=more-powerful-recursion-callbacks>More powerful recursion callbacks</h2><p>While controlling recursion using the directory path works well on
 this system, we typically want to develop a more generalized solution
 that we can apply to more systems. Ultimately, we can not predict
@@ -472,10 +219,7 @@ responsible for this filesystem, listed in <code>/proc/devices</code>:</p><pre><
 254 mdp
 259 blkext
 </code></pre><p>The glob plugin can provide filesystem specific information in the
-<code>Data</code> column:</p><p>
-<figure>
-<img src=device_major.png alt="Device major and minor numbers" class=captioned>
-<figcaption>Device major and minor numbers</figcaption></figure></p><p>Major numbers larger than 7 are considered &ldquo;local&rdquo;. The following
+<code>Data</code> column:</p><p><figure><img src=device_major.png alt="Device major and minor numbers" class=captioned><figcaption>Device major and minor numbers</figcaption></figure></p><p>Major numbers larger than 7 are considered &ldquo;local&rdquo;. The following
 query can therefore stay on the locally attached devices excluding the
 loopback mounted filesystems:</p><pre><code class=language-vql>SELECT FullPath
 FROM glob(globs='/**/*.pem',
@@ -498,19 +242,12 @@ recursion to a single filesystem. Any custom code needs to replicate
 these mechanisms.</p><p>Velociraptor&rsquo;s <code>glob()</code> plugin has fine grained controls allowing
 coverage of only a small set of filesystem types, or mount
 points. This allows Velociraptor to safely search the entire system
-for files balancing coverage with the risk following symlinks.</p><footer class=footline>
-</footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div><div id=navigation>
-</div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1646912058></script>
-<script src=/js/perfect-scrollbar.min.js?1646912058></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1646912058></script>
-<script src=/js/jquery.sticky.js?1646912058></script>
-<script src=/js/featherlight.min.js?1646912058></script>
-<script src=/js/highlight.min.js?1646912058></script>
-<script>hljs.highlightAll()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1646912058></script>
-<script src=/js/learn.js?1646912058></script>
-<script src=/js/hugo-learn.js?1646912058></script>
-</body></html>
+for files balancing coverage with the risk following symlinks.</p><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1647178400></script>
+<script src=/js/perfect-scrollbar.min.js?1647178400></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1647178400></script>
+<script src=/js/jquery.sticky.js?1647178400></script>
+<script src=/js/featherlight.min.js?1647178400></script>
+<script src=/js/highlight.min.js?1647178400></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1647178400></script>
+<script src=/js/learn.js?1647178400></script>
+<script src=/js/hugo-learn.js?1647178400></script></body></html>

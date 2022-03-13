@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.System.PowerEfficiencyDiagnostics",
+        "author": "eduardomcm",
+        "description": "This artifact parses the XML Energy Reports from the Power Efficiency \nDiagnostics feature of Windows, returning the processes which had high \nCPU usage, including which \n\nSome tools utilized by threat actors will generate high CPU usage and so \nare recorded in these reports.\n",
+        "link": "/exchange/artifacts/pages/powerefficiencydiagnostics",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2022-03-13"
+    },
+    {
         "title": "Windows.Registry.BackupRestore",
         "author": "mgreen27",
         "description": "This artifact will return BackupRestore configuration.\n\nApplications that request or perform backup and restore operations can use \nthese keys to communicate with each other or with features such as the \nVolume Shadow Copy Service (VSS) and Windows Backup.\n",
