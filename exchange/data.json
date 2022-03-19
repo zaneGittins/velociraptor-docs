@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Carving.IcedID",
+        "author": "eduardomcm",
+        "description": "This artifact yara-scans memory or unpacked DLL samples for IcedID trojan (also\nknown as BokBot, or Anubis) detections, finds, decodes and returns the \nCampaign ID and C2 configurations.\n\nYou may select specific file paths or processes to be\nyara-scanned, or allow it to yara-scan all memory space.\n\nNOTE: This content simply carves the configuration and does not\nunpack files on disk.  That means pointing this artifact as a\npacked or obfuscated file will not obtain the expected results.\n",
+        "link": "/exchange/artifacts/pages/windows.carving.icedid",
+        "tags": [],
+        "author_link": "https://github.com/eduardomcm",
+        "author_avatar": "https://avatars.githubusercontent.com/u/49650494?v=4",
+        "date": "2022-03-19"
+    },
+    {
         "title": "Windows.System.PowerEfficiencyDiagnostics",
         "author": "eduardomcm",
         "description": "This artifact parses the XML Energy Reports from the Power Efficiency \nDiagnostics feature of Windows, returning the processes which had high \nCPU usage, including which \n\nSome tools utilized by threat actors will generate high CPU usage and so \nare recorded in these reports.\n",
