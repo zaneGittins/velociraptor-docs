@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.Office.MRU",
+        "author": "Sam0rai",
+        "description": "This artifact enables hunting for recently used Office Documents.",
+        "link": "/exchange/artifacts/pages/windows.office.mru",
+        "tags": [],
+        "author_link": "https://github.com/Sam0rai",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4671530?v=4",
+        "date": "2022-03-24"
+    },
+    {
         "title": "MacOS.Applications.Safari.History",
         "author": "Seeps",
         "description": "Parses Safari history database\n",
