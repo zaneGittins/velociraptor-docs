@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.RDPClientActivity",
+        "author": "NorthwaveCERT",
+        "description": "This artifact retrieves outgoing RDP session activity from the\nMicrosoft-Windows-TerminalServices-RDPClient event logs. It aggregates\nsessions based on ActivityID and outputs hostname, timeframe and disconnect reasons.\nDisconnect reason is filled using a dict that was filled using MS Docs (see references)",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.rdpclientactivity",
+        "tags": [],
+        "author_link": "https://github.com/NorthwaveCERT",
+        "author_avatar": "https://avatars.githubusercontent.com/u/96190431?v=4",
+        "date": "2022-03-24"
+    },
+    {
         "title": "Custom.Windows.Office.MRU",
         "author": "Sam0rai",
         "description": "This artifact enables hunting for recently used Office Documents.",
