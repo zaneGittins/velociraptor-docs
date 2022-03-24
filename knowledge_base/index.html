@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.95.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Knowledge Base :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1648104394 rel=stylesheet><link href=/css/fontawesome-all.min.css?1648104394 rel=stylesheet><link href=/css/featherlight.min.css?1648104394 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1648104394 rel=stylesheet><link href=/css/auto-complete.css?1648104394 rel=stylesheet><link href=/css/theme.css?1648104394 rel=stylesheet><link href=/css/tabs.css?1648104394 rel=stylesheet><link href=/css/hugo-theme.css?1648104394 rel=stylesheet><link href=/css/theme-mine.css?1648104394 rel=stylesheet><link href=/css/dark.css?1648104394 rel=stylesheet><link href=/css/syntax.css?1648104394 rel=stylesheet><link href=/css/light.css?1648104394 rel=stylesheet><link href=/css/hljs.css?1648104394 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1648104394 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1648104394></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.95.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Knowledge Base :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1648117229 rel=stylesheet><link href=/css/fontawesome-all.min.css?1648117229 rel=stylesheet><link href=/css/featherlight.min.css?1648117229 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1648117229 rel=stylesheet><link href=/css/auto-complete.css?1648117229 rel=stylesheet><link href=/css/theme.css?1648117229 rel=stylesheet><link href=/css/tabs.css?1648117229 rel=stylesheet><link href=/css/hugo-theme.css?1648117229 rel=stylesheet><link href=/css/theme-mine.css?1648117229 rel=stylesheet><link href=/css/dark.css?1648117229 rel=stylesheet><link href=/css/syntax.css?1648117229 rel=stylesheet><link href=/css/light.css?1648117229 rel=stylesheet><link href=/css/hljs.css?1648117229 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1648117229 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1648117229></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/knowledge_base/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -77,20 +77,16 @@ format. <b>Remember</b>: The aim of this article is to
 quickly answer an immediate need for users who may not be
 familiar with Velociraptor or DFIR in general. It should
 have pointers for further research or links to other
-knowledge base articles.</p><p><pre><code class="language-text hljs">
+knowledge base articles.</p><p><pre class=code>
 # The article should begin with a title (start with #)...
 <br>
-The title should be in the form of a question or task - for example: `How do I search for malicious downloaded files?` (The website will use the first heading as the searchable title.)
-<p>The first paragraph after the title should be a short description of the kb article. It will be searchable on the main knowledge base page.
-<br>
-The rest of the article is normal markdown. You can also include screenshots by simply pasting them into the github editor.
-<br>
-You can tag your tip using the following syntax. A line starting with <b>Tags:</b> will be removed from the final text. For example:
-<br>
-Tags: #deployment, #vql
-<br>
-Once you finish writing the article, simply save it to a local branch and send a pull request.
-</code></pre></p></p></div><div class=modal-footer><a href=https://github.com/Velocidex/velociraptor-docs/new/master/content/knowledge_base/tips target=_blank class="btn btn-primary btn-lg right"><i class="fab fa-github"></i>&nbsp;Contribute</a></div></div></div></div><hr><div class="row search_results"></div><script>let all_data=[];$.ajax({url:"/kb/data.json"}).done(function(e){all_data=e,DrawResults(e)});function doSearch(){let t=document.getElementById("myInput"),n=t.value.toUpperCase(),e=[];for(let t=0;t<all_data.length;t++){let s=all_data[t];s.title.toUpperCase().includes(n)&&e.push(s)}DrawResults(e)}function DrawResults(e){$(".search_results").empty();for(let s=0;s<e.length;s++){let t=e[s],n=$(`<div class="panel panel-default color">
+The title should be in the form of a question or task - for example: <b>"How do I search for malicious downloaded files?"</b> (The website will use the first heading as the searchable title.)
+<p>The first paragraph after the title should be a short description of the kb article. It will be searchable on the main knowledge base page.</p>
+<p>The rest of the article is normal markdown. You can also include screenshots by simply pasting them into the github editor.</p>
+<p>You can tag your tip using the following syntax. A line starting with Tags: will be removed from the final text. For example:</p>
+<p>Tags: #deployment, #vql</p>
+<p>Once you finish writing the article, simply save it to a local branch and send a pull request.
+</pre></p></div><div class=modal-footer><a href=https://github.com/Velocidex/velociraptor-docs/new/master/content/knowledge_base/tips target=_blank class="btn btn-primary btn-lg right"><i class="fab fa-github"></i> Contribute</a></div></div></p></div></div><hr><div class="row search_results"></div><script>let all_data=[];$.ajax({url:"/kb/data.json"}).done(function(e){all_data=e,DrawResults(e)});function doSearch(){let t=document.getElementById("myInput"),n=t.value.toUpperCase(),e=[];for(let t=0;t<all_data.length;t++){let s=all_data[t];s.title.toUpperCase().includes(n)&&e.push(s)}DrawResults(e)}function DrawResults(e){$(".search_results").empty();for(let s=0;s<e.length;s++){let t=e[s],n=$(`<div class="panel panel-default color">
   <div class="panel-heading color">
     <a class="title" href=""><h3 class="panel-title color " ></h3></a>
     <div class="date pull-right"></div>
@@ -108,12 +104,12 @@ Once you finish writing the article, simply save it to a local branch and send a
       </div>
      </div>
    </div>
-  </div>`);n.find(".title").append(t.title),n.find(".user-name-link").append(t.author),n.find(".description").append(t.description),n.find(".user-name-link").attr("href",t.author_link),n.find(".user-avatar").attr("src",t.author_avatar),n.find(".title").attr("href",t.link),n.find(".date").append(t.date);for(let e=0;e<t.tags.length;e++){let s=t.tags[e];n.find(".idea-tag").append(`<i class="linkcolour label label-success">`+s+`</i>&nbsp;`)}let o=$(".search_results").append(n)}}</script><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1648104394></script>
-<script src=/js/perfect-scrollbar.min.js?1648104394></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1648104394></script>
-<script src=/js/jquery.sticky.js?1648104394></script>
-<script src=/js/featherlight.min.js?1648104394></script>
-<script src=/js/highlight.min.js?1648104394></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1648104394></script>
-<script src=/js/learn.js?1648104394></script>
-<script src=/js/hugo-learn.js?1648104394></script></body></html>
+  </div>`);n.find(".title").append(t.title),n.find(".user-name-link").append(t.author),n.find(".description").append(t.description),n.find(".user-name-link").attr("href",t.author_link),n.find(".user-avatar").attr("src",t.author_avatar),n.find(".title").attr("href",t.link),n.find(".date").append(t.date);for(let e=0;e<t.tags.length;e++){let s=t.tags[e];n.find(".idea-tag").append($(`<a class="tag">`).attr("href","/tags/"+s).append(`<i class="linkcolour tag label label-success">`+s+`</i>&nbsp;`))}let o=$(".search_results").append(n)}}</script><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1648117229></script>
+<script src=/js/perfect-scrollbar.min.js?1648117229></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1648117229></script>
+<script src=/js/jquery.sticky.js?1648117229></script>
+<script src=/js/featherlight.min.js?1648117229></script>
+<script src=/js/highlight.min.js?1648117229></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1648117229></script>
+<script src=/js/learn.js?1648117229></script>
+<script src=/js/hugo-learn.js?1648117229></script></body></html>
