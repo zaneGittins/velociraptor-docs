@@ -1,5 +1,16 @@
 [
     {
+        "title": "In VQL, can I SELECT a column with special characters in its name?",
+        "link": "/knowledge_base/tips/identifier_with_space",
+        "tags": [
+            "vql"
+        ],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-03-27"
+    },
+    {
         "title": "How can I automatically apply labels to clients?",
         "link": "/knowledge_base/tips/automating_labels",
         "tags": [
