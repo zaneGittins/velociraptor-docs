@@ -1,5 +1,14 @@
 [
     {
+        "title": "How to increase notebook timeout",
+        "link": "/knowledge_base/tips/notebook_timeout",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-03-29"
+    },
+    {
         "title": "In VQL, can I SELECT a column with special characters in its name?",
         "link": "/knowledge_base/tips/identifier_with_space",
         "tags": [
