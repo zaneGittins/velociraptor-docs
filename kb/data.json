@@ -2,7 +2,9 @@
     {
         "title": "How to increase notebook timeout",
         "link": "/knowledge_base/tips/notebook_timeout",
-        "tags": [],
+        "tags": [
+            "configuration"
+        ],
         "author": "scudette",
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
