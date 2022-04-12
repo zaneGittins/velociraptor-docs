@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Applications.DefenderHistory",
+        "author": "rmakuch",
+        "description": "This artifact parses the Windows Defender files generated on threat detection and returns\nthe contained parameters created by Windows Defender about the detected threat. ",
+        "link": "/exchange/artifacts/pages/windows.applications.defenderhistory",
+        "tags": [],
+        "author_link": "https://github.com/rmakuch",
+        "author_avatar": "https://avatars.githubusercontent.com/u/33912291?v=4",
+        "date": "2022-04-12"
+    },
+    {
         "title": "MacOS.Applications.Safari.Downloads",
         "author": "Seeps",
         "description": "Parses Safari downloads for all standard macOS users",
