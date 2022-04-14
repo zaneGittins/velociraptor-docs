@@ -10,6 +10,16 @@
         "date": "2022-04-14"
     },
     {
+        "title": "Custom.Windows.Registry.CortexEDRDisabled",
+        "author": "Rhysistance",
+        "description": "This artifact will attempt to identify Cortex EDR that has been disabled via regkey\n",
+        "link": "/exchange/artifacts/pages/windows.registry.disabledcortexxdr",
+        "tags": [],
+        "author_link": "https://github.com/Rhysistance",
+        "author_avatar": "https://avatars.githubusercontent.com/u/93743676?v=4",
+        "date": "2022-04-14"
+    },
+    {
         "title": "Windows.Applications.DefenderHistory",
         "author": "rmakuch",
         "description": "This artifact parses the Windows Defender files generated on threat detection and returns\nthe contained parameters created by Windows Defender about the detected threat. ",
