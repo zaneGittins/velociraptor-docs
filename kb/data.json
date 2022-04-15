@@ -1,5 +1,17 @@
 [
     {
+        "title": "How do I set a proxy for client communications?",
+        "link": "/knowledge_base/tips/proxy",
+        "tags": [
+            "configuration",
+            "deployment"
+        ],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-04-15"
+    },
+    {
         "title": "How to increase notebook timeout",
         "link": "/knowledge_base/tips/notebook_timeout",
         "tags": [
@@ -24,7 +36,10 @@
     {
         "title": "How do I upgrade my server and clients?",
         "link": "/knowledge_base/tips/upgrading",
-        "tags": [],
+        "tags": [
+            "configuration",
+            "admin"
+        ],
         "author": "scudette",
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
