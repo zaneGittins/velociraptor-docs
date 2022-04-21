@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.TaskCache.HiddenTasks",
+        "author": "svch0stz",
+        "description": "This artefact will highlight any scheduled tasks missing the Security Descriptor (SD) value in the task cache. Without this value, the task is hidden from common query methods. ",
+        "link": "/exchange/artifacts/pages/windows.registry.taskcache.hiddentasks",
+        "tags": [],
+        "author_link": "https://github.com/svch0stz",
+        "author_avatar": "https://avatars.githubusercontent.com/u/8684257?v=4",
+        "date": "2022-04-21"
+    },
+    {
         "title": "Windows.NTFS.Timestomp",
         "author": "mgreen27",
         "description": "This artifact enables triage to detect potential time stomped files.",
