@@ -515,7 +515,7 @@
             {
                 "name": "ops_per_sec",
                 "type": "int64",
-                "description": "Rate limiting for collections (deprecated)."
+                "description": "Rate limiting for collections."
             },
             {
                 "name": "cpu_limit",
@@ -526,16 +526,6 @@
                 "name": "iops_limit",
                 "type": "float64",
                 "description": "Set query iops_limit value"
-            },
-            {
-                "name": "progress_timeout",
-                "type": "float64",
-                "description": "If no progress is detected in this many seconds, we terminate the query and output debugging information"
-            },
-            {
-                "name": "timeout",
-                "type": "float64",
-                "description": "Total amount of time in seconds, this collection will take. Collection is cancelled when timeout is exceeded."
             }
         ],
         "category": "plugin"
@@ -1648,8 +1638,8 @@
             {
                 "name": "hashselect",
                 "type": "string",
-                "description": "The hash function to use (MD5,SHA1,SHA256)",
-                "repeated": true
+                "repeated": true,
+                "description": "The hash function to use (MD5,SHA1,SHA256)"
             }
         ],
         "category": "plugin"
@@ -1921,11 +1911,11 @@
             },
             {
                 "name": "then",
-                "type": "types.LazyAny"
+                "type": "LazyExpr"
             },
             {
                 "name": "else",
-                "type": "types.LazyAny"
+                "type": "LazyExpr"
             }
         ],
         "category": "basic"
@@ -3727,16 +3717,6 @@
                 "name": "cpu_limit",
                 "type": "float64",
                 "description": "Average CPU usage in percent of a core."
-            },
-            {
-                "name": "iops_limit",
-                "type": "float64",
-                "description": "Average IOPs to target."
-            },
-            {
-                "name": "progress_timeout",
-                "type": "float64",
-                "description": "If no progress is detected in this many seconds, we terminate the query and output debugging information"
             }
         ]
     },
@@ -4517,11 +4497,6 @@
                 "name": "skip_verify",
                 "type": "bool",
                 "description": "Skip SSL verification(default: False)."
-            },
-            {
-                "name": "root_ca",
-                "type": "string",
-                "description": "As a better alternative to disable_ssl_security, allows root ca certs to be added here."
             },
             {
                 "name": "wait_time",
