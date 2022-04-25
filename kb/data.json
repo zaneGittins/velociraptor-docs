@@ -1,5 +1,17 @@
 [
     {
+        "title": "How do I search for registry keys",
+        "link": "/knowledge_base/tips/registry_finder",
+        "tags": [
+            "forensics",
+            "searching"
+        ],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-04-25"
+    },
+    {
         "title": "How do I use my own SSL certificates?",
         "link": "/knowledge_base/tips/ssl",
         "tags": [],
