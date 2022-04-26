@@ -1,9 +1,10 @@
 [
     {
-        "title": "What do I do about \"version GLIBC_2.14 not found\" errors?",
-        "link": "/knowledge_base/tips/glibc_errors",
+        "title": "How can I save my favorite collections for the future?",
+        "link": "/knowledge_base/tips/favorites",
         "tags": [
-            "deployment"
+            "configuration",
+            "GUI"
         ],
         "author": "scudette",
         "author_link": "https://github.com/scudette",
@@ -11,10 +12,33 @@
         "date": "2022-04-26"
     },
     {
+        "title": "What do I do about \"version GLIBC_2.14 not found\" errors?",
+        "link": "/knowledge_base/tips/glibc_errors",
+        "tags": [
+            "deployment"
+        ],
+        "author": "scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
+        "date": "2022-04-26"
+    },
+    {
         "title": "How can I override the configuration file?",
         "link": "/knowledge_base/tips/merging_config",
         "tags": [
             "configuration"
+        ],
+        "author": "scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
+        "date": "2022-04-26"
+    },
+    {
+        "title": "How to fix \"certificate has expired or not yet valid error\"?",
+        "link": "/knowledge_base/tips/rolling_certificates",
+        "tags": [
+            "configuration",
+            "deployment"
         ],
         "author": "scudette",
         "author_link": "https://github.com/scudette",
@@ -29,8 +53,8 @@
             "configuration"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-04-26"
     },
     {
