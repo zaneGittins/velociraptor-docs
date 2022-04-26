@@ -1,5 +1,14 @@
 [
     {
+        "title": "What do I do about `version GLIBC_2.14 not found` errors?",
+        "link": "/knowledge_base/tips/glibc_errors",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-04-26"
+    },
+    {
         "title": "How do I search for registry keys",
         "link": "/knowledge_base/tips/registry_finder",
         "tags": [
@@ -7,17 +16,20 @@
             "searching"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-04-25"
     },
     {
         "title": "How do I use my own SSL certificates?",
         "link": "/knowledge_base/tips/ssl",
-        "tags": [],
+        "tags": [
+            "configuration",
+            "deployment"
+        ],
         "author": "ajburnell",
-        "author_link": "https://github.com/ajburnell",
         "author_avatar": "https://avatars.githubusercontent.com/u/30587915?v=4",
+        "author_link": "https://github.com/ajburnell",
         "date": "2022-04-18"
     },
     {
@@ -28,8 +40,8 @@
             "deployment"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-04-15"
     },
     {
@@ -39,8 +51,8 @@
             "configuration"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-03-29"
     },
     {
@@ -50,8 +62,8 @@
             "vql"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-03-27"
     },
     {
@@ -62,8 +74,8 @@
             "admin"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-03-27"
     },
     {
@@ -74,8 +86,8 @@
             "labels"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-03-26"
     },
     {
