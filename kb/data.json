@@ -1,8 +1,33 @@
 [
     {
-        "title": "What do I do about `version GLIBC_2.14 not found` errors?",
+        "title": "What do I do about \"version GLIBC_2.14 not found\" errors?",
         "link": "/knowledge_base/tips/glibc_errors",
-        "tags": [],
+        "tags": [
+            "deployment"
+        ],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-04-26"
+    },
+    {
+        "title": "How can I override the configuration file?",
+        "link": "/knowledge_base/tips/merging_config",
+        "tags": [
+            "configuration"
+        ],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-04-26"
+    },
+    {
+        "title": "What is the easiest way to have Velociraptor start with a custom server artifact automatically loaded?",
+        "link": "/knowledge_base/tips/startup_artifacts",
+        "tags": [
+            "deployment",
+            "configuration"
+        ],
         "author": "scudette",
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
