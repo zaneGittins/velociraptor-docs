@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.PrefetchHunter",
+        "author": "mgreen27",
+        "description": "This artifact enables hunting prefetch entries for accessed files of interest. ",
+        "link": "/exchange/artifacts/pages/prefetchhunter",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-04-27"
+    },
+    {
         "title": "Windows.Registry.TaskCache.HiddenTasks",
         "author": "svch0stz",
         "description": "This artefact will highlight any scheduled tasks missing the Security Descriptor (SD) value in the task cache. Without this value, the task is hidden from common query methods. ",
