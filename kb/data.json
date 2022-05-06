@@ -1,5 +1,14 @@
 [
     {
+        "title": "How can I quickly reconfigure an offline collector?",
+        "link": "/knowledge_base/tips/reconfigure_offline_collector",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-05-06"
+    },
+    {
         "title": "How can I save my favorite collections for the future?",
         "link": "/knowledge_base/tips/favorites",
         "tags": [
