@@ -1,5 +1,14 @@
 [
     {
+        "title": "Applying labels to hunt results",
+        "link": "/knowledge_base/tips/huntlabel",
+        "tags": [],
+        "author": "mgreen27",
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-05-20"
+    },
+    {
         "title": "How can I quickly reconfigure an offline collector?",
         "link": "/knowledge_base/tips/reconfigure_offline_collector",
         "tags": [],
