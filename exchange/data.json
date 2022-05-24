@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Enrichment.Virustotal.FileScan",
+        "author": "weslambert",
+        "description": "Submit a file to Virustotal for analysis.  ",
+        "link": "/exchange/artifacts/pages/server.enrichment.virustotal.filescan",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-05-24"
+    },
+    {
         "title": "Windows.Events.EventLogModifications",
         "author": "scudette",
         "description": "It is possible to disable windows event logs on a per channel or per\nprovider basis. Attackers may disable ciritcal log sources to\nprevent detections.",
