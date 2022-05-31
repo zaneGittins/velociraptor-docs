@@ -102,7 +102,7 @@
     {
         "title": "Windows.EventLogs.RDPClientActivity",
         "author": "NorthwaveCERT",
-        "description": "This artifact retrieves outgoing RDP session activity from the\nMicrosoft-Windows-TerminalServices-RDPClient event logs. It aggregates\nsessions based on ActivityID and outputs hostname, timeframe and disconnect reasons.\nDisconnect reason is filled using a dict that was filled using MS Docs (see references)",
+        "description": "This artifact retrieves outgoing RDP session activity from the\nMicrosoft-Windows-TerminalServices-RDPClient event logs. It aggregates\nsessions based on ActivityID and outputs hostname, timeframe and disconnect reasons.\nThe latter is filled using a dict that was taken from MS Docs (see references)\n",
         "link": "/exchange/artifacts/pages/windows.eventlogs.rdpclientactivity",
         "tags": [],
         "author_link": "https://github.com/NorthwaveCERT",

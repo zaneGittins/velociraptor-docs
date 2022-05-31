@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.99.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.RDPClientActivity :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1653994212 rel=stylesheet><link href=/css/fontawesome-all.min.css?1653994212 rel=stylesheet><link href=/css/featherlight.min.css?1653994212 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1653994212 rel=stylesheet><link href=/css/auto-complete.css?1653994212 rel=stylesheet><link href=/css/theme.css?1653994212 rel=stylesheet><link href=/css/tabs.css?1653994212 rel=stylesheet><link href=/css/hugo-theme.css?1653994212 rel=stylesheet><link href=/css/theme-mine.css?1653994212 rel=stylesheet><link href=/css/dark.css?1653994212 rel=stylesheet><link href=/css/syntax.css?1653994212 rel=stylesheet><link href=/css/light.css?1653994212 rel=stylesheet><link href=/css/hljs.css?1653994212 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1653994212 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1653994212></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.99.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.RDPClientActivity :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1654001552 rel=stylesheet><link href=/css/fontawesome-all.min.css?1654001552 rel=stylesheet><link href=/css/featherlight.min.css?1654001552 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1654001552 rel=stylesheet><link href=/css/auto-complete.css?1654001552 rel=stylesheet><link href=/css/theme.css?1654001552 rel=stylesheet><link href=/css/tabs.css?1654001552 rel=stylesheet><link href=/css/hugo-theme.css?1654001552 rel=stylesheet><link href=/css/theme-mine.css?1654001552 rel=stylesheet><link href=/css/dark.css?1654001552 rel=stylesheet><link href=/css/syntax.css?1654001552 rel=stylesheet><link href=/css/light.css?1654001552 rel=stylesheet><link href=/css/hljs.css?1654001552 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1654001552 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1654001552></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.eventlogs.rdpclientactivity/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2022-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -66,17 +66,13 @@
 <span class=links>Windows.EventLogs.RDPClientActivity</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.EventLogs.RDPClientActivity</h1><p>This artifact retrieves outgoing RDP session activity from the
 Microsoft-Windows-TerminalServices-RDPClient event logs. It aggregates
 sessions based on ActivityID and outputs hostname, timeframe and disconnect reasons.
-Disconnect reason is filled using a dict that was filled using MS Docs (see references)</p><p>The returned UsernameHash data is the Base64 encoding of the SHA-256 hash of a UTF-16 (LE) username
-Retrieving the actual username requires having a dictionary in place</p><pre><code class=language-yaml>name: Windows.EventLogs.RDPClientActivity
+The latter is filled using a dict that was taken from MS Docs (see references)</p><pre><code class=language-yaml>name: Windows.EventLogs.RDPClientActivity
 author: &quot;Marinus Boekelo - Northwave&quot;
 description: |
     This artifact retrieves outgoing RDP session activity from the
     Microsoft-Windows-TerminalServices-RDPClient event logs. It aggregates
     sessions based on ActivityID and outputs hostname, timeframe and disconnect reasons.
-    Disconnect reason is filled using a dict that was filled using MS Docs (see references)
-    
-    The returned UsernameHash data is the Base64 encoding of the SHA-256 hash of a UTF-16 (LE) username
-    Retrieving the actual username requires having a dictionary in place
+    The latter is filled using a dict that was taken from MS Docs (see references)
 
 type: CLIENT
 
@@ -84,27 +80,22 @@ reference:
   - https://social.technet.microsoft.com/wiki/contents/articles/37870.remote-desktop-client-troubleshooting-disconnect-codes-and-reasons.aspx
 
 parameters:
-  - name: TargetFilePath
-    default: C:\Windows\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RDPClient%4Operational.evtx
+  - name: EvtxGlob
+    default: '%SystemRoot%\System32\winevt\Logs\Microsoft-Windows-TerminalServices-RDPClient%4Operational.evtx'
+  - name: SearchVSS
+    description: &quot;Add VSS into query.&quot;
+    type: bool
+  - name: DateAfter
+    type: timestamp
+    description: &quot;search for events after this date. YYYY-MM-DDTmm:hh:ssZ&quot;
+  - name: DateBefore
+    type: timestamp
+    description: &quot;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&quot;
 
 sources:
     - query: |
-        LET functions = starl(code='''
-        def unique(values):
-          unique_values = []
-          for x in values:
-            if x and x not in unique_values:
-               unique_values.append(x)
-          return unique_values
 
-        def first(values):
-          for x in values:
-            if x:
-               return x
-          return
-        ''')
-
-
+        -- Definitions of disconnect reasons (see references)
         LET DisconnectReasonLookup &lt;= dict(
             `0` = &quot;No error&quot;,
             `1` = &quot;User-initiated client disconnect.&quot;,
@@ -253,41 +244,88 @@ sources:
             `50331728` = &quot;You no longer have access to Azure RemoteApp. Ask your admin or tech support for help.&quot;
         )
 
-        LET Results=SELECT
-            System.TimeCreated.SystemTime as Time,
-            System.EventID.Value as EventID,
-            System.Correlation.ActivityID as ActivityID,
-            System.Computer as SourceHost,
-            System.Security.UserID as SourceUserSID,
-            if(condition=System.EventID.Value=1026, then=EventData.Value, else=null) as DisconnectReasonID,
-            if(condition=System.EventID.Value=1026, then=get(item=DisconnectReasonLookup,member=str(str=EventData.Value),default='Unknown'), else=null) as DisconnectReason,
-            if(condition=System.EventID.Value=1024, then=EventData.Value, else=null) as DestinationHost,
-            if(condition=System.EventID.Value=1027, then=EventData.DomainName, else=null) as ConnectedDomain,
-            if(condition=System.EventID.Value=1029, then=EventData.Data.Value, else=null) as DestinationUsernameHash
-        FROM
-            parse_evtx(filename=TargetFilePath)
-
-        SELECT 
-            timestamp(epoch=int(int=min(item=Time))) as Start,
-            timestamp(epoch=int(int=max(item=Time))) as End,
-            max(item=Time)-min(item=Time) as Duration,
+        -- firstly set timebounds for performance
+        LET DateAfterTime &lt;= if(condition=DateAfter,
+            then=timestamp(epoch=DateAfter),
+            else=timestamp(epoch=&quot;1600-01-01&quot;)
+        )
+        LET DateBeforeTime &lt;= if(condition=DateBefore,
+            then=timestamp(epoch=DateBefore),
+            else=timestamp(epoch=&quot;2200-01-01&quot;)
+        )
+        
+        -- expand provided glob into a list of paths on the file system (fs)
+        LET fspaths &lt;= SELECT FullPath
+        FROM glob(globs=expand(path=EvtxGlob))
+        
+        -- function returning list of VSS paths corresponding to path
+        LET vsspaths(path) = SELECT FullPath
+        FROM Artifact.Windows.Search.VSS(SearchFilesGlob=path)
+      
+        LET retrieveRecords(PathList) =
+          SELECT * 
+          FROM
+            foreach(
+              row=PathList,
+              query={
+                SELECT
+                  System.EventRecordID as EventRecordID,
+                  timestamp(epoch=int(int=System.TimeCreated.SystemTime)) as EventTime,
+                  System.TimeCreated.SystemTime as EventTimeFloat,
+                  System.EventID.Value as EventID,
+                  System.Correlation.ActivityID as ActivityID,
+                  System.Computer as SourceHost,
+                  System.Security.UserID as SourceUserSID,
+                  if(condition=System.EventID.Value=1026, then=EventData.Value, else=null) as DisconnectReasonID,
+                  if(condition=System.EventID.Value=1026, then=get(item=DisconnectReasonLookup,member=str(str=EventData.Value),default='Unknown'), else=null) as DisconnectReason,
+                  if(condition=System.EventID.Value=1024, then=EventData.Value, else=null) as DestinationHost,
+                  if(condition=System.EventID.Value=1027, then=EventData.DomainName, else=null) as ConnectedDomain,
+                  if(condition=System.EventID.Value=1029, then=EventData.Data.Value, else=null) as DestinationUsernameHash
+                FROM parse_evtx(filename=FullPath)
+                WHERE EventID IN (1024,1026,1027,1029)
+                AND EventTime &lt; DateBeforeTime
+                AND EventTime &gt; DateAfterTime
+              }
+            )
+          GROUP BY EventRecordID
+        
+        LET evtxsearch(PathList) = 
+          SELECT 
+            min(item=EventTime) as Start,
+            max(item=EventTime) as End,
+            max(item=EventTimeFloat)-min(item=EventTimeFloat) as Duration,
             SourceUserSID,
             SourceHost,
-            functions.first(values=enumerate(items=DestinationHost)) as DestinationHost,
-            functions.first(values=enumerate(items=ConnectedDomain)) as ConnectedDomain,
-            functions.first(values=enumerate(items=DestinationUsernameHash)) as DestinationUsernameHash,
-            join(array=functions.unique(values=enumerate(items=DisconnectReasonID)), sep=' | ') as DisconnectReasonIDs,
-            join(array=functions.unique(values=enumerate(items=DisconnectReason)), sep=' | ') as DisconnectReasons,
-            join(array=enumerate(items=EventID), sep='-') as EventIDSequence
-        FROM Results
-        GROUP BY ActivityID
+            { SELECT _value FROM foreach(row=enumerate(items=DestinationHost)) WHERE _value != NULL LIMIT 1 } as DestinationHost,
+            { SELECT _value FROM foreach(row=enumerate(items=ConnectedDomain)) WHERE _value != NULL LIMIT 1 } as ConnectedDomain,
+            { SELECT _value FROM foreach(row=enumerate(items=DestinationUsernameHash)) WHERE _value!= NULL LIMIT 1 } as DestinationUsernameHash,
+            join(array=array(a1={ SELECT _value FROM foreach(row=enumerate(items=DisconnectReasonID)) WHERE _value!= NULL }), sep=' | ') as DisconnectReasonID,
+            join(array=array(a1={ SELECT _value FROM foreach(row=enumerate(items=DisconnectReason)) WHERE _value!= NULL }), sep=' | ') as DisconnectReason
+          FROM retrieveRecords(PathList=PathList)
+          GROUP BY ActivityID
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1653994212></script>
-<script src=/js/perfect-scrollbar.min.js?1653994212></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1653994212></script>
-<script src=/js/jquery.sticky.js?1653994212></script>
-<script src=/js/featherlight.min.js?1653994212></script>
-<script src=/js/highlight.min.js?1653994212></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1653994212></script>
-<script src=/js/learn.js?1653994212></script>
-<script src=/js/hugo-learn.js?1653994212></script></body></html>
+        -- include VSS in calculation and deduplicate with GROUP BY by file
+        LET include_vss =
+          SELECT * FROM foreach(
+            row=fspaths,
+            query={ SELECT * FROM evtxsearch(PathList={ SELECT FullPath FROM vsspaths(path=FullPath) }) }
+          )
+
+        -- exclude VSS in EvtxHunt`
+        LET exclude_vss = SELECT *
+          FROM evtxsearch(PathList={SELECT FullPath FROM fspaths})
+
+        -- return rows
+        SELECT * FROM if(condition=SearchVSS,
+          then={ SELECT * FROM include_vss },
+          else={ SELECT * FROM exclude_vss })
+
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1654001552></script>
+<script src=/js/perfect-scrollbar.min.js?1654001552></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1654001552></script>
+<script src=/js/jquery.sticky.js?1654001552></script>
+<script src=/js/featherlight.min.js?1654001552></script>
+<script src=/js/highlight.min.js?1654001552></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1654001552></script>
+<script src=/js/learn.js?1654001552></script>
+<script src=/js/hugo-learn.js?1654001552></script></body></html>
