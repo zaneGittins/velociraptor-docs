@@ -1,5 +1,25 @@
 [
     {
+        "title": "Windows.Registry.NetshHelperDLLs",
+        "author": "ecapuano",
+        "description": "# Enumerate all NetSh Helper DLLs",
+        "link": "/exchange/artifacts/pages/windows.registry.netshhelperdlls",
+        "tags": [],
+        "author_link": "https://github.com/ecapuano",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4219694?v=4",
+        "date": "2022-06-01"
+    },
+    {
+        "title": "Windows.EventLogs.LogonSessions",
+        "author": "NorthwaveCERT",
+        "description": "This artifact searches for logon and logoff events within Security event logs identified\nby Event ID 4624 and 4634. These logon/logoff events are grouped by \"TargetLogonId\" field\ninto \"logon sessions\". For each of these logon sessions, start, end and duration\nare derived\n",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.logonsessions",
+        "tags": [],
+        "author_link": "https://github.com/NorthwaveCERT",
+        "author_avatar": "https://avatars.githubusercontent.com/u/96190431?v=4",
+        "date": "2022-05-31"
+    },
+    {
         "title": "Windows.System.Powershell.ISEAutoSave",
         "author": "mgreen27",
         "description": "This artifact hunts for Powershell ISE autosave files and extracts ISE user \nconfig.",
