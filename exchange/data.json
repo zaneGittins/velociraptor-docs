@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Detection.ConfluenceLogs",
+        "author": "mgreen27",
+        "description": "This artifact enables grep of Linux logs and targets strings observed in \nexploitation of CVE-2022-26134.",
+        "link": "/exchange/artifacts/pages/confluencelogs",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-06-07"
+    },
+    {
         "title": "Windows.Detection.MsdtFollina",
         "author": "mgreen27",
         "description": "This artifact will search Microsoft Support Diagnostic Tool logs for evidence \nof ms-msdt Follina exploitation (CVE-2022-30190).",
