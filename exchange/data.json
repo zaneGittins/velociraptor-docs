@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.Bitsadmin",
+        "author": "mgreen27",
+        "description": "This content will extract BITS Transfer events and enable filtering by URL\n",
+        "link": "/exchange/artifacts/pages/bitsadmin",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-06-10"
+    },
+    {
         "title": "Linux.Detection.ConfluenceLogs",
         "author": "mgreen27",
         "description": "This artifact enables grep of Linux logs and targets strings observed in \nexploitation of CVE-2022-26134.",
