@@ -1,5 +1,25 @@
 [
     {
+        "title": "Label.DomainController",
+        "author": "scudette",
+        "description": "This artifact watches for completion of the `watchArtifact`\nand assigns the given `setLabel` if the `WHERE` condition is matched.",
+        "link": "/exchange/artifacts/pages/label.domaincontroller",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-06-19"
+    },
+    {
+        "title": "Windows.EventLogs.Hayabusa",
+        "author": "scudette",
+        "description": "[Hayabusa](https://github.com/Yamato-Security/hayabusa) is a Windows event log fast forensics timeline generator and threat hunting tool.",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.hayabusa",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-06-19"
+    },
+    {
         "title": "Windows.EventLogs.Bitsadmin",
         "author": "mgreen27",
         "description": "This content will extract BITS Transfer events and enable filtering by URL\n",
