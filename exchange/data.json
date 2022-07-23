@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.System.WindowsErrorReporting",
+        "author": "svch0stz",
+        "description": "Parses several Windows Error Reporting (WER) files that contain information about crashed programs. ",
+        "link": "/exchange/artifacts/pages/windows.system.windowserrorreporting",
+        "tags": [],
+        "author_link": "https://github.com/svch0stz",
+        "author_avatar": "https://avatars.githubusercontent.com/u/8684257?v=4",
+        "date": "2022-07-23"
+    },
+    {
         "title": "Windows.Analysis.SuspiciousWMIConsumers",
         "author": "AmgdGocha",
         "description": "This artifact reports suspicious WMI Event Consumers and their associated Filters\nthat may indicate a malicious abuse for persistence.",
