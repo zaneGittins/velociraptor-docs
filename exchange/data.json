@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Utils.OrphanedFlows",
+        "author": "scudette",
+        "description": "Sometimes flows are deleted but there is still outstanding data for\nthem in flight. The server will continue to save this data after the\nflow is deleted.",
+        "link": "/exchange/artifacts/pages/server.utils.orphanedflows",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-07-26"
+    },
+    {
         "title": "Windows.System.WindowsErrorReporting",
         "author": "svch0stz",
         "description": "Parses several Windows Error Reporting (WER) files that contain information about crashed programs. ",
