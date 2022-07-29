@@ -20,6 +20,26 @@
         "date": "2022-07-29"
     },
     {
+        "title": "Windows.Sysinternals.SysmonArchive",
+        "author": "mgreen27",
+        "description": "If configured, Sysmon EID 23: FileDelete enables archiving file deletes on \ndisk. The challenges of this configuraiton is management of the archive \nfolder which can grow to be significant size and use up disk space.  ",
+        "link": "/exchange/artifacts/pages/sysmonarchive",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-07-29"
+    },
+    {
+        "title": "Windows.Events.SysmonArchive",
+        "author": "mgreen27",
+        "description": "This artifact enables automatic management of the Sysmon archive folder.",
+        "link": "/exchange/artifacts/pages/sysmonarchivemonitor",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-07-29"
+    },
+    {
         "title": "Server.Utils.OrphanedFlows",
         "author": "scudette",
         "description": "Sometimes flows are deleted but there is still outstanding data for\nthem in flight. The server will continue to save this data after the\nflow is deleted.",
