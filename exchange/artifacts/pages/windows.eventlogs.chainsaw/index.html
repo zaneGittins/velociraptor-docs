@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659444757 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659444757 rel=stylesheet><link href=/css/featherlight.min.css?1659444757 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659444757 rel=stylesheet><link href=/css/auto-complete.css?1659444757 rel=stylesheet><link href=/css/theme.css?1659444757 rel=stylesheet><link href=/css/tabs.css?1659444757 rel=stylesheet><link href=/css/hugo-theme.css?1659444757 rel=stylesheet><link href=/css/theme-mine.css?1659444757 rel=stylesheet><link href=/css/dark.css?1659444757 rel=stylesheet><link href=/css/syntax.css?1659444757 rel=stylesheet><link href=/css/light.css?1659444757 rel=stylesheet><link href=/css/hljs.css?1659444757 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659444757 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659444757></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.Chainsaw :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659445441 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659445441 rel=stylesheet><link href=/css/featherlight.min.css?1659445441 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659445441 rel=stylesheet><link href=/css/auto-complete.css?1659445441 rel=stylesheet><link href=/css/theme.css?1659445441 rel=stylesheet><link href=/css/tabs.css?1659445441 rel=stylesheet><link href=/css/hugo-theme.css?1659445441 rel=stylesheet><link href=/css/theme-mine.css?1659445441 rel=stylesheet><link href=/css/dark.css?1659445441 rel=stylesheet><link href=/css/syntax.css?1659445441 rel=stylesheet><link href=/css/light.css?1659445441 rel=stylesheet><link href=/css/hljs.css?1659445441 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659445441 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659445441></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.eventlogs.chainsaw/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2022-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -72,11 +72,7 @@ Windows Event Logs.</p><p>From the project&rsquo;s description:</p><p>&ldquo;Cha
 quickly identify threats within Windows event logs. It offers a
 generic and fast method of searching through event logs for
 keywords, and by identifying threats using built-in detection
-logic and via support for Sigma detection rules.&rdquo;</p><p><a href=https://github.com/countercept/chainsaw>https://github.com/countercept/chainsaw</a></p><p><strong>WARNING!</strong> As of the latest version of Chainsaw,
-there is a <a href=https://github.com/countercept/chainsaw/pull/62>bug</a>
-that does not return all of Chainsaw&rsquo;s &ldquo;builtin detections&rdquo;
-via JSON output which means this VQL artifact is likely not
-to return complete detection results until the bug is fixed!</p><pre><code class=language-yaml>name: Windows.EventLogs.Chainsaw
+logic and via support for Sigma detection rules.&rdquo;</p><p><a href=https://github.com/countercept/chainsaw>https://github.com/countercept/chainsaw</a></p><pre><code class=language-yaml>name: Windows.EventLogs.Chainsaw
 description: |
 
     This artifact leverages Chainsaw to enable usage of Sigma rules
@@ -92,24 +88,21 @@ description: |
     logic and via support for Sigma detection rules.&quot;
 
     https://github.com/countercept/chainsaw
-    
-    **WARNING!** As of the latest version of Chainsaw, 
-    there is a [bug](https://github.com/countercept/chainsaw/pull/62) 
-    that does not return all of Chainsaw's &quot;builtin detections&quot; 
-    via JSON output which means this VQL artifact is likely not 
-    to return complete detection results until the bug is fixed!
 
-author: Wes Lambert - @therealwlambert
+author: Wes Lambert - @therealwlambert, James Dorgan - @FranticTyping, Alex Korntizer - @AlexKornitzer
 tools:
   - name: Chainsaw
-    url: https://github.com/countercept/chainsaw/releases/download/v1.1.7/chainsaw_x86_64-pc-windows-msvc.zip
+    url: https://github.com/countercept/chainsaw/releases/download/v2.0.0-beta.5/chainsaw_all_platforms+rules+examples.zip
+
+precondition: SELECT OS From info() where OS = 'windows'
+
 parameters:
   - name: EVTXPath
     default: 'C:\Windows\System32\winevt\Logs'
   - name: Length
     description: Size (in bytes) of output that will be returned for a single row.  This value may need to be adjusted depending on the size of your event logs.
     type: int
-    default: &quot;10000000&quot;
+    default: &quot;100000000&quot;
 
 sources:
   - query: |
@@ -117,37 +110,42 @@ sources:
         LET TmpDir &lt;= tempdir()
         LET TmpResults &lt;= tempfile()
         LET Results = SELECT * FROM read_file(filenames=TmpResults)
-        LET UnzipIt &lt;= SELECT * FROM  unzip(filename=Toolzip.FullPath, output_directory=TmpDir)
-        Let SigmaRules &lt;= TmpDir + '/chainsaw/sigma_rules'
-        Let SigmaMapping &lt;= TmpDir + '/chainsaw/mapping_files/sigma-mapping.yml'
-        Let ExecCS &lt;= SELECT * FROM execve(argv=[
-                        TmpDir + '/chainsaw/chainsaw.exe',
-                        'hunt', EVTXPath,
+        LET UnzipIt &lt;= SELECT * FROM unzip(filename=Toolzip.FullPath, output_directory=TmpDir)
+        LET SigmaRules &lt;= TmpDir + '\\chainsaw\\sigma\\rules'
+        LET ChainsawRules &lt;= TmpDir + '\\chainsaw\\rules'
+        LET SigmaMapping &lt;= TmpDir + '\\chainsaw\\mappings\\sigma-event-logs-all.yml'
+        LET ExecCS &lt;= SELECT * FROM execve(argv=[
+                        TmpDir + '\\chainsaw\\chainsaw_x86_64-pc-windows-msvc.exe',
+                        'hunt', ChainsawRules, EVTXPath,
                         &quot;--json&quot;,
                         &quot;--output&quot;, TmpResults,
-                        &quot;--rules&quot;, SigmaRules,
-                        &quot;--mapping&quot;, SigmaMapping], length=Length)
+                        &quot;-s&quot;, SigmaRules,
+                        &quot;--mapping&quot;, SigmaMapping,
+                        &quot;-q&quot;], length=Length)
+
         LET Data = SELECT * FROM foreach(row=Results, query={SELECT parse_json_array(data=Data) AS Content FROM scope()})
 
         SELECT * FROM foreach(row=Data, query={
             SELECT
-                get(member=&quot;event.Event.System.TimeCreated_attributes.SystemTime&quot;) AS EventTime,
-                get(member=&quot;detection&quot;) AS Detection,
-                get(member=&quot;event.Event.System.Computer&quot;) AS Computer,
-                get(member=&quot;event.Event.System.Channel&quot;) AS Channel,
-                get(member=&quot;event.Event.System.EventID&quot;) AS EventID,
-                get(member=&quot;event.Event.EventData.User&quot;) AS _User,
-                get(member=&quot;event.Event.System&quot;) AS SystemData,
-                get(member=&quot;event.Event.EventData&quot;) AS EventData
+                get(member=&quot;document.data.Event.System.TimeCreated_attributes.SystemTime&quot;) AS EventTime,
+                get(member=&quot;name&quot;) AS Detection,
+                get(member=&quot;level&quot;) AS Severity,
+                get(member=&quot;status&quot;) AS Status,
+                get(member=&quot;document.data.Event.System.Computer&quot;) AS Computer,
+                get(member=&quot;document.data.Event.System.Channel&quot;) AS Channel,
+                get(member=&quot;document.data.Event.System.EventID&quot;) AS EventID,
+                get(member=&quot;document.data.Event.EventData.User&quot;) AS _User,
+                get(member=&quot;document.data.Event.System&quot;) AS SystemData,
+                get(member=&quot;document.data.Event.EventData&quot;) AS EventData
             FROM Content
         })
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659444757></script>
-<script src=/js/perfect-scrollbar.min.js?1659444757></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1659444757></script>
-<script src=/js/jquery.sticky.js?1659444757></script>
-<script src=/js/featherlight.min.js?1659444757></script>
-<script src=/js/highlight.min.js?1659444757></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659444757></script>
-<script src=/js/learn.js?1659444757></script>
-<script src=/js/hugo-learn.js?1659444757></script></body></html>
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659445441></script>
+<script src=/js/perfect-scrollbar.min.js?1659445441></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1659445441></script>
+<script src=/js/jquery.sticky.js?1659445441></script>
+<script src=/js/featherlight.min.js?1659445441></script>
+<script src=/js/highlight.min.js?1659445441></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659445441></script>
+<script src=/js/learn.js?1659445441></script>
+<script src=/js/hugo-learn.js?1659445441></script></body></html>
