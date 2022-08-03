@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.ETW.AMSI :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659445439 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659445439 rel=stylesheet><link href=/css/featherlight.min.css?1659445439 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659445439 rel=stylesheet><link href=/css/auto-complete.css?1659445439 rel=stylesheet><link href=/css/theme.css?1659445439 rel=stylesheet><link href=/css/tabs.css?1659445439 rel=stylesheet><link href=/css/hugo-theme.css?1659445439 rel=stylesheet><link href=/css/theme-mine.css?1659445439 rel=stylesheet><link href=/css/dark.css?1659445439 rel=stylesheet><link href=/css/syntax.css?1659445439 rel=stylesheet><link href=/css/light.css?1659445439 rel=stylesheet><link href=/css/hljs.css?1659445439 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659445439 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659445439></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.ETW.AMSI :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659534418 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659534418 rel=stylesheet><link href=/css/featherlight.min.css?1659534418 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659534418 rel=stylesheet><link href=/css/auto-complete.css?1659534418 rel=stylesheet><link href=/css/theme.css?1659534418 rel=stylesheet><link href=/css/tabs.css?1659534418 rel=stylesheet><link href=/css/hugo-theme.css?1659534418 rel=stylesheet><link href=/css/theme-mine.css?1659534418 rel=stylesheet><link href=/css/dark.css?1659534418 rel=stylesheet><link href=/css/syntax.css?1659534418 rel=stylesheet><link href=/css/light.css?1659534418 rel=stylesheet><link href=/css/hljs.css?1659534418 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659534418 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659534418></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/amsi/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2022-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -66,11 +66,11 @@
 <img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/amsi.yaml target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>Windows.ETW.AMSI</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.ETW.AMSI</h1><p>This artifact uses the ETW provider:</p><p>(Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</p><pre><code class=language-yaml>name: Windows.ETW.AMSI
+<span class=links>Windows.ETW.AMSI</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.ETW.AMSI</h1><p>This artifact uses the ETW provider:
+(Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}</p><pre><code class=language-yaml>name: Windows.ETW.AMSI
 description: |
     This artifact uses the ETW provider:
-
-    (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}
+        (Microsoft-Antimalware-Scan-Interface - {2A576B87-09A7-520E-C21A-4942F0271D67}
 
 type: CLIENT_EVENT
 
@@ -83,36 +83,40 @@ parameters:
   - name: AppNameRegex
     description: &quot;Application name Regex to enable filtering on source.&quot;
     default: .
-
+  - name: ExcludeAmsiHashList
+    description: &quot;Line seperated list of AMSI hashes to exclude&quot;
+    default: |
+        0xB95D39DB18570A2A6DB329A3FF0BB87B17720279A0AC6862C7D5BA66C8270BB1
+        0x9281522E94E9F3D4FBF4F679335D8A891B1FAE9933DCD993A0E2AE7CD8789953
 
 sources:
   - query: |
-      -- collect a small cache of process information for enrichment
-      LET proc = cache(key='Pid', period=600,
-        query={
-            SELECT Pid, Name, Exe,CommandLine, Username,TokenIsElevated
-            FROM pslist()
-        })
-
+      -- split out Hash exclusions into array
+      LET HashExclusions &lt;= SELECT _value as AmsiHash
+        FROM foreach(row=split(sep='\\s+',string=ExcludeAmsiHashList))
+        WHERE AmsiHash
+        
       -- watch ETW provider and first round data manipulation
-      LET hits = SELECT *,
-          timestamp(epoch=timestamp(string=System.TimeStamp).unix) as EventTime,
+      LET hits = SELECT
+         timestamp(epoch=timestamp(string=System.TimeStamp).unix) as EventTime,
          System,
-         get(member=&quot;EventData&quot;) AS EventData,
-         get(item=proc, field=System.ProcessID) AS ProcInfo
+         get(member=&quot;EventData&quot;) AS EventData
       FROM watch_etw(guid=&quot;{2A576B87-09A7-520E-C21A-4942F0271D67}&quot;)
       WHERE EventData.appname =~ AppNameRegex
+        AND NOT EventData.hash in HashExclusions.AmsiHash
 
       -- print rows
       SELECT
         EventTime,
-        System,
-        ProcInfo,
-        EventData,
+        EventData.appname as AppName,
+        EventData.contentname as ContentName,
         utf16(string=
             unhex(string=regex_replace(
                 source=EventData.Content,re='^0x',replace=''))
-        ) as Content
+        ) as Content,
+        process_tracker_callchain(id=System.ProcessID).Data[-1] as ProcessInfo,
+        process_tracker_callchain(id=System.ProcessID).Data as ProcessChain,
+        EventData.hash as AmsiHash
       FROM hits
       WHERE
         Content =~ IocRegex
@@ -120,12 +124,12 @@ sources:
             then= NOT Content =~ WhitelistRegex,
             else= True)
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659445439></script>
-<script src=/js/perfect-scrollbar.min.js?1659445439></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1659445439></script>
-<script src=/js/jquery.sticky.js?1659445439></script>
-<script src=/js/featherlight.min.js?1659445439></script>
-<script src=/js/highlight.min.js?1659445439></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659445439></script>
-<script src=/js/learn.js?1659445439></script>
-<script src=/js/hugo-learn.js?1659445439></script></body></html>
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659534418></script>
+<script src=/js/perfect-scrollbar.min.js?1659534418></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1659534418></script>
+<script src=/js/jquery.sticky.js?1659534418></script>
+<script src=/js/featherlight.min.js?1659534418></script>
+<script src=/js/highlight.min.js?1659534418></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659534418></script>
+<script src=/js/learn.js?1659534418></script>
+<script src=/js/hugo-learn.js?1659534418></script></body></html>
