@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.KapeFiles.Remapping :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659622324 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659622324 rel=stylesheet><link href=/css/featherlight.min.css?1659622324 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659622324 rel=stylesheet><link href=/css/auto-complete.css?1659622324 rel=stylesheet><link href=/css/theme.css?1659622324 rel=stylesheet><link href=/css/tabs.css?1659622324 rel=stylesheet><link href=/css/hugo-theme.css?1659622324 rel=stylesheet><link href=/css/theme-mine.css?1659622324 rel=stylesheet><link href=/css/dark.css?1659622324 rel=stylesheet><link href=/css/syntax.css?1659622324 rel=stylesheet><link href=/css/light.css?1659622324 rel=stylesheet><link href=/css/hljs.css?1659622324 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659622324 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659622324></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.101.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.KapeFiles.Remapping :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1659629169 rel=stylesheet><link href=/css/fontawesome-all.min.css?1659629169 rel=stylesheet><link href=/css/featherlight.min.css?1659629169 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1659629169 rel=stylesheet><link href=/css/auto-complete.css?1659629169 rel=stylesheet><link href=/css/theme.css?1659629169 rel=stylesheet><link href=/css/tabs.css?1659629169 rel=stylesheet><link href=/css/hugo-theme.css?1659629169 rel=stylesheet><link href=/css/theme-mine.css?1659629169 rel=stylesheet><link href=/css/dark.css?1659629169 rel=stylesheet><link href=/css/syntax.css?1659629169 rel=stylesheet><link href=/css/light.css?1659629169 rel=stylesheet><link href=/css/hljs.css?1659629169 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1659629169 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1659629169></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.kapefiles.remapping/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2022-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -67,127 +67,141 @@
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>Windows.KapeFiles.Remapping</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.KapeFiles.Remapping</h1><p>This artifact automates the rebuilding of remapping rules to be able to easily
-post process the results of the Windows.KapeFiles.Targets.</p><p>Use as follows in the flow notebook cell of a collection:</p><pre><code class=language-vql>LET _ &lt;= 
-   SELECT * FROM Artifact.Custom.KapeFiles.Remapping(ClientId=ClientId, FlowId=FlowId)
-
-SELECT * FROM Artifact.Windows.System.TaskScheduler()
-</code></pre><p>NOTE: Not all plugins are enabled in this mode for obvious reasons (e.g. pslist, wmi etc).</p><pre><code class=language-yaml>name: Windows.KapeFiles.Remapping
+post process the results of the Windows.KapeFiles.Targets.</p><p>Use as follows in the flow notebook cell of a collection:</p><p>LET _ &lt;=
+SELECT * FROM Artifact.Custom.KapeFiles.Remapping(ClientId=ClientId, FlowId=FlowId)</p><p>SELECT * FROM Artifact.Windows.System.TaskScheduler()</p><p>NOTE: Not all plugins are enabled in this mode for obvious reasons (e.g. pslist, wmi etc).</p><pre><code class=language-yaml>name: Windows.KapeFiles.Remapping
 description: |
-   This artifact automates the rebuilding of remapping rules to be able to easily 
-   post process the results of the Windows.KapeFiles.Targets. 
-   
+   This artifact automates the rebuilding of remapping rules to be able to easily
+   post process the results of the Windows.KapeFiles.Targets.
+
    Use as follows in the flow notebook cell of a collection:
-   ```vql
-   LET _ &lt;= 
+
+   LET _ &lt;=
       SELECT * FROM Artifact.Custom.KapeFiles.Remapping(ClientId=ClientId, FlowId=FlowId)
 
    SELECT * FROM Artifact.Windows.System.TaskScheduler()
-</code></pre><p>NOTE: Not all plugins are enabled in this mode for obvious reasons (e.g. pslist, wmi etc).</p><p>type: CLIENT</p><p>parameters:</p><ul><li>name: ClientId
-description: The ClientID of the collection we need to remap</li><li>name: FlowId
-description: The FlowID of the collection</li></ul><p>export: |
-LET BasePath = regex_transform(source="/clients/ClientId/collections/FlowId/uploads", map=dict(FlowId=FlowId, ClientId=ClientId))</p><pre><code>    LET HiveMount(BasePath, UserSID) = regex_transform(source='''
-            - type: mount
-              from:
-                accessor: raw_reg
-                prefix: |-
-                  {
-                    &quot;Path&quot;: &quot;/&quot;,
-                    &quot;DelegateAccessor&quot;: &quot;fs&quot;,
-                    &quot;DelegatePath&quot;: &quot;BasePath&quot;
-                  }
-                path_type: registry
-              &quot;on&quot;:
-                accessor: registry
-                prefix: Target
-                path_type: registry
-    ''', map=dict(BasePath=BasePath, Target=Target), key=Target)
-    
-    LET AccessorMount(Accessor) = regex_transform(source='''
-            - type: mount
-              from:
-                accessor: fs
-                prefix: &quot;BasePath/AccessorName&quot;
-              &quot;on&quot;:
-                accessor: AccessorName
-                prefix: &quot;&quot;
-                path_type: AccessorName
-    ''', map=dict(BasePath=BasePath, AccessorName=Accessor), key=Accessor)
-    
-    LET ShadowMount(Accessor) = regex_transform(source='''
-            - type: shadow
-              from:
-                accessor: AccessorName
-              &quot;on&quot;:
-                accessor: AccessorName
-    ''', map=dict(AccessorName=Accessor), key=Accessor)
-    
-    LET CommonMount = '''
-    remappings:
-            - type: permissions
-              permissions:
-              - COLLECT_CLIENT
-              - FILESYSTEM_READ
-              - FILESYSTEM_WRITE
-              - READ_RESULTS
-              - MACHINE_STATE
-              - SERVER_ADMIN
-            - type: impersonation
-              os: windows
-              hostname: Virtual Host
-              env:
-              - key: SystemRoot
-                value: C:\Windows
-              - key: WinDir
-                value: C:\Windows
-              disabled_functions:
-              - amsi
-              - lookupSID
-              - token
-              disabled_plugins:
-              - users
-              - certificates
-              - handles
-              - pslist
-              - interfaces
-              - modules
-              - netstat
-              - partitions
-              - proc_dump
-              - proc_yara
-              - vad
-              - winobj
-              - wmi
-    '''
-</code></pre><p>sources:</p><ul><li><p>query: |
-&ndash; Build remapping parts by searching for registry hives to mount.
-LET Parts = SELECT * FROM chain(
-a={
-SELECT OSPath,
-HiveMount(BasePath=OSPath.String, Target=&ldquo;HKEY_USERS/&rdquo; + OSPath[-2]) AS Mount
-FROM glob(globs="<em>/C:/Users/</em>/ntuser.dat", accessor=&ldquo;fs&rdquo;, root=BasePath)
-WHERE NOT OSPath.Basename =~ &ldquo;idx$&rdquo;
-}, b={
-SELECT OSPath,
-HiveMount(BasePath=OSPath.String, Target=&ldquo;HKEY_LOCAL_MACHINE/&rdquo; + OSPath[-1]) AS Mount
-FROM glob(globs="*/C:/Windows/System32/Config/{SOFTWARE,SYSTEM}", accessor=&ldquo;fs&rdquo;, root=BasePath)
-WHERE NOT OSPath.Basename =~ &ldquo;idx$&rdquo;
-}, c={
-SELECT NULL AS OSPath, AccessorMount(BasePath=BasePath, Accessor=&ldquo;auto&rdquo;) AS Mount
-FROM scope()
-}, d={
-SELECT NULL AS OSPath, AccessorMount(BasePath=BasePath, Accessor=&ldquo;ntfs&rdquo;) AS Mount
-FROM scope()
-}, e={
-SELECT ShadowMount(Accessor=_value) AS Mount
-FROM foreach(row=[&ldquo;raw_reg&rdquo;, &ldquo;zip&rdquo;, &ldquo;data&rdquo;, &ldquo;scope&rdquo;, &ldquo;gzip&rdquo;])
-})</p><pre><code>SELECT remap(clear=TRUE, config=CommonMount + join(array=Parts.Mount))
-FROM scope()
-</code></pre></li></ul><pre><code></code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659622324></script>
-<script src=/js/perfect-scrollbar.min.js?1659622324></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1659622324></script>
-<script src=/js/jquery.sticky.js?1659622324></script>
-<script src=/js/featherlight.min.js?1659622324></script>
-<script src=/js/highlight.min.js?1659622324></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659622324></script>
-<script src=/js/learn.js?1659622324></script>
-<script src=/js/hugo-learn.js?1659622324></script></body></html>
+
+   NOTE: Not all plugins are enabled in this mode for obvious reasons (e.g. pslist, wmi etc).
+
+type: CLIENT
+
+parameters:
+   - name: ClientId
+     description: The ClientID of the collection we need to remap
+   - name: FlowId
+     description: The FlowID of the collection
+
+export: |
+        LET BasePath = regex_transform(source=&quot;/clients/ClientId/collections/FlowId/uploads&quot;,
+            map=dict(FlowId=FlowId, ClientId=ClientId))
+
+        LET HiveMount(BasePath, UserSID) = regex_transform(source='''
+                - type: mount
+                  from:
+                    accessor: raw_reg
+                    prefix: |-
+                      {
+                        &quot;Path&quot;: &quot;/&quot;,
+                        &quot;DelegateAccessor&quot;: &quot;fs&quot;,
+                        &quot;DelegatePath&quot;: &quot;BasePath&quot;
+                      }
+                    path_type: registry
+                  &quot;on&quot;:
+                    accessor: registry
+                    prefix: Target
+                    path_type: registry
+        ''', map=dict(BasePath=BasePath, Target=Target), key=Target)
+
+        LET AccessorMount(Accessor) = regex_transform(source='''
+                - type: mount
+                  from:
+                    accessor: fs
+                    prefix: &quot;BasePath/AccessorName&quot;
+                  &quot;on&quot;:
+                    accessor: AccessorName
+                    prefix: &quot;&quot;
+                    path_type: AccessorName
+        ''', map=dict(BasePath=BasePath, AccessorName=Accessor), key=Accessor)
+
+        LET ShadowMount(Accessor) = regex_transform(source='''
+                - type: shadow
+                  from:
+                    accessor: AccessorName
+                  &quot;on&quot;:
+                    accessor: AccessorName
+        ''', map=dict(AccessorName=Accessor), key=Accessor)
+
+        LET CommonMount = '''
+        remappings:
+                - type: permissions
+                  permissions:
+                  - COLLECT_CLIENT
+                  - FILESYSTEM_READ
+                  - FILESYSTEM_WRITE
+                  - READ_RESULTS
+                  - MACHINE_STATE
+                  - SERVER_ADMIN
+                - type: impersonation
+                  os: windows
+                  hostname: Virtual Host
+                  env:
+                  - key: SystemRoot
+                    value: C:\Windows
+                  - key: WinDir
+                    value: C:\Windows
+                  disabled_functions:
+                  - amsi
+                  - lookupSID
+                  - token
+                  disabled_plugins:
+                  - users
+                  - certificates
+                  - handles
+                  - pslist
+                  - interfaces
+                  - modules
+                  - netstat
+                  - partitions
+                  - proc_dump
+                  - proc_yara
+                  - vad
+                  - winobj
+                  - wmi
+        '''
+
+sources:
+  - query: |
+        -- Build remapping parts by searching for registry hives to mount.
+        LET Parts = SELECT * FROM chain(
+        a={
+          SELECT OSPath,
+            HiveMount(BasePath=OSPath.String, Target=&quot;HKEY_USERS/&quot; + OSPath[-2]) AS Mount
+          FROM glob(globs=&quot;*/C:/Users/*/ntuser.dat&quot;, accessor=&quot;fs&quot;, root=BasePath)
+          WHERE NOT OSPath.Basename =~ &quot;idx$&quot;
+        }, b={
+          SELECT OSPath,
+            HiveMount(BasePath=OSPath.String, Target=&quot;HKEY_LOCAL_MACHINE/&quot; + OSPath[-1]) AS Mount
+          FROM glob(globs=&quot;*/C:/Windows/System32/Config/{SOFTWARE,SYSTEM}&quot;, accessor=&quot;fs&quot;, root=BasePath)
+          WHERE NOT OSPath.Basename =~ &quot;idx$&quot;
+        }, c={
+          SELECT NULL AS OSPath, AccessorMount(BasePath=BasePath, Accessor=&quot;auto&quot;) AS Mount
+          FROM scope()
+        }, d={
+          SELECT NULL AS OSPath, AccessorMount(BasePath=BasePath, Accessor=&quot;ntfs&quot;) AS Mount
+          FROM scope()
+        }, e={
+            SELECT ShadowMount(Accessor=_value) AS Mount
+            FROM foreach(row=[&quot;raw_reg&quot;, &quot;zip&quot;, &quot;data&quot;, &quot;scope&quot;, &quot;gzip&quot;])
+        })
+
+        SELECT remap(clear=TRUE, config=CommonMount + join(array=Parts.Mount))
+        FROM scope()
+
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1659629169></script>
+<script src=/js/perfect-scrollbar.min.js?1659629169></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1659629169></script>
+<script src=/js/jquery.sticky.js?1659629169></script>
+<script src=/js/featherlight.min.js?1659629169></script>
+<script src=/js/highlight.min.js?1659629169></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1659629169></script>
+<script src=/js/learn.js?1659629169></script>
+<script src=/js/hugo-learn.js?1659629169></script></body></html>
