@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.KapeFiles.Remapping",
+        "author": "scudette",
+        "description": "This artifact automates the rebuilding of remapping rules to be able to easily \npost process the results of the Windows.KapeFiles.Targets. ",
+        "link": "/exchange/artifacts/pages/windows.kapefiles.remapping",
+        "tags": [],
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-08-04"
+    },
+    {
         "title": "MacOS.Forensics.FSEvents",
         "author": "scudette",
         "description": "This artifact parses the FSEvents log files.\n",
