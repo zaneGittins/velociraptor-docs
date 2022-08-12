@@ -20,6 +20,16 @@
         "date": "2022-08-12"
     },
     {
+        "title": "Windows.Detection.Ntdsutil",
+        "author": "mgreen27",
+        "description": "This artifact will extract evidence of Ntdsutil abuse from the application \neventlog. The artifact targets the string \"ntds.dit\" in event IDs: 216, 325,\n326 and 327.\n",
+        "link": "/exchange/artifacts/pages/ntdsutil",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-08-12"
+    },
+    {
         "title": "Windows.KapeFiles.Remapping",
         "author": "scudette",
         "description": "This artifact automates the rebuilding of remapping rules to be able to easily\npost process the results of the Windows.KapeFiles.Targets.",
