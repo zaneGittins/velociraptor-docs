@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Files.FileMonitor",
+        "author": "weslambert",
+        "description": "This artifact parses Objective-See's FileMonitor log.",
+        "link": "/exchange/artifacts/pages/macos.files.filemonitor",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-12"
+    },
+    {
         "title": "MacOS.Network.LittleSnitch",
         "author": "weslambert",
         "description": "This is artifact parses Little Snitch's network traffic log.",
