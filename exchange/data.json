@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Network.LittleSnitch",
+        "author": "weslambert",
+        "description": "This is artifact parses Little Snitch's network traffic log.",
+        "link": "/exchange/artifacts/pages/macos.network.littlesnitch",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-12"
+    },
+    {
         "title": "Windows.KapeFiles.Remapping",
         "author": "scudette",
         "description": "This artifact automates the rebuilding of remapping rules to be able to easily\npost process the results of the Windows.KapeFiles.Targets.",
