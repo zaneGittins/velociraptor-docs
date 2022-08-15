@@ -779,7 +779,7 @@
     {
         "title": "Windows.System.BinaryVersion",
         "author": "mgreen27",
-        "description": "Extract the binary version information for binary files. This\nartifact will search the MFT for any matching filenames and return\nbinary information.\n",
+        "description": "This artifact will search the MFT for any matching filenames and return\nbinary details. This artifact can be used to find all instances of a \nbinary on disk so its great for scoping both legititimate and illegitimate \nfiles.\n",
         "link": "/exchange/artifacts/pages/binaryversion",
         "tags": [],
         "author_link": "https://github.com/mgreen27",
