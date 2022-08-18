@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Remediation.Quarantine",
+        "author": "weslambert",
+        "description": "Quarantine a Linux host using iptables rules. ",
+        "link": "/exchange/artifacts/pages/linux.remediation.quarantine",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-18"
+    },
+    {
         "title": "MacOS.Files.FileMonitor",
         "author": "weslambert",
         "description": "This artifact parses Objective-See's FileMonitor log.",
