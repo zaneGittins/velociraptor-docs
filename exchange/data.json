@@ -10,6 +10,16 @@
         "date": "2022-08-25"
     },
     {
+        "title": "Windows.System.Services.SliverPsexec",
+        "author": "svch0stz",
+        "description": "This pack detects various artefacts left behind by default configurations of the C2 framework Sliver PsExec module",
+        "link": "/exchange/artifacts/pages/windows.system.services.sliverpsexec",
+        "tags": [],
+        "author_link": "https://github.com/svch0stz",
+        "author_avatar": "https://avatars.githubusercontent.com/u/8684257?v=4",
+        "date": "2022-08-25"
+    },
+    {
         "title": "Windows.Detection.UnattendXML",
         "author": "mgreen27",
         "description": "This artifact will find unscrubbed passwords in unattend.xml answer files. This \nfile is used for non interactive Windows installation.\n",
