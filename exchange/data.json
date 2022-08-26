@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.COMAutoApprovalList",
+        "author": "weslambert",
+        "description": "This artifact will return COM objects that auto-elevate and bypass UAC (these could potentially be used by adversaries/malware to elevate privileges), and cross-reference the class ID with a name where able.\n",
+        "link": "/exchange/artifacts/pages/windows.registry.comautoapprovallist",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-26"
+    },
+    {
         "title": "Windows.Detection.MagicWeb",
         "author": "mgreen27",
         "description": "This artifact will find evidence of NOBELIUM\u2019s MagicWeb.",
