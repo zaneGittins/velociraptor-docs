@@ -10,6 +10,16 @@
         "date": "2022-08-27"
     },
     {
+        "title": "Server.Enrichment.IRIS.IOCLookup",
+        "author": "weslambert",
+        "description": "Query an IRIS instance for an indicator.",
+        "link": "/exchange/artifacts/pages/server.enrichment.iris.ioclookup",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-27"
+    },
+    {
         "title": "Windows.Registry.COMAutoApprovalList",
         "author": "weslambert",
         "description": "This artifact will return COM objects that auto-elevate and bypass UAC (these could potentially be used by adversaries/malware to elevate privileges), and cross-reference the class ID with a name where able.\n",
