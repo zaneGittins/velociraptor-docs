@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Alerts.IRIS.Case.Create",
+        "author": "weslambert",
+        "description": "Create an IRIS case when monitored artifacts complete with results.  Adds the ClientId, FlowId as tags to the case.  Adds the FQDN as an asset.",
+        "link": "/exchange/artifacts/pages/server.alerts.iris.case.create",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-08-27"
+    },
+    {
         "title": "Windows.Registry.COMAutoApprovalList",
         "author": "weslambert",
         "description": "This artifact will return COM objects that auto-elevate and bypass UAC (these could potentially be used by adversaries/malware to elevate privileges), and cross-reference the class ID with a name where able.\n",
