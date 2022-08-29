@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.ETW.DNSOfflineCollector",
+        "author": "DfirJos",
+        "description": "This artifact collects DNS queries for a specified duration. It can be used \nwith an Offline Collector (which is not the case with Windows.ETW.DNS).\nIt uses the artifact (Windows.ETW.DNS) that was built by Matt Green - @mgreen27\n",
+        "link": "/exchange/artifacts/pages/windows.etw.dnsofflinecollector",
+        "tags": [],
+        "author_link": "https://github.com/DfirJos",
+        "author_avatar": "https://avatars.githubusercontent.com/u/11965973?v=4",
+        "date": "2022-08-29"
+    },
+    {
         "title": "Server.Alerts.IRIS.Case.Create",
         "author": "weslambert",
         "description": "Create an IRIS case when monitored artifacts complete with results.  Adds the ClientId, FlowId as tags to the case.  Adds the FQDN as an asset.",
