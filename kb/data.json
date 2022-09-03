@@ -1,5 +1,14 @@
 [
     {
+        "title": "# How do I get the latest release binary?",
+        "link": "/knowledge_base/tips/getting_latest_release",
+        "tags": [],
+        "author": "scudette",
+        "author_link": "https://github.com/scudette",
+        "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "date": "2022-09-03"
+    },
+    {
         "title": "How can I url/percent decode a string?",
         "link": "/knowledge_base/tips/urldecode",
         "tags": [
