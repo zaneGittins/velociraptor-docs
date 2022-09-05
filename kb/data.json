@@ -1,11 +1,14 @@
 [
     {
-        "title": "# How do I get the latest release binary?",
+        "title": "How do I get the latest release binary?",
         "link": "/knowledge_base/tips/getting_latest_release",
-        "tags": [],
+        "tags": [
+            "configuration",
+            "deployment"
+        ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-09-03"
     },
     {
@@ -18,8 +21,8 @@
             "vql"
         ],
         "author": "mgreen27",
-        "author_link": "https://github.com/mgreen27",
         "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "author_link": "https://github.com/mgreen27",
         "date": "2022-06-06"
     },
     {
@@ -29,8 +32,8 @@
             "vql"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-05-21"
     },
     {
@@ -40,8 +43,8 @@
             "labels"
         ],
         "author": "mgreen27",
-        "author_link": "https://github.com/mgreen27",
         "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "author_link": "https://github.com/mgreen27",
         "date": "2022-05-20"
     },
     {
@@ -49,8 +52,8 @@
         "link": "/knowledge_base/tips/reconfigure_offline_collector",
         "tags": [],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-05-06"
     },
     {
@@ -61,8 +64,8 @@
             "GUI"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-04-26"
     },
     {
@@ -95,8 +98,8 @@
             "deployment"
         ],
         "author": "scudette",
-        "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
+        "author_link": "https://github.com/scudette",
         "date": "2022-04-26"
     },
     {
