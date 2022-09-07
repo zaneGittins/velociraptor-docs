@@ -1,6 +1,6 @@
 [
     {
-        "title": "MacOS.UnfiedLogParser",
+        "title": "MacOS.UnifiedLogParser",
         "author": "weslambert",
         "description": "\nThis is a simple, un-optimized artifact that leverages Mandiant's `macos-unifiedlogs`/`unifiedlog_parser` to obtain parsed log information from macOS's Unified Log.",
         "link": "/exchange/artifacts/pages/macos.unifiedlogparser",
