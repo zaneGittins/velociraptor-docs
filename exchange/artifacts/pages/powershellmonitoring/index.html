@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.103.1"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.ETW.Powershell :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1663948514 rel=stylesheet><link href=/css/fontawesome-all.min.css?1663948514 rel=stylesheet><link href=/css/featherlight.min.css?1663948514 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1663948514 rel=stylesheet><link href=/css/auto-complete.css?1663948514 rel=stylesheet><link href=/css/theme.css?1663948514 rel=stylesheet><link href=/css/tabs.css?1663948514 rel=stylesheet><link href=/css/hugo-theme.css?1663948514 rel=stylesheet><link href=/css/theme-mine.css?1663948514 rel=stylesheet><link href=/css/dark.css?1663948514 rel=stylesheet><link href=/css/syntax.css?1663948514 rel=stylesheet><link href=/css/light.css?1663948514 rel=stylesheet><link href=/css/hljs.css?1663948514 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1663948514 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1663948514></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.104.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.ETW.Powershell :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1664185248 rel=stylesheet><link href=/css/fontawesome-all.min.css?1664185248 rel=stylesheet><link href=/css/featherlight.min.css?1664185248 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1664185248 rel=stylesheet><link href=/css/auto-complete.css?1664185248 rel=stylesheet><link href=/css/theme.css?1664185248 rel=stylesheet><link href=/css/tabs.css?1664185248 rel=stylesheet><link href=/css/hugo-theme.css?1664185248 rel=stylesheet><link href=/css/theme-mine.css?1664185248 rel=stylesheet><link href=/css/dark.css?1664185248 rel=stylesheet><link href=/css/syntax.css?1664185248 rel=stylesheet><link href=/css/light.css?1664185248 rel=stylesheet><link href=/css/hljs.css?1664185248 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1664185248 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1664185248></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/powershellmonitoring/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2022-velocon/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -68,7 +68,9 @@
 <img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/exchange/artifacts/PowershellMonitoring.yaml target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>Windows.ETW.Powershell</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.ETW.Powershell</h1><p>This artifact enables Powershell scriptblock and commandlet load monitoring.<br>It uses the ETW provider: Microsoft-Windows-PowerShell</p><p>Detection logic is managed by several global ignore entries and an IOC csv.</p><h5 id=global-ignore>Global Ignore</h5><p>IngorePaths - List of path regex to ignore<br>IgnoreProcessName - ProcessName to ignore<br>IgnoreParentProcessName - Ignore events generated by a child process</p><h5 id=ioccsv>IocCsv</h5><p>Name - detection name.<br>Type - type of detection: ScriptBlock,Commandlet or ScriptBlock|Commandlet<br>Regex - regex to search for<br>Ignore - regex to ignore<br>DateModified - date detection last modified</p><pre><code class=language-yaml>name: Windows.ETW.Powershell
+<span class=links>Windows.ETW.Powershell</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.ETW.Powershell</h1><p>This artifact enables Powershell scriptblock and commandlet load monitoring.<br>It uses the ETW provider: Microsoft-Windows-PowerShell</p><p>Detection logic is managed by several global ignore entries and an IOC csv.</p><h5 id=global-ignore>Global Ignore</h5><p>IgnoreProcessExe - Process exe path to ignore
+IgnoreParentProcessExe - Parent exe path for child generated events to ignore
+IgnoreParentProcessName - Ignore events generated by a child process</p><h5 id=ioccsv>IocCsv</h5><p>Name - detection name.<br>Type - type of detection: ScriptBlock,Commandlet or ScriptBlock|Commandlet<br>Regex - regex to search for<br>Ignore - regex to ignore<br>DateModified - date detection last modified</p><pre><code class=language-yaml>name: Windows.ETW.Powershell
 author: Matt Green - @mgreen27
 description: |
     This artifact enables Powershell scriptblock and commandlet load monitoring.  
@@ -77,8 +79,8 @@ description: |
     Detection logic is managed by several global ignore entries and an IOC csv.  
 
     ##### Global Ignore  
-    IngorePaths - List of path regex to ignore  
-    IgnoreProcessName - ProcessName to ignore  
+    IgnoreProcessExe - Process exe path to ignore
+    IgnoreParentProcessExe - Parent exe path for child generated events to ignore
     IgnoreParentProcessName - Ignore events generated by a child process 
       
     ##### IocCsv 
@@ -92,11 +94,12 @@ description: |
 type: CLIENT_EVENT
 
 parameters:
-  - name: IgnoreProcessName
-    description: &quot;Regex of process names to ignore&quot;
-    default: ^(MonitoringHost|dsac)\.exe$
-  - name: IgnoreParentProcessName
-    description: Regex of parent for child generated events to ignore
+  - name: IgnoreProcessExe
+    description: Regex of process exe path to ignore
+    default: \\Program Files\\(Microsoft Monitoring Agent\\Agent|Microsoft System Center\\Operations Manager\\Server)\\MonitoringHost\.exe$
+  - name: IgnoreParentProcessExe
+    description: Regex of parent exe path for child generated events to ignore
+    default: ^(C:\\Program Files\\Windows Defender Advanced Threat Protection\\SenseIR\.exe|C:\\Program Files\\Microsoft SQL Server\\MSSQL\d{1,2}\.MSSQLSERVER\\MSSQL\\Binn\\SQLAGENT\.EXE)$
   - name: IgnorePaths
     description: &quot;List of path regex to ignore. This list will be joined and excluded.&quot;
     default: |
@@ -138,8 +141,7 @@ sources:
             System.ProcessID as ProcessID,
             get(member=&quot;EventData&quot;) AS EventData
       FROM watch_etw(guid=&quot;{a0c1853b-5c40-4b15-8766-3cf1c58f985a}&quot;) 
-      WHERE EventID = ( 4104, 7937 )
-        AND ( EventData.ScriptBlockText OR EventData.Payload =~ '^Command .+ is Started\.\r\n$' )
+      WHERE ( EventData.ScriptBlockText OR EventData.Payload =~ '^Command .+ is Started\.\r\n$' )
         AND ( EventData.ScriptBlockText =~ ScriptBlockRegex
            OR EventData.Payload =~ CommandletRegex )
       
@@ -189,10 +191,10 @@ sources:
             FROM IocCsv
             WHERE 
                 if(condition= EventID=4104, then= Type=~'ScriptBlock',else= Type=~'Commandlet' )
-                AND NOT if(condition=IgnoreProcessName, 
-                    then= ProcessInfo.Name =~ IgnoreProcessName, else= False)
-                AND NOT if(condition=IgnoreParentProcessName, 
-                    then= ProcessChain.Name[-2] =~ IgnoreParentProcessName, else= False)
+                AND NOT if(condition=IgnoreProcessExe, 
+                    then= ProcessInfo.Exe =~ IgnoreProcessExe, else= False)
+                AND NOT if(condition=IgnoreParentProcessExe, 
+                    then= ProcessChain.Exe[-2] =~ IgnoreParentProcessExe, else= False)
                 AND Payload =~ Regex 
                 AND NOT if(condition=Ignore, then= Payload=~Ignore, else= False)
                 AND NOT if(condition=IgnorePaths,
@@ -202,12 +204,12 @@ sources:
             LIMIT 1 -- limts to 1 row per IocCsv entry.
         })
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1663948514></script>
-<script src=/js/perfect-scrollbar.min.js?1663948514></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1663948514></script>
-<script src=/js/jquery.sticky.js?1663948514></script>
-<script src=/js/featherlight.min.js?1663948514></script>
-<script src=/js/highlight.min.js?1663948514></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1663948514></script>
-<script src=/js/learn.js?1663948514></script>
-<script src=/js/hugo-learn.js?1663948514></script></body></html>
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1664185248></script>
+<script src=/js/perfect-scrollbar.min.js?1664185248></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1664185248></script>
+<script src=/js/jquery.sticky.js?1664185248></script>
+<script src=/js/featherlight.min.js?1664185248></script>
+<script src=/js/highlight.min.js?1664185248></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1664185248></script>
+<script src=/js/learn.js?1664185248></script>
+<script src=/js/hugo-learn.js?1664185248></script></body></html>
