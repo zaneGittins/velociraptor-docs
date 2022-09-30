@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.104.2"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.Malfind :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1664526947 rel=stylesheet><link href=/css/fontawesome-all.min.css?1664526947 rel=stylesheet><link href=/css/featherlight.min.css?1664526947 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1664526947 rel=stylesheet><link href=/css/auto-complete.css?1664526947 rel=stylesheet><link href=/css/theme.css?1664526947 rel=stylesheet><link href=/css/tabs.css?1664526947 rel=stylesheet><link href=/css/hugo-theme.css?1664526947 rel=stylesheet><link href=/css/theme-mine.css?1664526947 rel=stylesheet><link href=/css/dark.css?1664526947 rel=stylesheet><link href=/css/syntax.css?1664526947 rel=stylesheet><link href=/css/light.css?1664526947 rel=stylesheet><link href=/css/hljs.css?1664526947 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1664526947 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1664526947></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.104.2"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.Malfind :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1664545742 rel=stylesheet><link href=/css/fontawesome-all.min.css?1664545742 rel=stylesheet><link href=/css/featherlight.min.css?1664545742 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1664545742 rel=stylesheet><link href=/css/auto-complete.css?1664545742 rel=stylesheet><link href=/css/theme.css?1664545742 rel=stylesheet><link href=/css/tabs.css?1664545742 rel=stylesheet><link href=/css/hugo-theme.css?1664545742 rel=stylesheet><link href=/css/theme-mine.css?1664545742 rel=stylesheet><link href=/css/dark.css?1664545742 rel=stylesheet><link href=/css/syntax.css?1664545742 rel=stylesheet><link href=/css/light.css?1664545742 rel=stylesheet><link href=/css/hljs.css?1664545742 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1664545742 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1664545742></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/malfind/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -66,7 +66,7 @@
 <span class=links>Windows.Detection.Malfind</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.Detection.Malfind</h1><p>This artifact checks the VAD for executable sections that are not maped to disk
 and has suspicious content which may indicate process injection.</p><p>User options allow targetting process, modifying suspicious content yara, or
 upload of suspicious section.</p><p>Default suspicious content includes headers: MZ, default cobalt strike stomped,
-or well known suspicious strings.</p><p>Note: Expect some false positives and triage accordingly.<br>To output all executable sections without a file backed on disk add the yara
+or well known suspicious strings, meterpreter and Cobalt Strike.</p><p>Note: Add additional yara as desired.<br>Expect some false positives and triage accordingly.<br>To output all executable sections without a file backed on disk add the yara
 rule: rule always_true { condition: true }</p><pre><code class=language-yaml>name: Windows.Detection.Malfind
 author: Matt Green - @mgreen27
 description: |
@@ -77,14 +77,13 @@ description: |
     upload of suspicious section.
     
     Default suspicious content includes headers: MZ, default cobalt strike stomped, 
-    or well known suspicious strings.
+    or well known suspicious strings, meterpreter and Cobalt Strike.
     
-    Note: Expect some false positives and triage accordingly.  
+    Note: Add additional yara as desired.  
+    Expect some false positives and triage accordingly.  
     To output all executable sections without a file backed on disk add the yara 
     rule:  rule always_true {  condition: true }  
     
-    
-
 parameters:
   - name: ProcessRegex
     description: A regex applied to process names.
@@ -93,6 +92,10 @@ parameters:
   - name: PidRegex
     default: .
     type: regex
+  - name: SectionDataGuiSize
+    description: Size of SectionData to show in gui. For large files, use UploadSection
+    default: 10000
+    type: int
   - name: SuspiciousContent
     description: A yara rule of suspicious section content 
     type: yara
@@ -118,6 +121,40 @@ parameters:
                 $header1 at 0 or $header2 at 0 or $header3 at 0
                     or any of ($body*) 
         }
+        
+        rule win_cobalt_strike_auto {
+         meta:
+           author = &quot;Felix Bilstein - yara-signator at cocacoding dot com&quot;
+           date = &quot;2019-11-26&quot;
+           version = &quot;1&quot;
+           description = &quot;autogenerated rule brought to you by yara-signator&quot;
+           tool = &quot;yara-signator 0.2a&quot;
+           malpedia_reference = &quot;https://malpedia.caad.fkie.fraunhofer.de/details/win.cobalt_strike&quot;
+           malpedia_license = &quot;CC BY-SA 4.0&quot;
+           malpedia_sharing = &quot;TLP:WHITE&quot;
+
+         strings:
+           $sequence_0 = { 3bc7 750d ff15???????? 3d33270000 }
+           $sequence_1 = { e9???????? eb0a b801000000 e9???????? }
+           $sequence_2 = { 8bd0 e8???????? 85c0 7e0e }
+           $sequence_3 = { ffb5f8f9ffff ff15???????? 8b4dfc 33cd e8???????? c9 c3 }
+           $sequence_4 = { e8???????? e9???????? 833d?????????? 7505 e8???????? }
+           $sequence_5 = { 250000ff00 33d0 8b4db0 c1e908 }
+           $sequence_6 = { ff75f4 ff7610 ff761c ff75fc }
+           $sequence_7 = { 8903 6a06 eb39 33ff 85c0 762b 03f1 }
+           $sequence_8 = { 894dd4 8b458c d1f8 894580 8b45f8 c1e818 0fb6c8 }
+           $sequence_9 = { 890a 8b4508 0fb64804 81e1ff000000 c1e118 8b5508 0fb64205 }
+           $sequence_10 = { 33d2 e8???????? 48b873797374656d3332 4c8bc7 488903 49ffc0 }
+           $sequence_11 = { 488bd1 498d4bd8 498943e0 498943e8 }
+           $sequence_12 = { b904000000 486bc90e 488b542430 4c8b442430 418b0c08 8b0402 }
+           $sequence_13 = { ba80000000 e8???????? 488d4c2438 e8???????? 488d4c2420 8bd0 e8???????? }
+           $sequence_14 = { 488b4c2430 8b0401 89442428 b804000000 486bc004 }
+           $sequence_15 = { 4883c708 4883c304 49ffc3 48ffcd 0f854fffffff 488d4c2420 }
+
+        condition:
+            7 of them
+        }
+
         rule win_meterpreter_auto {
             meta:
                 author = &quot;Felix Bilstein - yara-signator at cocacoding dot com&quot;
@@ -154,20 +191,14 @@ parameters:
     description: Upload suspicious section.
     type: bool
 
+
 sources:
   - query: |
-      LET processes = SELECT Pid, Name,
-        Exe,
-        CommandLine,
-        TokenIsElevated,
-        CreateTime,
-        IsWow64,
-        Username, OwnerSid,
-        Ppid,
-        Threads, PebBaseAddress
+      LET processes = SELECT Pid, Name,Exe,CommandLine,CreateTime
         FROM pslist()
         WHERE Name =~ ProcessRegex
             AND format(format=&quot;%d&quot;, args=Pid) =~ PidRegex
+            AND log(message=&quot;Scanning pid %v : %v&quot;, args=[Pid, Name])
 
       LET hits = SELECT * FROM foreach(
           row=processes,
@@ -175,31 +206,47 @@ sources:
             SELECT CreateTime,Pid, Name,
                 format(format='%x-%x', args=[Address, Address+Size]) AS AddressRange,
                 Protection, Address as _Address,
-                Size as SectionSize
+                Size as SectionSize,
+                pathspec(
+                    DelegateAccessor=&quot;process&quot;,
+                    DelegatePath=Pid,
+                    Path=Address) AS _PathSpec
             FROM vad(pid=Pid)
             WHERE NOT MappingName
                 AND Protection =~ 'X'
           })
-
+          
       LET results = SELECT * FROM foreach(row=hits,
         query={
             SELECT 
                 CreateTime,Pid, Name,_Address, AddressRange,Protection,SectionSize,
-                format(format='% x',args=read_file(accessor='process',filename=Pid,offset=_Address,
-                    length=2)) as HexHeader,
-                magic(path=read_file(accessor='process',filename=Pid,offset=_Address,length=SectionSize),accessor='data') as DataMagic,
-                read_file(accessor='process',filename=Pid,offset=_Address,
-                    length=if(condition= Size&gt;10000, then=10000, else=SectionSize)
-                        ) as SectionData
-            FROM yara(accessor='process',files=str(str=Pid), rules=SuspiciousContent,
-                start=_Address, end=_Address+SectionSize,key='X',number=1)
+                format(format='% x',args=read_file(
+                     accessor='offset',
+                     filename=_PathSpec,
+                     length=2)) as HexHeader,
+                magic(path=_PathSpec, accessor='offset') as DataMagic,
+                read_file(
+                     accessor='offset',
+                     filename=_PathSpec,
+                     length= if(condition= Size&gt;SectionDataGuiSize, 
+                                then= SectionDataGuiSize, 
+                                else= SectionSize)
+                        ) as SectionData,
+                _PathSpec
+            FROM yara(accessor='offset',
+                files=_PathSpec, 
+                rules=SuspiciousContent,
+                end=SectionSize,  key='X',  number=1)
             LIMIT 1
-        })
-        
+        })        
       LET upload_section = SELECT *,
-                upload(accessor='data', file=read_file(accessor='process',filename=Pid,offset=_Address,length=SectionSize),
+                upload(accessor='sparse', 
+                  file=pathspec(
+                    DelegateAccessor=&quot;process&quot;,
+                    DelegatePath=Pid,
+                    Path=[dict(Offset=_Address, Length=SectionSize),]), 
                     name=format(format='%v-%v_%v.bin',args= [ Name, Pid, AddressRange ])
-                    ).StoredName as SectionDump
+                    ) as SectionDump
             FROM results
       
       SELECT *, 
@@ -212,12 +259,12 @@ column_types:
   - name: SectionData
     type: hex
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1664526947></script>
-<script src=/js/perfect-scrollbar.min.js?1664526947></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1664526947></script>
-<script src=/js/jquery.sticky.js?1664526947></script>
-<script src=/js/featherlight.min.js?1664526947></script>
-<script src=/js/highlight.min.js?1664526947></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1664526947></script>
-<script src=/js/learn.js?1664526947></script>
-<script src=/js/hugo-learn.js?1664526947></script></body></html>
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1664545742></script>
+<script src=/js/perfect-scrollbar.min.js?1664545742></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1664545742></script>
+<script src=/js/jquery.sticky.js?1664545742></script>
+<script src=/js/featherlight.min.js?1664545742></script>
+<script src=/js/highlight.min.js?1664545742></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1664545742></script>
+<script src=/js/learn.js?1664545742></script>
+<script src=/js/hugo-learn.js?1664545742></script></body></html>
