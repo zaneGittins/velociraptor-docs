@@ -10,6 +10,46 @@
         "date": "2022-10-07"
     },
     {
+        "title": "Windows.Applications.AnyDesk.LogParser",
+        "author": "weslambert",
+        "description": "Parses the AnyDesk ad.trace log file.",
+        "link": "/exchange/artifacts/pages/windows.applications.anydesk.logparser",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
+        "title": "Windows.Detection.BruteRatel",
+        "author": "weslambert",
+        "description": "This hunt runts the Immersive Labs yara rule (https://github.com/Immersive-Labs-Sec/BruteRatel-DetectionTools/blob/main/BruteRatel.yar) across select files to identify the known Brute Ratel config strings. \n",
+        "link": "/exchange/artifacts/pages/windows.detection.bruteratel",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
+        "title": "Windows.Detection.ISOMount",
+        "author": "weslambert",
+        "description": "Following Microsoft's decision to block macros by default on MS Office applications, threat actors are increasingly using container files such as ISO files to distribute malware. \nThis artifact will extract evidence of .iso files being mounted that may be malicious from the Microsoft-Windows-VHDMP-Operational EventLog. \nThe artifact targets the string \".iso\" in event IDs: 1 (mount), 2 (unmount) and 12 (type, path, handle).\n",
+        "link": "/exchange/artifacts/pages/windows.detection.isomount",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
+        "title": "Custom.Windows.Triage.HighValueMemory",
+        "author": "weslambert",
+        "description": "Dump process memory and upload to the server",
+        "link": "/exchange/artifacts/pages/windows.triage.highvaluememory",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
         "title": "MacOS.ParallelsVM.SuspendedMemory",
         "author": "DoppioRistretto",
         "description": "Looks for suspended Parallels VM owned by any user on a MacOS system. Can automatically upload the virtual memory files if found.",
