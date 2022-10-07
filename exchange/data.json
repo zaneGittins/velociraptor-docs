@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Collection.Aftermath",
+        "author": "weslambert",
+        "description": "This is a simple artifact that leverages Afermath to collect many different forensic artifacts from a macOS host, then uploads the results to the Velociraptor server.",
+        "link": "/exchange/artifacts/pages/macos.collection.aftermath",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
         "title": "MacOS.ParallelsVM.SuspendedMemory",
         "author": "DoppioRistretto",
         "description": "Looks for suspended Parallels VM owned by any user on a MacOS system. Can automatically upload the virtual memory files if found.",
