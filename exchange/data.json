@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Carving.BRc4",
+        "author": "mgreen27",
+        "description": "This artifact parses Brute Ratel C4 (BRc4) configuration from process memory. \nBRc4 is an emerging red-teaming and adversarial attack simulation tool.",
+        "link": "/exchange/artifacts/pages/brc4",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-10-13"
+    },
+    {
         "title": "MacOS.Collection.Aftermath",
         "author": "weslambert",
         "description": "This is a simple artifact that leverages Afermath to collect many different forensic artifacts from a macOS host, then uploads the results to the Velociraptor server.",
