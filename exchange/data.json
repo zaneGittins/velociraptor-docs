@@ -20,44 +20,14 @@
         "date": "2022-10-07"
     },
     {
-        "title": "Windows.Applications.AnyDesk.LogParser",
-        "author": "weslambert",
-        "description": "Parses the AnyDesk ad.trace log file.",
-        "link": "/exchange/artifacts/pages/windows.applications.anydesk.logparser",
-        "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-10-07"
-    },
-    {
-        "title": "Windows.Detection.BruteRatel",
-        "author": "weslambert",
-        "description": "This hunt runts the Immersive Labs yara rule (https://github.com/Immersive-Labs-Sec/BruteRatel-DetectionTools/blob/main/BruteRatel.yar) across select files to identify the known Brute Ratel config strings. \n",
-        "link": "/exchange/artifacts/pages/windows.detection.bruteratel",
-        "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-10-07"
-    },
-    {
         "title": "Windows.Detection.ISOMount",
-        "author": "weslambert",
+        "author": "cquinn-r7",
         "description": "Following Microsoft's decision to block macros by default on MS Office applications, threat actors are increasingly using container files such as ISO files to distribute malware. \nThis artifact will extract evidence of .iso files being mounted that may be malicious from the Microsoft-Windows-VHDMP-Operational EventLog. \nThe artifact targets the string \".iso\" in event IDs: 1 (mount), 2 (unmount) and 12 (type, path, handle).\n",
         "link": "/exchange/artifacts/pages/windows.detection.isomount",
         "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-10-07"
-    },
-    {
-        "title": "Custom.Windows.Triage.HighValueMemory",
-        "author": "weslambert",
-        "description": "Dump process memory and upload to the server",
-        "link": "/exchange/artifacts/pages/windows.triage.highvaluememory",
-        "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-10-07"
+        "author_link": "https://github.com/cquinn-r7",
+        "author_avatar": "https://avatars.githubusercontent.com/u/107484627?v=4",
+        "date": "2022-10-04"
     },
     {
         "title": "MacOS.ParallelsVM.SuspendedMemory",
@@ -298,6 +268,16 @@
         "author_link": "https://github.com/AmgdGocha",
         "author_avatar": "https://avatars.githubusercontent.com/u/17185638?v=4",
         "date": "2022-07-18"
+    },
+    {
+        "title": "Windows.Detection.BruteRatel",
+        "author": "flukes86",
+        "description": "This hunt runts the Immersive Labs yara rule (https://github.com/Immersive-Labs-Sec/BruteRatel-DetectionTools/blob/main/BruteRatel.yar) across select files to identify the known Brute Ratel config strings. \n",
+        "link": "/exchange/artifacts/pages/windows.detection.bruteratel",
+        "tags": [],
+        "author_link": "https://github.com/flukes86",
+        "author_avatar": "https://avatars.githubusercontent.com/u/60819470?v=4",
+        "date": "2022-07-12"
     },
     {
         "title": "Windows.Remediation.KillProcess",
@@ -600,6 +580,16 @@
         "date": "2022-03-07"
     },
     {
+        "title": "Windows.Applications.AnyDesk.LogParser",
+        "author": "RHinDFIR",
+        "description": "Parses the AnyDesk ad.trace log file.",
+        "link": "/exchange/artifacts/pages/windows.applications.anydesk.logparser",
+        "tags": [],
+        "author_link": "https://github.com/RHinDFIR",
+        "author_avatar": "https://avatars.githubusercontent.com/u/95378541?v=4",
+        "date": "2022-02-16"
+    },
+    {
         "title": "Windows.EventLogs.CondensedAccountUsage",
         "author": "Qazeer",
         "description": "This artifact will extract condensed information on logon / logoff events.",
@@ -628,6 +618,16 @@
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
         "date": "2022-01-26"
+    },
+    {
+        "title": "Custom.Windows.Triage.HighValueMemory",
+        "author": "liteman",
+        "description": "Dump process memory and upload to the server",
+        "link": "/exchange/artifacts/pages/windows.triage.highvaluememory",
+        "tags": [],
+        "author_link": "https://github.com/liteman",
+        "author_avatar": "https://avatars.githubusercontent.com/u/6087529?v=4",
+        "date": "2022-01-25"
     },
     {
         "title": "Windows.Applications.DefenderDHParser",
