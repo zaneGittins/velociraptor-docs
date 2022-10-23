@@ -10,6 +10,16 @@
         "date": "2022-10-23"
     },
     {
+        "title": "Windows.Applications.AnyDesk",
+        "author": "DfirJos",
+        "description": "This parses AnyDesk logs to retrieve information about AnyDesk usage. It includes source IP addresses, AnyDesk ID's, and filetransfers.",
+        "link": "/exchange/artifacts/pages/windows.applications.anydesk",
+        "tags": [],
+        "author_link": "https://github.com/DfirJos",
+        "author_avatar": "https://avatars.githubusercontent.com/u/11965973?v=4",
+        "date": "2022-10-23"
+    },
+    {
         "title": "Windows.Carving.BRc4",
         "author": "mgreen27",
         "description": "This artifact extracts Brute Ratel C4 (BRc4) configuration from a byte stream, \nprocess or file on disk. BRc4 is an emerging red-teaming and adversarial \nattack simulation tool.",
