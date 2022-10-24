@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Network.RecentWifiNetworks",
+        "author": "weslambert",
+        "description": "This artifact looks for recent Wifi networks to which a host has joined. This can be useful in determining where a machine has been, or if a user has joined an illegitimate or unauthorized wireless network.\n*Tested on macOS Monterey",
+        "link": "/exchange/artifacts/pages/macos.network.recentwifinetworks",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-24"
+    },
+    {
         "title": "Server.Monitor.Autolabeling.Clients",
         "author": "BadBloopZ",
         "description": "This server side event monitoring artifact watches for new client enrollments and automatically labels them according to their domain roles.",
