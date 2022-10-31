@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Network.Bluetooth",
+        "author": "weslambert",
+        "description": "Collect information about connected or paired Bluetooth-enabled devices.\n",
+        "link": "/exchange/artifacts/pages/macos.network.bluetooth",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-31"
+    },
+    {
         "title": "Windows.Carving.SystemBC",
         "author": "mgreen27",
         "description": "This artifact extracts SystemBC RAT configuration from a byte stream, \nprocess or file on disk.",
