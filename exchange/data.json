@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.EventLogs.Aurora",
+        "author": "weslambert",
+        "description": "This artifact is a wrapper around the Windows.EventLogs.EvtxHunter artifact. It searches the Windows Application event log for logs being written by Nextron System's Aurora/Aurora Lite ('AuroraAgent' provider).\n",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.aurora",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-01"
+    },
+    {
         "title": "MacOS.Network.Bluetooth",
         "author": "weslambert",
         "description": "Collect information about connected or paired Bluetooth-enabled devices.\n",
