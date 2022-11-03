@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Network.ApplicationLayerFirewall",
+        "author": "weslambert",
+        "description": "This artifact provides information around the configuration of the application firewall for a macOS host. ",
+        "link": "/exchange/artifacts/pages/macos.network.applicationlayerfirewall",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-03"
+    },
+    {
         "title": "Server.Utils.QuerySummary",
         "author": "clayscode",
         "description": "Takes a query and outputs number of unique items per column, as well as the top 10 most frequently occuring items",
