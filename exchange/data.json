@@ -10,6 +10,16 @@
         "date": "2022-11-05"
     },
     {
+        "title": "Windows.EventLogs.RPCFirewall",
+        "author": "weslambert",
+        "description": "Collect RPC Firewall logs from Windows hosts\n",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.rpcfirewall",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-05"
+    },
+    {
         "title": "MacOS.Network.ApplicationLayerFirewall",
         "author": "weslambert",
         "description": "This artifact provides information around the configuration of the application firewall for a macOS host. ",
