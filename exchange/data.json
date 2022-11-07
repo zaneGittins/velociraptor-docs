@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Sys.SystemdTimer",
+        "author": "weslambert",
+        "description": "List and parse content of Systemd timers.",
+        "link": "/exchange/artifacts/pages/linux.sys.systemdtimer",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-07"
+    },
+    {
         "title": "Windows.System.VAD",
         "author": "mgreen27",
         "description": "This artifact enables enumeration of process memory sections via the Virtual \nAddress Descriptor (VAD). The VAD is used by the Windows memory manager to \ndescribe allocated process memory ranges.",
