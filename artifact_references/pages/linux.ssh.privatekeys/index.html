@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.105.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Linux.Ssh.PrivateKeys :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1667829280 rel=stylesheet><link href=/css/fontawesome-all.min.css?1667829280 rel=stylesheet><link href=/css/featherlight.min.css?1667829280 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1667829280 rel=stylesheet><link href=/css/auto-complete.css?1667829280 rel=stylesheet><link href=/css/theme.css?1667829280 rel=stylesheet><link href=/css/tabs.css?1667829280 rel=stylesheet><link href=/css/hugo-theme.css?1667829280 rel=stylesheet><link href=/css/theme-mine.css?1667829280 rel=stylesheet><link href=/css/dark.css?1667829280 rel=stylesheet><link href=/css/syntax.css?1667829280 rel=stylesheet><link href=/css/light.css?1667829280 rel=stylesheet><link href=/css/hljs.css?1667829280 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1667829280 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1667829280></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.105.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Linux.Ssh.PrivateKeys :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1667997013 rel=stylesheet><link href=/css/fontawesome-all.min.css?1667997013 rel=stylesheet><link href=/css/featherlight.min.css?1667997013 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1667997013 rel=stylesheet><link href=/css/auto-complete.css?1667997013 rel=stylesheet><link href=/css/theme.css?1667997013 rel=stylesheet><link href=/css/tabs.css?1667997013 rel=stylesheet><link href=/css/hugo-theme.css?1667997013 rel=stylesheet><link href=/css/theme-mine.css?1667997013 rel=stylesheet><link href=/css/dark.css?1667997013 rel=stylesheet><link href=/css/syntax.css?1667997013 rel=stylesheet><link href=/css/light.css?1667997013 rel=stylesheet><link href=/css/hljs.css?1667997013 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1667997013 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1667997013></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/linux.ssh.privatekeys/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -12,7 +12,8 @@
 <a href=/docs/deployment/clients/>Deploying Clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/rbac/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/deployment/rbac/>Users and Roles</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/resources/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/deployment/resources/>Performance</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/troubleshooting/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/docs/deployment/troubleshooting/>Troubleshooting</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/deployment/references/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/docs/deployment/references/>Config Reference</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/gui/>The Admin GUI</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/gui/clients/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/gui/clients/>Inspecting clients</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/vfs/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/gui/vfs/>The VFS</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/gui/artifacts/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -63,7 +64,7 @@
 <img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/artifact_references/pages/linux.ssh.privatekeys.md target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>Linux.Ssh.PrivateKeys</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#references>references</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Linux.Ssh.PrivateKeys</h1><p>SSH Private keys can be either encrypted or unencrypted. Unencrypted
+<span class=links>Linux.Ssh.PrivateKeys</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Linux.Ssh.PrivateKeys</h1><p>SSH Private keys can be either encrypted or unencrypted. Unencrypted
 private keys are more risky because an attacker can use them without
 needing to unlock them with a password.</p><p>In particular, AWS instances are usually accessed by way of an SSH
 key pair generated by the AWS console. This key is not encrypted by
@@ -72,7 +73,7 @@ on their systems without encrypting it.</p><p>This artifact searches for private
 also records if they are encrypted or not. Not all key types are
 supported</p><p>NOTE: In order to encrypt your private key run:</p><pre><code>ssh-keygen -p -f my_private_key
 </code></pre><p>Change the glob to /** if you would like to search the entire filesystem.
-Be aware, this is an expensive operation.</p><h2 id=references>references</h2><ul><li><a href=https://attack.mitre.org/techniques/T1145/>https://attack.mitre.org/techniques/T1145/</a></li></ul><pre><code class=language-yaml>name: Linux.Ssh.PrivateKeys
+Be aware, this is an expensive operation.</p><pre><code class=language-yaml>name: Linux.Ssh.PrivateKeys
 description: |
   SSH Private keys can be either encrypted or unencrypted. Unencrypted
   private keys are more risky because an attacker can use them without
@@ -93,10 +94,8 @@ description: |
 Change the glob to /** if you would like to search the entire filesystem.
 Be aware, this is an expensive operation.
 
-## references
-- https://attack.mitre.org/techniques/T1145/
-
 reference:
+- https://attack.mitre.org/techniques/T1145/
 - https://coolaj86.com/articles/the-openssh-private-key-format/
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
 
@@ -134,23 +133,23 @@ sources:
     // Only search local filesystems
     LET RecursionCallback = &quot;x=&gt;x.Data.DevMajor IN LocalDeviceMajor&quot;
 
-    LET _Hits = SELECT FullPath,
-         read_file(filename=FullPath, length=20240) AS Data
+    LET _Hits = SELECT OSPath,
+         read_file(filename=OSPath, length=20240) AS Data
       FROM glob(globs=KeyGlobs, recursion_callback=RecursionCallback)
       WHERE Size &lt; 20000
 
-    LET Hits = SELECT FullPath, Data,
+    LET Hits = SELECT OSPath, Data,
            base64decode(
               string=parse_string_with_regex(
                   string=Data,
-                  regex=&quot;(?sm)KEY-----(.+)-----END&quot;).g1) AS Decoded,
+                  regex=&quot;(?sm)KEY-----(.+)-----END&quot;).g1) || &quot;&quot; AS Decoded,
           parse_string_with_regex(
              string=Data,
              regex=&quot;(BEGIN.* PRIVATE KEY)&quot;).g1 AS Header
     FROM _Hits
     WHERE Header
 
-    LET OpenSSHKeyParser(FullPath, Decoded) = SELECT FullPath,
+    LET OpenSSHKeyParser(OSPath, Decoded) = SELECT OSPath,
        parse_binary(accessor=&quot;data&quot;, filename=Decoded,
                     profile=SSHProfile, struct=&quot;Header&quot;) AS Parsed
        FROM scope()
@@ -161,16 +160,16 @@ sources:
       SELECT * FROM switch(
         a={
            -- new format
-           SELECT FullPath,
+           SELECT OSPath,
                   Parsed.Magic AS KeyType,
                   Parsed.cipher AS Cipher,
                   Header
-           FROM OpenSSHKeyParser(FullPath=FullPath, Decoded=Decoded)
+           FROM OpenSSHKeyParser(OSPath= OSPath, Decoded=Decoded)
            WHERE Header =~ &quot;BEGIN OPENSSH PRIVATE KEY&quot;
         },
         a2={
            -- encrypted rsa key from e.g. putty
-           SELECT FullPath,
+           SELECT OSPath,
                   &quot;PKCS8&quot; AS KeyType,
                   parse_string_with_regex(string=Data,
                     regex=&quot;DEK-Info: ([-a-zA-Z0-9]+)&quot;).g1 AS Cipher,
@@ -181,7 +180,7 @@ sources:
         },
         b={
            -- unencrypted rsa key from e.g. AWS
-           SELECT FullPath,
+           SELECT OSPath,
                   &quot;PKCS8&quot; AS KeyType,
                   &quot;none&quot; AS Cipher,
                   Header
@@ -190,7 +189,7 @@ sources:
         },
         c={
            -- old format encrypted
-           SELECT FullPath,
+           SELECT OSPath,
                   &quot;PKCS8&quot; AS KeyType,
                   &quot;PKCS#5&quot; AS Cipher,
                   Header
@@ -199,7 +198,7 @@ sources:
         },
         d={
            -- catch all for unknown keys
-           SELECT FullPath,
+           SELECT OSPath,
                   &quot;Unknown&quot; AS KeyType,
                   &quot;Unknown&quot; AS Cipher,
                   Header
@@ -207,12 +206,12 @@ sources:
         })
     })
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1667829280></script>
-<script src=/js/perfect-scrollbar.min.js?1667829280></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1667829280></script>
-<script src=/js/jquery.sticky.js?1667829280></script>
-<script src=/js/featherlight.min.js?1667829280></script>
-<script src=/js/highlight.min.js?1667829280></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1667829280></script>
-<script src=/js/learn.js?1667829280></script>
-<script src=/js/hugo-learn.js?1667829280></script></body></html>
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1667997013></script>
+<script src=/js/perfect-scrollbar.min.js?1667997013></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1667997013></script>
+<script src=/js/jquery.sticky.js?1667997013></script>
+<script src=/js/featherlight.min.js?1667997013></script>
+<script src=/js/highlight.min.js?1667997013></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1667997013></script>
+<script src=/js/learn.js?1667997013></script>
+<script src=/js/hugo-learn.js?1667997013></script></body></html>
