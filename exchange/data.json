@@ -1119,7 +1119,7 @@
     {
         "title": "Linux.Applications.WgetHSTS",
         "author": "scudette",
-        "description": "Wget creates a HSTS log file in a user's home directory.  This can\ncontain forensically relevant informtion.\n",
+        "description": "Wget creates a HSTS log file in a user's home directory.  This can\ncontain forensically relevant information.\n",
         "link": "/exchange/artifacts/pages/linux.applications.wgethsts",
         "tags": [],
         "author_link": "https://github.com/scudette",
