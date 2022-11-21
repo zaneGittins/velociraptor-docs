@@ -10,6 +10,16 @@
         "date": "2022-11-21"
     },
     {
+        "title": "Windows.Triage.Sysmon",
+        "author": "mgreen27",
+        "description": "This artifact allows collecting Sysmon Events for Triage around a timestamp.",
+        "link": "/exchange/artifacts/pages/sysmontriage",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-11-21"
+    },
+    {
         "title": "Server.Import.DetectRaptor",
         "author": "mgreen27",
         "description": "This artifact will automatically import the latest DetectRaptor bundle into the current server.\n",
