@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Applications.KnowledgeC",
+        "author": "weslambert",
+        "description": "On macOS, the KnowledgeC DB can provide various details around application activities and usage, as well as device power status.",
+        "link": "/exchange/artifacts/pages/macos.applications.knowledgec",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-25"
+    },
+    {
         "title": "Server.Notification.Mastodon",
         "author": "weslambert",
         "description": "Create a post on a Mastodon server. This could be used for automated alerting purposes, sharing IOCs, etc.",
