@@ -10,6 +10,16 @@
         "date": "2022-11-25"
     },
     {
+        "title": "Windows.EventLogs.EvtxHussar",
+        "author": "yarox24",
+        "description": "Grab important events from Windows logs (.evtx) using [EvtxHussar](https://github.com/yarox24/EvtxHussar).\nAlso upload PowerShell ScriptBlocks (reconstructed as files).",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.evtxhussar",
+        "tags": [],
+        "author_link": "https://github.com/yarox24",
+        "author_avatar": "https://avatars.githubusercontent.com/u/18016218?v=4",
+        "date": "2022-11-25"
+    },
+    {
         "title": "Server.Notification.Mastodon",
         "author": "weslambert",
         "description": "Create a post on a Mastodon server. This could be used for automated alerting purposes, sharing IOCs, etc.",
