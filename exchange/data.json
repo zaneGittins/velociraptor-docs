@@ -20,6 +20,16 @@
         "date": "2022-11-28"
     },
     {
+        "title": "MacOS.Applications.NetworkUsage",
+        "author": "weslambert",
+        "description": "On macOS, the NetUsage DB can provide various details around application network utilization. With this artifact, we can get an idea of what applications are utilizing the network for communications and to what degree. We can also identify if usage has occurred through a WIFI network or a wired network.",
+        "link": "/exchange/artifacts/pages/macos.applications.networkusage",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-11-28"
+    },
+    {
         "title": "Windows.Remediation.Process",
         "author": "mgreen27",
         "description": "This artifact enables killing a process by Name, Path or PID.",
