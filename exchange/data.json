@@ -10,6 +10,26 @@
         "date": "2022-11-28"
     },
     {
+        "title": "Windows.Remediation.Process",
+        "author": "mgreen27",
+        "description": "This artifact enables killing a process by Name, Path or PID.",
+        "link": "/exchange/artifacts/pages/processremediation",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-11-28"
+    },
+    {
+        "title": "Windows.Remediation.Registry",
+        "author": "mgreen27",
+        "description": "This artifact uses glob to remove a registry key.",
+        "link": "/exchange/artifacts/pages/registryremediation",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-11-28"
+    },
+    {
         "title": "MacOS.Applications.KnowledgeC",
         "author": "weslambert",
         "description": "On macOS, the KnowledgeC DB can provide various details around application activities and usage, as well as device power status.",
