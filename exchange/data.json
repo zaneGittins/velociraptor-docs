@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Remediation.Glob",
+        "author": "mgreen27",
+        "description": "This artifact uses glob to remove a file or folder.  \nTo recursively target a folder: ```C:\\folder\\path{,\\**}```  \nTo target multiple folders: ```C:\\{folder2\\path2{,\\**},folder\\path{,\\**}}``` \nhowever advised to just run 2 collections...   \n  \n WARNING: There has been a bug in older versions of Velociraptor that ```\\**```\n glob path will select all files. PLEASE SCOPE FIRST and use appropriate targeting.\n \n",
+        "link": "/exchange/artifacts/pages/globremediation",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-11-28"
+    },
+    {
         "title": "Linux.Sys.JournalCtl",
         "author": "weslambert",
         "description": "Parse the output of the journalctl command. Journalctl is an interface to the systemd journal, which records information about system events.\n",
