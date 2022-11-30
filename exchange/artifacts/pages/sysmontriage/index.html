@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.107.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Triage.Sysmon :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1669707499 rel=stylesheet><link href=/css/fontawesome-all.min.css?1669707499 rel=stylesheet><link href=/css/featherlight.min.css?1669707499 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1669707499 rel=stylesheet><link href=/css/auto-complete.css?1669707499 rel=stylesheet><link href=/css/theme.css?1669707499 rel=stylesheet><link href=/css/tabs.css?1669707499 rel=stylesheet><link href=/css/hugo-theme.css?1669707499 rel=stylesheet><link href=/css/theme-mine.css?1669707499 rel=stylesheet><link href=/css/dark.css?1669707499 rel=stylesheet><link href=/css/syntax.css?1669707499 rel=stylesheet><link href=/css/light.css?1669707499 rel=stylesheet><link href=/css/hljs.css?1669707499 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1669707499 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1669707499></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.107.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Triage.Sysmon :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1669826936 rel=stylesheet><link href=/css/fontawesome-all.min.css?1669826936 rel=stylesheet><link href=/css/featherlight.min.css?1669826936 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1669826936 rel=stylesheet><link href=/css/auto-complete.css?1669826936 rel=stylesheet><link href=/css/theme.css?1669826936 rel=stylesheet><link href=/css/tabs.css?1669826936 rel=stylesheet><link href=/css/hugo-theme.css?1669826936 rel=stylesheet><link href=/css/theme-mine.css?1669826936 rel=stylesheet><link href=/css/dark.css?1669826936 rel=stylesheet><link href=/css/syntax.css?1669826936 rel=stylesheet><link href=/css/light.css?1669826936 rel=stylesheet><link href=/css/hljs.css?1669826936 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1669826936 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1669826936></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/sysmontriage/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
@@ -115,10 +115,10 @@ sources:
 
     notebook:
       - type: vql_suggestion
-        name: Process event timeline
+        name: 1. Process event timeline
         template: |
             /*
-            ## Process Events
+            ## 1: Process creation
             Comment in fields as needed.
             */
             SELECT EventTime, Computer,EventID
@@ -146,33 +146,40 @@ sources:
                 --,Message
             FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
             WHERE EventID = 1
-            
+ 
       - type: vql_suggestion
-        name: DNS event timeline
-        template: |            
+        name: 2 Change file time
+        template: |
             /*
-            ## Sysmon DNSEvent
+            ## 2: A process changed a file creation time
+                The change file creation time event is registered when a file creation time is 
+                explicitly modified by a process. This event helps tracking the real creation 
+                time of a file. Attackers may change the file creation time of a backdoor to 
+                make it look like it was installed with the operating system. Note that many 
+                processes legitimately change the creation time of a file; it does not 
+                necessarily indicate malicious activity.
             */
             SELECT EventTime, Computer,EventID
                 --,Channel,Provider
-                --,EventData.RuleName as RuleName
-                --,EventData.UtcTime as UtcTime
-                --,EventData.ProcessGuid as ProcessGuid
+                --EventData.RuleName as RuleName
+                --EventData.UtcTime as UtcTime
+                --EventData.ProcessGuid as ProcessGuid
                 ,EventData.ProcessId as ProcessId
                 ,EventData.Image as Image
                 ,EventData.User as User
-                ,EventData.QueryName as QueryName
-                ,EventData.QueryStatus as QueryStatus
-                ,EventData.QueryResults as QueryResults
+                ,EventData.TargetFilename as TargetFilename
+                ,EventData.CreationUtcTime as CreationUtcTime
+                ,EventData.PreviousCreationUtcTime as PreviousCreationUtcTime
+                --,EventData
                 --,Message
             FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
-            WHERE EventID = 22
-            
+            WHERE EventID = 2
+
       - type: vql_suggestion
-        name: Network event timeline
+        name: 3. Network event timeline
         template: |             
             /*
-            ## Sysmon Network connection (Eid:3)
+            ## 3. Network connection
             */
             SELECT EventTime, Computer,EventID
                 --,Channel,Provider
@@ -197,13 +204,291 @@ sources:
                 --,Message
             FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
             WHERE EventID = 3
+       
+       
+      - type: vql_suggestion
+        name: 8. CreateRemoteThread
+        template: |           
+            /*
+            ## 8: CreateRemoteThread
+            The CreateRemoteThread event detects when a process creates a thread in another 
+            process. This technique is used by malware to inject code and hide in other 
+            processes. The event indicates the source and target process. It gives 
+            information on the code that will be run in the new thread: StartAddress, 
+            StartModule and StartFunction. Note that StartModule and StartFunction fields 
+            are inferred, they might be empty if the starting address is outside loaded 
+            modules or known exported functions.
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.SourceProcessGuid as SourceProcessGuid
+                ,EventData.SourceProcessId as SourceProcessId
+                ,EventData.SourceImage as SourceImage
+                ,EventData.SourceUser as SourceUser
+                --,EventData.TargetProcessGuid as TargetProcessGuid
+                ,EventData.TargetImage as TargetImage
+                ,EventData.TargetUser as TargetUser
+                ,EventData.NewThreadId as NewThreadId
+                ,EventData.StartAddress as StartAddress
+                ,EventData.StartModule as StartModule
+                ,EventData.StartFunction as StartFunction
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 8
+     
+      - type: vql_suggestion
+        name: 10. ProcessAccess
+        template: |          
+            /*
+            ## 10: ProcessAccess
+            The process accessed event reports when a process opens another process, 
+            an operation that’s often followed by information queries or reading 
+            and writing the address space of the target process. This enables 
+            detection of hacking tools that read the memory contents of processes 
+            like Local Security Authority (Lsass.exe) in order to steal credentials 
+            for use in Pass-the-Hash attacks. Enabling it can generate significant 
+            amounts of logging if there are diagnostic utilities active that 
+            repeatedly open processes to query their state, so it generally 
+            should only be done so with filters that remove expected accesses.
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.SourceProcessGuid as SourceProcessGuid
+                ,EventData.SourceProcessId as SourceProcessId
+                ,EventData.SourceThreadId as SourceThreadId
+                ,EventData.SourceImage as SourceImage
+                ,EventData.SourceUser as SourceUser
+                --,EventData.TargetProcessGuid as TargetProcessGuid
+                ,EventData.TargetProcessId as TargetProcessId
+                ,EventData.TargetImage as TargetImage
+                ,EventData.TargetUser as TargetUser
+                ,EventData.GrantedAccess as GrantedAccess
+                ,EventData.CallTrace as CallTrace
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 10
 
-</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1669707499></script>
-<script src=/js/perfect-scrollbar.min.js?1669707499></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1669707499></script>
-<script src=/js/jquery.sticky.js?1669707499></script>
-<script src=/js/featherlight.min.js?1669707499></script>
-<script src=/js/highlight.min.js?1669707499></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1669707499></script>
-<script src=/js/learn.js?1669707499></script>
-<script src=/js/hugo-learn.js?1669707499></script></body></html>
+      - type: vql_suggestion
+        name: 11. FileCreate
+        template: |             
+            /*
+            ## 11: FileCreate
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.TargetFilename as TargetFilename
+                ,EventData.CreationUtcTime as CreationUtcTime
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 11
+
+      - type: vql_suggestion
+        name: 12 13 14. Registry events
+        template: |                 
+            /*
+            ## 12, 13, 14: Registry
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.EventType as EventType
+                ,EventData.TargetObject as TargetObject
+                ,EventData.Details as Details
+                ,EventData.NewName as NewName
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID in ( 12, 13, 14 )
+
+      - type: vql_suggestion
+        name: 15. FileCreateStreamHash
+        template: | 
+            /*
+            ## 15: FileCreateStreamHash
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.TargetFileName as TargetFileName
+                ,EventData.CreationUtcTime as CreationUtcTime
+                --,parse_string_with_regex(string=EventData.Hash, regex=[&quot;MD5=(?P&lt;MD5&gt;[^,]+)&quot;,&quot;SHA1=(?P&lt;SHA1&gt;[^,]+)&quot;,&quot;SHA256=(?P&lt;SHA256&gt;[^,]+)&quot;] ) as Hash
+                ,EventData.Hash as Hash
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 15
+
+      - type: vql_suggestion
+        name: 17 18. Named Pipes
+        template: | 
+            /*
+            ## 17, 18: Named Pipes
+            17: Pipe created
+            18: Pipe connected
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.EventType as EventType
+                ,EventData.PipeName as PipeName
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID in ( 17,18 )
+            
+            
+            /*
+            
+      - type: vql_suggestion
+        name: 19 20 21. WMI Eventing
+        template: |            
+            ## 19,20,21: WMI Eventing
+            19: WmiEventFilter activity detected.  
+            20: WmiEventConsumer activity detected.  
+            21: WmiEventConsumerToFilter activity detected.  
+            
+            Note: some fields for each event will be null.  
+            Comment in and out relevant fields.
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.EventType as EventType
+                ,EventData.Operation as Operation
+                ,EventData.EventNamespace as EventNamespace
+                ,EventData.Name as Name
+                ,EventData.Query as Query
+                ,EventData.Type as Type
+                ,EventData.Destination as Destination
+                ,EventData.Consumer as Consumer
+                ,EventData.Filter as Filter
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID in ( 19,20,21 )
+
+      - type: vql_suggestion
+        name: 22. DNS event timeline
+        template: |            
+            /*
+            ## 22: DNSEvent
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.QueryName as QueryName
+                ,EventData.QueryStatus as QueryStatus
+                ,EventData.QueryResults as QueryResults
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 22
+
+      - type: vql_suggestion
+        name: 23. FileDelete
+        template: |             
+            /*
+            ## 23: FileDelete
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.TargetFilename as TargetFilename
+                --,parse_string_with_regex(string=EventData.Hashes, regex=[&quot;MD5=(?P&lt;MD5&gt;[^,]+)&quot;,&quot;SHA1=(?P&lt;SHA1&gt;[^,]+)&quot;,&quot;SHA256=(?P&lt;SHA256&gt;[^,]+)&quot;] ) as Hashes
+                ,EventData.Hashes as Hashes
+                ,EventData.Archived as Archived
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 23
+
+      - type: vql_suggestion
+        name: 24. ClipboardChange
+        template: |             
+            /*
+            ## 24: ClipboardChange
+            */
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                ,EventData.ProcessId as ProcessId
+                ,EventData.Image as Image
+                ,EventData.User as User
+                ,EventData.Session as Session
+                ,EventData.ClientInfo as ClientInfo
+                --,parse_string_with_regex(string=EventData.Hashes, regex=[&quot;MD5=(?P&lt;MD5&gt;[^,]+)&quot;,&quot;SHA1=(?P&lt;SHA1&gt;[^,]+)&quot;,&quot;SHA256=(?P&lt;SHA256&gt;[^,]+)&quot;] ) as Hashes
+                ,EventData.Hashes as Hashes
+                ,EventData.Archived as Archived
+                --,EventData
+                --,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+            WHERE EventID = 24
+
+      - type: vql_suggestion
+        name: XX. Full Timeline
+        template: |                
+            SELECT EventTime, Computer,EventID
+                --,Channel,Provider
+                --,EventData.RuleName as RuleName
+                --,EventData.UtcTime as UtcTime
+                --,EventData.ProcessGuid as ProcessGuid
+                --,EventData.ProcessId as ProcessId
+                --,EventData.Image as Image
+                --,EventData.User as User
+                --,EventData
+                ,Message
+            FROM source(artifact=&quot;Exchange.Windows.Triage.Sysmon&quot;)
+
+</code></pre><footer class=footline></footer></div><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//velocidex-velociraptor.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1669826936></script>
+<script src=/js/perfect-scrollbar.min.js?1669826936></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1669826936></script>
+<script src=/js/jquery.sticky.js?1669826936></script>
+<script src=/js/featherlight.min.js?1669826936></script>
+<script src=/js/highlight.min.js?1669826936></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1669826936></script>
+<script src=/js/learn.js?1669826936></script>
+<script src=/js/hugo-learn.js?1669826936></script></body></html>
