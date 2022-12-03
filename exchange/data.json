@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Alerts.GenericMonitor",
+        "author": "mgreen27",
+        "description": "This is a template artifact to allow alerting on a monitoring artifact.",
+        "link": "/exchange/artifacts/pages/genericmonitor",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-03"
+    },
+    {
         "title": "Windows.Remediation.Glob",
         "author": "mgreen27",
         "description": "This artifact uses glob to remove a file or folder.  \nTo recursively target a folder: ```C:\\folder\\path{,\\**}```  \nTo target multiple folders: ```C:\\{folder2\\path2{,\\**},folder\\path{,\\**}}``` \nhowever advised to just run 2 collections...   \n  \n WARNING: There has been a bug in older versions of Velociraptor that ```\\**```\n glob path will select all files. PLEASE SCOPE FIRST and use appropriate targeting.\n \n",
