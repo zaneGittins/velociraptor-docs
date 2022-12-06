@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Applications.SavedState",
+        "author": "weslambert",
+        "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
+        "link": "/exchange/artifacts/pages/macos.applications.savedstate",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
         "title": "Server.Alerts.GenericMonitor",
         "author": "mgreen27",
         "description": "This is a template artifact to allow alerting on a monitoring artifact.",
