@@ -10,6 +10,16 @@
         "date": "2022-12-06"
     },
     {
+        "title": "Server.Enrichment.OpenAI",
+        "author": "weslambert",
+        "description": "Query OpenAI for analysis of data.",
+        "link": "/exchange/artifacts/pages/server.enrichment.openai",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
         "title": "Server.Alerts.GenericMonitor",
         "author": "mgreen27",
         "description": "This is a template artifact to allow alerting on a monitoring artifact.",
