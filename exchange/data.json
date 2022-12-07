@@ -1,5 +1,15 @@
 [
     {
+        "title": "Exchange.Linux.System.PAM",
+        "author": "weslambert",
+        "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
+        "link": "/exchange/artifacts/pages/exchange.linux.system.pam",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-07"
+    },
+    {
         "title": "MacOS.Applications.SavedState",
         "author": "weslambert",
         "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
