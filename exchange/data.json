@@ -10,6 +10,16 @@
         "date": "2022-12-08"
     },
     {
+        "title": "Linux.Forensics.RecentlyUsed",
+        "author": "Seeps",
+        "description": "Parses the 'recently-used.xbel' XML file for all standard Linux users.",
+        "link": "/exchange/artifacts/pages/linux.forensics.recentlyused",
+        "tags": [],
+        "author_link": "https://github.com/Seeps",
+        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
+        "date": "2022-12-08"
+    },
+    {
         "title": "Linux.System.PAM",
         "author": "weslambert",
         "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
