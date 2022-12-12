@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.TeamViewerLanguage",
+        "author": "mgreen27",
+        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
+        "link": "/exchange/artifacts/pages/teamviewerlanguage",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-12"
+    },
+    {
         "title": "MacOS.Network.DHCP",
         "author": "weslambert",
         "description": "It can be useful to view DHCP lease information on an endpoint.  If the  `LeaseLength`, `RouterIPAddress`, `SSID`, or other values are not as expected,  it could potentially indicate a rogue DHCP server on the network, or just misconfiguration.",
