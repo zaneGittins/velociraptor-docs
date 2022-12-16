@@ -1,5 +1,15 @@
 [
     {
+        "title": "MacOS.Applications.Notes",
+        "author": "weslambert",
+        "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
+        "link": "/exchange/artifacts/pages/macos.applications.notes",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-16"
+    },
+    {
         "title": "Windows.Detection.TeamViewerLanguage",
         "author": "mgreen27",
         "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
