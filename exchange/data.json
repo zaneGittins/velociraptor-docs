@@ -212,7 +212,7 @@
     {
         "title": "Server.Import.DetectRaptor",
         "author": "mgreen27",
-        "description": "This artifact will automatically import the latest DetectRaptor bundle into the current server.\n",
+        "description": "This artifact will automatically import the latest DetectRaptor bundle into the current server.  ",
         "link": "/exchange/artifacts/pages/detectraptor",
         "tags": [],
         "author_link": "https://github.com/mgreen27",
