@@ -222,7 +222,7 @@
     {
         "title": "Server.Import.DetectRaptor",
         "author": "mgreen27",
-        "description": "This artifact will automatically import the latest DetectRaptor bundle into the current server.  ",
+        "description": "DetectRaptor is a collection of publically availible Velociraptor detection content. \nMost content is managed by a series of csv files and artifacts are automatically updated.",
         "link": "/exchange/artifacts/pages/detectraptor",
         "tags": [],
         "author_link": "https://github.com/mgreen27",
