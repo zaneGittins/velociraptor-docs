@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.System.BashLogout",
+        "author": "weslambert",
+        "description": "Capture Bash logout files for examination of abnormal activity. ",
+        "link": "/exchange/artifacts/pages/linux.system.bashlogout",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-17"
+    },
+    {
         "title": "MacOS.Applications.Notes",
         "author": "weslambert",
         "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
