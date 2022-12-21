@@ -1,5 +1,135 @@
 [
     {
+        "title": "MacOS.UnifiedLogHunter",
+        "author": "weslambert",
+        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
+        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-21"
+    },
+    {
+        "title": "Linux.System.BashLogout",
+        "author": "weslambert",
+        "description": "Capture Bash logout files for examination of abnormal activity. ",
+        "link": "/exchange/artifacts/pages/linux.system.bashlogout",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-17"
+    },
+    {
+        "title": "MacOS.Applications.Notes",
+        "author": "weslambert",
+        "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
+        "link": "/exchange/artifacts/pages/macos.applications.notes",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-16"
+    },
+    {
+        "title": "Windows.Detection.TeamViewerLanguage",
+        "author": "mgreen27",
+        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
+        "link": "/exchange/artifacts/pages/teamviewerlanguage",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-12"
+    },
+    {
+        "title": "MacOS.Network.DHCP",
+        "author": "weslambert",
+        "description": "It can be useful to view DHCP lease information on an endpoint.  If the  `LeaseLength`, `RouterIPAddress`, `SSID`, or other values are not as expected,  it could potentially indicate a rogue DHCP server on the network, or just misconfiguration.",
+        "link": "/exchange/artifacts/pages/macos.network.dhcp",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-10"
+    },
+    {
+        "title": "IRIS.Sync.Asset",
+        "author": "BadBloopZ",
+        "description": "This artifact synchronizes clients from Velociraptor to DFIR-IRIS (https://dfir-iris.org/). It will parse available information of clients such as network interfaces, IP addresses, asset type and applied labels. Once it has been added, the asset ID from DFIR-IRIS will be added as client metadata and 'IRIS' will be added as label. If this artifact is applied on a client that has the asset ID set in its metadata, it won't be readded but rather updated: Labels and the compromised status will by synchronized.",
+        "link": "/exchange/artifacts/pages/iris.sync.asset",
+        "tags": [],
+        "author_link": "https://github.com/BadBloopZ",
+        "author_avatar": "https://avatars.githubusercontent.com/u/29574367?v=4",
+        "date": "2022-12-08"
+    },
+    {
+        "title": "Linux.Forensics.RecentlyUsed",
+        "author": "Seeps",
+        "description": "Parses the 'recently-used.xbel' XML file for all standard Linux users.",
+        "link": "/exchange/artifacts/pages/linux.forensics.recentlyused",
+        "tags": [],
+        "author_link": "https://github.com/Seeps",
+        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
+        "date": "2022-12-08"
+    },
+    {
+        "title": "Linux.System.PAM",
+        "author": "weslambert",
+        "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
+        "link": "/exchange/artifacts/pages/linux.system.pam",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-08"
+    },
+    {
+        "title": "MacOS.Applications.SavedState",
+        "author": "weslambert",
+        "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
+        "link": "/exchange/artifacts/pages/macos.applications.savedstate",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
+        "title": "Server.Enrichment.OpenAI",
+        "author": "weslambert",
+        "description": "Query OpenAI for analysis of data.",
+        "link": "/exchange/artifacts/pages/server.enrichment.openai",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
+        "title": "Server.Alerts.GenericMonitor",
+        "author": "mgreen27",
+        "description": "This is a template artifact to allow alerting on a monitoring artifact.",
+        "link": "/exchange/artifacts/pages/genericmonitor",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-03"
+    },
+    {
+        "title": "Linux.Sys.APTHistory",
+        "author": "weslambert",
+        "description": "APT (Advanced Package Tool) maintains a log of software installation/removal/upgrades, as well as associated command-line invocations.",
+        "link": "/exchange/artifacts/pages/linux.sys.apthistory",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-03"
+    },
+    {
+        "title": "MacOS.System.MountedDiskImages",
+        "author": "weslambert",
+        "description": "This artifact checks for mounted disk images using the `hdiutil` command.\n",
+        "link": "/exchange/artifacts/pages/macos.system.mounteddiskimages",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-03"
+    },
+    {
         "title": "Windows.Remediation.Glob",
         "author": "mgreen27",
         "description": "This artifact uses glob to remove a file or folder.  \nTo recursively target a folder: ```C:\\folder\\path{,\\**}```  \nTo target multiple folders: ```C:\\{folder2\\path2{,\\**},folder\\path{,\\**}}``` \nhowever advised to just run 2 collections...   \n  \n WARNING: There has been a bug in older versions of Velociraptor that ```\\**```\n glob path will select all files. PLEASE SCOPE FIRST and use appropriate targeting.\n \n",
@@ -1459,135 +1589,5 @@
         "author_link": "https://github.com/ffh571",
         "author_avatar": "https://avatars.githubusercontent.com/u/48983874?v=4",
         "date": "2021-06-23"
-    },
-    {
-        "title": "Server.Alerts.GenericMonitor",
-        "author": "",
-        "description": "This is a template artifact to allow alerting on a monitoring artifact.",
-        "link": "/exchange/artifacts/pages/genericmonitor",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "IRIS.Sync.Asset",
-        "author": "",
-        "description": "This artifact synchronizes clients from Velociraptor to DFIR-IRIS (https://dfir-iris.org/). It will parse available information of clients such as network interfaces, IP addresses, asset type and applied labels. Once it has been added, the asset ID from DFIR-IRIS will be added as client metadata and 'IRIS' will be added as label. If this artifact is applied on a client that has the asset ID set in its metadata, it won't be readded but rather updated: Labels and the compromised status will by synchronized.",
-        "link": "/exchange/artifacts/pages/iris.sync.asset",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Forensics.RecentlyUsed",
-        "author": "",
-        "description": "Parses the 'recently-used.xbel' XML file for all standard Linux users.",
-        "link": "/exchange/artifacts/pages/linux.forensics.recentlyused",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Sys.APTHistory",
-        "author": "",
-        "description": "APT (Advanced Package Tool) maintains a log of software installation/removal/upgrades, as well as associated command-line invocations.",
-        "link": "/exchange/artifacts/pages/linux.sys.apthistory",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.System.BashLogout",
-        "author": "",
-        "description": "Capture Bash logout files for examination of abnormal activity. ",
-        "link": "/exchange/artifacts/pages/linux.system.bashlogout",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.System.PAM",
-        "author": "",
-        "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
-        "link": "/exchange/artifacts/pages/linux.system.pam",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Applications.Notes",
-        "author": "",
-        "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
-        "link": "/exchange/artifacts/pages/macos.applications.notes",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Applications.SavedState",
-        "author": "",
-        "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
-        "link": "/exchange/artifacts/pages/macos.applications.savedstate",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Network.DHCP",
-        "author": "",
-        "description": "It can be useful to view DHCP lease information on an endpoint.  If the  `LeaseLength`, `RouterIPAddress`, `SSID`, or other values are not as expected,  it could potentially indicate a rogue DHCP server on the network, or just misconfiguration.",
-        "link": "/exchange/artifacts/pages/macos.network.dhcp",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.System.MountedDiskImages",
-        "author": "",
-        "description": "This artifact checks for mounted disk images using the `hdiutil` command.\n",
-        "link": "/exchange/artifacts/pages/macos.system.mounteddiskimages",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.UnifiedLogHunter",
-        "author": "",
-        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
-        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Server.Enrichment.OpenAI",
-        "author": "",
-        "description": "Query OpenAI for analysis of data.",
-        "link": "/exchange/artifacts/pages/server.enrichment.openai",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.TeamViewerLanguage",
-        "author": "",
-        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
-        "link": "/exchange/artifacts/pages/teamviewerlanguage",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
     }
 ]
