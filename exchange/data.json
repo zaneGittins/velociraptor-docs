@@ -1,5 +1,25 @@
 [
     {
+        "title": "Windows.Detection.WonkaVision",
+        "author": "weslambert",
+        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
+        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
+        "title": "Windows.EventLogs.WonkaVision",
+        "author": "weslambert",
+        "description": "Collect WonkaVision logs from Windows hosts.",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
         "title": "MacOS.UnifiedLogHunter",
         "author": "weslambert",
         "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
