@@ -1,5 +1,95 @@
 [
     {
+        "title": "Linux.Collection.Autoruns",
+        "author": "4ltern4te",
+        "description": "This artifact collects various autorun files for upload.\nBased on TriagePersistence from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.autoruns",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.BrowserExtensions",
+        "author": "4ltern4te",
+        "description": "Collect Browser Extensions and upload them.\nBased on TriageWebBrowserExtensions from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.browserextensions",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.BrowserHistory",
+        "author": "4ltern4te",
+        "description": "Collect Browser History and upload them.\nBased on TriageWebBrowserHistory from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.browserhistory",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.DBConfig",
+        "author": "4ltern4te",
+        "description": "Collect database configurations and upload them.\nBased on TriageDatabaseConfigsAndLogs from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.dbconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.History",
+        "author": "4ltern4te",
+        "description": "Collect history files from unix/linux utilities and upload them.\nBased on TriageHistory from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.historyfiles",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.NetworkConfig",
+        "author": "4ltern4te",
+        "description": "Collect network config files and upload them.\nBased on TriageNetwork from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.networkconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.SysConfig",
+        "author": "4ltern4te",
+        "description": "Collect system configurations and upload them.\nBased on TriageSystemConfiguration from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.sysconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.SysLogs",
+        "author": "4ltern4te",
+        "description": "Collect system logs and upload them.\nBased on TriageSystemLogs from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.syslogs",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.UserConfig",
+        "author": "4ltern4te",
+        "description": "Collect user configurations and upload them.\nBased on TriageUserConfiguration from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.userconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
         "title": "Windows.System.AppCompatPCA",
         "author": "ecapuano",
         "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
