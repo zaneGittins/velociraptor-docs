@@ -1,5 +1,15 @@
 [
     {
+        "title": "Custom.Windows.WinSCP.Passwords",
+        "author": "Sam0rai",
+        "description": "Extract WinSCP obfuscated saved passwords from registry.\nFurther information regarding deobfuscation can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
+        "link": "/exchange/artifacts/pages/custom.windows.winscp.passwords",
+        "tags": [],
+        "author_link": "https://github.com/Sam0rai",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4671530?v=4",
+        "date": "2023-01-20"
+    },
+    {
         "title": "Generic.Detection.ManageEngineLog",
         "author": "mgreen27",
         "description": "This artifact will enable discovery of associated with observed exploitation \nof critical ManageEngine vulnerability: CVE-2022-47966.",
