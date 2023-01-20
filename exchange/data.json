@@ -1,6 +1,6 @@
 [
     {
-        "title": "Custom.Windows.WinSCP.Passwords",
+        "title": "Windows.WinSCP.Passwords",
         "author": "Sam0rai",
         "description": "Extract WinSCP obfuscated saved passwords from registry.\nFurther information regarding deobfuscation can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
         "link": "/exchange/artifacts/pages/custom.windows.winscp.passwords",
