@@ -10,6 +10,26 @@
         "date": "2023-01-20"
     },
     {
+        "title": "Generic.Detection.ManageEngineLog",
+        "author": "mgreen27",
+        "description": "This artifact will enable discovery of logs associated with observed exploitation \nof critical ManageEngine vulnerability: CVE-2022-47966.",
+        "link": "/exchange/artifacts/pages/manageenginelog",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-20"
+    },
+    {
+        "title": "Windows.Detection.ProxyHunter",
+        "author": "mgreen27",
+        "description": "This artifact detects evidence of several common proxy tools.\n",
+        "link": "/exchange/artifacts/pages/proxyhunter",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-20"
+    },
+    {
         "title": "Windows.Applications.KACE_SW_Process",
         "author": "mgreen27",
         "description": "This artifact parses the KACE software monitoring sqlite database - ksw_process.db\nwhich provides excellent third party evidence of execution that may \nbe useful during investigation or detection work.  ",
@@ -110,6 +130,46 @@
         "date": "2023-01-11"
     },
     {
+        "title": "Windows.System.AppCompatPCA",
+        "author": "ecapuano",
+        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
+        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
+        "tags": [],
+        "author_link": "https://github.com/ecapuano",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4219694?v=4",
+        "date": "2023-01-04"
+    },
+    {
+        "title": "Windows.Detection.WonkaVision",
+        "author": "weslambert",
+        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
+        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
+        "title": "Windows.EventLogs.WonkaVision",
+        "author": "weslambert",
+        "description": "Collect WonkaVision logs from Windows hosts.",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
+        "title": "MacOS.UnifiedLogHunter",
+        "author": "weslambert",
+        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
+        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-21"
+    },
+    {
         "title": "Linux.System.BashLogout",
         "author": "weslambert",
         "description": "Capture Bash logout files for examination of abnormal activity. ",
@@ -128,6 +188,16 @@
         "author_link": "https://github.com/weslambert",
         "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
         "date": "2022-12-16"
+    },
+    {
+        "title": "Windows.Detection.TeamViewerLanguage",
+        "author": "mgreen27",
+        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
+        "link": "/exchange/artifacts/pages/teamviewerlanguage",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-12"
     },
     {
         "title": "MacOS.Network.DHCP",
@@ -174,6 +244,16 @@
         "author": "weslambert",
         "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
         "link": "/exchange/artifacts/pages/macos.applications.savedstate",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
+        "title": "Server.Enrichment.OpenAI",
+        "author": "weslambert",
+        "description": "Query OpenAI for analysis of data.",
+        "link": "/exchange/artifacts/pages/server.enrichment.openai",
         "tags": [],
         "author_link": "https://github.com/weslambert",
         "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
@@ -1417,6 +1497,16 @@
         "date": "2021-09-21"
     },
     {
+        "title": "Exchange.Windows.Bulk.File",
+        "author": "mgreen27",
+        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
+        "link": "/exchange/artifacts/pages/bulkfile",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-09-21"
+    },
+    {
         "title": "Windows.System.BinaryVersion",
         "author": "mgreen27",
         "description": "This artifact will search the MFT for any matching filenames and return\nbinary details. This artifact can be used to find all instances of a \nbinary on disk so its great for scoping both legititimate and illegitimate \nfiles.\n",
@@ -1659,95 +1749,5 @@
         "author_link": "https://github.com/ffh571",
         "author_avatar": "https://avatars.githubusercontent.com/u/48983874?v=4",
         "date": "2021-06-23"
-    },
-    {
-        "title": "MacOS.UnifiedLogHunter",
-        "author": "",
-        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
-        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Generic.Detection.ManageEngineLog",
-        "author": "",
-        "description": "This artifact will enable discovery of associated with observed exploitation \nof critical ManageEngine vulnerability: CVE-2022-47966.",
-        "link": "/exchange/artifacts/pages/manageenginelog",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.ProxyHunter",
-        "author": "",
-        "description": "This artifact detects evidence of several common proxy tools.\n",
-        "link": "/exchange/artifacts/pages/proxyhunter",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Server.Enrichment.OpenAI",
-        "author": "",
-        "description": "Query OpenAI for analysis of data.",
-        "link": "/exchange/artifacts/pages/server.enrichment.openai",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.TeamViewerLanguage",
-        "author": "",
-        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
-        "link": "/exchange/artifacts/pages/teamviewerlanguage",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.WonkaVision",
-        "author": "",
-        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
-        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.EventLogs.WonkaVision",
-        "author": "",
-        "description": "Collect WonkaVision logs from Windows hosts.",
-        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.System.AppCompatPCA",
-        "author": "",
-        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
-        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Exchange.Windows.Bulk.File",
-        "author": "",
-        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
-        "link": "/exchange/artifacts/pages/bulkfile",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
     }
 ]
