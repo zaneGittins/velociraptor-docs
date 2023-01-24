@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.MobaXterm.Passwords",
+        "author": "Sam0rai",
+        "description": "Extract MobaXterm encrypted saved Master Passwords, Passwords and Credentials from registry.\nFurther information regarding decryption can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
+        "link": "/exchange/artifacts/pages/custom.windows.mobaxterm.passwords",
+        "tags": [],
+        "author_link": "https://github.com/Sam0rai",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4671530?v=4",
+        "date": "2023-01-24"
+    },
+    {
         "title": "Server.Utils.DeleteClientLabel",
         "author": "mgreen27",
         "description": "This artifact completely removes a client from the data store if a configured \nlabel is set.",
