@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Persistence.VscodeTasks",
+        "author": "mgreen27",
+        "description": "This artifact parses VSCode configuration files to find potenital \npersistence.",
+        "link": "/exchange/artifacts/pages/vscodetasks",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-25"
+    },
+    {
         "title": "Windows.MobaXterm.Passwords",
         "author": "Sam0rai",
         "description": "Extract MobaXterm encrypted saved Master Passwords, Passwords and Credentials from registry.\nFurther information regarding decryption can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
