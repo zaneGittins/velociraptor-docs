@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.Malfind :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1674651345 rel=stylesheet><link href=/css/fontawesome-all.min.css?1674651345 rel=stylesheet><link href=/css/featherlight.min.css?1674651345 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1674651345 rel=stylesheet><link href=/css/auto-complete.css?1674651345 rel=stylesheet><link href=/css/theme.css?1674651345 rel=stylesheet><link href=/css/tabs.css?1674651345 rel=stylesheet><link href=/css/hugo-theme.css?1674651345 rel=stylesheet><link href=/css/theme-mine.css?1674651345 rel=stylesheet><link href=/css/dark.css?1674651345 rel=stylesheet><link href=/css/syntax.css?1674651345 rel=stylesheet><link href=/css/light.css?1674651345 rel=stylesheet><link href=/css/hljs.css?1674651345 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1674651345 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1674651345></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.Malfind :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1674979637 rel=stylesheet><link href=/css/fontawesome-all.min.css?1674979637 rel=stylesheet><link href=/css/featherlight.min.css?1674979637 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1674979637 rel=stylesheet><link href=/css/auto-complete.css?1674979637 rel=stylesheet><link href=/css/theme.css?1674979637 rel=stylesheet><link href=/css/tabs.css?1674979637 rel=stylesheet><link href=/css/hugo-theme.css?1674979637 rel=stylesheet><link href=/css/theme-mine.css?1674979637 rel=stylesheet><link href=/css/dark.css?1674979637 rel=stylesheet><link href=/css/syntax.css?1674979637 rel=stylesheet><link href=/css/light.css?1674979637 rel=stylesheet><link href=/css/hljs.css?1674979637 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1674979637 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1674979637></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/malfind/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -113,23 +113,19 @@ parameters:
                 author = &quot;Matt Green - @mgreen27&quot;
                 description = &quot;Suspicious unbacked on disk executable section content&quot;
                 date = &quot;2022-09-30&quot;
-                
+
             strings:
                 $header1 = &quot;MZ&quot;
                 $header2 = { 00 00 41 52 55 48 } // cobalt strike stomped dll
-                $header3 = { FC } // shellcode stagers
-                 
+
                 $body1 = &quot;This program cannot be run in DOS mode&quot; 
-                $body2 = &quot;wininet&quot;  
-                $body3 = &quot;hws2_&quot;  
-                $body4 = &quot;hwini&quot;  
-                $body5 = { FC E8 8? 00 00 00 60 }     // shellcode prologe in metasploit
-                
+                $body2 = { FC E8 8? 00 00 00 60 }     // shellcode prologe in metasploit
+
             condition:
                 $header1 at 0 or $header2 at 0 or $header3 at 0
                     or any of ($body*) 
         }
-        
+
         rule win_cobalt_strike_auto {
          meta:
            author = &quot;Felix Bilstein - yara-signator at cocacoding dot com&quot;
@@ -178,7 +174,7 @@ parameters:
                 malpedia_version = &quot;20220808&quot;
                 malpedia_license = &quot;CC BY-SA 4.0&quot;
                 malpedia_sharing = &quot;TLP:WHITE&quot;
-        
+
             strings:
                 $sequence_0 = { e22b e5f6 4f 1c8b }
                 $sequence_1 = { 90 90 90 55 e4ec 53 8b22 }
@@ -190,10 +186,95 @@ parameters:
                 $sequence_7 = { 043b 8801 41 0fc2049088 0135???????? 4f 75b5 }
                 $sequence_8 = { 6c 50 048b 55 1491 48 }
                 $sequence_9 = { 76e1 8bf0 85f6 750e }
-        
+
             condition:
                 7 of them
         }
+        rule shellcode_get_eip
+        {
+            meta:
+                author = &quot;William Ballenthin&quot;
+                email = &quot;william.ballenthin@fireeye.com&quot;
+                license = &quot;Apache 2.0&quot;
+                copyright = &quot;FireEye, Inc&quot;
+                description = &quot;Match x86 that appears to fetch $PC.&quot;
+
+            strings:
+               $x86 = { e8 00 00 00 00 (58 | 5b | 59 | 5a | 5e | 5f) }
+
+            condition:
+               $x86
+        }
+
+        rule shellcode_peb_parsing
+        {
+            meta:
+                author = &quot;William Ballenthin&quot;
+                email = &quot;william.ballenthin@fireeye.com&quot;
+                license = &quot;Apache 2.0&quot;
+                copyright = &quot;FireEye, Inc&quot;
+                description = &quot;Match x86 that appears to manually traverse the TEB/PEB/LDR data.&quot;
+
+            strings:
+               $peb_parsing = { (64 a1 30 00 00 00 | 64 8b (1d | 0d | 15 | 35 | 3d) 30 00 00 00 | 31 (c0 | db | c9 | d2 | f6 | ff) [0-8] 64 8b ?? 30 ) [0-8] 8b ?? 0c [0-8] 8b ?? (0c | 14 | 1C) [0-8] 8b ?? (28 | 30) }
+               $peb_parsing64 = { (48 65 A1 60 00 00 00 00 00 00 00 | 65 (48 | 4C) 8B ?? 60 00 00 00 | 65 A1 60 00 00 00 00 00 00 00 | 65 8b ?? ?? 00 FF FF | (48 31 (c0 | db | c9 | d2 | f6 | ff) | 4D 31 (c0 | c9))  [0-16] 65 (48 | 4d | 49 | 4c) 8b ?? 60) [0-16] (48 | 49 | 4C) 8B ?? 18 [0-16] (48 | 49 | 4C) 8B ?? (10 | 20 | 30) [0-16] (48 | 49 | 4C) 8B ?? (50 | 60) }
+
+            condition:
+               $peb_parsing or $peb_parsing64
+        }
+
+        rule shellcode_stack_strings
+        {
+            meta:
+                author = &quot;William Ballenthin&quot;
+                email = &quot;william.ballenthin@fireeye.com&quot;
+                license = &quot;Apache 2.0&quot;
+                copyright = &quot;FireEye, Inc&quot;
+                description = &quot;Match x86 that appears to be stack string creation.&quot;
+
+            strings:
+                // stack string near the frame pointer.
+                $ss_small_bp = /(\xC6\x45.[a-zA-Z0-9 -~]){4,}\xC6\x45.\x00/
+
+                // dword stack string near the frame pointer.
+                $ss_small_bp_dword = /(\xC7\x45.[a-zA-Z0-9 -~]\x00[a-zA-Z0-9 -~]\x00){2,}\xC7\x45..\x00\x00\x00/
+
+                // stack strings further away from the frame pointer.
+                $ss_big_bp = /(\xC6\x85.[\xF0-\xFF]\xFF\xFF[a-zA-Z0-9 -~]){4,}\xC6\x85.[\xF0-\xFF]\xFF\xFF\x00/
+
+                // stack string near the stack pointer.
+                $ss_small_sp = /(\xC6\x44\x24.[a-zA-Z0-9 -~]){4,}\xC6\x44\x24.\x00/
+
+                // stack strings further away from the stack pointer.
+                $ss_big_sp = /(\xC6\x84\x24.[\x00-\x0F]\x00\x00[a-zA-Z0-9 -~]){4,}\xC6\x84\x24.[\x00-\x0F]\x00\x00\x00/
+
+            condition:
+                $ss_small_bp or $ss_small_bp_dword or $ss_big_bp or $ss_small_sp or $ss_big_sp
+        }
+
+        rule shellcode_shikataganai_encoding
+        {
+            meta:
+                author    = &quot;Steven Miller&quot;
+                company   = &quot;FireEye&quot;
+                reference = &quot;https://www.fireeye.com/blog/threat-research/2019/10/shikata-ga-nai-encoder-still-going-strong.html&quot;
+            strings:
+                $varInitializeAndXorCondition1_XorEAX = { B8 ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 59 | 5A | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 40 | 41 | 42 | 43 | 45 | 46 | 47 ) ?? }
+                $varInitializeAndXorCondition1_XorEBP = { BD ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 58 | 59 | 5A | 5B | 5C | 5E | 5F ) [0-50] 31 ( 68 | 69 | 6A | 6B | 6D | 6E | 6F ) ?? }
+                $varInitializeAndXorCondition1_XorEBX = { BB ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 58 | 59 | 5A | 5C | 5D | 5E | 5F ) [0-50] 31 ( 58 | 59 | 5A | 5B | 5D | 5E | 5F ) ?? }
+                $varInitializeAndXorCondition1_XorECX = { B9 ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 58 | 5A | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 48 | 49 | 4A | 4B | 4D | 4E | 4F ) ?? }
+                $varInitializeAndXorCondition1_XorEDI = { BF ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 58 | 59 | 5A | 5B | 5C | 5D | 5E ) [0-50] 31 ( 78 | 79 | 7A | 7B | 7D | 7E | 7F ) ?? }
+                $varInitializeAndXorCondition1_XorEDX = { BA ?? ?? ?? ?? [0-30] D9 74 24 F4 [0-10] ( 58 | 59 | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 50 | 51 | 52 | 53 | 55 | 56 | 57 ) ?? }
+                $varInitializeAndXorCondition2_XorEAX = { D9 74 24 F4 [0-30] B8 ?? ?? ?? ?? [0-10] ( 59 | 5A | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 40 | 41 | 42 | 43 | 45 | 46 | 47 ) ?? }
+                $varInitializeAndXorCondition2_XorEBP = { D9 74 24 F4 [0-30] BD ?? ?? ?? ?? [0-10] ( 58 | 59 | 5A | 5B | 5C | 5E | 5F ) [0-50] 31 ( 68 | 69 | 6A | 6B | 6D | 6E | 6F ) ?? }
+                $varInitializeAndXorCondition2_XorEBX = { D9 74 24 F4 [0-30] BB ?? ?? ?? ?? [0-10] ( 58 | 59 | 5A | 5C | 5D | 5E | 5F ) [0-50] 31 ( 58 | 59 | 5A | 5B | 5D | 5E | 5F ) ?? }
+                $varInitializeAndXorCondition2_XorECX = { D9 74 24 F4 [0-30] B9 ?? ?? ?? ?? [0-10] ( 58 | 5A | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 48 | 49 | 4A | 4B | 4D | 4E | 4F ) ?? }
+                $varInitializeAndXorCondition2_XorEDI = { D9 74 24 F4 [0-30] BF ?? ?? ?? ?? [0-10] ( 58 | 59 | 5A | 5B | 5C | 5D | 5E ) [0-50] 31 ( 78 | 79 | 7A | 7B | 7D | 7E | 7F ) ?? }
+                $varInitializeAndXorCondition2_XorEDX = { D9 74 24 F4 [0-30] BA ?? ?? ?? ?? [0-10] ( 58 | 59 | 5B | 5C | 5D | 5E | 5F ) [0-50] 31 ( 50 | 51 | 52 | 53 | 55 | 56 | 57 ) ?? }
+            condition:
+                any of them
+        }
+        
   - name: NumberOfHits
     description: THis artifact will stop by default at one hit. This setting allows additional hits
     default: 1
@@ -288,12 +369,12 @@ column_types:
   - name: SectionData
     type: base64hex
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1674651345></script>
-<script src=/js/perfect-scrollbar.min.js?1674651345></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1674651345></script>
-<script src=/js/jquery.sticky.js?1674651345></script>
-<script src=/js/featherlight.min.js?1674651345></script>
-<script src=/js/highlight.min.js?1674651345></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1674651345></script>
-<script src=/js/learn.js?1674651345></script>
-<script src=/js/hugo-learn.js?1674651345></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1674979637></script>
+<script src=/js/perfect-scrollbar.min.js?1674979637></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1674979637></script>
+<script src=/js/jquery.sticky.js?1674979637></script>
+<script src=/js/featherlight.min.js?1674979637></script>
+<script src=/js/highlight.min.js?1674979637></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1674979637></script>
+<script src=/js/learn.js?1674979637></script>
+<script src=/js/hugo-learn.js?1674979637></script></body></html>
