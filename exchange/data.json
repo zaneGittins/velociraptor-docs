@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.Onenote",
+        "author": "mgreen27",
+        "description": "This artifact enables detection of malicious .one files and can also be used \nas an embedded file and metadata parser.",
+        "link": "/exchange/artifacts/pages/onenote",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-30"
+    },
+    {
         "title": "Windows.Persistence.VscodeTasks",
         "author": "mgreen27",
         "description": "This artifact parses VSCode configuration files to find potenital \npersistence.",
