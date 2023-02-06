@@ -922,7 +922,7 @@
     {
         "title": "Server.Enrichment.EchoTrail",
         "author": "ecapuano",
-        "description": "\nThis is a process execution enrichment artifact that can be called from within another artifact (such as one looking at running processes) to enrich the \ndata made available by that artifact. We are calling the EchoTrail v2 API which is still in beta.",
+        "description": "\nThis is a process execution enrichment artifact that can be called from within another artifact (such as one looking at running processes) to enrich the \ndata made available by that artifact. We are calling the EchoTrail v2 API which is still in beta. ",
         "link": "/exchange/artifacts/pages/server.enrichment.echotrail",
         "tags": [],
         "author_link": "https://github.com/ecapuano",
