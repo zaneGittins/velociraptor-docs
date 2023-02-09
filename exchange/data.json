@@ -1,5 +1,19 @@
 [
     {
+        "title": "Linux.Detection.vRealizeLogInsightExploitation",
+        "author": "acedef",
+        "description": "Checks for exploitation of vRealize Log Insight VMSA-2023-0001 exploitation \nartifacts. The presence of a path traversal in the FileName field\nis evidence of compromise. There is still a path to exploitation without\nleveraging the path traversal vuln. Any attempt to run\nREMOTE_PAK_DOWNLOAD_COMMAND from a non-vRealize server is malicious.\n#VMWare #vRealize #exploit\n",
+        "link": "/exchange/artifacts/pages/linux.detection.vrealizeloginsightexploitation",
+        "tags": [
+            "VMWare",
+            "vRealize",
+            "exploit"
+        ],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-09"
+    },
+    {
         "title": "Windows.Detection.Onenote",
         "author": "mgreen27",
         "description": "This artifact enables detection of malicious .one files and can also be used \nas an embedded file and metadata parser.",
