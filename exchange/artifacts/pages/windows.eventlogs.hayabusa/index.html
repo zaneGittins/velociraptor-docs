@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.Hayabusa :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1675925613 rel=stylesheet><link href=/css/fontawesome-all.min.css?1675925613 rel=stylesheet><link href=/css/featherlight.min.css?1675925613 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1675925613 rel=stylesheet><link href=/css/auto-complete.css?1675925613 rel=stylesheet><link href=/css/theme.css?1675925613 rel=stylesheet><link href=/css/tabs.css?1675925613 rel=stylesheet><link href=/css/hugo-theme.css?1675925613 rel=stylesheet><link href=/css/theme-mine.css?1675925613 rel=stylesheet><link href=/css/dark.css?1675925613 rel=stylesheet><link href=/css/syntax.css?1675925613 rel=stylesheet><link href=/css/light.css?1675925613 rel=stylesheet><link href=/css/hljs.css?1675925613 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1675925613 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1675925613></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.Hayabusa :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1675926083 rel=stylesheet><link href=/css/fontawesome-all.min.css?1675926083 rel=stylesheet><link href=/css/featherlight.min.css?1675926083 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1675926083 rel=stylesheet><link href=/css/auto-complete.css?1675926083 rel=stylesheet><link href=/css/theme.css?1675926083 rel=stylesheet><link href=/css/tabs.css?1675926083 rel=stylesheet><link href=/css/hugo-theme.css?1675926083 rel=stylesheet><link href=/css/theme-mine.css?1675926083 rel=stylesheet><link href=/css/dark.css?1675926083 rel=stylesheet><link href=/css/syntax.css?1675926083 rel=stylesheet><link href=/css/light.css?1675926083 rel=stylesheet><link href=/css/hljs.css?1675926083 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1675926083 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1675926083></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.eventlogs.hayabusa/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -72,47 +72,58 @@ description: |
    
    This artifact runs Hayabusa on the endpoint against the specified Windows event log directory, and generates and uploads a single CSV file for further analysis with excel, timeline explorer, elastic stack, etc.
 
-author: Eric Capuano - @eric_capuano, Whitney Champion - @shortxstack
+author: Eric Capuano - @eric_capuano, Whitney Champion - @shortxstack, Zach Mathis - @yamatosecurity
 
 tools:
  - name: Hayabusa
-   url: https://github.com/Yamato-Security/hayabusa/releases/download/v1.4.1/hayabusa-1.4.1-windows-64-bit.zip
+   url: https://github.com/Yamato-Security/hayabusa/releases/download/v2.1.0/hayabusa-2.1.0-win-64-bit.zip
 
 precondition: SELECT OS From info() where OS = 'windows'
 
 parameters:
- - name: EVTXPath
-   description: &quot;Path to the event logs for scanning&quot;
-   default: C:\Windows\System32\winevt\Logs
  - name: UTC
    description: &quot;Output time in UTC format&quot;
    type: bool
    default: Y
  - name: UpdateRules
-   description: &quot;Update rules to latest before scanning logs&quot;
+   description: &quot;Update rules before scanning&quot;
    type: bool
- - name: DeprecatedRules
-   description: &quot;Enable rules marked as deprecated&quot;
-   type: bool
+   default: Y
  - name: NoisyRules
    description: &quot;Enable rules marked as noisy&quot;
    type: bool
- - name: FullData
-   description: &quot;Return original event content instead of just the detection - VERBOSE!&quot;
+   default: N
+ - name: OutputProfile
+   description: &quot;Decide how much data you want back&quot;
+   default: standard
+   type: choices
+   choices:
+     - minimal
+     - standard
+     - verbose
+     - all-field-info
+     - all-field-info-verbose
+     - super-verbose
+     - timesketch-minimal
+     - timesketch-verbose
+ - name: EIDFilter
+   description: &quot;Scan only common Event IDs for quicker scans&quot;
    type: bool
- - name: DeepScan
-   description: &quot;Scan ALL event IDs, not just those which apply to known rules.&quot;
-   type: bool
- - name: MinLevel
+   default: N
+ - name: MinimalLevel
    description: &quot;Minimum level for rules&quot;
    default: informational
    type: choices
    choices:
      - informational
-     - critical
-     - high
-     - med
      - low
+     - medium
+     - high
+     - critical
+ - name: Threads
+   description: &quot;Number of threads&quot;
+   type: int
+   default: 2
 
 sources:
  - query: |
@@ -123,40 +134,25 @@ sources:
 
         LET UnzipIt &lt;= SELECT * FROM unzip(filename=Toolzip.FullPath, output_directory=TmpDir)
 
-        LET HayabusaExe &lt;= TmpDir + '\\hayabusa-1.4.1-win-x64.exe'
-
-        LET ConfigPath &lt;= TmpDir + '\\rules\\config'
-
-        LET RulesPath &lt;= TmpDir + '\\rules'
+        LET HayabusaExe &lt;= TmpDir + '\\hayabusa-2.1.0-win-x64.exe'
        
-        LET BackupRules &lt;= if(condition=UpdateRules, then={
-                                                    SELECT *
-                                                    FROM execve(argv=['cmd.exe', '/c',
-                                                    'ren',RulesPath,'rules_old'])
-                                                    })
-        
-        LET Update_Rules &lt;= if(condition=UpdateRules, then={
-                                                    SELECT *
-                                                    FROM execve(argv=['cmd.exe', '/c', 'cd', TmpDir, '&amp;', HayabusaExe, '-u'])
-                                                    })
+        LET Update_Rules &lt;= if(condition=UpdateRules, then={ SELECT * FROM execve(argv=['cmd.exe', '/c', 'cd', TmpDir, '&amp;', HayabusaExe, 'update-rules']) })
 
         LET Random &lt;= rand(range=100000000000)
         
         LET CSVFile &lt;= TmpDir + '\\hayabusa_results_'+str(str=Random)+'.csv'
 
         LET cmdline &lt;= array(a=HayabusaExe)
-        LET cmdline &lt;= cmdline + (&quot;-d&quot;, EVTXPath,
-                                  &quot;-o&quot;, CSVFile,
-                                  &quot;-r&quot;, RulesPath,
-                                  &quot;-m&quot;, MinLevel,
-                                  &quot;-q&quot;)
+        LET cmdline &lt;= cmdline + (&quot;csv-timeline&quot;, &quot;--live-analysis&quot;,
+                                  &quot;--output&quot;, CSVFile,
+                                  &quot;--min-level&quot;, MinimalLevel,
+                                  &quot;--profile&quot;, OutputProfile,
+                                  &quot;--quiet&quot;, &quot;--no-summary&quot;,
+                                  &quot;--thread-number&quot;, Threads)
 
-        LET cmdline &lt;= if(condition=UTC, then=cmdline + array(a=&quot;-U&quot;), else=cmdline)
-        LET cmdline &lt;= if(condition=DeprecatedRules, then=cmdline + array(a=&quot;-D&quot;), else=cmdline)
-        LET cmdline &lt;= if(condition=NoisyRules, then=cmdline + array(a=&quot;-n&quot;), else=cmdline)
-        LET cmdline &lt;= if(condition=FullData, then=cmdline + array(a=&quot;-F&quot;), else=cmdline)
-        LET cmdline &lt;= if(condition=DeepScan, then=cmdline + array(a=&quot;-D&quot;), else=cmdline)
-
+        LET cmdline &lt;= if(condition=UTC, then=cmdline + array(a=&quot;--UTC&quot;), else=cmdline)
+        LET cmdline &lt;= if(condition=NoisyRules, then=cmdline + array(a=&quot;--enable-noisy-rules&quot;), else=cmdline)
+        LET cmdline &lt;= if(condition=EIDFilter, then=cmdline + array(a=&quot;--eid-filter&quot;), else=cmdline)
 
         LET ExecHB &lt;= SELECT * FROM execve(argv=cmdline, sep=&quot;\n&quot;, length=9999999)
                        
@@ -169,14 +165,12 @@ sources:
         LET Results &lt;= SELECT *, timestamp(string=Timestamp) AS EventTime FROM parse_csv(filename=CSVFile)
         
         SELECT * FROM Results
-
-
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1675925613></script>
-<script src=/js/perfect-scrollbar.min.js?1675925613></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1675925613></script>
-<script src=/js/jquery.sticky.js?1675925613></script>
-<script src=/js/featherlight.min.js?1675925613></script>
-<script src=/js/highlight.min.js?1675925613></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1675925613></script>
-<script src=/js/learn.js?1675925613></script>
-<script src=/js/hugo-learn.js?1675925613></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1675926083></script>
+<script src=/js/perfect-scrollbar.min.js?1675926083></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1675926083></script>
+<script src=/js/jquery.sticky.js?1675926083></script>
+<script src=/js/featherlight.min.js?1675926083></script>
+<script src=/js/highlight.min.js?1675926083></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1675926083></script>
+<script src=/js/learn.js?1675926083></script>
+<script src=/js/hugo-learn.js?1675926083></script></body></html>
