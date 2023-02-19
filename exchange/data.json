@@ -10,6 +10,18 @@
         "date": "2023-02-19"
     },
     {
+        "title": "Windows.Detection.PipeHunter",
+        "author": "acedef",
+        "description": "Takes a pipe name and returns the owning process and access rights. The primary\nmotivation for this artifact is a vulnerability in RemCom. RemCom is most \nnotably used by impacket psexec.py. It creates a null DACL for its \ncommunication pipe. This means a low privileged user\ncould use a stale pipe to get remote execution as SYSTEM. If you uncover any\nnamed pipes with the name RemCom_communication, investigate the owning proc\nand remove it from the system.\n#impacket\n",
+        "link": "/exchange/artifacts/pages/windows.detection.pipehunter",
+        "tags": [
+            "impacket"
+        ],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-19"
+    },
+    {
         "title": "Linux.Detection.vRealizeLogInsightExploitation",
         "author": "acedef",
         "description": "Checks for exploitation of vRealize Log Insight VMSA-2023-0001 exploitation \nartifacts. The presence of a path traversal in the FileName field\nis evidence of compromise. There is still a path to exploitation without\nleveraging the path traversal vuln. Any attempt to run\nREMOTE_PAK_DOWNLOAD_COMMAND from a non-vRealize server is malicious.\n#VMWare #vRealize #exploit\n",
