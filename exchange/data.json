@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.ScmanagerBackdoor",
+        "author": "acedef",
+        "description": "Checks for overly permissive DACLs on scmanager. Low priv Users with\nKA - SDDL_KEY_ALL could launch SYSTEM services. \n",
+        "link": "/exchange/artifacts/pages/windows.detection.scmanagerbackdoor",
+        "tags": [],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-25"
+    },
+    {
         "title": "Server.Enrichment.Sublime.EmailAnalysis",
         "author": "weslambert",
         "description": "Submit an email to Sublime for analysis.",
@@ -234,36 +244,6 @@
         "author_link": "https://github.com/4ltern4te",
         "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
         "date": "2023-01-11"
-    },
-    {
-        "title": "Windows.System.AppCompatPCA",
-        "author": "ecapuano",
-        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
-        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
-        "tags": [],
-        "author_link": "https://github.com/ecapuano",
-        "author_avatar": "https://avatars.githubusercontent.com/u/4219694?v=4",
-        "date": "2023-01-04"
-    },
-    {
-        "title": "Windows.Detection.WonkaVision",
-        "author": "weslambert",
-        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
-        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
-        "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-12-22"
-    },
-    {
-        "title": "Windows.EventLogs.WonkaVision",
-        "author": "weslambert",
-        "description": "Collect WonkaVision logs from Windows hosts.",
-        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
-        "tags": [],
-        "author_link": "https://github.com/weslambert",
-        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
-        "date": "2022-12-22"
     },
     {
         "title": "MacOS.UnifiedLogHunter",
@@ -1603,16 +1583,6 @@
         "date": "2021-09-21"
     },
     {
-        "title": "Exchange.Windows.Bulk.File",
-        "author": "mgreen27",
-        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
-        "link": "/exchange/artifacts/pages/bulkfile",
-        "tags": [],
-        "author_link": "https://github.com/mgreen27",
-        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
-        "date": "2021-09-21"
-    },
-    {
         "title": "Windows.System.BinaryVersion",
         "author": "mgreen27",
         "description": "This artifact will search the MFT for any matching filenames and return\nbinary details. This artifact can be used to find all instances of a \nbinary on disk so its great for scoping both legititimate and illegitimate \nfiles.\n",
@@ -1845,5 +1815,45 @@
         "author_link": "https://github.com/ffh571",
         "author_avatar": "https://avatars.githubusercontent.com/u/48983874?v=4",
         "date": "2021-06-23"
+    },
+    {
+        "title": "Windows.Detection.WonkaVision",
+        "author": "",
+        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
+        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
+    },
+    {
+        "title": "Windows.EventLogs.WonkaVision",
+        "author": "",
+        "description": "Collect WonkaVision logs from Windows hosts.",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
+    },
+    {
+        "title": "Windows.System.AppCompatPCA",
+        "author": "",
+        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
+        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
+    },
+    {
+        "title": "Exchange.Windows.Bulk.File",
+        "author": "",
+        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
+        "link": "/exchange/artifacts/pages/bulkfile",
+        "tags": [],
+        "author_link": "",
+        "author_avatar": "",
+        "date": ""
     }
 ]
