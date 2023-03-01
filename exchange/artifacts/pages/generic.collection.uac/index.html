@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Collection.UAC :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1677453241 rel=stylesheet><link href=/css/fontawesome-all.min.css?1677453241 rel=stylesheet><link href=/css/featherlight.min.css?1677453241 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1677453241 rel=stylesheet><link href=/css/auto-complete.css?1677453241 rel=stylesheet><link href=/css/theme.css?1677453241 rel=stylesheet><link href=/css/tabs.css?1677453241 rel=stylesheet><link href=/css/hugo-theme.css?1677453241 rel=stylesheet><link href=/css/theme-mine.css?1677453241 rel=stylesheet><link href=/css/dark.css?1677453241 rel=stylesheet><link href=/css/syntax.css?1677453241 rel=stylesheet><link href=/css/light.css?1677453241 rel=stylesheet><link href=/css/hljs.css?1677453241 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1677453241 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1677453241></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Collection.UAC :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1677672980 rel=stylesheet><link href=/css/fontawesome-all.min.css?1677672980 rel=stylesheet><link href=/css/featherlight.min.css?1677672980 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1677672980 rel=stylesheet><link href=/css/auto-complete.css?1677672980 rel=stylesheet><link href=/css/theme.css?1677672980 rel=stylesheet><link href=/css/tabs.css?1677672980 rel=stylesheet><link href=/css/hugo-theme.css?1677672980 rel=stylesheet><link href=/css/theme-mine.css?1677672980 rel=stylesheet><link href=/css/dark.css?1677672980 rel=stylesheet><link href=/css/syntax.css?1677672980 rel=stylesheet><link href=/css/light.css?1677672980 rel=stylesheet><link href=/css/hljs.css?1677672980 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1677672980 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1677672980></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/generic.collection.uac/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -82,7 +82,8 @@ type: CLIENT
 
 tools:
     - name: uac
-      url: https://github.com/tclahr/uac/archive/main.zip
+      github_project: tclahr/uac
+      github_asset_regex: uac-.+\.tar\.gz
 
 precondition: SELECT OS FROM info() WHERE OS = &quot;darwin&quot; OR OS = &quot;freebsd&quot; OR OS = &quot;linux&quot;
 
@@ -91,45 +92,48 @@ parameters:
       default: -p ir_triage
       type: string
       description: Command line options.
-    - name: Destination
-      default: uac_destination_dir
-      type: string
-      description: Specify the temporary directory the output file should be copied to.
 
 sources:
     - query: |
-        LET download_zip &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;uac&quot;)
+        // fetch .tar.gz package
+        LET uac_package &lt;= SELECT * FROM Artifact.Generic.Utils.FetchBinary(ToolName=&quot;uac&quot;, IsExecutable=FALSE)
+        // create temp dir
         LET temp_dir &lt;= tempdir(remove_last=true)
-        LET unzip_file &lt;= SELECT * FROM unzip(filename=download_zip[0].FullPath, output_directory=temp_dir)
-        LET create_destination_dir &lt;= SELECT * FROM execve(argv=[
-                &quot;mkdir&quot;,
-                &quot;-p&quot;,
-                temp_dir + &quot;/&quot; + Destination
-            ]
-        )
+        // uncompress the .tar.gz container
+        LET uncompress_tar_gz &lt;= SELECT * FROM execve(argv=['tar', 'zxf', uac_package.FullPath[0]], cwd=temp_dir)
+        // search for the correct uac source directory name
+        LET uac_source_directory &lt;= SELECT FullPath FROM glob(globs=[&quot;uac-*&quot;], root=temp_dir) WHERE IsDir = true
+        // run uac
         LET run_uac &lt;= SELECT * FROM execve(argv=[
-                &quot;/bin/sh&quot;,
-                &quot;-c&quot;,
-                &quot;./uac &quot; + CommandLineOptions + &quot; &quot; + temp_dir + &quot;/&quot; + Destination
-            ],
-            cwd=temp_dir + &quot;/&quot; + &quot;uac-main&quot;,
-            sep=&quot;\n&quot;,
-            length=2048
-        )
-        LET find_output_files &lt;= SELECT * FROM glob(globs=[&quot;uac*&quot;], root=temp_dir + &quot;/&quot; + Destination)
+                                                &quot;/bin/sh&quot;,
+                                                &quot;-c&quot;,
+                                                &quot;./uac -u &quot; + CommandLineOptions + &quot; .&quot;
+                                            ],
+                                            cwd=uac_source_directory.FullPath[0],
+                                            sep=&quot;\n&quot;,
+                                            length=2048
+                                        )
+        // find the output files
+        LET find_output_files &lt;= SELECT FullPath FROM glob(globs=[&quot;uac-*.log&quot;, &quot;uac-*.tar.gz&quot;], root=uac_source_directory.FullPath[0])
+        // upload the output files
         LET upload_output_files &lt;= SELECT upload(accessor=&quot;file&quot;, file=FullPath) AS Upload FROM find_output_files
         SELECT * FROM chain(
             a=run_uac,
             b=upload_output_files
         )
-        
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1677453241></script>
-<script src=/js/perfect-scrollbar.min.js?1677453241></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1677453241></script>
-<script src=/js/jquery.sticky.js?1677453241></script>
-<script src=/js/featherlight.min.js?1677453241></script>
-<script src=/js/highlight.min.js?1677453241></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1677453241></script>
-<script src=/js/learn.js?1677453241></script>
-<script src=/js/hugo-learn.js?1677453241></script></body></html>
+# CHANGELOG:
+# 2023-03-01: v2.0 released
+#   - UAC tool needs to be either fetched via upstream URL or manually provided as a .tar.gz package.
+# 2023-02-19: v1.0 released
+#   - Initial release.
+
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1677672980></script>
+<script src=/js/perfect-scrollbar.min.js?1677672980></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1677672980></script>
+<script src=/js/jquery.sticky.js?1677672980></script>
+<script src=/js/featherlight.min.js?1677672980></script>
+<script src=/js/highlight.min.js?1677672980></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1677672980></script>
+<script src=/js/learn.js?1677672980></script>
+<script src=/js/hugo-learn.js?1677672980></script></body></html>
