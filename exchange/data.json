@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.LogAnalysis.ChopChopGo",
+        "author": "weslambert",
+        "description": "\nThis artifact leverages ChopChopGo to enable usage of Sigma rules to faciliate detection within Linux logs.",
+        "link": "/exchange/artifacts/pages/linux.loganalysis.chopchopgo",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-03-08"
+    },
+    {
         "title": "Windows.Detection.ScmanagerBackdoor",
         "author": "acedef",
         "description": "Checks for overly permissive DACLs on scmanager. Low priv Users with\nKA - SDDL_KEY_ALL could launch SYSTEM services. \n",
