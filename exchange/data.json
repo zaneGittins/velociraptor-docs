@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.Bulk.ComputerName",
+        "author": "angry-bender",
+        "description": "This looks through registry on all disks to determine the hostname for cases where multiple disks are mounted\n",
+        "link": "/exchange/artifacts/pages/windows.registry.bulk.computername",
+        "tags": [],
+        "author_link": "https://github.com/angry-bender",
+        "author_avatar": "https://avatars.githubusercontent.com/u/18164137?v=4",
+        "date": "2023-03-14"
+    },
+    {
         "title": "Linux.LogAnalysis.ChopChopGo",
         "author": "weslambert",
         "description": "\nThis artifact leverages ChopChopGo to enable usage of Sigma rules to faciliate detection within Linux logs.",
