@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Detection.RemoteIconForcedAuth",
+        "author": "acedef",
+        "description": "Attackers plant SCF, URL, and LNK files with malicious icon file paths\non file shares to escalate privileges or maintain persistence. This attack \nonly requires the user to browse to the location of the malicious file.\nThis artifact enumerates file shares and returns an event for each file with a\nremote icon. It can also scan a target root directory since attackers commonly\nuse other locations like desktops.\n",
+        "link": "/exchange/artifacts/pages/remoteiconforcedauth",
+        "tags": [],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-03-17"
+    },
+    {
         "title": "Windows.Registry.Bulk.ComputerName",
         "author": "angry-bender",
         "description": "This looks through registry on all disks to determine the hostname for cases where multiple disks are mounted\n",
