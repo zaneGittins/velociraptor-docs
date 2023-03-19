@@ -586,16 +586,6 @@
         "date": "2022-11-07"
     },
     {
-        "title": "Windows.System.VAD",
-        "author": "mgreen27",
-        "description": "This artifact enables enumeration of process memory sections via the Virtual \nAddress Descriptor (VAD). The VAD is used by the Windows memory manager to \ndescribe allocated process memory ranges.",
-        "link": "/exchange/artifacts/pages/vad",
-        "tags": [],
-        "author_link": "https://github.com/mgreen27",
-        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
-        "date": "2022-11-05"
-    },
-    {
         "title": "Windows.EventLogs.RPCFirewall",
         "author": "weslambert",
         "description": "Collect RPC Firewall logs from Windows hosts\n",
@@ -654,16 +644,6 @@
         "author_link": "https://github.com/mgreen27",
         "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
         "date": "2022-10-28"
-    },
-    {
-        "title": "Windows.System.Shares",
-        "author": "mgreen27",
-        "description": "This artifact will extract network shares per machine.\n",
-        "link": "/exchange/artifacts/pages/shares",
-        "tags": [],
-        "author_link": "https://github.com/mgreen27",
-        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
-        "date": "2022-10-27"
     },
     {
         "title": "MacOS.Network.RecentWifiNetworks",
