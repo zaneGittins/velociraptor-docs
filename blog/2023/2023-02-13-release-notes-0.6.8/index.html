@@ -1,6 +1,6 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content="Velociraptor Release 0.6.8 is now in release candidate status.
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content="Velociraptor Release 0.6.8 is now LIVE.
 This post discusses some of the new features.
-"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor 0.6.8 Release :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1679184449 rel=stylesheet><link href=/css/fontawesome-all.min.css?1679184449 rel=stylesheet><link href=/css/featherlight.min.css?1679184449 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1679184449 rel=stylesheet><link href=/css/auto-complete.css?1679184449 rel=stylesheet><link href=/css/theme.css?1679184449 rel=stylesheet><link href=/css/tabs.css?1679184449 rel=stylesheet><link href=/css/hugo-theme.css?1679184449 rel=stylesheet><link href=/css/theme-mine.css?1679184449 rel=stylesheet><link href=/css/dark.css?1679184449 rel=stylesheet><link href=/css/syntax.css?1679184449 rel=stylesheet><link href=/css/light.css?1679184449 rel=stylesheet><link href=/css/hljs.css?1679184449 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1679184449 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1679184449></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor 0.6.8 Release :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1679493028 rel=stylesheet><link href=/css/fontawesome-all.min.css?1679493028 rel=stylesheet><link href=/css/featherlight.min.css?1679493028 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1679493028 rel=stylesheet><link href=/css/auto-complete.css?1679493028 rel=stylesheet><link href=/css/theme.css?1679493028 rel=stylesheet><link href=/css/tabs.css?1679493028 rel=stylesheet><link href=/css/hugo-theme.css?1679493028 rel=stylesheet><link href=/css/theme-mine.css?1679493028 rel=stylesheet><link href=/css/dark.css?1679493028 rel=stylesheet><link href=/css/syntax.css?1679493028 rel=stylesheet><link href=/css/light.css?1679493028 rel=stylesheet><link href=/css/hljs.css?1679493028 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1679493028 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1679493028></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/blog/2023/2023-02-13-release-notes-0.6.8/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -70,7 +70,7 @@ This post discusses some of the new features.
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>Velociraptor 0.6.8 Release</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#performance-improvements>Performance improvements</a><ul><li><a href=#new-client-server-communication-protocol>New client-server communication protocol</a></li><li><a href=#new-virtual-file-system-gui>New Virtual File System GUI</a></li><li><a href=#faster-export-functionality>Faster export functionality</a></li><li><a href=#tracing-capability-on-client-collections>Tracing capability on client collections</a></li></ul></li><li><a href=#vql-improvement---disk-based-materialize-operator>VQL improvement - disk based materialize operator</a></li><li><a href=#new-msi-deployment-option>New MSI deployment option</a></li><li><a href=#conclusions>Conclusions</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/release>Release</a></div></div><div id=body-inner><h1>Velociraptor 0.6.8 Release</h1><div class="author pull-right">Mike Cohen
 <span class=date>2023-02-13</span></div><p>I am very excited to announce the latest Velociraptor release 0.6.8 is
-in release candidate status. This release has been in the making for a
+now live. This release has been in the making for a
 few months now and has a lot of new features and bug fixes.</p><p>In this post I will discuss some of the interesting new features.</p><h2 id=performance-improvements>Performance improvements</h2><p>A big theme in the 0.6.8 release was about performance improvement,
 making Velociraptor faster, more efficient and more scalable (even
 more so than it currently is!).</p><h3 id=new-client-server-communication-protocol>New client-server communication protocol</h3><p>When collecting artifacts from endpoints we need to maintain a
@@ -83,7 +83,7 @@ a lot of the collection tracking to the client itself. This lowers the
 amount of work on the server and therefore allows more collections to
 be processed by the server at the same time.</p><div class="mynotices tip"><div heading=" Support for older clients "><p>To maintain support with older clients, the server continues to use
 the older communication protocol with them - but will achieve the most
-improvement in performance once the newer clients are deployed.</p></div></div><h3 id=new-virtual-file-system-gui>New Virtual File System GUI</h3><p>The VFS feature in Velociraptor allows users interactively inspect
+improvement in performance once the newer clients are deployed.</p></div></div><h3 id=new-virtual-file-system-gui>New Virtual File System GUI</h3><p>The VFS feature in Velociraptor allows users to interactively inspect
 directories and files on the endpoint, in an familiar tree user
 interface. The previous VFS view would store the entire directory
 listing in a single table for each directory. For very large
@@ -132,7 +132,7 @@ procedures and requires using a complex release platform.</p><p>In the 0.6.8 rel
 package is now recommended. This can be done on any operating system
 and does not require WIX installed. Simply embed the client
 configuration file in the officially distributed MSI packages using
-the following command:</p><pre><code>velociraptor-v0.6.8-rc1-linux-amd64 config repack --msi velociraptor-v0.6.8-rc1-windows-amd64.msi client.config.yaml output.msi
+the following command:</p><pre><code>velociraptor-v0.6.8-rc1-linux-amd64 config repack --exe velociraptor-v0.6.8-rc1-windows-amd64.msi client.config.yaml output.msi
 </code></pre><p><figure><img src=repacking.png alt="Repacking an MSI for windows distribution" class=captioned><figcaption>Repacking an MSI for windows distribution</figcaption></figure></p><h2 id=conclusions>Conclusions</h2><p>There are many more new features and bug fixes in the latest
 release. Currently the release is in testing for the next few weeks,
 so please test widely and provide feedback by opening GitHub issues.</p><p>If you like the new features, take <a href=https://github.com/Velocidex/velociraptor>Velociraptor for a
@@ -142,12 +142,12 @@ on the bug tracker or ask questions on our mailing list
 <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>
 . You can also chat with us directly on discord
 <a href=https://www.velocidex.com/discord>https://www.velocidex.com/discord</a>
-.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1679184449></script>
-<script src=/js/perfect-scrollbar.min.js?1679184449></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1679184449></script>
-<script src=/js/jquery.sticky.js?1679184449></script>
-<script src=/js/featherlight.min.js?1679184449></script>
-<script src=/js/highlight.min.js?1679184449></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1679184449></script>
-<script src=/js/learn.js?1679184449></script>
-<script src=/js/hugo-learn.js?1679184449></script></body></html>
+.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1679493028></script>
+<script src=/js/perfect-scrollbar.min.js?1679493028></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1679493028></script>
+<script src=/js/jquery.sticky.js?1679493028></script>
+<script src=/js/featherlight.min.js?1679493028></script>
+<script src=/js/highlight.min.js?1679493028></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1679493028></script>
+<script src=/js/learn.js?1679493028></script>
+<script src=/js/hugo-learn.js?1679493028></script></body></html>
