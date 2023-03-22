@@ -1,5 +1,15 @@
 [
     {
+        "title": "Detection.Application.CursedChrome",
+        "author": "mattdri-ir",
+        "description": "Detects the [Cursed Chrome](https://github.com/mandatoryprogrammer/CursedChrome) extension. Starts by searching for permissive extensions configured within `Secure Preferences`. Locates the path of the extensions and scans using Yara.\n",
+        "link": "/exchange/artifacts/pages/detection.application.cursedchrome",
+        "tags": [],
+        "author_link": "https://github.com/mattdri-ir",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5395743?v=4",
+        "date": "2023-03-22"
+    },
+    {
         "title": "Windows.Detection.RemoteIconForcedAuth",
         "author": "acedef",
         "description": "Attackers plant SCF, URL, and LNK files with malicious icon file paths\non file shares to escalate privileges or maintain persistence. This attack \nonly requires the user to browse to the location of the malicious file.\nThis artifact enumerates file shares and returns an event for each file with a\nremote icon. It can also scan a target root directory since attackers commonly\nuse other locations like desktops.\n",
