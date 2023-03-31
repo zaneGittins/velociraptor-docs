@@ -1,5 +1,25 @@
 [
     {
+        "title": "MacOS.Applications.Firefox.History",
+        "author": "x64-julian",
+        "description": "Read all Users Firefox history.\n",
+        "link": "/exchange/artifacts/pages/macos.applications.firefox.history",
+        "tags": [],
+        "author_link": "https://github.com/x64-julian",
+        "author_avatar": "https://avatars.githubusercontent.com/u/7996874?v=4",
+        "date": "2023-03-31"
+    },
+    {
+        "title": "Windows.Detection.SmoothOperator",
+        "author": "mgreen27",
+        "description": "This artifact searches for evidence of trojanised 3CXDesktopApp.",
+        "link": "/exchange/artifacts/pages/smoothoperator",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-03-30"
+    },
+    {
         "title": "Detection.Application.CursedChrome",
         "author": "mattdri-ir",
         "description": "Detects the [Cursed Chrome](https://github.com/mandatoryprogrammer/CursedChrome) extension. Starts by searching for permissive extensions configured within `Secure Preferences`. Locates the path of the extensions and scans using Yara.\n",
@@ -8,6 +28,56 @@
         "author_link": "https://github.com/mattdri-ir",
         "author_avatar": "https://avatars.githubusercontent.com/u/5395743?v=4",
         "date": "2023-03-22"
+    },
+    {
+        "title": "Windows.Detection.RemoteIconForcedAuth",
+        "author": "acedef",
+        "description": "Attackers plant SCF, URL, and LNK files with malicious icon file paths\non file shares to escalate privileges or maintain persistence. This attack \nonly requires the user to browse to the location of the malicious file.\nThis artifact enumerates file shares and returns an event for each file with a\nremote icon. It can also scan a target root directory since attackers commonly\nuse other locations like desktops.\n",
+        "link": "/exchange/artifacts/pages/remoteiconforcedauth",
+        "tags": [],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-03-17"
+    },
+    {
+        "title": "Windows.Registry.Bulk.ComputerName",
+        "author": "angry-bender",
+        "description": "This looks through registry on all disks to determine the hostname for cases where multiple disks are mounted\n",
+        "link": "/exchange/artifacts/pages/windows.registry.bulk.computername",
+        "tags": [],
+        "author_link": "https://github.com/angry-bender",
+        "author_avatar": "https://avatars.githubusercontent.com/u/18164137?v=4",
+        "date": "2023-03-14"
+    },
+    {
+        "title": "Linux.LogAnalysis.ChopChopGo",
+        "author": "weslambert",
+        "description": "\nThis artifact leverages ChopChopGo to enable usage of Sigma rules to faciliate detection within Linux logs.",
+        "link": "/exchange/artifacts/pages/linux.loganalysis.chopchopgo",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-03-08"
+    },
+    {
+        "title": "Windows.Detection.ScmanagerBackdoor",
+        "author": "acedef",
+        "description": "Checks for overly permissive DACLs on scmanager. Low priv Users with\nKA - SDDL_KEY_ALL could launch SYSTEM services. \n",
+        "link": "/exchange/artifacts/pages/windows.detection.scmanagerbackdoor",
+        "tags": [],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-25"
+    },
+    {
+        "title": "Server.Enrichment.Sublime.EmailAnalysis",
+        "author": "weslambert",
+        "description": "Submit an email to Sublime for analysis.",
+        "link": "/exchange/artifacts/pages/server.enrichment.sublime.emailanalysis",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-02-22"
     },
     {
         "title": "Windows.Memory.InjectedThreadEx",
@@ -30,6 +100,52 @@
         "date": "2023-02-19"
     },
     {
+        "title": "Windows.Detection.PipeHunter",
+        "author": "acedef",
+        "description": "Takes a pipe name and returns the owning process and access rights. The primary\nmotivation for this artifact is a vulnerability in RemCom. RemCom is most \nnotably used by impacket psexec.py. It creates a null DACL for its \ncommunication pipe. This means a low privileged user\ncould use a stale pipe to get remote execution as SYSTEM. If you uncover any\nnamed pipes with the name RemCom_communication, investigate the owning proc\nand remove it from the system.\n#impacket\n",
+        "link": "/exchange/artifacts/pages/windows.detection.pipehunter",
+        "tags": [
+            "impacket"
+        ],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-19"
+    },
+    {
+        "title": "Linux.Detection.vRealizeLogInsightExploitation",
+        "author": "acedef",
+        "description": "Checks for exploitation of vRealize Log Insight VMSA-2023-0001 exploitation \nartifacts. The presence of a path traversal in the FileName field\nis evidence of compromise. There is still a path to exploitation without\nleveraging the path traversal vuln. Any attempt to run\nREMOTE_PAK_DOWNLOAD_COMMAND from a non-vRealize server is malicious.\n#VMWare #vRealize #exploit\n",
+        "link": "/exchange/artifacts/pages/linux.detection.vrealizeloginsightexploitation",
+        "tags": [
+            "VMWare",
+            "vRealize",
+            "exploit"
+        ],
+        "author_link": "https://github.com/acedef",
+        "author_avatar": "https://avatars.githubusercontent.com/u/109249453?v=4",
+        "date": "2023-02-09"
+    },
+    {
+        "title": "Windows.Detection.Onenote",
+        "author": "mgreen27",
+        "description": "This artifact enables detection of malicious .one files and can also be used \nas an embedded file and metadata parser.",
+        "link": "/exchange/artifacts/pages/onenote",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-30"
+    },
+    {
+        "title": "Windows.Persistence.VscodeTasks",
+        "author": "mgreen27",
+        "description": "This artifact parses VSCode configuration files to find potenital \npersistence.",
+        "link": "/exchange/artifacts/pages/vscodetasks",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-25"
+    },
+    {
         "title": "Windows.MobaXterm.Passwords",
         "author": "Sam0rai",
         "description": "Extract MobaXterm encrypted saved Master Passwords, Passwords and Credentials from registry.\nFurther information regarding decryption can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
@@ -50,6 +166,16 @@
         "date": "2023-01-24"
     },
     {
+        "title": "Windows.Detection.PublicIP",
+        "author": "mgreen27",
+        "description": "This artifact queries for RDP and Authentication events with a Public IP \nsource. The artifact uses Windows.EventLogs.RDPAuth and has several built in \nnotebooks for analysis.\n",
+        "link": "/exchange/artifacts/pages/publicip",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-23"
+    },
+    {
         "title": "Windows.WinSCP.Passwords",
         "author": "Sam0rai",
         "description": "Extract WinSCP obfuscated saved passwords from registry.\nFurther information regarding deobfuscation can be found here: https://www.xmcyber.com/blog/extracting-encrypted-credentials-from-common-tools-2/\n",
@@ -57,6 +183,26 @@
         "tags": [],
         "author_link": "https://github.com/Sam0rai",
         "author_avatar": "https://avatars.githubusercontent.com/u/4671530?v=4",
+        "date": "2023-01-20"
+    },
+    {
+        "title": "Generic.Detection.ManageEngineLog",
+        "author": "mgreen27",
+        "description": "This artifact will enable discovery of logs associated with observed exploitation \nof critical ManageEngine vulnerability: CVE-2022-47966.",
+        "link": "/exchange/artifacts/pages/manageenginelog",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-01-20"
+    },
+    {
+        "title": "Windows.Detection.ProxyHunter",
+        "author": "mgreen27",
+        "description": "This artifact detects evidence of several common proxy tools.\n",
+        "link": "/exchange/artifacts/pages/proxyhunter",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
         "date": "2023-01-20"
     },
     {
@@ -80,6 +226,166 @@
         "date": "2023-01-11"
     },
     {
+        "title": "Linux.Collection.BrowserExtensions",
+        "author": "4ltern4te",
+        "description": "Collect Browser Extensions and upload them.\nBased on TriageWebBrowserExtensions from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.browserextensions",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.BrowserHistory",
+        "author": "4ltern4te",
+        "description": "Collect Browser History and upload them.\nBased on TriageWebBrowserHistory from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.browserhistory",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.DBConfig",
+        "author": "4ltern4te",
+        "description": "Collect database configurations and upload them.\nBased on TriageDatabaseConfigsAndLogs from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.dbconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.History",
+        "author": "4ltern4te",
+        "description": "Collect history files from unix/linux utilities and upload them.\nBased on TriageHistory from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.historyfiles",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.NetworkConfig",
+        "author": "4ltern4te",
+        "description": "Collect network config files and upload them.\nBased on TriageNetwork from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.networkconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.SysConfig",
+        "author": "4ltern4te",
+        "description": "Collect system configurations and upload them.\nBased on TriageSystemConfiguration from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.sysconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.SysLogs",
+        "author": "4ltern4te",
+        "description": "Collect system logs and upload them.\nBased on TriageSystemLogs from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.syslogs",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Linux.Collection.UserConfig",
+        "author": "4ltern4te",
+        "description": "Collect user configurations and upload them.\nBased on TriageUserConfiguration from forensicartifacts.com\n",
+        "link": "/exchange/artifacts/pages/linux.collection.userconfig",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-01-11"
+    },
+    {
+        "title": "Windows.System.AppCompatPCA",
+        "author": "ecapuano",
+        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
+        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
+        "tags": [],
+        "author_link": "https://github.com/ecapuano",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4219694?v=4",
+        "date": "2023-01-04"
+    },
+    {
+        "title": "Windows.Detection.WonkaVision",
+        "author": "weslambert",
+        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
+        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
+        "title": "Windows.EventLogs.WonkaVision",
+        "author": "weslambert",
+        "description": "Collect WonkaVision logs from Windows hosts.",
+        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-22"
+    },
+    {
+        "title": "MacOS.UnifiedLogHunter",
+        "author": "weslambert",
+        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
+        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-21"
+    },
+    {
+        "title": "Linux.System.BashLogout",
+        "author": "weslambert",
+        "description": "Capture Bash logout files for examination of abnormal activity. ",
+        "link": "/exchange/artifacts/pages/linux.system.bashlogout",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-17"
+    },
+    {
+        "title": "MacOS.Applications.Notes",
+        "author": "weslambert",
+        "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
+        "link": "/exchange/artifacts/pages/macos.applications.notes",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-16"
+    },
+    {
+        "title": "Windows.Detection.TeamViewerLanguage",
+        "author": "mgreen27",
+        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
+        "link": "/exchange/artifacts/pages/teamviewerlanguage",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-12"
+    },
+    {
+        "title": "MacOS.Network.DHCP",
+        "author": "weslambert",
+        "description": "It can be useful to view DHCP lease information on an endpoint.  If the  `LeaseLength`, `RouterIPAddress`, `SSID`, or other values are not as expected,  it could potentially indicate a rogue DHCP server on the network, or just misconfiguration.",
+        "link": "/exchange/artifacts/pages/macos.network.dhcp",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-10"
+    },
+    {
         "title": "IRIS.Sync.Asset",
         "author": "BadBloopZ",
         "description": "This artifact synchronizes clients from Velociraptor to DFIR-IRIS (https://dfir-iris.org/). It will parse available information of clients such as network interfaces, IP addresses, asset type and applied labels. Once it has been added, the asset ID from DFIR-IRIS will be added as client metadata and 'IRIS' will be added as label. If this artifact is applied on a client that has the asset ID set in its metadata, it won't be readded but rather updated: Labels and the compromised status will by synchronized.",
@@ -90,6 +396,46 @@
         "date": "2022-12-08"
     },
     {
+        "title": "Linux.Forensics.RecentlyUsed",
+        "author": "Seeps",
+        "description": "Parses the 'recently-used.xbel' XML file for all standard Linux users.",
+        "link": "/exchange/artifacts/pages/linux.forensics.recentlyused",
+        "tags": [],
+        "author_link": "https://github.com/Seeps",
+        "author_avatar": "https://avatars.githubusercontent.com/u/10315852?v=4",
+        "date": "2022-12-08"
+    },
+    {
+        "title": "Linux.System.PAM",
+        "author": "weslambert",
+        "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
+        "link": "/exchange/artifacts/pages/linux.system.pam",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-08"
+    },
+    {
+        "title": "MacOS.Applications.SavedState",
+        "author": "weslambert",
+        "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
+        "link": "/exchange/artifacts/pages/macos.applications.savedstate",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
+        "title": "Server.Enrichment.OpenAI",
+        "author": "weslambert",
+        "description": "Query OpenAI for analysis of data.",
+        "link": "/exchange/artifacts/pages/server.enrichment.openai",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-06"
+    },
+    {
         "title": "Server.Alerts.GenericMonitor",
         "author": "mgreen27",
         "description": "This is a template artifact to allow alerting on a monitoring artifact.",
@@ -97,6 +443,26 @@
         "tags": [],
         "author_link": "https://github.com/mgreen27",
         "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2022-12-03"
+    },
+    {
+        "title": "Linux.Sys.APTHistory",
+        "author": "weslambert",
+        "description": "APT (Advanced Package Tool) maintains a log of software installation/removal/upgrades, as well as associated command-line invocations.",
+        "link": "/exchange/artifacts/pages/linux.sys.apthistory",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-12-03"
+    },
+    {
+        "title": "MacOS.System.MountedDiskImages",
+        "author": "weslambert",
+        "description": "This artifact checks for mounted disk images using the `hdiutil` command.\n",
+        "link": "/exchange/artifacts/pages/macos.system.mounteddiskimages",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
         "date": "2022-12-03"
     },
     {
@@ -1247,6 +1613,16 @@
         "date": "2021-09-21"
     },
     {
+        "title": "Exchange.Windows.Bulk.File",
+        "author": "mgreen27",
+        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
+        "link": "/exchange/artifacts/pages/bulkfile",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2021-09-21"
+    },
+    {
         "title": "Windows.System.BinaryVersion",
         "author": "mgreen27",
         "description": "This artifact will search the MFT for any matching filenames and return\nbinary details. This artifact can be used to find all instances of a \nbinary on disk so its great for scoping both legititimate and illegitimate \nfiles.\n",
@@ -1479,371 +1855,5 @@
         "author_link": "https://github.com/ffh571",
         "author_avatar": "https://avatars.githubusercontent.com/u/48983874?v=4",
         "date": "2021-06-23"
-    },
-    {
-        "title": "Linux.Collection.BrowserExtensions",
-        "author": "",
-        "description": "Collect Browser Extensions and upload them.\nBased on TriageWebBrowserExtensions from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.browserextensions",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.BrowserHistory",
-        "author": "",
-        "description": "Collect Browser History and upload them.\nBased on TriageWebBrowserHistory from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.browserhistory",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.DBConfig",
-        "author": "",
-        "description": "Collect database configurations and upload them.\nBased on TriageDatabaseConfigsAndLogs from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.dbconfig",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.History",
-        "author": "",
-        "description": "Collect history files from unix/linux utilities and upload them.\nBased on TriageHistory from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.historyfiles",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.NetworkConfig",
-        "author": "",
-        "description": "Collect network config files and upload them.\nBased on TriageNetwork from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.networkconfig",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.SysConfig",
-        "author": "",
-        "description": "Collect system configurations and upload them.\nBased on TriageSystemConfiguration from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.sysconfig",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.SysLogs",
-        "author": "",
-        "description": "Collect system logs and upload them.\nBased on TriageSystemLogs from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.syslogs",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Collection.UserConfig",
-        "author": "",
-        "description": "Collect user configurations and upload them.\nBased on TriageUserConfiguration from forensicartifacts.com\n",
-        "link": "/exchange/artifacts/pages/linux.collection.userconfig",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Detection.vRealizeLogInsightExploitation",
-        "author": "",
-        "description": "Checks for exploitation of vRealize Log Insight VMSA-2023-0001 exploitation \nartifacts. The presence of a path traversal in the FileName field\nis evidence of compromise. There is still a path to exploitation without\nleveraging the path traversal vuln. Any attempt to run\nREMOTE_PAK_DOWNLOAD_COMMAND from a non-vRealize server is malicious.\n#VMWare #vRealize #exploit\n",
-        "link": "/exchange/artifacts/pages/linux.detection.vrealizeloginsightexploitation",
-        "tags": [
-            "VMWare",
-            "vRealize",
-            "exploit"
-        ],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Forensics.RecentlyUsed",
-        "author": "",
-        "description": "Parses the 'recently-used.xbel' XML file for all standard Linux users.",
-        "link": "/exchange/artifacts/pages/linux.forensics.recentlyused",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.LogAnalysis.ChopChopGo",
-        "author": "",
-        "description": "\nThis artifact leverages ChopChopGo to enable usage of Sigma rules to faciliate detection within Linux logs.",
-        "link": "/exchange/artifacts/pages/linux.loganalysis.chopchopgo",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.Sys.APTHistory",
-        "author": "",
-        "description": "APT (Advanced Package Tool) maintains a log of software installation/removal/upgrades, as well as associated command-line invocations.",
-        "link": "/exchange/artifacts/pages/linux.sys.apthistory",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.System.BashLogout",
-        "author": "",
-        "description": "Capture Bash logout files for examination of abnormal activity. ",
-        "link": "/exchange/artifacts/pages/linux.system.bashlogout",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Linux.System.PAM",
-        "author": "",
-        "description": "This artifact enumerates applicable lines from the files that reside in `/etc/PAM.d/`. This information can be useful for auditing and compliance purposes, or to identify suspicious activity on Linux systems.",
-        "link": "/exchange/artifacts/pages/linux.system.pam",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Applications.Notes",
-        "author": "",
-        "description": "This artifact provides details about notes taken using the default Notes application on macOS.  These notes can be useful during an investigation, especially if tied to interesting files.  ",
-        "link": "/exchange/artifacts/pages/macos.applications.notes",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Applications.SavedState",
-        "author": "",
-        "description": "On macOS, certain application state is saved in `/Users/*/Library/Saved Application State/`. ",
-        "link": "/exchange/artifacts/pages/macos.applications.savedstate",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.Network.DHCP",
-        "author": "",
-        "description": "It can be useful to view DHCP lease information on an endpoint.  If the  `LeaseLength`, `RouterIPAddress`, `SSID`, or other values are not as expected,  it could potentially indicate a rogue DHCP server on the network, or just misconfiguration.",
-        "link": "/exchange/artifacts/pages/macos.network.dhcp",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.System.MountedDiskImages",
-        "author": "",
-        "description": "This artifact checks for mounted disk images using the `hdiutil` command.\n",
-        "link": "/exchange/artifacts/pages/macos.system.mounteddiskimages",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "MacOS.UnifiedLogHunter",
-        "author": "",
-        "description": "This artifact allows for live hunting through Apple's Unified Logs using the native `log` command.",
-        "link": "/exchange/artifacts/pages/macos.unifiedloghunter",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Generic.Detection.ManageEngineLog",
-        "author": "",
-        "description": "This artifact will enable discovery of logs associated with observed exploitation \nof critical ManageEngine vulnerability: CVE-2022-47966.",
-        "link": "/exchange/artifacts/pages/manageenginelog",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.Onenote",
-        "author": "",
-        "description": "This artifact enables detection of malicious .one files and can also be used \nas an embedded file and metadata parser.",
-        "link": "/exchange/artifacts/pages/onenote",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.ProxyHunter",
-        "author": "",
-        "description": "This artifact detects evidence of several common proxy tools.\n",
-        "link": "/exchange/artifacts/pages/proxyhunter",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.PublicIP",
-        "author": "",
-        "description": "This artifact queries for RDP and Authentication events with a Public IP \nsource. The artifact uses Windows.EventLogs.RDPAuth and has several built in \nnotebooks for analysis.\n",
-        "link": "/exchange/artifacts/pages/publicip",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.RemoteIconForcedAuth",
-        "author": "",
-        "description": "Attackers plant SCF, URL, and LNK files with malicious icon file paths\non file shares to escalate privileges or maintain persistence. This attack \nonly requires the user to browse to the location of the malicious file.\nThis artifact enumerates file shares and returns an event for each file with a\nremote icon. It can also scan a target root directory since attackers commonly\nuse other locations like desktops.\n",
-        "link": "/exchange/artifacts/pages/remoteiconforcedauth",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Server.Enrichment.OpenAI",
-        "author": "",
-        "description": "Query OpenAI for analysis of data.",
-        "link": "/exchange/artifacts/pages/server.enrichment.openai",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Server.Enrichment.Sublime.EmailAnalysis",
-        "author": "",
-        "description": "Submit an email to Sublime for analysis.",
-        "link": "/exchange/artifacts/pages/server.enrichment.sublime.emailanalysis",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.SmoothOperator",
-        "author": "",
-        "description": "This artifact searches for evidence of trojanised 3CXDesktopApp.",
-        "link": "/exchange/artifacts/pages/smoothoperator",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.TeamViewerLanguage",
-        "author": "",
-        "description": "This artifact enables collection of TeamViewer log entries for keyboard layout \nchanges.  ",
-        "link": "/exchange/artifacts/pages/teamviewerlanguage",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Persistence.VscodeTasks",
-        "author": "",
-        "description": "This artifact parses VSCode configuration files to find potenital \npersistence.",
-        "link": "/exchange/artifacts/pages/vscodetasks",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.PipeHunter",
-        "author": "",
-        "description": "Takes a pipe name and returns the owning process and access rights. The primary\nmotivation for this artifact is a vulnerability in RemCom. RemCom is most \nnotably used by impacket psexec.py. It creates a null DACL for its \ncommunication pipe. This means a low privileged user\ncould use a stale pipe to get remote execution as SYSTEM. If you uncover any\nnamed pipes with the name RemCom_communication, investigate the owning proc\nand remove it from the system.\n#impacket\n",
-        "link": "/exchange/artifacts/pages/windows.detection.pipehunter",
-        "tags": [
-            "impacket"
-        ],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.ScmanagerBackdoor",
-        "author": "",
-        "description": "Checks for overly permissive DACLs on scmanager. Low priv Users with\nKA - SDDL_KEY_ALL could launch SYSTEM services. \n",
-        "link": "/exchange/artifacts/pages/windows.detection.scmanagerbackdoor",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Detection.WonkaVision",
-        "author": "",
-        "description": "\nThis artifact analyzes Kerberos tickets and attempts to determine if they are forged, using WonkaVision by @4ndr3w6s and @exploitph.",
-        "link": "/exchange/artifacts/pages/windows.detection.wonkavision",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.EventLogs.WonkaVision",
-        "author": "",
-        "description": "Collect WonkaVision logs from Windows hosts.",
-        "link": "/exchange/artifacts/pages/windows.eventlogs.wonkavision",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.Registry.Bulk.ComputerName",
-        "author": "",
-        "description": "This looks through registry on all disks to determine the hostname for cases where multiple disks are mounted\n",
-        "link": "/exchange/artifacts/pages/windows.registry.bulk.computername",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Windows.System.AppCompatPCA",
-        "author": "",
-        "description": "Parse the Program Compatibility Assistant launch dictionary for executable launch times.\n",
-        "link": "/exchange/artifacts/pages/windows.system.appcompatpca",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
-    },
-    {
-        "title": "Exchange.Windows.Bulk.File",
-        "author": "",
-        "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
-        "link": "/exchange/artifacts/pages/bulkfile",
-        "tags": [],
-        "author_link": "",
-        "author_avatar": "",
-        "date": ""
     }
 ]
