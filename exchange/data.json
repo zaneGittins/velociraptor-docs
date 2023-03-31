@@ -726,6 +726,16 @@
         "date": "2022-10-07"
     },
     {
+        "title": "Windows.Triage.HighValueMemory",
+        "author": "weslambert",
+        "description": "Dump process memory and upload to the server",
+        "link": "/exchange/artifacts/pages/windows.triage.highvaluememory",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2022-10-07"
+    },
+    {
         "title": "Windows.Detection.ISOMount",
         "author": "cquinn-r7",
         "description": "Following Microsoft's decision to block macros by default on MS Office applications, threat actors are increasingly using container files such as ISO files to distribute malware. \nThis artifact will extract evidence of .iso files being mounted that may be malicious from the Microsoft-Windows-VHDMP-Operational EventLog. \nThe artifact targets the string \".iso\" in event IDs: 1 (mount), 2 (unmount) and 12 (type, path, handle).\n",
@@ -1176,7 +1186,7 @@
         "date": "2022-04-14"
     },
     {
-        "title": "Custom.Windows.Registry.CortexEDRDisabled",
+        "title": "Windows.Registry.CortexEDRDisabled",
         "author": "Rhysistance",
         "description": "This artifact will attempt to identify Cortex EDR that has been disabled via regkey\n",
         "link": "/exchange/artifacts/pages/windows.registry.disabledcortexxdr",
@@ -1216,7 +1226,7 @@
         "date": "2022-03-24"
     },
     {
-        "title": "Custom.Windows.Office.MRU",
+        "title": "Windows.Office.MRU",
         "author": "Sam0rai",
         "description": "This artifact enables hunting for recently used Office Documents.",
         "link": "/exchange/artifacts/pages/windows.office.mru",
@@ -1314,16 +1324,6 @@
         "author_link": "https://github.com/scudette",
         "author_avatar": "https://avatars.githubusercontent.com/u/3856546?v=4",
         "date": "2022-01-26"
-    },
-    {
-        "title": "Custom.Windows.Triage.HighValueMemory",
-        "author": "liteman",
-        "description": "Dump process memory and upload to the server",
-        "link": "/exchange/artifacts/pages/windows.triage.highvaluememory",
-        "tags": [],
-        "author_link": "https://github.com/liteman",
-        "author_avatar": "https://avatars.githubusercontent.com/u/6087529?v=4",
-        "date": "2022-01-25"
     },
     {
         "title": "Windows.Applications.DefenderDHParser",
@@ -1613,7 +1613,7 @@
         "date": "2021-09-21"
     },
     {
-        "title": "Exchange.Windows.Bulk.File",
+        "title": "Windows.Bulk.File",
         "author": "mgreen27",
         "description": "Search for some simple bulk File IOCs and upload if desired.\nTypical upload workflow may be to firstly search, then if returned\nrows match expectations rerun query with upload tickbox selected.",
         "link": "/exchange/artifacts/pages/bulkfile",

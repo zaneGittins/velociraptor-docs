@@ -1,8 +1,9 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Splunk.Flows.Upload :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238531 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238531 rel=stylesheet><link href=/css/featherlight.min.css?1680238531 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238531 rel=stylesheet><link href=/css/auto-complete.css?1680238531 rel=stylesheet><link href=/css/theme.css?1680238531 rel=stylesheet><link href=/css/tabs.css?1680238531 rel=stylesheet><link href=/css/hugo-theme.css?1680238531 rel=stylesheet><link href=/css/theme-mine.css?1680238531 rel=stylesheet><link href=/css/dark.css?1680238531 rel=stylesheet><link href=/css/syntax.css?1680238531 rel=stylesheet><link href=/css/light.css?1680238531 rel=stylesheet><link href=/css/hljs.css?1680238531 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238531 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238531></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Splunk.Flows.Upload :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238750 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238750 rel=stylesheet><link href=/css/featherlight.min.css?1680238750 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238750 rel=stylesheet><link href=/css/auto-complete.css?1680238750 rel=stylesheet><link href=/css/theme.css?1680238750 rel=stylesheet><link href=/css/tabs.css?1680238750 rel=stylesheet><link href=/css/hugo-theme.css?1680238750 rel=stylesheet><link href=/css/theme-mine.css?1680238750 rel=stylesheet><link href=/css/dark.css?1680238750 rel=stylesheet><link href=/css/syntax.css?1680238750 rel=stylesheet><link href=/css/light.css?1680238750 rel=stylesheet><link href=/css/hljs.css?1680238750 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238750 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238750></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/splunk.flows.upload/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2023-cves/>Current CVEs</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -70,7 +71,19 @@
 to be collected from endpoints and automatically uploads those to a
 Splunk server.
 To configure the event collector properly a couple steps need to be
-completed prior to setting up this event:</p><ol><li><p>Configure an index to ingest the data.</p><ul><li>Go to Settings > Index.</li><li>New Index.</li></ul></li><li><p>Configure the collector.</p><ul><li>Go to Settings > Data Inputs > HTTP Event Collector.</li><li>Add New.</li><li>Name does not matter, but ensure indexer acknowledgement is OFF.</li><li>Set <code>Selected Indexes</code> to the index configured in step 1.</li><li>Save API key for this event.</li></ul></li><li><p>Set Global settings.</p><ul><li>Go to Settings > Data Inputs > HTTP Event Collector > Global Settings</li><li>Ensure <code>All Tokens</code> is set to ENABLED</li><li>Copy the HTTP Port Number for this event</li></ul><blockquote><p>Note: <code>Enable SSL</code> only works if SSL is properly configured on your
+completed prior to setting up this event:</p><ol><li><p>Configure an index to ingest the data.</p><ul><li>Go to Settings > Index.</li><li>New Index.</li></ul></li><li><p>Configure the collector.</p><ul><li>Go to Settings > Data Inputs > HTTP Event Collector.</li><li>Add New.</li><li>Name does not matter, but ensure indexer acknowledgement is OFF.</li><li>Set <code>Selected Indexes</code> to the index configured in step 1.</li><li>Save API key for this event.</li></ul></li><li><p>Set Global settings.</p><ul><li>Go to Settings > Data Inputs > HTTP Event Collector > Global Settings</li><li>Ensure <code>All Tokens</code> is set to ENABLED</li><li>Copy the HTTP Port Number for this event</li></ul></li><li><p>Configure your Splunk props.conf and tranforms.conf</p><ul><li>Add the following to props.conf
+[vql]
+INDEXED_EXTRACTIONS = json
+DATETIME_CONFIG = CURRENT
+TZ = GMT
+category = Custom
+pulldown_type = 1
+TRANSFORMS-vql-sourcetype = vql-sourcetype,vql-timestamp
+TRUNCATE = 512000</li><li>Add the following to transforms.conf
+[vql-sourcetype]
+INGEST_EVAL = sourcetype=lower(_index)
+[vql-timestamp]
+INGEST_EVAL = _time=case(<br>_index=&ldquo;artifact_Linux_Search_FileFinder&rdquo;,strptime(CTime,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_System_VFS_ListDirectory&rdquo;,strptime(ctime,"%Y-%m-%dT%H:%M:%S.%NZ"),<br>_index=&ldquo;artifact_Windows_Timeline_MFT&rdquo;,strptime(event_time,"%Y-%m-%dT%H:%M:%S.%NZ"),<br>_index=&ldquo;artifact_Windows_NTFS_MFT&rdquo;,strptime(Created0x10,"%Y-%m-%dT%H:%M:%S.%NZ"),<br>_index=&ldquo;artifact_Windows_EventLogs_Evtx&rdquo;,strptime(TimeCreated,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Custom_Windows_EventLogs_System_7045&rdquo;,strptime(TimeCreated,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_EventLogs_RDPAuth&rdquo;,strptime(EventTime,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_Analysis_EvidenceOfExecution_UserAssist&rdquo;,strptime(LastExecution,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_Analysis_EvidenceOfExecution_Amcache&rdquo;,strptime(KeyMTime,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_System_Amcache_InventoryApplicationFile&rdquo;,strptime(LastModified,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_Search_FileFinder&rdquo;,strptime(CTime,"%Y-%m-%dT%H:%M:%S.%NZ"),<br>_index=&ldquo;artifact_Windows_Applications_NirsoftBrowserViewer&rdquo;,strptime(Visited,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_Registry_RecentDocs&rdquo;,strptime(LastWriteTime,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Custom_Windows_Application_IIS_IISLogs&rdquo;,strptime(event_time,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_MacOS_Applications_Chrome_History&rdquo;,strptime(last_visit_time,"%Y-%m-%dT%H:%M:%SZ"),<br>_index=&ldquo;artifact_Windows_Registry_UserAssist&rdquo;,strptime(LastExecution,"%Y-%m-%dT%H:%M:%SZ")<br>)</li></ul><blockquote><p>Note: <code>Enable SSL</code> only works if SSL is properly configured on your
 Splunk server &ndash; meaning you have proper certificates and DNS. If you are
 accessing your Splunk instance by IP, <code>Enable SSL</code> should be set to OFF.</p></blockquote></li></ol><pre><code class=language-yaml>name: Splunk.Flows.Upload
 
@@ -93,6 +106,39 @@ description: |
        * Go to Settings &gt; Data Inputs &gt; HTTP Event Collector &gt; Global Settings
        * Ensure `All Tokens` is set to ENABLED
        * Copy the HTTP Port Number for this event
+    4. Configure your Splunk props.conf and tranforms.conf
+       * Add the following to props.conf
+         [vql]
+         INDEXED_EXTRACTIONS = json
+         DATETIME_CONFIG = CURRENT
+         TZ = GMT
+         category = Custom
+         pulldown_type = 1
+         TRANSFORMS-vql-sourcetype = vql-sourcetype,vql-timestamp
+         TRUNCATE = 512000
+       * Add the following to transforms.conf
+         [vql-sourcetype]
+         INGEST_EVAL = sourcetype=lower(_index)
+         [vql-timestamp]
+         INGEST_EVAL = _time=case( \
+                       _index=&quot;artifact_Linux_Search_FileFinder&quot;,strptime(CTime,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_System_VFS_ListDirectory&quot;,strptime(ctime,&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;), \
+                       _index=&quot;artifact_Windows_Timeline_MFT&quot;,strptime(event_time,&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;), \
+                       _index=&quot;artifact_Windows_NTFS_MFT&quot;,strptime(Created0x10,&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;), \
+                       _index=&quot;artifact_Windows_EventLogs_Evtx&quot;,strptime(TimeCreated,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Custom_Windows_EventLogs_System_7045&quot;,strptime(TimeCreated,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_EventLogs_RDPAuth&quot;,strptime(EventTime,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_Analysis_EvidenceOfExecution_UserAssist&quot;,strptime(LastExecution,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_Analysis_EvidenceOfExecution_Amcache&quot;,strptime(KeyMTime,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_System_Amcache_InventoryApplicationFile&quot;,strptime(LastModified,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_Search_FileFinder&quot;,strptime(CTime,&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;), \
+                       _index=&quot;artifact_Windows_Applications_NirsoftBrowserViewer&quot;,strptime(Visited,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_Registry_RecentDocs&quot;,strptime(LastWriteTime,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Custom_Windows_Application_IIS_IISLogs&quot;,strptime(event_time,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_MacOS_Applications_Chrome_History&quot;,strptime(last_visit_time,&quot;%Y-%m-%dT%H:%M:%SZ&quot;), \
+                       _index=&quot;artifact_Windows_Registry_UserAssist&quot;,strptime(LastExecution,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) \
+                       )
+
 
        &gt; Note: `Enable SSL` only works if SSL is properly configured on your
        Splunk server -- meaning you have proper certificates and DNS. If you are
@@ -127,6 +173,14 @@ parameters:
        As a better alternative to skip_verify, allows root ca certs to
        be added here.
 
+   - name: HostnameField
+     description: Field to extract hostname from
+     default: ClientId
+
+   - name: TimestampField
+     description: Field to extract timestamp from
+     default: timestamp
+
 sources:
   - query: |
         LET completions = SELECT * FROM watch_monitoring(
@@ -157,15 +211,17 @@ sources:
         token = token,
         index = index,
         skip_verify = SkipVerify,
-        root_ca = RootCerts
+        root_ca = RootCerts,
+        hostname_field=HostnameField,
+        timestamp_field=TimestampField
         )
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238531></script>
-<script src=/js/perfect-scrollbar.min.js?1680238531></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1680238531></script>
-<script src=/js/jquery.sticky.js?1680238531></script>
-<script src=/js/featherlight.min.js?1680238531></script>
-<script src=/js/highlight.min.js?1680238531></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238531></script>
-<script src=/js/learn.js?1680238531></script>
-<script src=/js/hugo-learn.js?1680238531></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238750></script>
+<script src=/js/perfect-scrollbar.min.js?1680238750></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1680238750></script>
+<script src=/js/jquery.sticky.js?1680238750></script>
+<script src=/js/featherlight.min.js?1680238750></script>
+<script src=/js/highlight.min.js?1680238750></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238750></script>
+<script src=/js/learn.js?1680238750></script>
+<script src=/js/hugo-learn.js?1680238750></script></body></html>

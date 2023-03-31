@@ -1,8 +1,9 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Detection.Yara.Glob :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238529 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238529 rel=stylesheet><link href=/css/featherlight.min.css?1680238529 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238529 rel=stylesheet><link href=/css/auto-complete.css?1680238529 rel=stylesheet><link href=/css/theme.css?1680238529 rel=stylesheet><link href=/css/tabs.css?1680238529 rel=stylesheet><link href=/css/hugo-theme.css?1680238529 rel=stylesheet><link href=/css/theme-mine.css?1680238529 rel=stylesheet><link href=/css/dark.css?1680238529 rel=stylesheet><link href=/css/syntax.css?1680238529 rel=stylesheet><link href=/css/light.css?1680238529 rel=stylesheet><link href=/css/hljs.css?1680238529 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238529 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238529></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Detection.Yara.Glob :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238747 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238747 rel=stylesheet><link href=/css/featherlight.min.css?1680238747 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238747 rel=stylesheet><link href=/css/auto-complete.css?1680238747 rel=stylesheet><link href=/css/theme.css?1680238747 rel=stylesheet><link href=/css/tabs.css?1680238747 rel=stylesheet><link href=/css/hugo-theme.css?1680238747 rel=stylesheet><link href=/css/theme-mine.css?1680238747 rel=stylesheet><link href=/css/dark.css?1680238747 rel=stylesheet><link href=/css/syntax.css?1680238747 rel=stylesheet><link href=/css/light.css?1680238747 rel=stylesheet><link href=/css/hljs.css?1680238747 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238747 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238747></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/generic.detection.yara.glob/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2023-cves/>Current CVEs</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -72,7 +73,8 @@ including Glob, Size and date. Date filters will target files with a timestamp
 before LatestTime and after EarliestTime. The artifact also has an option to
 upload any files with Yara hits.</p><p>Some examples of path glob may include:</p><ul><li>Specific binary: <code>/usr/bin/ls</code></li><li>Wildcards: <code>/var/www/*.js</code></li><li>More wildcards: <code>/var/www/**/*.js</code></li><li>Multiple extentions: <code>/var/www/*\.{php,aspx,js,html}</code></li><li>Windows: <code>C:/Users/**/*.{exe,dll,ps1,bat}</code></li><li>Windows: <code>C:\Users\**\*.{exe,dll,ps1,bat}</code></li></ul><p>NOTE: this artifact runs the glob plugin with the nosymlink switch turned on.
 This will NOT follow any symlinks and may cause unexpected results if
-unknowingly targeting a folder with symlinks.<br>If upload is selected NumberOfHits is redundant and not advised as hits are
+unknowingly targeting a folder with symlinks.
+If upload is selected NumberOfHits is redundant and not advised as hits are
 grouped by path to ensure files only downloaded once.</p><pre><code class=language-yaml>name: Generic.Detection.Yara.Glob
 author: Matt Green - @mgreen27
 description: |
@@ -102,8 +104,8 @@ description: |
 
   NOTE: this artifact runs the glob plugin with the nosymlink switch turned on.
   This will NOT follow any symlinks and may cause unexpected results if
-  unknowingly targeting a folder with symlinks.    
-  If upload is selected NumberOfHits is redundant and not advised as hits are 
+  unknowingly targeting a folder with symlinks.
+  If upload is selected NumberOfHits is redundant and not advised as hits are
   grouped by path to ensure files only downloaded once.
 
 
@@ -185,36 +187,49 @@ sources:
             OR time_test(stamp=Ctime)
             OR time_test(stamp=Btime))
 
-      -- scan files and only report a single hit.
+      -- scan files and prepare hit metadata
       LET hits = SELECT * FROM foreach(row=files,
             query={
                 SELECT
                     OSPath,
-                    File.Size AS Size,
+                    File.Size as Size,
                     Mtime, Atime, Ctime, Btime,
                     Rule, Tags, Meta,
-                    str(str=String.Data) AS HitContext,
-                    String.Offset AS HitOffset
-                FROM yara(rules=yara_rules,files=OSPath, 
+                    String.Name as YaraString,
+                    String.Offset as HitOffset,
+                    upload( accessor='scope',
+                            file='String.Data',
+                            name=format(format=&quot;%v-%v-%v&quot;,
+                            args=[
+                                OSPath,
+                                if(condition= String.Offset - ContextBytes &lt; 0,
+                                    then= 0,
+                                    else= String.Offset - ContextBytes),
+                                if(condition= String.Offset + ContextBytes &gt; Size,
+                                    then= Size,
+                                    else= String.Offset + ContextBytes) ]
+                            )) as HitContext
+                FROM yara(rules=yara_rules,files=OSPath,
                   context=ContextBytes,number=NumberOfHits)
             })
 
-      -- upload files that have hit
-      LET upload_hits=SELECT *,
-            upload(file=OSPath) AS Upload
-        FROM hits
-        GROUP BY OSPath
+      -- upload files if selected
+      LET upload_hits = SELECT *, upload(file=OSPath,name=OSPath) as Upload FROM hits
 
       -- return rows
-      SELECT * FROM if(condition=UploadHits,
-        then=upload_hits,
-        else=hits)
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238529></script>
-<script src=/js/perfect-scrollbar.min.js?1680238529></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1680238529></script>
-<script src=/js/jquery.sticky.js?1680238529></script>
-<script src=/js/featherlight.min.js?1680238529></script>
-<script src=/js/highlight.min.js?1680238529></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238529></script>
-<script src=/js/learn.js?1680238529></script>
-<script src=/js/hugo-learn.js?1680238529></script></body></html>
+      SELECT * FROM if(condition= UploadHits,
+                        then= upload_hits,
+                        else= hits )
+
+column_types:
+  - name: HitContext
+    type: preview_upload
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238747></script>
+<script src=/js/perfect-scrollbar.min.js?1680238747></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1680238747></script>
+<script src=/js/jquery.sticky.js?1680238747></script>
+<script src=/js/featherlight.min.js?1680238747></script>
+<script src=/js/highlight.min.js?1680238747></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238747></script>
+<script src=/js/learn.js?1680238747></script>
+<script src=/js/hugo-learn.js?1680238747></script></body></html>

@@ -1,8 +1,9 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Server.Utils.CreateCollector :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238531 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238531 rel=stylesheet><link href=/css/featherlight.min.css?1680238531 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238531 rel=stylesheet><link href=/css/auto-complete.css?1680238531 rel=stylesheet><link href=/css/theme.css?1680238531 rel=stylesheet><link href=/css/tabs.css?1680238531 rel=stylesheet><link href=/css/hugo-theme.css?1680238531 rel=stylesheet><link href=/css/theme-mine.css?1680238531 rel=stylesheet><link href=/css/dark.css?1680238531 rel=stylesheet><link href=/css/syntax.css?1680238531 rel=stylesheet><link href=/css/light.css?1680238531 rel=stylesheet><link href=/css/hljs.css?1680238531 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238531 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238531></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Server.Utils.CreateCollector :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1680238750 rel=stylesheet><link href=/css/fontawesome-all.min.css?1680238750 rel=stylesheet><link href=/css/featherlight.min.css?1680238750 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1680238750 rel=stylesheet><link href=/css/auto-complete.css?1680238750 rel=stylesheet><link href=/css/theme.css?1680238750 rel=stylesheet><link href=/css/tabs.css?1680238750 rel=stylesheet><link href=/css/hugo-theme.css?1680238750 rel=stylesheet><link href=/css/theme-mine.css?1680238750 rel=stylesheet><link href=/css/dark.css?1680238750 rel=stylesheet><link href=/css/syntax.css?1680238750 rel=stylesheet><link href=/css/light.css?1680238750 rel=stylesheet><link href=/css/hljs.css?1680238750 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1680238750 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1680238750></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/server.utils.createcollector/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
-<a href=/announcements/2023-cves/>Current CVEs</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
+<a href=/announcements/2023-cves/>Current CVEs</a></div></li><li data-nav-id=https://docs.velociraptor.app/announcements/2023-trainings/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
+<a href=/announcements/2023-trainings/>Trainings</a></div></li></ul></li><li data-nav-id=https://docs.velociraptor.app/docs/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/><i class="fas fa-book-reader"></i>Documentation</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/docs/overview/>Velociraptor Overview</a></div><ul><li data-nav-id=https://docs.velociraptor.app/docs/overview/history/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
 <a href=/docs/overview/history/>History</a></div></li><li data-nav-id=https://docs.velociraptor.app/docs/overview/support/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -78,27 +79,6 @@ description: |
 
 type: SERVER
 
-tools:
-  - name: VelociraptorWindows
-    github_project: Velocidex/velociraptor
-    github_asset_regex: windows-amd64.exe
-    serve_locally: true
-
-  - name: VelociraptorWindows_x86
-    github_project: Velocidex/velociraptor
-    github_asset_regex: windows-386.exe
-    serve_locally: true
-
-  - name: VelociraptorLinux
-    github_project: Velocidex/velociraptor
-    github_asset_regex: linux-amd64
-    serve_locally: true
-
-  - name: VelociraptorDarwin
-    github_project: Velocidex/velociraptor
-    github_asset_regex: darwin-amd64
-    serve_locally: true
-
 parameters:
   - name: OS
     default: Windows
@@ -117,7 +97,7 @@ parameters:
 
   - name: encryption_scheme
     description: |
-      Encryption scheme to use. Currently supported are Passowrd, X509 or PGP
+      Encryption scheme to use. Currently supported are Password, X509 or PGP
 
   - name: encryption_args
     description: |
@@ -357,39 +337,6 @@ parameters:
              message=&quot;Aborting collection: Failed to upload to cloud bucket!&quot;)
           FROM scope()})
 
-  - name: PackageToolsArtifact
-    description: Collects and uploads third party binaries.
-    type: hidden
-    default: |
-      name: PackageToolsArtifact
-      parameters:
-       - name: Binaries
-         type: json_array
-         default: '[]'
-      sources:
-       - query: |
-          LET temp &lt;= tempfile()
-
-          LET uploader = SELECT ToolName,
-                                Upload.StoredName AS Filename,
-                                Upload.sha256 AS ExpectedHash,
-                                Upload.Size AS Size
-          FROM foreach(row=Binaries,
-            query={
-              SELECT _value AS ToolName, upload(file=FullPath, name=Name) AS Upload
-              FROM Artifact.Generic.Utils.FetchBinary(
-                   ToolName=_value, SleepDuration='0',
-                   ToolInfo=inventory_get(tool=_value))
-            })
-
-          // Flush the entire query into the inventory file.
-          LET _ &lt;= SELECT * FROM write_csv(filename=temp, query=uploader)
-
-          // Now upload it.
-          SELECT upload(file=temp, name=&quot;inventory.csv&quot;) AS Inventory,
-                 read_file(filename=temp) AS Data
-          FROM scope()
-
   - name: FetchBinaryOverride
     type: hidden
     description: |
@@ -418,20 +365,15 @@ parameters:
 
 sources:
   - query: |
-      LET Payload &lt;= tempfile(extension=&quot;.zip&quot;)
       LET Binaries &lt;= SELECT * FROM foreach(
           row={
-             SELECT tools FROM artifact_definitions(names=artifacts)
+             SELECT tools FROM artifact_definitions(deps=TRUE, names=artifacts)
           }, query={
              SELECT * FROM foreach(row=tools,
              query={
-              SELECT name AS Binary FROM scope()
+                SELECT name AS Binary FROM scope()
              })
           }) GROUP BY Binary
-
-      // Get some tempfiles to work with.
-      LET Config &lt;= tempfile()
-      LET Destination &lt;= tempfile()
 
       // Choose the right target binary depending on the target OS
       LET tool_name = SELECT * FROM switch(
@@ -443,24 +385,12 @@ sources:
            WHERE NOT log(message=&quot;Unknown target type &quot; + OS) }
       )
 
-      // Repack this binary.
-      LET _ &lt;= log(message=&quot;Will get tool &quot; + tool_name[0].Type)
-
-      LET target_binary &lt;= SELECT FullPath, Name
-         FROM Artifact.Generic.Utils.FetchBinary(
-            ToolName=tool_name[0].Type, SleepDuration=&quot;0&quot;,
-            ToolInfo=inventory_get(tool=tool_name[0].Type))
-         WHERE log(message=&quot;Target binary &quot; + Name + &quot; is at &quot; + FullPath)
+      LET Target &lt;= tool_name[0].Type
 
       // This is what we will call it.
       LET CollectorName &lt;= format(
           format='Collector_%v',
-          args=[target_binary[0].Name, ])
-
-      // Create a zip file with the binaries in it.
-      LET _ &lt;= SELECT * FROM collect(artifacts=&quot;PackageToolsArtifact&quot;,
-         output=Payload, args=dict(PackageToolsArtifact=dict(Binaries=Binaries.Binary)),
-         artifact_definitions=PackageToolsArtifact)
+          args=inventory_get(tool=Target).Definition.filename)
 
       LET CollectionArtifact &lt;= SELECT Value FROM switch(
         a = { SELECT CommonCollections + StandardCollection AS Value
@@ -493,9 +423,10 @@ sources:
          else=encryption_args
       )
 
+      -- Add custom definition if needed. Built in definitions are not added
       LET definitions &lt;= SELECT * FROM chain(
       a = { SELECT name, description, tools, parameters, sources
-            FROM artifact_definitions(names=artifacts)
+            FROM artifact_definitions(deps=TRUE, names=artifacts)
             WHERE NOT built_in AND
               log(message=&quot;Adding artifact_definition for &quot; + name) },
 
@@ -559,36 +490,20 @@ sources:
           artifact_definitions=definitions)
       )
 
-      LET me &lt;= SELECT Exe FROM info()
-                WHERE log(message=&quot;My binary is &quot; + Exe)
+      // Do the actual repacking.
+      SELECT repack(
+           upload_name=CollectorName,
+           target=tool_name[0].Type,
+           binaries=Binaries.Binary,
+           config=serialize(format='json', item=autoexec))
+      FROM scope()
 
-      // Copy the configuration to a temp file and shell out to our
-      // binary to repack it.
-      LET repack_step = SELECT upload(
-           file=Destination,
-           accessor=&quot;file&quot;,
-           name=CollectorName) AS Binary,
-           timestamp(epoch=now()) As CreationTime
-      FROM execve(argv=[
-        me[0].Exe, &quot;config&quot;, &quot;repack&quot;,
-        &quot;--exe&quot;, target_binary[0].FullPath,
-        &quot;--append&quot;, Payload,
-        copy(dest=Config,
-             accessor='data',
-             filename=serialize(format='json', item=autoexec)),
-        Destination ], length=1000000)
-      WHERE log(message=&quot;Creating config on &quot; + Config) AND log(message=Stderr)
-
-      // Only actually run stuff if everything looks right.
-      SELECT * FROM if(condition=autoexec AND target_binary AND me[0].Exe,
-         then=repack_step)
-
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238531></script>
-<script src=/js/perfect-scrollbar.min.js?1680238531></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1680238531></script>
-<script src=/js/jquery.sticky.js?1680238531></script>
-<script src=/js/featherlight.min.js?1680238531></script>
-<script src=/js/highlight.min.js?1680238531></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238531></script>
-<script src=/js/learn.js?1680238531></script>
-<script src=/js/hugo-learn.js?1680238531></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1680238750></script>
+<script src=/js/perfect-scrollbar.min.js?1680238750></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1680238750></script>
+<script src=/js/jquery.sticky.js?1680238750></script>
+<script src=/js/featherlight.min.js?1680238750></script>
+<script src=/js/highlight.min.js?1680238750></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1680238750></script>
+<script src=/js/learn.js?1680238750></script>
+<script src=/js/hugo-learn.js?1680238750></script></body></html>
