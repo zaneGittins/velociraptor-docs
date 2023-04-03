@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Carving.Qakbot",
+        "author": "mgreen27",
+        "description": "This artifact enables Qakbot payload detection and configuration extraction \nfrom a byte stream, process or file on disk. The artifact runs a yara scan \nas a detection step, then attempts to process the payload to extract \nconfiguration.",
+        "link": "/exchange/artifacts/pages/qakbot",
+        "tags": [],
+        "author_link": "https://github.com/mgreen27",
+        "author_avatar": "https://avatars.githubusercontent.com/u/13081800?v=4",
+        "date": "2023-04-03"
+    },
+    {
         "title": "MacOS.Applications.Firefox.History",
         "author": "x64-julian",
         "description": "Read all Users Firefox history.\n",
