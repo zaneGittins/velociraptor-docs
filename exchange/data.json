@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Registry.Domain",
+        "author": "angry-bender",
+        "description": "Checks the configured domain name on each endpoint",
+        "link": "/exchange/artifacts/pages/windows.registry.domainname",
+        "tags": [],
+        "author_link": "https://github.com/angry-bender",
+        "author_avatar": "https://avatars.githubusercontent.com/u/18164137?v=4",
+        "date": "2023-04-05"
+    },
+    {
         "title": "Windows.Carving.Qakbot",
         "author": "mgreen27",
         "description": "This artifact enables Qakbot payload detection and configuration extraction \nfrom a byte stream, process or file on disk. The artifact runs a yara scan \nas a detection step, then attempts to process the payload to extract \nconfiguration.",
