@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Telegram.Clients.Enrolled",
+        "author": "tuedenn",
+        "description": "Send a message to telegram when clients become enrolled.",
+        "link": "/exchange/artifacts/pages/server.telegram.clients.enrolled",
+        "tags": [],
+        "author_link": "https://github.com/tuedenn",
+        "author_avatar": "https://avatars.githubusercontent.com/u/25119013?v=4",
+        "date": "2023-04-11"
+    },
+    {
         "title": "Windows.Registry.Domain",
         "author": "angry-bender",
         "description": "Checks the configured domain name on each endpoint",
