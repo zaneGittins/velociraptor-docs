@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Carving.BumbleBee",
+        "author": "angelovioletti",
+        "description": "This artficat will detect running BumbleBee processes and subsequently extract the command and control servers with the destination port 443.\n",
+        "link": "/exchange/artifacts/pages/bumblebee",
+        "tags": [],
+        "author_link": "https://github.com/angelovioletti",
+        "author_avatar": "https://avatars.githubusercontent.com/u/99129049?v=4",
+        "date": "2023-04-12"
+    },
+    {
         "title": "Server.Telegram.Clients.Enrolled",
         "author": "tuedenn",
         "description": "Send a message to telegram when clients become enrolled.",
