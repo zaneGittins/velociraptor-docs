@@ -1098,7 +1098,7 @@
     {
         "title": "Windows.EventLogs.Hayabusa",
         "author": "ecapuano",
-        "description": "[Hayabusa](https://github.com/Yamato-Security/hayabusa) is a Windows event log fast forensics timeline generator and threat hunting tool.",
+        "description": "[Hayabusa](https://github.com/Yamato-Security/hayabusa) is a\nWindows event log fast forensics timeline generator and threat\nhunting tool.",
         "link": "/exchange/artifacts/pages/windows.eventlogs.hayabusa",
         "tags": [],
         "author_link": "https://github.com/ecapuano",
