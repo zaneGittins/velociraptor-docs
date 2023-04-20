@@ -10,6 +10,16 @@
         "date": "2023-04-20"
     },
     {
+        "title": "Alert.Windows.EVTX.PowerPickHostVersion",
+        "author": "SBattaglia-R7",
+        "description": "\nThis artifact by itself only indicates that the PowerPick tool may have\nbeen invoked on the client. To capture additional context, ensure that\nPowershell script block and module logging are enabled on the clients and\ndeploy the Windows.ETW.Powershell artifact from the Exchange.",
+        "link": "/exchange/artifacts/pages/powerpickhostversion",
+        "tags": [],
+        "author_link": "https://github.com/SBattaglia-R7",
+        "author_avatar": "https://avatars.githubusercontent.com/u/40576678?v=4",
+        "date": "2023-04-20"
+    },
+    {
         "title": "Windows.Carving.BumbleBee",
         "author": "angelovioletti",
         "description": "This artficat will detect running BumbleBee processes and subsequently extract the command and control servers with the destination port 443.\n",
