@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Generic.Internet.BlockAccess",
+        "author": "tuedenn",
+        "description": "Simply adds a new inbound or outbound firewall rule that filters traffic by allowing or blocking network packets that match the specified criteria via `netsh advfirewall add rule` command. Applicable in case of blocking Internet access.",
+        "link": "/exchange/artifacts/pages/windows.generic.internet.blockaccess",
+        "tags": [],
+        "author_link": "https://github.com/tuedenn",
+        "author_avatar": "https://avatars.githubusercontent.com/u/25119013?v=4",
+        "date": "2023-05-05"
+    },
+    {
         "title": "Windows.Forensics.Clipboard",
         "author": "h-adwan",
         "description": "This artifact will show the Clipboard activity.",
