@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.EvtxHussar :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1683349381 rel=stylesheet><link href=/css/fontawesome-all.min.css?1683349381 rel=stylesheet><link href=/css/featherlight.min.css?1683349381 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1683349381 rel=stylesheet><link href=/css/auto-complete.css?1683349381 rel=stylesheet><link href=/css/theme.css?1683349381 rel=stylesheet><link href=/css/tabs.css?1683349381 rel=stylesheet><link href=/css/hugo-theme.css?1683349381 rel=stylesheet><link href=/css/theme-mine.css?1683349381 rel=stylesheet><link href=/css/dark.css?1683349381 rel=stylesheet><link href=/css/syntax.css?1683349381 rel=stylesheet><link href=/css/light.css?1683349381 rel=stylesheet><link href=/css/hljs.css?1683349381 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1683349381 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1683349381></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.EvtxHussar :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1683432992 rel=stylesheet><link href=/css/fontawesome-all.min.css?1683432992 rel=stylesheet><link href=/css/featherlight.min.css?1683432992 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1683432992 rel=stylesheet><link href=/css/auto-complete.css?1683432992 rel=stylesheet><link href=/css/theme.css?1683432992 rel=stylesheet><link href=/css/tabs.css?1683432992 rel=stylesheet><link href=/css/hugo-theme.css?1683432992 rel=stylesheet><link href=/css/theme-mine.css?1683432992 rel=stylesheet><link href=/css/dark.css?1683432992 rel=stylesheet><link href=/css/syntax.css?1683432992 rel=stylesheet><link href=/css/light.css?1683432992 rel=stylesheet><link href=/css/hljs.css?1683432992 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1683432992 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1683432992></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.eventlogs.evtxhussar/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -72,7 +72,7 @@
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>Windows.EventLogs.EvtxHussar</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.EventLogs.EvtxHussar</h1><p>Grab important events from Windows logs (.evtx) using <a href=https://github.com/yarox24/EvtxHussar>EvtxHussar</a>.
-Also upload PowerShell ScriptBlocks (reconstructed as files).</p><p>Following categories are supported:<br></p><ul><li>Antivirus (Symantec, Windows Defender)<br></li><li>Accounts (Users related operations)<br></li><li>Audit (Log cleared, Policy changed)<br></li><li>Windows Firewall<br></li><li>Logons<br></li><li>Powershell events<br></li><li>Processes<br></li><li>RDP<br></li><li>ScheduledTasks (creation/modification/execution)<br></li><li>Services<br></li><li>WinRM<br></li><li>Boot up/Restart/Shutdown</li></ul><p>Note: If no logs from specific category will be found, source will remain empty.<br>Based on version 1.6b of EvtxHussar.</p><pre><code class=language-yaml>name: Windows.EventLogs.EvtxHussar
+Also upload PowerShell ScriptBlocks (reconstructed as files).</p><p>Following categories are supported:<br></p><ul><li>Antivirus (Symantec, Windows Defender)<br></li><li>Accounts (Users related operations)<br></li><li>Audit (Log cleared, Policy changed)<br></li><li>Windows Firewall<br></li><li>Logons<br></li><li>Powershell events<br></li><li>Processes<br></li><li>RDP<br></li><li>ScheduledTasks (creation/modification/execution)<br></li><li>Services<br></li><li>WinRM<br></li><li>Boot up/Restart/Shutdown<br></li><li>SMB</li></ul><p>Note: If no logs from specific category will be found, source will remain empty.<br>Based on version 1.7 of EvtxHussar.</p><pre><code class=language-yaml>name: Windows.EventLogs.EvtxHussar
 description: |
    Grab important events from Windows logs (.evtx) using [EvtxHussar](https://github.com/yarox24/EvtxHussar).
    Also upload PowerShell ScriptBlocks (reconstructed as files).
@@ -89,10 +89,11 @@ description: |
    - ScheduledTasks (creation/modification/execution)&lt;br /&gt;
    - Services&lt;br /&gt;
    - WinRM&lt;br /&gt;
-   - Boot up/Restart/Shutdown
+   - Boot up/Restart/Shutdown&lt;br /&gt;
+   - SMB
    
    Note: If no logs from specific category will be found, source will remain empty.&lt;br /&gt;
-   Based on version 1.6b of EvtxHussar. 
+   Based on version 1.7 of EvtxHussar. 
    
 author: Jarosław Oparka - @yarox24
 
@@ -104,8 +105,8 @@ resources:
   max_upload_bytes: 5368709120 # 5 Gigabytes
 
 tools:
-  - name: EvtxHussar16
-    url: https://github.com/yarox24/EvtxHussar/releases/download/1.6/EvtxHussar1.6b_windows_amd64.zip
+  - name: EvtxHussar17
+    url: https://github.com/yarox24/EvtxHussar/releases/download/1.7/EvtxHussar1.7_windows_amd64.zip
     serve_locally: true
 
 precondition:
@@ -140,11 +141,6 @@ parameters:
   - name: AuditPolicyChanges
     description: |
       Include events related to changes in audit policy (Security.evtx)
-    default: Y
-    type: bool
-  - name: WindowsFirewall
-    description: |
-      Include Windows Firewall (Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx, Security.evtx) events
     default: Y
     type: bool
   - name: BootupRestartShutdown
@@ -197,6 +193,26 @@ parameters:
       Include events related to Windows services (System.evtx, Security.evtx)
     default: Y
     type: bool
+  - name: SMBClientDestinations
+    description: |
+      Include events related to usage of SMB Client (outgoing SMB connections)
+    default: Y
+    type: bool
+  - name: SMBServerAccessAudit
+    description: |
+      Include events related to access to SMB Server (incoming SMB connections)
+    default: Y
+    type: bool
+  - name: SMBServerModifications
+    description: |
+      Include events related to SMB Server configuration
+    default: Y
+    type: bool
+  - name: WindowsFirewall
+    description: |
+      Include Windows Firewall (Microsoft-Windows-Windows Firewall With Advanced Security%4Firewall.evtx, Security.evtx) events
+    default: Y
+    type: bool
   - name: WinRM
     description: |
       Include events related to Windows Remote Management (Microsoft-Windows-WinRM%4Operational.evtx)
@@ -208,7 +224,7 @@ sources:
   - name: Antivirus_Symantec
     query: |
       // Execute EvtxHussar
-      LET ZipInfo &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName= &quot;EvtxHussar16&quot;, IsExecutable= False)
+      LET ZipInfo &lt;= SELECT FullPath FROM Artifact.Generic.Utils.FetchBinary(ToolName= &quot;EvtxHussar17&quot;, IsExecutable= False)
       
       LET tmpdir &lt;= tempdir()
       
@@ -227,7 +243,6 @@ sources:
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=AccountsUserRelatedOperations)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=AuditLogCleared)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=AuditPolicyChanges)
-      LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=WindowsFirewall)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=BootupRestartShutdown)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=Logons)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=PowerShellScriptBlocksReconstructAndUpload)
@@ -237,8 +252,13 @@ sources:
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=ScheduledTasksCreationModification)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=ScheduledTasksExecution)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=Services)
+      LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=SMBClientDestinations)
+      LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=SMBServerAccessAudit)
+      LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=SMBServerModifications)
       LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=WinRM)
-      LET cnt_max &lt;= int(int=16)
+      LET cnt &lt;= IncreaseCounter(c=cnt, cat_flag=WindowsFirewall)
+      LET cnt_max &lt;= int(int=19)
+      
       
       LET AppendIfEnabled(arr, cat_flag, l2propername) = if(condition= cat_flag = &quot;Y&quot;, then= arr + l2propername, else= arr )
       
@@ -248,7 +268,6 @@ sources:
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=AccountsUserRelatedOperations, l2propername=&quot;AccountsUserRelatedOperations&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=AuditLogCleared, l2propername=&quot;AuditLogCleared&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=AuditPolicyChanges, l2propername=&quot;AuditPolicyChanged&quot;)
-      LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=WindowsFirewall, l2propername=&quot;FirewallUniversal&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=BootupRestartShutdown, l2propername=&quot;General_BootupRestartShutdown&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=Logons, l2propername=&quot;LogonsUniversal&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=PowerShellScriptBlocksReconstructAndUpload, l2propername=&quot;PowerShellScriptBlock&quot;)
@@ -258,7 +277,11 @@ sources:
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=ScheduledTasksCreationModification, l2propername=&quot;ScheduledTasks_CreationModification&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=ScheduledTasksExecution, l2propername=&quot;ScheduledTasks_Execution&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=Services, l2propername=&quot;ServicesUniversal&quot;)
+      LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=SMBClientDestinations, l2propername=&quot;SMB_ClientDestinations&quot;)
+      LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=SMBServerAccessAudit, l2propername=&quot;SMB_ServerAccessAudit&quot;)
+      LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=SMBServerModifications, l2propername=&quot;SMB_ServerModifications&quot;)
       LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=WinRM, l2propername=&quot;WinRMUniversal&quot;)
+      LET EnabledL2Maps &lt;= AppendIfEnabled(arr=EnabledL2Maps, cat_flag=WindowsFirewall, l2propername=&quot;FirewallUniversal&quot;)
       
       
       LET HussArgs &lt;= array(bin=Binpath, 
@@ -308,10 +331,6 @@ sources:
   - name: BootupRestartShutdown
     query: |
       SELECT *, &quot;EvtxHussar.BootupRestartShutdown&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;general&quot;, jsonl_filename=&quot;bootup_restart_shutdown.jsonl&quot;))
-
-  - name: WindowsFirewall
-    query: |
-      SELECT *, &quot;EvtxHussar.WindowsFirewall&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;firewall&quot;, jsonl_filename=&quot;windows_firewall.jsonl&quot;))
       
   - name: Logons
     query: |
@@ -347,18 +366,34 @@ sources:
   - name: Services
     query: |
       SELECT *, &quot;EvtxHussar.Services&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;services&quot;, jsonl_filename=&quot;services.jsonl&quot;))
+
+  - name: SMB_ClientDestinations
+    query: |
+      SELECT *, &quot;EvtxHussar.SMB_ClientDestinations&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;smb&quot;, jsonl_filename=&quot;smb_client_destinations.jsonl&quot;))
+
+  - name: SMB_ServerAccessAudit
+    query: |
+      SELECT *, &quot;EvtxHussar.SMB_ServerAccessAudit&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;smb&quot;, jsonl_filename=&quot;smb_server_access_audit.jsonl&quot;))
       
+  - name: SMB_ServerModifications
+    query: |
+      SELECT *, &quot;EvtxHussar.SMB_ServerModifications&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;smb&quot;, jsonl_filename=&quot;smb_server_modifications.jsonl&quot;))
+
   - name: WinRM
     query: |
       SELECT *, &quot;EvtxHussar.WinRM&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;winrm&quot;, jsonl_filename=&quot;winrm.jsonl&quot;))
+      
+  - name: WindowsFirewall
+    query: |
+      SELECT *, &quot;EvtxHussar.WindowsFirewall&quot; AS __Source FROM PluginOutput(search_result=GetOutputFiles(category=&quot;firewall&quot;, jsonl_filename=&quot;windows_firewall.jsonl&quot;))
+      
 
-
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1683349381></script>
-<script src=/js/perfect-scrollbar.min.js?1683349381></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1683349381></script>
-<script src=/js/jquery.sticky.js?1683349381></script>
-<script src=/js/featherlight.min.js?1683349381></script>
-<script src=/js/highlight.min.js?1683349381></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1683349381></script>
-<script src=/js/learn.js?1683349381></script>
-<script src=/js/hugo-learn.js?1683349381></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1683432992></script>
+<script src=/js/perfect-scrollbar.min.js?1683432992></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1683432992></script>
+<script src=/js/jquery.sticky.js?1683432992></script>
+<script src=/js/featherlight.min.js?1683432992></script>
+<script src=/js/highlight.min.js?1683432992></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1683432992></script>
+<script src=/js/learn.js?1683432992></script>
+<script src=/js/hugo-learn.js?1683432992></script></body></html>
