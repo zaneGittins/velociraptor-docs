@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Registry.AppCompatCache :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1683432988 rel=stylesheet><link href=/css/fontawesome-all.min.css?1683432988 rel=stylesheet><link href=/css/featherlight.min.css?1683432988 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1683432988 rel=stylesheet><link href=/css/auto-complete.css?1683432988 rel=stylesheet><link href=/css/theme.css?1683432988 rel=stylesheet><link href=/css/tabs.css?1683432988 rel=stylesheet><link href=/css/hugo-theme.css?1683432988 rel=stylesheet><link href=/css/theme-mine.css?1683432988 rel=stylesheet><link href=/css/dark.css?1683432988 rel=stylesheet><link href=/css/syntax.css?1683432988 rel=stylesheet><link href=/css/light.css?1683432988 rel=stylesheet><link href=/css/hljs.css?1683432988 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1683432988 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1683432988></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Registry.AppCompatCache :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1683470630 rel=stylesheet><link href=/css/fontawesome-all.min.css?1683470630 rel=stylesheet><link href=/css/featherlight.min.css?1683470630 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1683470630 rel=stylesheet><link href=/css/auto-complete.css?1683470630 rel=stylesheet><link href=/css/theme.css?1683470630 rel=stylesheet><link href=/css/tabs.css?1683470630 rel=stylesheet><link href=/css/hugo-theme.css?1683470630 rel=stylesheet><link href=/css/theme-mine.css?1683470630 rel=stylesheet><link href=/css/dark.css?1683470630 rel=stylesheet><link href=/css/syntax.css?1683470630 rel=stylesheet><link href=/css/light.css?1683470630 rel=stylesheet><link href=/css/hljs.css?1683470630 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1683470630 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1683470630></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/windows.registry.appcompatcache/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -79,15 +79,15 @@ features.</p><p>Note: the appcompatcache plugin does not currently support execu
 Windows 7 and 8/8.1 Systems.</p><pre><code class=language-yaml>name: Windows.Registry.AppCompatCache
 author: Matt Green - @mgreen27
 description: |
-  This artifact parses AppCompatCache (shimcache) from target hives. 
-  
-  AppCompatCache, also known as Shimcache, is a component of the Application 
-  Compatibility Database, which was created by Microsoft and used by the Windows 
-  operating system to identify application compatibility issues. This helps 
-  developers troubleshoot legacy functions and contains data related to Windows 
+  This artifact parses AppCompatCache (shimcache) from target hives.
+
+  AppCompatCache, also known as Shimcache, is a component of the Application
+  Compatibility Database, which was created by Microsoft and used by the Windows
+  operating system to identify application compatibility issues. This helps
+  developers troubleshoot legacy functions and contains data related to Windows
   features.
-  
-  Note: the appcompatcache plugin does not currently support execution flag in 
+
+  Note: the appcompatcache plugin does not currently support execution flag in
   Windows 7 and 8/8.1 Systems.
 
 reference:
@@ -96,15 +96,106 @@ reference:
 parameters:
   - name: AppCompatCacheKey
     default: HKEY_LOCAL_MACHINE/System/ControlSet*/Control/Session Manager/AppCompatCache/AppCompatCache
-    
 
 precondition: SELECT OS From info() where OS = 'windows'
+
+export: |
+    LET AppCompatCacheParser &lt;= '''[
+    [&quot;HeaderWin10&quot;, &quot;x=&gt;x.HeaderSize&quot;, [
+      [&quot;HeaderSize&quot;, 0, &quot;unsigned int&quot;],
+      [&quot;Entries&quot;, &quot;x=&gt;x.HeaderSize&quot;, Array, {
+          type: &quot;Entry&quot;,
+          sentinel: &quot;x=&gt;x.Size = 0&quot;,
+          count: 10000,
+      }]
+    ]],
+    [&quot;HeaderWin8&quot;, 128, [
+      [&quot;Entries&quot;, 128, Array, {
+          type: &quot;EntryWin8&quot;,
+          sentinel: &quot;x=&gt;x.EntrySize = 0&quot;,
+          count: 10000,
+      }]
+    ]],
+
+    [&quot;EntryWin8&quot;, &quot;x=&gt;x.EntrySize + 12&quot;, [
+      [&quot;Signature&quot;, 0, &quot;String&quot;, {
+         length: 4,
+      }],
+      [&quot;EntrySize&quot;, 8, &quot;unsigned int&quot;],
+      [&quot;PathSize&quot;, 12, &quot;uint16&quot;],
+      [&quot;Path&quot;, 14, &quot;String&quot;, {
+          length: &quot;x=&gt;x.PathSize&quot;,
+          encoding: &quot;utf16&quot;,
+      }],
+      [&quot;LastMod&quot;, &quot;x=&gt;x.PathSize + 14 + 10&quot;, &quot;WinFileTime&quot;]
+    ]],
+
+    [&quot;Entry&quot;, &quot;x=&gt;x.Size + 12&quot;, [
+      [&quot;Signature&quot;, 0, &quot;String&quot;, {
+         length: 4,
+      }],
+      [&quot;Size&quot;, 8, &quot;unsigned int&quot;],
+      [&quot;PathSize&quot;, 12, &quot;uint16&quot;],
+      [&quot;Path&quot;, 14, &quot;String&quot;, {
+          length: &quot;x=&gt;x.PathSize&quot;,
+          encoding: &quot;utf16&quot;,
+      }],
+      [&quot;LastMod&quot;, &quot;x=&gt;x.PathSize + 14&quot;, &quot;WinFileTime&quot;],
+      [&quot;DataSize&quot;, &quot;x=&gt;x.PathSize + 14 + 8&quot;, &quot;uint32&quot;],
+      [&quot;Data&quot;, &quot;x=&gt;x.PathSize + 14 + 8 + 4&quot; , &quot;String&quot;, {
+          length: &quot;x=&gt;x.DataSize&quot;,
+      }],
+
+      # The last byte of the Data block is 1 for execution
+      [&quot;Execution&quot;, &quot;x=&gt;x.PathSize + 14 + 8 + 4 + x.DataSize - 4&quot;, &quot;uint32&quot;]
+    ]],
+
+    # This is the Win7 parser but we dont use it right now.
+    [&quot;HeaderWin7x64&quot;, 128, [
+      [&quot;Signature&quot;, 0, &quot;uint32&quot;],
+      [&quot;Entries&quot;, 128, &quot;Array&quot;, {
+          count: 10000,
+          sentinel: &quot;x=&gt;x.PathSize = 0&quot;,
+          type: EntryWin7x64,
+      }]
+    ]],
+    [&quot;EntryWin7x64&quot;, 48, [
+      [&quot;PathSize&quot;, 0, &quot;uint16&quot;],
+      [&quot;PathOffset&quot;, 8, &quot;uint32&quot;],
+      [&quot;Path&quot;, &quot;x=&gt;x.PathOffset - x.StartOf&quot;, &quot;String&quot;, {
+          encoding: &quot;utf16&quot;,
+          length: &quot;x=&gt;x.PathSize&quot;,
+      }],
+      [&quot;LastMod&quot;, 16, &quot;WinFileTime&quot;]
+    ]]
+
+    ]'''
+
+    LET AppCompatCacheWin10(Blob) = parse_binary(
+        accessor=&quot;data&quot;,
+        filename=Blob,
+        profile=AppCompatCacheParser,
+        struct=&quot;HeaderWin10&quot;)
+
+    LET AppCompatCacheWin8(Blob) = parse_binary(
+        accessor=&quot;data&quot;,
+        filename=Blob,
+        profile=AppCompatCacheParser,
+        struct=&quot;HeaderWin8&quot;)
+
+    LET AppCompatCache(Blob) = SELECT *
+    FROM foreach(
+      row=if(
+        condition=AppCompatCacheWin10(Blob=Blob).HeaderSize IN (52, 48),
+        then=AppCompatCacheWin10(Blob=Blob).Entries,
+        else=AppCompatCacheWin8(Blob=Blob).Entries))
+
 
 sources:
   - query: |
       -- first find all ControlSet Keys in scope
       LET AppCompatKeys &lt;= SELECT OSPath FROM glob(globs=AppCompatCacheKey, accessor='registry')
-      
+
       -- when greater than one key we need to extract results and order later
       LET results &lt;= SELECT
             ModificationTime,
@@ -113,33 +204,35 @@ sources:
             Key
           FROM foreach(
               row={
-                  SELECT Filename, Data FROM read_file(
-                      filenames=AppCompatKeys.OSPath, accessor='registry')
+                 SELECT OSPath FROM glob(accessor='registry',
+                     globs=AppCompatCacheKey)
               }, query={
-                  SELECT Filename AS Key, Name, time AS ModificationTime,
-                    pathspec(parse=Filename)[2] as ControlSet
-                  FROM appcompatcache(value=Data)
+                  SELECT OSPath AS Key, Path AS Name,
+                     LastMod AS ModificationTime,
+                     OSPath[2] as ControlSet
+                  FROM AppCompatCache(Blob=read_file(
+                      accessor='registry', filename=OSPath))
             })
-      
+
       -- find position of entry for each ControlSet. Lower numbers more recent
-      LET ControlSetPosition(cs) = SELECT *, count() - 1 as Position 
+      LET ControlSetPosition(cs) = SELECT *, count() - 1 as Position
         FROM results WHERE ControlSet = cs
       LET position = SELECT ControlSetPosition(cs=ControlSet) as Results
             FROM foreach(
-                row={ 
-                    SELECT ControlSet, count(items=ControlSet) as Entries 
-                    FROM results GROUP BY ControlSet 
+                row={
+                    SELECT ControlSet, count(items=ControlSet) as Entries
+                    FROM results GROUP BY ControlSet
                 })
-      
+
       LET mutli_controlset = SELECT *
         FROM foreach(
-                row=position.Results, 
+                row=position.Results,
                 query={
                     SELECT * FROM foreach(row=_value)
                 })
-            
+
       -- output results
-      SELECT 
+      SELECT
         Position,
         ModificationTime,
         Path,
@@ -150,23 +243,13 @@ sources:
             SELECT *, count() - 1 as Position FROM results
         },
         else= mutli_controlset )
-        
-    
-      
-   
-      
-      
-      
-      
-      
-      
-      
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1683432988></script>
-<script src=/js/perfect-scrollbar.min.js?1683432988></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1683432988></script>
-<script src=/js/jquery.sticky.js?1683432988></script>
-<script src=/js/featherlight.min.js?1683432988></script>
-<script src=/js/highlight.min.js?1683432988></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1683432988></script>
-<script src=/js/learn.js?1683432988></script>
-<script src=/js/hugo-learn.js?1683432988></script></body></html>
+
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1683470630></script>
+<script src=/js/perfect-scrollbar.min.js?1683470630></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1683470630></script>
+<script src=/js/jquery.sticky.js?1683470630></script>
+<script src=/js/featherlight.min.js?1683470630></script>
+<script src=/js/highlight.min.js?1683470630></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1683470630></script>
+<script src=/js/learn.js?1683470630></script>
+<script src=/js/hugo-learn.js?1683470630></script></body></html>
