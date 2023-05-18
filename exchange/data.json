@@ -30,6 +30,16 @@
         "date": "2023-05-18"
     },
     {
+        "title": "Windows.PersistenceSniper",
+        "author": "Shad0wCell",
+        "description": "PersistenceSniper is a Powershell module that can be used by Blue Teams, Incident Responders and System Administrators to hunt persistences implanted in Windows machines. It is also available on Powershell Gallery and it is digitally signed with a valid code signing certificate. The tool is under active development with new releases coming out by the week, so make sure to use the up-to-date version. https://github.com/last-byte/PersistenceSniper",
+        "link": "/exchange/artifacts/pages/windows.persistencesniper",
+        "tags": [],
+        "author_link": "https://github.com/Shad0wCell",
+        "author_avatar": "https://avatars.githubusercontent.com/u/80175648?v=4",
+        "date": "2023-05-18"
+    },
+    {
         "title": "MacOS.System.Man",
         "author": "weslambert",
         "description": "`man` is typically used to provide information about how to use various commands. It's configuration file is located at `/private/etc/man.conf` on most macOS systems.",
