@@ -1,5 +1,15 @@
 [
     {
+        "title": "PSList.VTLookup",
+        "author": "Shad0wCell",
+        "description": "Combination of PSList with Virus Total reputation lookup using the Virus Total Server Enrichment Artifact by Wes Lambert.\n",
+        "link": "/exchange/artifacts/pages/pslist.vtlookup",
+        "tags": [],
+        "author_link": "https://github.com/Shad0wCell",
+        "author_avatar": "https://avatars.githubusercontent.com/u/80175648?v=4",
+        "date": "2023-05-18"
+    },
+    {
         "title": "Server.Alerts.Monitor.IRIS",
         "author": "weslambert",
         "description": "Create an IRIS alert when monitored artifacts complete with results. Alerts are available starting in version 2.1.0 of IRIS.\nhttps://github.com/dfir-iris/iris-web/releases/tag/v2.1.0",
