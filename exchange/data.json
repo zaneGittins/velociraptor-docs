@@ -20,6 +20,16 @@
         "date": "2023-05-18"
     },
     {
+        "title": "Server.Notification.Mattermost",
+        "author": "hillu",
+        "description": "Send notification via Mattermost webhook as described in <https://developers.mattermost.com/integrate/webhooks/incoming/>\n",
+        "link": "/exchange/artifacts/pages/server.notification.mattermost",
+        "tags": [],
+        "author_link": "https://github.com/hillu",
+        "author_avatar": "https://avatars.githubusercontent.com/u/173211?v=4",
+        "date": "2023-05-18"
+    },
+    {
         "title": "MacOS.System.Man",
         "author": "weslambert",
         "description": "`man` is typically used to provide information about how to use various commands. It's configuration file is located at `/private/etc/man.conf` on most macOS systems.",
