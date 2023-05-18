@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Alerts.Monitor.IRIS",
+        "author": "weslambert",
+        "description": "Create an IRIS alert when monitored artifacts complete with results. Alerts are available starting in version 2.1.0 of IRIS.\nhttps://github.com/dfir-iris/iris-web/releases/tag/v2.1.0",
+        "link": "/exchange/artifacts/pages/server.alerts.monitor.iris",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-05-18"
+    },
+    {
         "title": "MacOS.System.Man",
         "author": "weslambert",
         "description": "`man` is typically used to provide information about how to use various commands. It's configuration file is located at `/private/etc/man.conf` on most macOS systems.",
