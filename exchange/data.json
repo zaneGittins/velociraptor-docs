@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Applications.LECmd",
+        "author": "CarlosCajigas",
+        "description": "Execute Eric Zimmerman's LECmd and return output for analysis.\nCreated using @eduardfir SBECmd VQL as a quide.  \nLECmd is a CLI tool for analyzing lnk data. Learn more - https://github.com/EricZimmerman/LECmd\n",
+        "link": "/exchange/artifacts/pages/windows.applications.lecmd",
+        "tags": [],
+        "author_link": "https://github.com/CarlosCajigas",
+        "author_avatar": "https://avatars.githubusercontent.com/u/9010359?v=4",
+        "date": "2023-05-20"
+    },
+    {
         "title": "PSList.VTLookup",
         "author": "Shad0wCell",
         "description": "Combination of PSList with Virus Total reputation lookup using the Virus Total Server Enrichment Artifact by Wes Lambert.\n",
