@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Enrichment.Strelka.FileScan",
+        "author": "weslambert",
+        "description": "Submit a file to Strelka for analysis using `strelka-oneshot`.",
+        "link": "/exchange/artifacts/pages/server.enrichment.strelka.filescan",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-05-23"
+    },
+    {
         "title": "Windows.Forensics.RecentFileCache",
         "author": "BadBloopZ",
         "description": "Parses the RecentFileCache as evidence of execution artifact existing on older Windows systems (<= Win 7).",
