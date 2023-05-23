@@ -1,5 +1,15 @@
 [
     {
+        "title": "Windows.Forensics.RecentFileCache",
+        "author": "BadBloopZ",
+        "description": "Parses the RecentFileCache as evidence of execution artifact existing on older Windows systems (<= Win 7).",
+        "link": "/exchange/artifacts/pages/windows.forensics.recentfilecache",
+        "tags": [],
+        "author_link": "https://github.com/BadBloopZ",
+        "author_avatar": "https://avatars.githubusercontent.com/u/29574367?v=4",
+        "date": "2023-05-23"
+    },
+    {
         "title": "Windows.Applications.LECmd",
         "author": "CarlosCajigas",
         "description": "Execute Eric Zimmerman's LECmd and return output for analysis.\nCreated using @eduardfir SBECmd VQL as a quide.  \nLECmd is a CLI tool for analyzing lnk data. Learn more - https://github.com/EricZimmerman/LECmd\n",
