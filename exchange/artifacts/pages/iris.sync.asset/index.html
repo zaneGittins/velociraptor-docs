@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>IRIS.Sync.Asset :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1684558834 rel=stylesheet><link href=/css/fontawesome-all.min.css?1684558834 rel=stylesheet><link href=/css/featherlight.min.css?1684558834 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1684558834 rel=stylesheet><link href=/css/auto-complete.css?1684558834 rel=stylesheet><link href=/css/theme.css?1684558834 rel=stylesheet><link href=/css/tabs.css?1684558834 rel=stylesheet><link href=/css/hugo-theme.css?1684558834 rel=stylesheet><link href=/css/theme-mine.css?1684558834 rel=stylesheet><link href=/css/dark.css?1684558834 rel=stylesheet><link href=/css/syntax.css?1684558834 rel=stylesheet><link href=/css/light.css?1684558834 rel=stylesheet><link href=/css/hljs.css?1684558834 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1684558834 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1684558834></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.111.3"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>IRIS.Sync.Asset :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1684800549 rel=stylesheet><link href=/css/fontawesome-all.min.css?1684800549 rel=stylesheet><link href=/css/featherlight.min.css?1684800549 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1684800549 rel=stylesheet><link href=/css/auto-complete.css?1684800549 rel=stylesheet><link href=/css/theme.css?1684800549 rel=stylesheet><link href=/css/tabs.css?1684800549 rel=stylesheet><link href=/css/hugo-theme.css?1684800549 rel=stylesheet><link href=/css/theme-mine.css?1684800549 rel=stylesheet><link href=/css/dark.css?1684800549 rel=stylesheet><link href=/css/syntax.css?1684800549 rel=stylesheet><link href=/css/light.css?1684800549 rel=stylesheet><link href=/css/hljs.css?1684800549 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1684800549 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1684800549></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/iris.sync.asset/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -75,7 +75,7 @@
 &lt;...&gt;
 -----END CERTIFICATE-----'''),server_metadata() FROM scope()
 </code></pre><ul><li>You can define the compromise status of a system when creating and when updating the information. <strong>However, if an asset is categorized as <em>compromised</em>, you cannot change the status using this artifact.</strong> This is a safety measure to mitigate a potential high impact error. Beside that, you can freely change the status between <em>No</em>, <em>Unknown</em> and <em>To be determined</em>.</li><li>The true power of this artifact lies in the ability to quickly add many clients to DFIR-IRIS. As it is usually not needed to add all clients that are enrolled in Velociraptor to IRIS but rather an excerpt of important, suspicious, or compromised systems, you will <strong>most likely use this artifact from within a notebook</strong>.</li></ul><p><strong>Example</strong> to add just a few systems and have the results of the operation as JSON:</p><pre><code class=language-VQL>SELECT client_id,{SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;Y&quot;)} FROM clients(search=&quot;label:compromised&quot;)
-</code></pre><p><strong>Example</strong> to add many systems in a performant way and have the results in well-structured columns:</p><pre><code class=language-VQL>SELECT * FROM foreach(row={SELECT * FROM clients(search=&quot;label:suspicious&quot;)},query={SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;UNK&quot;)},async=true)
+</code></pre><p><strong>Example</strong> to add many systems in a performant way and have the results in well-structured columns. <strong>ATTENTION: ALWAYS USE ASYNC=FALSE IF CLIENTS ARE PRESENT IN THE TABLE MULTIPLE TIMES! OTHERWISE THESE ASSETS MIGHT BE DUPLICATED IN IRIS!!!</strong></p><pre><code class=language-VQL>SELECT * FROM foreach(row={SELECT * FROM clients(search=&quot;label:suspicious&quot;)},query={SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;UNK&quot;)},async=true)
 </code></pre><pre><code class=language-yaml>name: IRIS.Sync.Asset
 author: Stephan Mikiss @stephmikiss (SEC Defence @SEC Consult)
 description: |
@@ -93,7 +93,7 @@ description: |
    &lt;...&gt;
    -----END CERTIFICATE-----'''),server_metadata() FROM scope()
 </code></pre><ul><li>You can define the compromise status of a system when creating and when updating the information. <strong>However, if an asset is categorized as <em>compromised</em>, you cannot change the status using this artifact.</strong> This is a safety measure to mitigate a potential high impact error. Beside that, you can freely change the status between <em>No</em>, <em>Unknown</em> and <em>To be determined</em>.</li><li>The true power of this artifact lies in the ability to quickly add many clients to DFIR-IRIS. As it is usually not needed to add all clients that are enrolled in Velociraptor to IRIS but rather an excerpt of important, suspicious, or compromised systems, you will <strong>most likely use this artifact from within a notebook</strong>.</li></ul><p><strong>Example</strong> to add just a few systems and have the results of the operation as JSON:</p><pre><code class=language-VQL>SELECT client_id,{SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;Y&quot;)} FROM clients(search=&quot;label:compromised&quot;)
-</code></pre><p><strong>Example</strong> to add many systems in a performant way and have the results in well-structured columns:</p><pre><code class=language-VQL>SELECT * FROM foreach(row={SELECT * FROM clients(search=&quot;label:suspicious&quot;)},query={SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;UNK&quot;)},async=true)
+</code></pre><p><strong>Example</strong> to add many systems in a performant way and have the results in well-structured columns. <strong>ATTENTION: ALWAYS USE ASYNC=FALSE IF CLIENTS ARE PRESENT IN THE TABLE MULTIPLE TIMES! OTHERWISE THESE ASSETS MIGHT BE DUPLICATED IN IRIS!!!</strong></p><pre><code class=language-VQL>SELECT * FROM foreach(row={SELECT * FROM clients(search=&quot;label:suspicious&quot;)},query={SELECT * FROM Artifact.Exchange.IRIS.Sync.Asset(clientId=client_id,isCompromised=&quot;UNK&quot;)},async=true)
 </code></pre><h1 id=can-be-client-client_event-server-server_event>Can be CLIENT, CLIENT_EVENT, SERVER, SERVER_EVENT</h1><p>type: SERVER</p><p>parameters:</p><ul><li>name: clientId
 description: Client Id of the client that should be synced to DFIR-IRIS</li><li>name: isCompromised
 default: TBD
@@ -105,9 +105,9 @@ description: Labels that should be ignored and not added to IRIS</li><li>name: I
 description: URL of DFIR-IRIS. Preferred method is to use the server metadata</li><li>name: IrisKey
 description: API Key of DFIR-IRIS. Preferred method is to use the server metadata</li><li>name: IrisCaseId
 description: Case ID of the current case. Preferred method is to use the server metadata</li><li>name: IrisRootCA
-description: RootCA of DFIR-IRIS for self-signed or internal certificates of DFIR-IRIS. Preferred over completely skipping SSL verification.</li><li>name: IrisDisableSSLVerify
+description: RootCA of DFIR-IRIS for self-signed or internal certificates of DFIR-IRIS. Preferred over completely skipping SSL verification.</li><li>name: DisableSSLVerify
 default: false
-description: Disabled due to not working as expected! Disable TLS verification for HTTPS request to DFIR-IRIS. Preferred method is to use the server metadata</li></ul><p>sources:</p><ul><li><p>query: |</p><p>LET URL &lt;= if(
+description: Disable TLS verification for HTTPS request to DFIR-IRIS.</li></ul><p>sources:</p><ul><li><p>query: |</p><p>LET URL &lt;= if(
 condition=IrisURL,
 then=IrisURL,
 else=server_metadata().IrisURL)
@@ -119,10 +119,6 @@ LET CaseID &lt;= if(
 condition=IrisCaseId,
 then=IrisCaseId,
 else=server_metadata().IrisCaseId)
-LET DisableSSLVerify &lt;= if(
-condition=IrisDisableSSLVerify,
-then=IrisDisableSSLVerify,
-else=server_metadata().IrisDisableSSLVerify)
 LET RootCA &lt;= if(
 condition=IrisRootCA,
 then=IrisRootCA,
@@ -152,14 +148,7 @@ SELECT format(format="%v (%v): %v",args=[NetworkInterface,MACAddress,IPAddresses
 sep="\n") as NetworkInfo FROM scope()</p><p>LET labelToTags = join(array=array(a1={SELECT _value FROM foreach(row=labels) WHERE NOT _value =~ labelIgnoreListRegex}),sep=",")</p><p>LET metadata_preparation = SELECT client_metadata(client_id=clientId) as metadata FROM scope() WHERE metadata.IRIS_AssetId
 LET assetId = SELECT metadata_preparation.metadata[0].IRIS_AssetId as assetId FROM scope()
 LET addMetadata(assetIdValue) = SELECT client_set_metadata(client_id=clientId,metadata=client_metadata(client_id=clientId) + dict(IRIS_AssetId=assetIdValue)),
-client_metadata(client_id=clientId) FROM scope()</p><p>LET apiRequestIrisAdd = SELECT *,if(condition=parse_json(data=Content).data.asset_id,
-then={SELECT addMetadata(assetIdValue=format(format="%v",args=parse_json(data=Content).data.asset_id)),
-label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS&rdquo;),
-label(client_id=clientId,op=&ldquo;remove&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;)
-FROM scope()},
-else={SELECT label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;) FROM scope()}) as applyLabels
-FROM http_client(
-data=serialize(
+client_metadata(client_id=clientId) FROM scope()</p><p>LET assetProperties = serialize(
 item=dict(
 asset_name=format(format="%v",args=[os_info.hostname]),
 asset_type_id=AssetType.AssetTypeId[0],
@@ -171,28 +160,53 @@ asset_tags=if(condition=labelToTags,then=format(format=&ldquo;Velo,%v&rdquo;,arg
 asset_description=format(format=&ldquo;Velo ClientId: %v\nVelo Agent First seen: %v\nAsset added to IRIS by Velo: %v\nNetwork Info:\n%v&rdquo;, args=[client_id,timestamp(epoch=first_seen_at),timestamp(epoch=now()),networkInterfacesDescription.NetworkInfo[0]])
 )
 ,format=&ldquo;json&rdquo;
-),
-headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
-//skip_verify=DisableSSLVerify, //Disabled due to not working as expected.
-root_ca=RootCA,
-method=&ldquo;POST&rdquo;,
-url=format(format="%v/case/assets/add?cid=%v", args=[URL,CaseID]))</p><p>LET apiRequestIrisGet(assetId) = SELECT parse_json(data=Content),parse_json(data=Content).data.asset_name as asset_name,parse_json(data=Content).data.asset_type_id as asset_type_id,
-parse_json(data=Content).data.analysis_status_id as analysis_status_id,parse_json(data=Content).data.asset_tags as asset_tags,
-parse_json(data=Content).data.linked_ioc as linked_ioc,parse_json(data=Content).data.custom_attributes as custom_attributes,
-parse_json(data=Content).data.asset_compromise_status_id as asset_compromise_status_id
-FROM http_client(
-headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
-//skip_verify=DisableSSLVerify, //Disabled due to not working as expected.
-root_ca=RootCA,
-method=&ldquo;GET&rdquo;,
-url=format(format="%v/case/assets/%v?cid=%v", args=[URL,assetId,CaseID]))</p><p>LET apiRequestIrisUpdate(currentAsset,assetId) = SELECT *,if(condition= Response=200,
+)</p><p>LET apiRequestIrisAdd = if(condition=config.version.version &lt; &ldquo;0.6.9&rdquo;,
+then={ SELECT *,if(condition=parse_json(data=Content).data.asset_id,
 then={SELECT addMetadata(assetIdValue=format(format="%v",args=parse_json(data=Content).data.asset_id)),
 label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS&rdquo;),
 label(client_id=clientId,op=&ldquo;remove&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;)
 FROM scope()},
 else={SELECT label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;) FROM scope()}) as applyLabels
 FROM http_client(
-data=serialize(
+data=assetProperties,
+headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
+disable_ssl_security=DisableSSLVerify,
+root_ca=RootCA,
+method=&ldquo;POST&rdquo;,
+url=format(format="%v/case/assets/add?cid=%v", args=[URL,CaseID])) },
+else={ SELECT *,if(condition=parse_json(data=Content).data.asset_id,
+then={SELECT addMetadata(assetIdValue=format(format="%v",args=parse_json(data=Content).data.asset_id)),
+label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS&rdquo;),
+label(client_id=clientId,op=&ldquo;remove&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;)
+FROM scope()},
+else={SELECT label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;) FROM scope()}) as applyLabels
+FROM http_client(
+data=assetProperties,
+headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
+skip_verify=DisableSSLVerify,
+root_ca=RootCA,
+method=&ldquo;POST&rdquo;,
+url=format(format="%v/case/assets/add?cid=%v", args=[URL,CaseID])) })</p><p>LET apiRequestIrisGet(assetId) = if(condition=config.version.version &lt; &ldquo;0.6.9&rdquo;,
+then={ SELECT parse_json(data=Content),parse_json(data=Content).data.asset_name as asset_name,parse_json(data=Content).data.asset_type_id as asset_type_id,
+parse_json(data=Content).data.analysis_status_id as analysis_status_id,parse_json(data=Content).data.asset_tags as asset_tags,
+parse_json(data=Content).data.linked_ioc as linked_ioc,parse_json(data=Content).data.custom_attributes as custom_attributes,
+parse_json(data=Content).data.asset_compromise_status_id as asset_compromise_status_id
+FROM http_client(
+headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
+disable_ssl_security=DisableSSLVerify,
+root_ca=RootCA,
+method=&ldquo;GET&rdquo;,
+url=format(format="%v/case/assets/%v?cid=%v", args=[URL,assetId,CaseID])) },
+else={ SELECT parse_json(data=Content),parse_json(data=Content).data.asset_name as asset_name,parse_json(data=Content).data.asset_type_id as asset_type_id,
+parse_json(data=Content).data.analysis_status_id as analysis_status_id,parse_json(data=Content).data.asset_tags as asset_tags,
+parse_json(data=Content).data.linked_ioc as linked_ioc,parse_json(data=Content).data.custom_attributes as custom_attributes,
+parse_json(data=Content).data.asset_compromise_status_id as asset_compromise_status_id
+FROM http_client(
+headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
+skip_verify=DisableSSLVerify,
+root_ca=RootCA,
+method=&ldquo;GET&rdquo;,
+url=format(format="%v/case/assets/%v?cid=%v", args=[URL,assetId,CaseID])) })</p><p>LET assetPropertiesUpdate = serialize(
 item=dict(
 asset_name=currentAsset.asset_name[0],
 asset_type_id=currentAsset.asset_type_id[0],
@@ -201,12 +215,33 @@ asset_compromise_status_id=if(condition=isCompromised=~"^Y$",then=1,else=if(cond
 asset_tags=if(condition=labelToTags,then=format(format=&ldquo;Velo,%v&rdquo;,args=[labelToTags]),else=&ldquo;Velo&rdquo;)
 )
 ,format=&ldquo;json&rdquo;
-),
+)</p><p>LET apiRequestIrisUpdate(currentAsset,assetId) = if(condition=config.version.version &lt; &ldquo;0.6.9&rdquo;,
+then={ SELECT *,if(condition= Response=200,
+then={SELECT addMetadata(assetIdValue=format(format="%v",args=parse_json(data=Content).data.asset_id)),
+label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS&rdquo;),
+label(client_id=clientId,op=&ldquo;remove&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;)
+FROM scope()},
+else={SELECT label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;) FROM scope()}) as applyLabels
+FROM http_client(
+data=assetPropertiesUpdate,
 headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
-//skip_verify=DisableSSLVerify, //Disabled due to not working as expected.
+disable_ssl_security=DisableSSLVerify,
 root_ca=RootCA,
 method=&ldquo;POST&rdquo;,
-url=format(format="%v/case/assets/update/%v?cid=%v", args=[URL,assetId,CaseID]))</p><p>LET addAsset = SELECT {SELECT * FROM apiRequestIrisAdd} as apiRequestIrisAdd FROM clients(client_id=clientId)
+url=format(format="%v/case/assets/update/%v?cid=%v", args=[URL,assetId,CaseID])) },
+else={ SELECT *,if(condition= Response=200,
+then={SELECT addMetadata(assetIdValue=format(format="%v",args=parse_json(data=Content).data.asset_id)),
+label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS&rdquo;),
+label(client_id=clientId,op=&ldquo;remove&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;)
+FROM scope()},
+else={SELECT label(client_id=clientId,op=&ldquo;set&rdquo;,labels=&ldquo;IRIS-ERROR&rdquo;) FROM scope()}) as applyLabels
+FROM http_client(
+data=assetPropertiesUpdate,
+headers=dict(<code>Content-Type</code>=&ldquo;application/json&rdquo;, <code>Authorization</code>=format(format=&ldquo;Bearer %v&rdquo;, args=[Creds])),
+skip_verify=DisableSSLVerify,
+root_ca=RootCA,
+method=&ldquo;POST&rdquo;,
+url=format(format="%v/case/assets/update/%v?cid=%v", args=[URL,assetId,CaseID])) })</p><p>LET addAsset = SELECT {SELECT * FROM apiRequestIrisAdd} as apiRequestIrisAdd FROM clients(client_id=clientId)
 LET updateAsset = SELECT {SELECT * FROM apiRequestIrisUpdate(currentAsset=apiRequestIrisGet(assetId=client_metadata(client_id=clientId).IRIS_AssetId),assetId=client_metadata(client_id=clientId).IRIS_AssetId)} as apiRequestIrisUpdate FROM clients(client_id=clientId)</p><p>SELECT * FROM if(condition= metadata_preparation,
 then = {SELECT &ldquo;Already Added -> Update labels and compromise status in IRIS&rdquo; as Action,if(condition= apiRequestIrisUpdate.Response=200,then=&ldquo;SUCCESS&rdquo;,else=&ldquo;ERROR&rdquo;) as Result,
 parse_json(data=apiRequestIrisUpdate.Content).data as AssetProperties,
@@ -215,12 +250,12 @@ apiRequestIrisUpdate as _rawEvent FROM updateAsset},
 else = { SELECT &ldquo;Needs to be added&rdquo; as Action, if(condition= apiRequestIrisAdd.Response=200,then=&ldquo;SUCCESS&rdquo;,else=&ldquo;ERROR&rdquo;) as Result,
 parse_json(data=apiRequestIrisAdd.Content).data as AssetProperties,
 apiRequestIrisAdd.applyLabels[0].<code>addMetadata(assetIdValue=format(format="%v", args=parse_json(data=Content).data.asset_id))</code>[0].<code>client_metadata(client_id=clientId)</code>.IRIS_AssetId as IRIS_AssetId,
-apiRequestIrisAdd as _rawEvent FROM addAsset})</p></li></ul><pre><code></code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1684558834></script>
-<script src=/js/perfect-scrollbar.min.js?1684558834></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1684558834></script>
-<script src=/js/jquery.sticky.js?1684558834></script>
-<script src=/js/featherlight.min.js?1684558834></script>
-<script src=/js/highlight.min.js?1684558834></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1684558834></script>
-<script src=/js/learn.js?1684558834></script>
-<script src=/js/hugo-learn.js?1684558834></script></body></html>
+apiRequestIrisAdd as _rawEvent FROM addAsset})</p></li></ul><pre><code></code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1684800549></script>
+<script src=/js/perfect-scrollbar.min.js?1684800549></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1684800549></script>
+<script src=/js/jquery.sticky.js?1684800549></script>
+<script src=/js/featherlight.min.js?1684800549></script>
+<script src=/js/highlight.min.js?1684800549></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1684800549></script>
+<script src=/js/learn.js?1684800549></script>
+<script src=/js/hugo-learn.js?1684800549></script></body></html>
