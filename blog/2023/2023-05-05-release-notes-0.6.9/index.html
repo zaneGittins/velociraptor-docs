@@ -1,6 +1,6 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.112.3"><meta name=description content="Velociraptor Release 0.6.9 is now in Release Candidate.
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.112.5"><meta name=description content="Velociraptor Release 0.6.9 is now LIVE!
 This post discusses some of the new features.
-"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor 0.6.9 Release :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1685141039 rel=stylesheet><link href=/css/fontawesome-all.min.css?1685141039 rel=stylesheet><link href=/css/featherlight.min.css?1685141039 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1685141039 rel=stylesheet><link href=/css/auto-complete.css?1685141039 rel=stylesheet><link href=/css/theme.css?1685141039 rel=stylesheet><link href=/css/tabs.css?1685141039 rel=stylesheet><link href=/css/hugo-theme.css?1685141039 rel=stylesheet><link href=/css/theme-mine.css?1685141039 rel=stylesheet><link href=/css/dark.css?1685141039 rel=stylesheet><link href=/css/syntax.css?1685141039 rel=stylesheet><link href=/css/light.css?1685141039 rel=stylesheet><link href=/css/hljs.css?1685141039 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1685141039 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1685141039></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+"><link rel=icon href=/images/favicon.png type=image/png><title>Velociraptor 0.6.9 Release :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1685494779 rel=stylesheet><link href=/css/fontawesome-all.min.css?1685494779 rel=stylesheet><link href=/css/featherlight.min.css?1685494779 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1685494779 rel=stylesheet><link href=/css/auto-complete.css?1685494779 rel=stylesheet><link href=/css/theme.css?1685494779 rel=stylesheet><link href=/css/tabs.css?1685494779 rel=stylesheet><link href=/css/hugo-theme.css?1685494779 rel=stylesheet><link href=/css/theme-mine.css?1685494779 rel=stylesheet><link href=/css/dark.css?1685494779 rel=stylesheet><link href=/css/syntax.css?1685494779 rel=stylesheet><link href=/css/light.css?1685494779 rel=stylesheet><link href=/css/hljs.css?1685494779 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1685494779 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1685494779></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/blog/2023/2023-05-05-release-notes-0.6.9/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -75,7 +75,7 @@ This post discusses some of the new features.
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>Velociraptor 0.6.9 Release</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#gui-improvements>GUI improvements</a><ul><li><a href=#table-filtering-and-sorting>Table filtering and sorting</a></li><li><a href=#vfs-gui-improvements>VFS GUI improvements</a></li><li><a href=#hex-viewer-and-file-previewer-gui>Hex viewer and file previewer GUI</a></li><li><a href=#artifact-pack-import-gui-improvements>Artifact pack import GUI improvements</a></li></ul></li><li><a href=#direct-smb-support>Direct SMB support</a><ul><li><a href=#using-smb-for-distributing-tools>Using SMB for distributing tools</a></li></ul></li><li><a href=#the-offline-collector>The offline collector</a><ul><li><a href=#smb-server-uploads>SMB server uploads</a></li><li><a href=#azure-blob-storage-service>Azure Blob storage service.</a></li></ul></li><li><a href=#debugging-vql-queries>Debugging VQL queries</a></li><li><a href=#locking-down-the-server>Locking down the server</a></li><li><a href=#audit-events>Audit events</a></li><li><a href=#tool-definitions-can-now-specify-an-expected-hash>Tool definitions can now specify an expected hash</a></li><li><a href=#conclusions>Conclusions</a></li></ul></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/release>Release</a></div></div><div id=body-inner><h1>Velociraptor 0.6.9 Release</h1><div class="author pull-right">Mike Cohen
 <span class=date>2023-05-05</span></div><p>I am very excited to announce the latest Velociraptor release 0.6.9 is
-now in release candidate status. Please test widely. This release has
+now LIVE and available for download. This release has
 been in the making for a few months now and has a lot of new features
 and bug fixes.</p><p>In this post I will discuss some of the interesting new features.</p><h2 id=gui-improvements>GUI improvements</h2><p>The GUI was updated in this release to improve user workflow and accessibility.</p><h3 id=table-filtering-and-sorting>Table filtering and sorting</h3><p>Previously, table filtering and sorting required a separate dialog. In
 this release the filtering controls were moved to the header of each
@@ -95,17 +95,17 @@ forward or backwards.</li><li>The viewer can search forward or backwards in the 
 column of type <code>preview_uploads</code> including the <code>File Upload</code> table
 within the flow GUI.</p><p><figure><img src=hex_viewer.png alt="The hex viewer UI can be used to quickly inspect an uploaded file" class=captioned><figcaption>The hex viewer UI can be used to quickly inspect an uploaded file</figcaption></figure></p><h3 id=artifact-pack-import-gui-improvements>Artifact pack import GUI improvements</h3><p>Velociraptor allows uploading an <code>artifact pack</code> - a simple Zip file
 containing artifact definitions. For example, the artifact exchange is
-simply a zip file with artifact definitions.</p><p>Previously artifact packs could only be upload in their entirety and
+simply a zip file with artifact definitions.</p><p>Previously artifact packs could only be uploaded in their entirety and
 always had an &ldquo;Exchange&rdquo; prefix prepended. However in this release the
 UI was revamped to allow only some artifacts to be imported from the
 pack and customize the prefix.</p><p><figure><img src=import_pack.png alt="It is now possible to import only some of the artifacts in a pack" class=captioned><figcaption>It is now possible to import only some of the artifacts in a pack</figcaption></figure></p><h2 id=direct-smb-support>Direct SMB support</h2><p>Windows file sharing is implemented over the SMB protocol. Within the
 OS, accessing remote file shares happens transparently, for example by
 mapping the remote share to a drive using <code>net use</code> command or
 accessing a file name starting with a UNC path
-(e.g. <code>\\ServerName\Share\File.exe</code>)</p><p>While Velociraptor can technically also access UNC shares by using the
+(e.g. <code>\\ServerName\Share\File.exe</code>).</p><p>While Velociraptor can technically also access UNC shares by using the
 usual file APIs and providing a UNC path, in reality this does not
 work because Velociraptor is running as the local <code>System</code> user which
-normally does not have network credentials so can not map remote
+normally does not have network credentials so it can not map remote
 shares.</p><p>This limitation is problematic because sometimes we need to access
 remote shares (e.g. to verify hashes, perform yara scans etc). Until
 this release the only workaround for this limitation was to install
@@ -136,7 +136,7 @@ upload targets. It is now possible to upload to an SMB server and to
 Azure Blob Storage.</p><h3 id=smb-server-uploads>SMB server uploads</h3><p>Because the offline collector is typically used to collect large
 volumes of data, it is beneficial to upload the data to a networked
 server close to the collected machine. This avoids cloud network costs
-and bandwidth limitations and works very well in air gaped networks.</p><p>You can now simply create a new share on any machine, by adding a
+and bandwidth limitations and works very well in air gapped networks.</p><p>You can now simply create a new share on any machine, by adding a
 local Windows user with password credentials, exporting a directory as
 a share and adjusting the upload user&rsquo;s permissions to only be able to
 write on the share and not read from it. It is now safe to embed these
@@ -197,10 +197,10 @@ GUI by any user.</p><p><figure><img src=inspecting_audit_log.png alt="The server
 monitoring artifact, it is possible for users to develop custom VQL
 server monitoring artifacts to forward or respond to auditable events
 just like any other event on the client or the server. This makes it
-possible to forward events to e.g. Slack or Discord, as demonstrated
+possible to forward events (e.g. to Slack or Discord) as demonstrated
 by the <code>Elastic.Events.Upload</code> artifact above.</p><h2 id=tool-definitions-can-now-specify-an-expected-hash>Tool definitions can now specify an expected hash</h2><p>Velociraptor supports pushing tools to external endpoints. A
 Velociraptor artifact can define an external tool, allowing the server
-to automatically fetch the tool and upload it the endpoint.</p><p>Previously the artifact could only specify the URL where the tool
+to automatically fetch the tool and upload it to the endpoint.</p><p>Previously the artifact could only specify the URL where the tool
 should be downloaded from. However in this release it is also possible
 to declare the expected hash of the tool. This prevents potential
 substitution attacks effectively by pinning the third-party binary
@@ -211,9 +211,8 @@ from the real tool hash. Velociraptor refuses to import the binary but
 provides a button allowing the user to accept this new hash
 instead. This should only be done if the administrator is convinced
 the tool hash was legitimately updated.</p><h2 id=conclusions>Conclusions</h2><p>There are many more new features and bug fixes in the latest
-release. Currently the release is in testing for the next few weeks,
-so please test widely and provide feedback by opening GitHub issues.</p><p>If you like the new features, take <a href=https://github.com/Velocidex/velociraptor>Velociraptor for a
-spin</a>! It is a available
+release.</p><p>If you like the new features, take <a href=https://github.com/Velocidex/velociraptor>Velociraptor for a
+spin</a>! It is available
 on GitHub under an open source license. As always please file issues
 on the bug tracker or ask questions on our mailing list
 <a href=mailto:velociraptor-discuss@googlegroups.com>velociraptor-discuss@googlegroups.com</a>
@@ -222,12 +221,12 @@ on the bug tracker or ask questions on our mailing list
 .</p><p>If you want to master Velociraptor, consider joining us at the full
 Velociraptor training course held this year at the Blackhat
 Conference and delivered by the Velociraptor developers themselves.</p><p>Details here:
-<a href=https://docs.velociraptor.app/announcements/2023-trainings/>https://docs.velociraptor.app/announcements/2023-trainings/</a></p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1685141039></script>
-<script src=/js/perfect-scrollbar.min.js?1685141039></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1685141039></script>
-<script src=/js/jquery.sticky.js?1685141039></script>
-<script src=/js/featherlight.min.js?1685141039></script>
-<script src=/js/highlight.min.js?1685141039></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1685141039></script>
-<script src=/js/learn.js?1685141039></script>
-<script src=/js/hugo-learn.js?1685141039></script></body></html>
+<a href=https://docs.velociraptor.app/announcements/2023-trainings/>https://docs.velociraptor.app/announcements/2023-trainings/</a></p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1685494779></script>
+<script src=/js/perfect-scrollbar.min.js?1685494779></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1685494779></script>
+<script src=/js/jquery.sticky.js?1685494779></script>
+<script src=/js/featherlight.min.js?1685494779></script>
+<script src=/js/highlight.min.js?1685494779></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1685494779></script>
+<script src=/js/learn.js?1685494779></script>
+<script src=/js/hugo-learn.js?1685494779></script></body></html>
