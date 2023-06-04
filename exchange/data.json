@@ -2,7 +2,7 @@
     {
         "title": "Windows.Detection.MoveIt",
         "author": "mgreen27",
-        "description": "This is an artifact to detect exploitation of a MoveIt critical vulnerability \nobserved in the wild.\n",
+        "description": "This is an artifact to detect exploitation of a MoveIt critical vulnerability \nobserved in the wild. CVE-2023-34362\n",
         "link": "/exchange/artifacts/pages/moveit",
         "tags": [],
         "author_link": "https://github.com/mgreen27",

@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.112.6"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.MoveIt :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1685689766 rel=stylesheet><link href=/css/fontawesome-all.min.css?1685689766 rel=stylesheet><link href=/css/featherlight.min.css?1685689766 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1685689766 rel=stylesheet><link href=/css/auto-complete.css?1685689766 rel=stylesheet><link href=/css/theme.css?1685689766 rel=stylesheet><link href=/css/tabs.css?1685689766 rel=stylesheet><link href=/css/hugo-theme.css?1685689766 rel=stylesheet><link href=/css/theme-mine.css?1685689766 rel=stylesheet><link href=/css/dark.css?1685689766 rel=stylesheet><link href=/css/syntax.css?1685689766 rel=stylesheet><link href=/css/light.css?1685689766 rel=stylesheet><link href=/css/hljs.css?1685689766 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1685689766 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1685689766></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.112.7"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Detection.MoveIt :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1685839073 rel=stylesheet><link href=/css/fontawesome-all.min.css?1685839073 rel=stylesheet><link href=/css/featherlight.min.css?1685839073 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1685839073 rel=stylesheet><link href=/css/auto-complete.css?1685839073 rel=stylesheet><link href=/css/theme.css?1685839073 rel=stylesheet><link href=/css/tabs.css?1685839073 rel=stylesheet><link href=/css/hugo-theme.css?1685839073 rel=stylesheet><link href=/css/theme-mine.css?1685839073 rel=stylesheet><link href=/css/dark.css?1685839073 rel=stylesheet><link href=/css/syntax.css?1685839073 rel=stylesheet><link href=/css/light.css?1685839073 rel=stylesheet><link href=/css/hljs.css?1685839073 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1685839073 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1685839073></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/moveit/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -72,11 +72,11 @@
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>Windows.Detection.MoveIt</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Windows.Detection.MoveIt</h1><p>This is an artifact to detect exploitation of a MoveIt critical vulnerability
-observed in the wild.</p><pre><code class=language-yaml>name: Windows.Detection.MoveIt
+observed in the wild. CVE-2023-34362</p><pre><code class=language-yaml>name: Windows.Detection.MoveIt
 author: Matt Green - @mgreen27
 description: | 
    This is an artifact to detect exploitation of a MoveIt critical vulnerability 
-   observed in the wild.
+   observed in the wild. CVE-2023-34362
    
 reference:
   - https://www.rapid7.com/blog/post/2023/06/01/rapid7-observed-exploitation-of-critical-moveit-transfer-vulnerability/
@@ -131,19 +131,40 @@ parameters:
         }
    - name: LogYara
      default: |
-        rule LOG_EXPL_MOVEit_Exploitation_Indicator_Jun23_1 {
-           meta:
-              description = &quot;Detects a possible compromise indicator found in MOVEit Transfer logs&quot;
-              author = &quot;Florian Roth&quot;
-              reference = &quot;https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response&quot;
-              date = &quot;2023-06-01&quot;
-              score = 70
-           strings:
-              $x1 = &quot;POST /moveitisapi/moveitisapi.dll action=m2 &quot; ascii
-              $x2 = &quot; GET /human2.aspx - 443 &quot; ascii
-           condition:
-              1 of them
-        }
+         rule LOG_EXPL_MOVEit_Exploitation_Indicator_Jun23_1 {
+            meta:
+               description = &quot;Detects a potential compromise indicator found in MOVEit Transfer logs&quot;
+               author = &quot;Florian Roth&quot;
+               reference = &quot;https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response&quot;
+               date = &quot;2023-06-01&quot;
+               score = 70
+            strings:
+               $x1 = &quot;POST /moveitisapi/moveitisapi.dll action=m2 &quot; ascii
+               $x2 = &quot; GET /human2.aspx - 443 &quot; ascii
+            condition:
+               1 of them
+         }
+
+         rule LOG_EXPL_MOVEit_Exploitation_Indicator_Jun23_2 {
+            meta:
+               description = &quot;Detects a potential compromise indicator found in MOVEit Transfer logs&quot;
+               author = &quot;Florian Roth&quot;
+               reference = &quot;https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response&quot;
+               date = &quot;2023-06-03&quot;
+               score = 70
+            strings:
+               $a1 = &quot;Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/105.0.5195.102+Safari/537.36&quot; ascii
+               
+               $s1 = &quot; POST /moveitisapi/moveitisapi.dll&quot; ascii
+               $s2 = &quot; POST /guestaccess.aspx&quot;
+               $s3 = &quot; POST /api/v1/folders/&quot;
+
+               $s4 = &quot;/files uploadType=resumable&amp;&quot;
+               $s5 = &quot; action=m2 &quot;
+            condition:
+               1 of ($a*) and 3 of ($s*)
+               or all of ($s*)
+         }
    - name: UploadHits
      type: bool
    - name: EarliestTime
@@ -183,12 +204,12 @@ sources:
             --AllDrives='Y',
             YaraRule=LogYara )
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1685689766></script>
-<script src=/js/perfect-scrollbar.min.js?1685689766></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1685689766></script>
-<script src=/js/jquery.sticky.js?1685689766></script>
-<script src=/js/featherlight.min.js?1685689766></script>
-<script src=/js/highlight.min.js?1685689766></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1685689766></script>
-<script src=/js/learn.js?1685689766></script>
-<script src=/js/hugo-learn.js?1685689766></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1685839073></script>
+<script src=/js/perfect-scrollbar.min.js?1685839073></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1685839073></script>
+<script src=/js/jquery.sticky.js?1685839073></script>
+<script src=/js/featherlight.min.js?1685839073></script>
+<script src=/js/highlight.min.js?1685839073></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1685839073></script>
+<script src=/js/learn.js?1685839073></script>
+<script src=/js/hugo-learn.js?1685839073></script></body></html>
