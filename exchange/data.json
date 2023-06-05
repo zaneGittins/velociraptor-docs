@@ -1,8 +1,8 @@
 [
     {
-        "title": "Windows.EventLogs.MoveIT",
+        "title": "Windows.EventLogs.MoveIt",
         "author": "mgreen27",
-        "description": "MoveIT Specific Notes\n====================\nThis Artifact enables scoping EventLogs from Progress Software's MoveIT File \nTransfer. It is designed to assist in identifying exfiltration resulting from\nthe exploitation of CVE-2023-34362",
+        "description": "This Artifact enables scoping EventLogs from Progress Software's MoveIT File \nTransfer. It is designed to assist in identifying exfiltration resulting from\nthe exploitation of CVE-2023-34362",
         "link": "/exchange/artifacts/pages/moveitevtx",
         "tags": [],
         "author_link": "https://github.com/mgreen27",
