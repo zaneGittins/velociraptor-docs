@@ -1,5 +1,15 @@
 [
     {
+        "title": "IRIS.Timeline.Add",
+        "author": "BadBloopZ",
+        "description": "This artifact adds Velociraptor rows as timeline entries to DFIR-IRIS (https://dfir-iris.org/). It will link the assets and IOCs as specified in the parameters. Additionally, if the client is not yet existing in Iris, this artifact will leverage the IRIS.Sync.Asset artifact to add the asset to Iris first and link it in the event.",
+        "link": "/exchange/artifacts/pages/iris.timeline.add",
+        "tags": [],
+        "author_link": "https://github.com/BadBloopZ",
+        "author_avatar": "https://avatars.githubusercontent.com/u/29574367?v=4",
+        "date": "2023-06-09"
+    },
+    {
         "title": "Windows.EventLogs.MoveIt",
         "author": "mgreen27",
         "description": "This Artifact enables scoping EventLogs from Progress Software's MoveIT File \nTransfer. It is designed to assist in identifying exfiltration resulting from\nthe exploitation of CVE-2023-34362",
