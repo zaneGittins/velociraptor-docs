@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Detection.SSHKeyFileCmd",
+        "author": "4ltern4te",
+        "description": "This artifact will parse ~/.ssh/authorized_keys and ~/.ssh/id_*.pub looking for the command option\nto detect potential persistence\n",
+        "link": "/exchange/artifacts/pages/linux.detection.sshkeyfilecmd",
+        "tags": [],
+        "author_link": "https://github.com/4ltern4te",
+        "author_avatar": "https://avatars.githubusercontent.com/u/5027220?v=4",
+        "date": "2023-06-19"
+    },
+    {
         "title": "Linux.Detection.MemFD",
         "author": "4ltern4te",
         "description": "This artifact will parse /proc/*/exe files and look for processes \n that have been executed from memory via memfd_create()\n",
