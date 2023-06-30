@@ -1,5 +1,15 @@
 [
     {
+        "title": "Exchange.Linux.Kunai",
+        "author": "weslambert",
+        "description": "Kunai is a Linux-based security monitoring and threat hunting tool written in Rust.  This artifact parses the Kunai log file. \n",
+        "link": "/exchange/artifacts/pages/linux.kunai",
+        "tags": [],
+        "author_link": "https://github.com/weslambert",
+        "author_avatar": "https://avatars.githubusercontent.com/u/16829864?v=4",
+        "date": "2023-06-30"
+    },
+    {
         "title": "Linux.Detection.SSHKeyFileCmd",
         "author": "4ltern4te",
         "description": "This artifact will parse ~/.ssh/authorized_keys and ~/.ssh/id_*.pub looking for the command option\nto detect potential persistence\n",
