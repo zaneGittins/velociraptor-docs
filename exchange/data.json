@@ -1,5 +1,15 @@
 [
     {
+        "title": "Server.Alerts.Mattermost",
+        "author": "misje",
+        "description": "Create a Slack/Mattermost notification when a client Flow (with artifacts of interest) has finished. Cancelled collections and collections with artifacts that don't satisfy preconditions do not create notifications when they are stopped.\n",
+        "link": "/exchange/artifacts/pages/server.alerts.mattermost",
+        "tags": [],
+        "author_link": "https://github.com/misje",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4006538?v=4",
+        "date": "2023-07-16"
+    },
+    {
         "title": "Windows.Registry.PrintNightmare",
         "author": "DakshGajjar",
         "description": "CVE-2021-34527 or Windows Print Spooler Remote Code Execution Vulnerability",
