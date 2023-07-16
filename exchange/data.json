@@ -10,6 +10,16 @@
         "date": "2023-07-16"
     },
     {
+        "title": "Custom.Windows.Nirsoft.LastActivityView",
+        "author": "hasamba",
+        "description": "LastActivityView is a tool for Windows operating system that collects information from various sources on a running system, and displays a log of actions made by the user and events occurred on this computer. The activity displayed by LastActivityView includes: Running .exe file, Opening open/save dialog-box, Opening file/folder from Explorer or other software, software installation, system shutdown/start, application or system crash, network connection/disconnection and more...\n",
+        "link": "/exchange/artifacts/pages/windows.nirsoft.lastactivityview",
+        "tags": [],
+        "author_link": "https://github.com/hasamba",
+        "author_avatar": "https://avatars.githubusercontent.com/u/7392290?v=4",
+        "date": "2023-07-16"
+    },
+    {
         "title": "Windows.Registry.PrintNightmare",
         "author": "DakshGajjar",
         "description": "CVE-2021-34527 or Windows Print Spooler Remote Code Execution Vulnerability",
