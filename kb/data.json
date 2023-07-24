@@ -1,5 +1,18 @@
 [
     {
+        "title": "How can I clone an organization with all its hunts and artifacts to another instance?",
+        "link": "/knowledge_base/tips/clone_organization_to_other_server",
+        "tags": [
+            "archiving",
+            "orgs",
+            "deployment"
+        ],
+        "author": "Jil",
+        "author_link": "https://github.com/Jil",
+        "author_avatar": "https://avatars.githubusercontent.com/u/382017?v=4",
+        "date": "2023-07-24"
+    },
+    {
         "title": "What to do about error \"Plugin info not found\"",
         "link": "/knowledge_base/tips/plugin_not_found",
         "tags": [
