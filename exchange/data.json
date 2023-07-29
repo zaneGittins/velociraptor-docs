@@ -1,5 +1,15 @@
 [
     {
+        "title": "Generic.Forensics.CyLR",
+        "author": "tsauter",
+        "description": "Uses CyLR tool to do live forensic on the host.",
+        "link": "/exchange/artifacts/pages/generic.forensics.cylr",
+        "tags": [],
+        "author_link": "https://github.com/tsauter",
+        "author_avatar": "https://avatars.githubusercontent.com/u/9928251?v=4",
+        "date": "2023-07-29"
+    },
+    {
         "title": "Windows.Registry.DefenderConfig",
         "author": "mgreen27",
         "description": "Thit artifact enables extracting Windows Defender configuration from \nSOFTWARE registry hive.",
