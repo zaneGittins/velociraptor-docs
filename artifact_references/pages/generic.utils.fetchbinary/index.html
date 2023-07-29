@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Utils.FetchBinary :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690510831 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690510831 rel=stylesheet><link href=/css/featherlight.min.css?1690510831 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690510831 rel=stylesheet><link href=/css/auto-complete.css?1690510831 rel=stylesheet><link href=/css/theme.css?1690510831 rel=stylesheet><link href=/css/tabs.css?1690510831 rel=stylesheet><link href=/css/hugo-theme.css?1690510831 rel=stylesheet><link href=/css/theme-mine.css?1690510831 rel=stylesheet><link href=/css/dark.css?1690510831 rel=stylesheet><link href=/css/syntax.css?1690510831 rel=stylesheet><link href=/css/light.css?1690510831 rel=stylesheet><link href=/css/hljs.css?1690510831 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690510831 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690510831></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Generic.Utils.FetchBinary :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690645583 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690645583 rel=stylesheet><link href=/css/featherlight.min.css?1690645583 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690645583 rel=stylesheet><link href=/css/auto-complete.css?1690645583 rel=stylesheet><link href=/css/theme.css?1690645583 rel=stylesheet><link href=/css/tabs.css?1690645583 rel=stylesheet><link href=/css/hugo-theme.css?1690645583 rel=stylesheet><link href=/css/theme-mine.css?1690645583 rel=stylesheet><link href=/css/dark.css?1690645583 rel=stylesheet><link href=/css/syntax.css?1690645583 rel=stylesheet><link href=/css/light.css?1690645583 rel=stylesheet><link href=/css/hljs.css?1690645583 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690645583 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690645583></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/generic.utils.fetchbinary/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -74,7 +74,7 @@
 <span class=links>Generic.Utils.FetchBinary</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Generic.Utils.FetchBinary</h1><p>A utility artifact which fetches a binary from a URL and caches it on disk.
 We verify the hash of the binary on disk and if it does not match we fetch it again
 from the source URL.</p><p>This artifact is designed to be called from other artifacts. The
-binary path will be emitted in the FullPath column.</p><p>As a result of launching an artifact with declared &ldquo;tools&rdquo;
+binary path will be emitted in the OSPath column.</p><p>As a result of launching an artifact with declared &ldquo;tools&rdquo;
 field, the server will populate the following environment
 variables.</p><p>Tool_<toolname><em>HASH - The hash of the binary
 Tool</em><toolname><em>FILENAME - The filename to store it.
@@ -85,7 +85,7 @@ description: |
    from the source URL.
 
    This artifact is designed to be called from other artifacts. The
-   binary path will be emitted in the FullPath column.
+   binary path will be emitted in the OSPath column.
 
    As a result of launching an artifact with declared &quot;tools&quot;
    field, the server will populate the following environment
@@ -180,7 +180,7 @@ sources:
           SELECT hash(path=(args[0]).ToolPath) as Hash,
                  (args[0]).ToolFilename AS Name,
                  &quot;Downloaded&quot; AS DownloadStatus,
-                 (args[0]).ToolPath AS FullPath
+                 (args[0]).ToolPath AS OSPath
           FROM scope()
           WHERE (args[0]).ToolPath AND
                 log(message=&quot;File served from &quot; + (args[0]).ToolPath)
@@ -196,7 +196,7 @@ sources:
               (args[0]).ToolFilename AS Name,
               &quot;Downloaded&quot; AS DownloadStatus,
               copy(filename=Content, dest=(ToolPath[0]).Path,
-                   permissions=if(condition=IsExecutable, then=&quot;x&quot;)) AS FullPath
+                   permissions=if(condition=IsExecutable, then=&quot;x&quot;)) AS OSPath
           FROM http_client(url=(args[0]).ToolURL, tempfile_extension=&quot;.exe&quot;)
           WHERE log(message=format(format=&quot;downloaded hash of %v: %v, expected %v&quot;, args=[
                     Content, Hash.SHA256, (args[0]).ToolHash]))
@@ -209,18 +209,19 @@ sources:
 
       // Check if the existing file in the binary file cache matches
       // the hash.
-      LET existing = SELECT FullPath, hash(path=FullPath) AS Hash, Name,
+      LET existing = SELECT OSPath, hash(path=OSPath) AS Hash, Name,
                     &quot;Cached&quot; AS DownloadStatus
         FROM stat(filename=(ToolPath[0]).Path)
         WHERE log(message=format(format=&quot;Local hash of %v: %v, expected %v&quot;, args=[
-            FullPath, Hash.SHA256, (args[0]).ToolHash]))
+            OSPath, Hash.SHA256, (args[0]).ToolHash]))
         AND Hash.SHA256 = (args[0]).ToolHash
 
       // Find the required_tool either in the local cache or
       // download it (and put it in the cache for next time). If we
       // have to download the file we sleep for a random time to
       // stagger server bandwidth load.
-      SELECT * FROM switch(
+      SELECT *, OSPath AS FullPath
+      FROM switch(
         a=local_file,
         b=existing,
         c={
@@ -232,12 +233,12 @@ sources:
         },
         d=download)
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690510831></script>
-<script src=/js/perfect-scrollbar.min.js?1690510831></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1690510831></script>
-<script src=/js/jquery.sticky.js?1690510831></script>
-<script src=/js/featherlight.min.js?1690510831></script>
-<script src=/js/highlight.min.js?1690510831></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690510831></script>
-<script src=/js/learn.js?1690510831></script>
-<script src=/js/hugo-learn.js?1690510831></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690645583></script>
+<script src=/js/perfect-scrollbar.min.js?1690645583></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1690645583></script>
+<script src=/js/jquery.sticky.js?1690645583></script>
+<script src=/js/featherlight.min.js?1690645583></script>
+<script src=/js/highlight.min.js?1690645583></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690645583></script>
+<script src=/js/learn.js?1690645583></script>
+<script src=/js/hugo-learn.js?1690645583></script></body></html>

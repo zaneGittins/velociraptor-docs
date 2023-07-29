@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.ScheduledTasks :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690510834 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690510834 rel=stylesheet><link href=/css/featherlight.min.css?1690510834 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690510834 rel=stylesheet><link href=/css/auto-complete.css?1690510834 rel=stylesheet><link href=/css/theme.css?1690510834 rel=stylesheet><link href=/css/tabs.css?1690510834 rel=stylesheet><link href=/css/hugo-theme.css?1690510834 rel=stylesheet><link href=/css/theme-mine.css?1690510834 rel=stylesheet><link href=/css/dark.css?1690510834 rel=stylesheet><link href=/css/syntax.css?1690510834 rel=stylesheet><link href=/css/light.css?1690510834 rel=stylesheet><link href=/css/hljs.css?1690510834 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690510834 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690510834></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.ScheduledTasks :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690645588 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690645588 rel=stylesheet><link href=/css/featherlight.min.css?1690645588 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690645588 rel=stylesheet><link href=/css/auto-complete.css?1690645588 rel=stylesheet><link href=/css/theme.css?1690645588 rel=stylesheet><link href=/css/tabs.css?1690645588 rel=stylesheet><link href=/css/hugo-theme.css?1690645588 rel=stylesheet><link href=/css/theme-mine.css?1690645588 rel=stylesheet><link href=/css/dark.css?1690645588 rel=stylesheet><link href=/css/syntax.css?1690645588 rel=stylesheet><link href=/css/light.css?1690645588 rel=stylesheet><link href=/css/hljs.css?1690645588 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690645588 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690645588></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/windows.eventlogs.scheduledtasks/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -158,12 +158,22 @@ parameters:
     description: IOC regex to search for.
     default: .
     type: regex
-  - name: SearchVSS
-    description: &quot;add VSS into query.&quot;
-    type: bool
+
+  - name: VSSAnalysisAge
+    type: int
+    default: 0
+    description: |
+      If larger than zero we analyze VSS within this many days
+      ago. (e.g 7 will analyze all VSS within the last week).  Note
+      that when using VSS analysis we have to use the ntfs accessor
+      for everything which will be much slower.
+
 
 sources:
   - query: |
+      LET VSS_MAX_AGE_DAYS &lt;= VSSAnalysisAge
+      LET Accessor = if(condition=VSSAnalysisAge &gt; 0, then=&quot;ntfs_vss&quot;, else=&quot;auto&quot;)
+
       -- firstly set timebounds for performance
       LET DateAfterTime &lt;= if(condition=DateAfter,
         then=DateAfter, else=timestamp(epoch=&quot;1600-01-01&quot;))
@@ -179,35 +189,33 @@ sources:
         `4702`=&quot;A scheduled task was updated.&quot;)
 
       -- expand provided glob into a list of paths on the file system (fs)
-      LET fspaths &lt;= SELECT FullPath
-        FROM glob(globs=[expand(path=Security), expand(path=TaskScheduler)])
-
-      -- function returning list of VSS paths corresponding to path
-      LET vsspaths(path) = SELECT FullPath
-        FROM Artifact.Windows.Search.VSS(SearchFilesGlob=path)
+      LET fspaths = SELECT OSPath
+        FROM glob(globs=[expand(path=Security), expand(path=TaskScheduler)],
+        accessor=Accessor)
 
       -- function to parse task content and replace xml in EventData
-      LET parse_task(data) = SELECT
-                                data.SubjectUserSid as SubjectUserSid,
-                                data.SubjectUserName as SubjectUserName,
-                                data.SubjectDomainName as SubjectDomainName,
-                                data.SubjectLogonId as SubjectLogonId,
-                                data.TaskName as TaskName,
-                                parse_xml(
-                                    accessor='data',
-                                    file=regex_replace(
-                                        source= if(condition= data.TaskContentNew,
-                                            then= data.TaskContentNew,
-                                            else= if(condition= data.TaskContent,
-                                                then= data.TaskContent)),
-                                        re='&lt;[?].+?&gt;',
-                                        replace='')).Task as TaskContent,
-                                data.ClientProcessStartKey as ClientProcessStartKey,
-                                data.ClientProcessId as ClientProcessId,
-                                data.ParentProcessId as ParentProcessId,
-                                data.RpcCallClientLocality as RpcCallClientLocality,
-                               data.FQDN as FQDN
-                            FROM scope()
+      LET parse_task(data) = dict(
+         SubjectUserSid=data.SubjectUserSid,
+         SubjectUserName=data.SubjectUserName,
+         SubjectDomainName=data.SubjectDomainName,
+         SubjectLogonId=data.SubjectLogonId,
+         TaskName=data.TaskName,
+         TaskContent=parse_xml(
+            accessor='data',
+            file=regex_replace(
+              source= if(condition= data.TaskContentNew,
+                 then= data.TaskContentNew,
+                 else= if(condition= data.TaskContent,
+                    then= data.TaskContent)),
+                       re='&lt;[?].+?&gt;',
+                       replace='')).Task,
+
+         ClientProcessStartKey=data.ClientProcessStartKey,
+         ClientProcessId=data.ClientProcessId,
+         ParentProcessId=data.ParentProcessId,
+         RpcCallClientLocality=data.RpcCallClientLocality,
+         FQDN=data.FQDN)
+
 
       -- function returning query hits
       LET evtxsearch(PathList) = SELECT * FROM foreach(
@@ -234,11 +242,11 @@ sources:
                             then= EventData.Path,
                             else= 'N/A' )) as TaskAction,
                     if(condition=EventData.TaskContent OR EventData.TaskContentNew,
-                            then= parse_task(data=EventData)[0],
+                            then= parse_task(data=EventData),
                             else= EventData) as EventData,
                     get(field=&quot;Message&quot;) as Message,
-                    FullPath
-                FROM parse_evtx(filename=FullPath)
+                    OSPath
+                FROM parse_evtx(filename=OSPath, accessor=Accessor)
                 WHERE
                     (( Channel = 'Microsoft-Windows-TaskScheduler/Operational'
                         AND str(str=EventID) =~ TaskSchedulerEventRegex )
@@ -259,21 +267,6 @@ sources:
             }
           )
 
-      -- include VSS in calculation and deduplicate with GROUP BY by file
-      LET include_vss = SELECT * FROM foreach(row=fspaths,
-            query={
-                SELECT *
-                FROM evtxsearch(PathList={
-                        SELECT FullPath FROM vsspaths(path=FullPath)
-                    })
-                GROUP BY EventRecordID,Channel
-              })
-
-      -- exclude VSS in EvtxHunt`
-      LET exclude_vss = SELECT *
-        FROM evtxsearch(PathList={SELECT FullPath FROM fspaths})
-
-      -- return rows
       SELECT
         EventTime,
         Computer,
@@ -285,7 +278,7 @@ sources:
         if(condition= Channel = 'Microsoft-Windows-TaskScheduler/Operational',
             then= Message,
             else=get(item=TaskIDLookup, member=str(str=EventID))) as Message,
-        if(condition= str(str=EventID)=~'^(4698|4699|4700|4701|4702)$',
+        if(condition= EventID =~'^(4698|4699|4700|4701|4702)$',
         then= if(condition= EventData.TaskContent.Actions,
             then= if(condition= EventData.TaskContent.Actions.Exec,
                 then= if(condition= EventData.TaskContent.Actions.Exec.Arguments,
@@ -295,17 +288,15 @@ sources:
                     then= 'ClassId: ' + EventData.TaskContent.Actions.ComHandler.ClassId))),
             else= TaskAction) as TaskAction,
         EventData,
-        FullPath
-      FROM if(condition=SearchVSS,
-        then=include_vss,
-        else=exclude_vss)
+        OSPath
+      FROM evtxsearch(PathList=fspaths)
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690510834></script>
-<script src=/js/perfect-scrollbar.min.js?1690510834></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1690510834></script>
-<script src=/js/jquery.sticky.js?1690510834></script>
-<script src=/js/featherlight.min.js?1690510834></script>
-<script src=/js/highlight.min.js?1690510834></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690510834></script>
-<script src=/js/learn.js?1690510834></script>
-<script src=/js/hugo-learn.js?1690510834></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690645588></script>
+<script src=/js/perfect-scrollbar.min.js?1690645588></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1690645588></script>
+<script src=/js/jquery.sticky.js?1690645588></script>
+<script src=/js/featherlight.min.js?1690645588></script>
+<script src=/js/highlight.min.js?1690645588></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690645588></script>
+<script src=/js/learn.js?1690645588></script>
+<script src=/js/hugo-learn.js?1690645588></script></body></html>

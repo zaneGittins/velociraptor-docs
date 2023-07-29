@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.LogonSessions :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690510839 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690510839 rel=stylesheet><link href=/css/featherlight.min.css?1690510839 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690510839 rel=stylesheet><link href=/css/auto-complete.css?1690510839 rel=stylesheet><link href=/css/theme.css?1690510839 rel=stylesheet><link href=/css/tabs.css?1690510839 rel=stylesheet><link href=/css/hugo-theme.css?1690510839 rel=stylesheet><link href=/css/theme-mine.css?1690510839 rel=stylesheet><link href=/css/dark.css?1690510839 rel=stylesheet><link href=/css/syntax.css?1690510839 rel=stylesheet><link href=/css/light.css?1690510839 rel=stylesheet><link href=/css/hljs.css?1690510839 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690510839 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690510839></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.EventLogs.LogonSessions :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690645595 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690645595 rel=stylesheet><link href=/css/featherlight.min.css?1690645595 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690645595 rel=stylesheet><link href=/css/auto-complete.css?1690645595 rel=stylesheet><link href=/css/theme.css?1690645595 rel=stylesheet><link href=/css/tabs.css?1690645595 rel=stylesheet><link href=/css/hugo-theme.css?1690645595 rel=stylesheet><link href=/css/theme-mine.css?1690645595 rel=stylesheet><link href=/css/dark.css?1690645595 rel=stylesheet><link href=/css/syntax.css?1690645595 rel=stylesheet><link href=/css/light.css?1690645595 rel=stylesheet><link href=/css/hljs.css?1690645595 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690645595 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690645595></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/exchange/artifacts/pages/windows.eventlogs.logonsessions/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -116,7 +116,7 @@ parameters:
   - name: DateBefore
     type: timestamp
     description: &quot;search for events before this date. YYYY-MM-DDTmm:hh:ssZ&quot;
-    
+
 sources:
   - query: |
 
@@ -129,17 +129,17 @@ sources:
           then=timestamp(epoch=DateBefore),
           else=timestamp(epoch=&quot;2200-01-01&quot;)
       )
-      
+
       -- expand provided glob into a list of paths on the file system (fs)
       LET fspaths &lt;= SELECT FullPath
       FROM glob(globs=expand(path=EvtxGlob))
-      
+
       -- function returning list of VSS paths corresponding to path
       LET vsspaths(path) = SELECT FullPath
       FROM Artifact.Windows.Search.VSS(SearchFilesGlob=path)
-      
-      -- function to search evtx files 
-      LET logonSearchAndGroup(PathList) = 
+
+      -- function to search evtx files
+      LET logonSearchAndGroup(PathList) =
         SELECT
           TargetLogonId,
           min(item=EventTime) as Start,
@@ -161,22 +161,22 @@ sources:
             AND EventTime &gt; DateAfterTime
           }
         ) GROUP BY TargetLogonId
-      
-      
+
+
       LET evtxsearch(PathList) =
       SELECT
         Start, End, Duration, SourceHost,
-        { SELECT SubjectUserSid FROM EventDataList WHERE SubjectUserSid!=NULL LIMIT 1 } AS SubjectUserSid,
-        { SELECT SubjectUserName FROM EventDataList WHERE SubjectUserName!=NULL LIMIT 1 } AS SubjectUserName,
-        { SELECT SubjectDomainName FROM EventDataList WHERE SubjectDomainName!=NULL LIMIT 1 } AS SubjectDomainName,
-        { SELECT TargetUserSid FROM EventDataList WHERE TargetUserSid!=NULL LIMIT 1 } AS TargetUserSid,
-        { SELECT TargetUserName FROM EventDataList WHERE TargetUserName!=NULL LIMIT 1 } AS TargetUserName,
-        { SELECT TargetDomainName FROM EventDataList WHERE TargetDomainName!=NULL LIMIT 1 } AS TargetDomainName,
-        { SELECT TargetLogonId FROM EventDataList WHERE TargetLogonId!=NULL LIMIT 1 } AS TargetLogonId,
-        { SELECT LogonType FROM EventDataList WHERE LogonType!=NULL LIMIT 1 } AS LogonType,
-        { SELECT LogonProcessName FROM EventDataList WHERE LogonProcessName!=NULL LIMIT 1 } AS LogonProcessName,
-        { SELECT ProcessName FROM EventDataList WHERE ProcessName!=NULL LIMIT 1 } AS ProcessName,
-        { SELECT IpAddress FROM EventDataList WHERE IpAddress!=NULL LIMIT 1 } AS IpAddress
+        EventDataList.SubjectUserSid AS SubjectUserSid,
+        EventDataList.SubjectUserName AS SubjectUserName,
+        EventDataList.SubjectDomainName AS SubjectDomainName,
+        EventDataList.TargetLogonId AS TargetLogonId,
+        EventDataList.TargetUserName AS TargetUserName,
+        EventDataList.TargetDomainName AS TargetDomainName,
+        EventDataList.TargetLogonId AS TargetLogonId,
+        EventDataList.LogonType AS LogonType,
+        EventDataList.LogonProcessName AS LogonProcessName,
+        EventDataList.ProcessName AS ProcessName,
+        EventDataList.IpAddress AS IpAddress
       FROM logonSearchAndGroup(PathList=PathList)
       WHERE TargetUserName =~ UsernameRegex
       AND NOT if(condition=UsernameWhitelist,
@@ -187,8 +187,8 @@ sources:
           then= ProcessName =~ ProcessNameWhitelist,
           else= FALSE)
       ORDER BY Start
-      
-      
+
+
       -- include VSS in calculation and deduplicate with GROUP BY by file
       LET include_vss =
         SELECT * FROM foreach(
@@ -204,14 +204,13 @@ sources:
       SELECT * FROM if(condition=SearchVSS,
         then={ SELECT * FROM include_vss },
         else={ SELECT * FROM exclude_vss })
-        
 
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690510839></script>
-<script src=/js/perfect-scrollbar.min.js?1690510839></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1690510839></script>
-<script src=/js/jquery.sticky.js?1690510839></script>
-<script src=/js/featherlight.min.js?1690510839></script>
-<script src=/js/highlight.min.js?1690510839></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690510839></script>
-<script src=/js/learn.js?1690510839></script>
-<script src=/js/hugo-learn.js?1690510839></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690645595></script>
+<script src=/js/perfect-scrollbar.min.js?1690645595></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1690645595></script>
+<script src=/js/jquery.sticky.js?1690645595></script>
+<script src=/js/featherlight.min.js?1690645595></script>
+<script src=/js/highlight.min.js?1690645595></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690645595></script>
+<script src=/js/learn.js?1690645595></script>
+<script src=/js/hugo-learn.js?1690645595></script></body></html>

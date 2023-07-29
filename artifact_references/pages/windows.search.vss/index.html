@@ -1,4 +1,4 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Search.VSS :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690510835 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690510835 rel=stylesheet><link href=/css/featherlight.min.css?1690510835 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690510835 rel=stylesheet><link href=/css/auto-complete.css?1690510835 rel=stylesheet><link href=/css/theme.css?1690510835 rel=stylesheet><link href=/css/tabs.css?1690510835 rel=stylesheet><link href=/css/hugo-theme.css?1690510835 rel=stylesheet><link href=/css/theme-mine.css?1690510835 rel=stylesheet><link href=/css/dark.css?1690510835 rel=stylesheet><link href=/css/syntax.css?1690510835 rel=stylesheet><link href=/css/light.css?1690510835 rel=stylesheet><link href=/css/hljs.css?1690510835 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690510835 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690510835></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.115.4"><meta name=description content><link rel=icon href=/images/favicon.png type=image/png><title>Windows.Search.VSS :: Velociraptor - Digging deeper!</title><link href=/css/nucleus.css?1690645589 rel=stylesheet><link href=/css/fontawesome-all.min.css?1690645589 rel=stylesheet><link href=/css/featherlight.min.css?1690645589 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1690645589 rel=stylesheet><link href=/css/auto-complete.css?1690645589 rel=stylesheet><link href=/css/theme.css?1690645589 rel=stylesheet><link href=/css/tabs.css?1690645589 rel=stylesheet><link href=/css/hugo-theme.css?1690645589 rel=stylesheet><link href=/css/theme-mine.css?1690645589 rel=stylesheet><link href=/css/dark.css?1690645589 rel=stylesheet><link href=/css/syntax.css?1690645589 rel=stylesheet><link href=/css/light.css?1690645589 rel=stylesheet><link href=/css/hljs.css?1690645589 rel=stylesheet><link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css?1690645589 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1690645589></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-QYH72LMYCS"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-QYH72LMYCS",{anonymize_ip:!1})}</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-QYH72LMYCS","auto"),ga("send","pageview"))</script><script async src=https://www.google-analytics.com/analytics.js></script>
 <script></script></head><body data-url=/artifact_references/pages/windows.search.vss/><nav id=sidebar><div id=header-wrapper><div id=header><script>function darkmode(){$("body").addClass("dark").removeClass("light"),document.cookie="theme=darkmode;path=/"}function lightmode(){$("body").removeClass("dark").addClass("light"),document.cookie="theme=lightmode;path=/"}const regex=new RegExp("theme=darkmode");regex.test(document.cookie)?darkmode():lightmode()</script><div class="btn btn-default ThemeSelector darkmode" onclick=darkmode()><i class="fas fa-moon"></i></div><div class="btn btn-default ThemeSelector lightmode" onclick=lightmode()><i class="fas fa-sun"></i></div><a href=https://docs.velociraptor.app/><img src=https://docs.velociraptor.app//images/logo.svg></a></div></div><div class=highlightable><ul class=topics><li data-nav-id=https://docs.velociraptor.app/announcements/ class="dd-item haschildren"><div><i class="fa fa-angle-right fa-sm category-icon"></i>
 <a href=/announcements/><i class="fas fa-bullhorn"></i>Announcements</a></div><ul><li data-nav-id=https://docs.velociraptor.app/announcements/2023-cves/ class=dd-item><div><i class="fa fa-circleXX fa-sm category-icon"></i>
@@ -71,21 +71,15 @@
 <img src=/images/Rapid7_logo.svg class=rapid7><br><i class="fas fa-copyright"></i> 2022</div></section></div></nav><script>$("#sidebar i.fa-angle-right").each(function(){$(this).parent().parent().find("ul").hide()})</script><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title='Edit this page' href=https://github.com/Velocidex/velociraptor-docs/edit/master/content/artifact_references/pages/windows.search.vss.md target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links>Windows.Search.VSS</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Windows.Search.VSS</h1><p>This artifact will find all relevant files in the VSS. Typically used to
-out deduplicated paths for processing by other artifacts.</p><p>Input either search Glob or FullPath.
-Output is standard Glob results with additional fields:
-SHA1 hash for deduplication,
-Type for prioritisation, and
-Deduped to indicate if FullPath has been deduped with another row.</p><pre><code class=language-yaml>name: Windows.Search.VSS
+<span class=links>Windows.Search.VSS</span></div><div class=progress><div class=wrapper><nav id=TableOfContents></nav></div></div></div></div><div id=head-tags><div class=tags><a class=tag-link href=/tags/client-artifact>Client Artifact</a></div></div><div id=body-inner><h1>Windows.Search.VSS</h1><p>This artifact will find all relevant files in the VSS. Typically
+used to out deduplicated paths for processing by other artifacts.</p><p>NOTE: This used to be more complicated but now delegates to the
+&ldquo;ntfs_vss&rdquo; accessor to do all the work.</p><pre><code class=language-yaml>name: Windows.Search.VSS
 description: |
-  This artifact will find all relevant files in the VSS. Typically used to
-  out deduplicated paths for processing by other artifacts.
+  This artifact will find all relevant files in the VSS. Typically
+  used to out deduplicated paths for processing by other artifacts.
 
-  Input either search Glob or FullPath.
-  Output is standard Glob results with additional fields:
-  SHA1 hash for deduplication,
-  Type for prioritisation, and
-  Deduped to indicate if FullPath has been deduped with another row.
+  NOTE: This used to be more complicated but now delegates to the
+  &quot;ntfs_vss&quot; accessor to do all the work.
 
 author: Matt Green - @mgreen27
 
@@ -96,58 +90,23 @@ parameters:
     default: C:\Windows\System32\winevt\Logs\Security.evtx
     description: Use a glob to define the files that will be searched.
 
+  - name: VSS_MAX_AGE_DAYS
+    type: int
+    description: |
+      If larger than 0 we restrict VSS age to this many days
+      ago. Otherwise we find all VSS.
+
 sources:
   - query: |
-      -- Given a path in either device notation or drive notation,
-      -- break it into a drive and path
-      LET extract_path(FullPath) = parse_string_with_regex(string=FullPath,
-         regex=&quot;^(?P&lt;Device&gt;\\\\\\\\.\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy[^\\\\]+\\\\|\\\\\\\\.\\\\.:\\\\|.:\\\\)(?P&lt;Path&gt;.+)$&quot;)
+      SELECT * FROM glob(globs=SearchFilesGlob, accessor=&quot;ntfs_vss&quot;)
+      ORDER BY OSPath
 
-      -- Remove possible drive or device from the glob path - we will
-      -- apply the glob to all devices.
-      LET StrippedGlob &lt;= extract_path(FullPath=SearchFilesGlob).Path
-
-      -- Get all logical disks and VSS
-      LET roots = SELECT OSPath AS Root
-        FROM glob(globs='*', accessor='ntfs')
-        ORDER BY Root  DESC
-
-      -- Glob for all files in SearchGlob and calculate their hash.
-      LET globvss(SearchGlob, Root) = SELECT *,
-            extract_path(FullPath=OSPath).Path AS Path,
-            Root.String AS Source,
-            hash(path=OSPath, accessor='ntfs').SHA1 as SHA1
-         FROM glob(globs=SearchGlob, accessor='ntfs', root=Root)
-         WHERE NOT IsDir
-
-      -- For each full glob (including VSS device) extract all files
-      -- and hashes.
-      LET results = SELECT * FROM foreach(row=roots,
-      query={
-        -- Prepend VSS with _ to make them sort last.
-        SELECT *,
-           if(condition=Source =~ '^HarddiskVolumeShadowCopy',
-              then='_' + Source,
-              else=Source) AS Source
-        FROM globvss(SearchGlob=StrippedGlob, Root=Root)
-      })
-
-      -- We want to see natural drives after VSS because group by
-      -- shows the last in the group. VSS Sources look like
-      -- HarddiskVolumeShadowCopy1 and disk sources look like C:
-      ORDER BY Source DESC
-
-      -- Dedup and show results
-      SELECT *, count() &gt; 1 AS Deduped, SHA1 + Path AS Key
-      FROM results
-      GROUP BY Key
-
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690510835></script>
-<script src=/js/perfect-scrollbar.min.js?1690510835></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1690510835></script>
-<script src=/js/jquery.sticky.js?1690510835></script>
-<script src=/js/featherlight.min.js?1690510835></script>
-<script src=/js/highlight.min.js?1690510835></script>
-<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690510835></script>
-<script src=/js/learn.js?1690510835></script>
-<script src=/js/hugo-learn.js?1690510835></script></body></html>
+</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1690645589></script>
+<script src=/js/perfect-scrollbar.min.js?1690645589></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1690645589></script>
+<script src=/js/jquery.sticky.js?1690645589></script>
+<script src=/js/featherlight.min.js?1690645589></script>
+<script src=/js/highlight.min.js?1690645589></script>
+<script>hljs.highlightAll()</script><script src=/js/modernizr.custom-3.6.0.js?1690645589></script>
+<script src=/js/learn.js?1690645589></script>
+<script src=/js/hugo-learn.js?1690645589></script></body></html>
