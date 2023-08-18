@@ -1,5 +1,15 @@
 [
     {
+        "title": "Linux.Debian.GPGKeys",
+        "author": "misje",
+        "description": "Extract keys, fingerprints and identities from GPG keys.",
+        "link": "/exchange/artifacts/pages/linux.debian.gpgkeys",
+        "tags": [],
+        "author_link": "https://github.com/misje",
+        "author_avatar": "https://avatars.githubusercontent.com/u/4006538?v=4",
+        "date": "2023-08-18"
+    },
+    {
         "title": "Windows.Events.TrackProcesses.UseExistingSysmonOnly",
         "author": "SBattaglia-R7",
         "description": "**This is a modified version of Windows.Events.TrackProcesses for servers\nthat do not use the Inventory service.  It assumes that Sysmon\nis already installed and running. The option to forward updates to the server\nis also removed.**",
